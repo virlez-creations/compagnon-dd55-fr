@@ -28,7 +28,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 chrome.runtime.onMessage.addListener((message: unknown, sender) => {
-  if (!message || typeof message !== "object" || (message as { type?: string }).type !== "DD55_OPEN_COMPENDIUM") return;
+  if (!message || typeof message !== "object") return;
+  if ((message as { type?: string }).type === "DD55_OPEN_EXTERNAL") {
+    const url = (message as { url?: string }).url;
+    if (!url || !/^https:\/\/www\.aidedd\.org\/(?:feat|spell)\/fr\/[a-z0-9-]+$/.test(url)) return;
+    void chrome.tabs.create({ url });
+    return;
+  }
+  if ((message as { type?: string }).type !== "DD55_OPEN_COMPENDIUM") return;
   const entryId = (message as { entryId?: string }).entryId;
   if (!entryId || !sender.tab?.id) return;
   void chrome.tabs.sendMessage(sender.tab.id, { type: "DD55_SHOW_ENTRY", entryId }, { frameId: 0 });

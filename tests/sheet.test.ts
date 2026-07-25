@@ -32,6 +32,14 @@ describe("sheet enhancement", () => {
     expect(name.querySelector("[data-dd55-open='spell-soins']")).not.toBeNull();
     expect(document.querySelector(".dd55-content-translation")).toBeNull();
   });
+  it("relie Goodberry à la fiche locale Baies nourricières", () => {
+    document.body.innerHTML = `<div role="row"><h3>Goodberry</h3></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    const name = document.querySelector("h3")!;
+    expect(name.childNodes[0].textContent).toBe("Baies nourricières");
+    expect(name.querySelector("[data-dd55-open='spell-baies-nourricieres']")).not.toBeNull();
+    expect(name.querySelector("a")).toBeNull();
+  });
   it("relie une aptitude à la bonne fiche de classe sans aperçu", () => {
     document.body.innerHTML = `<div>Ranger 4 - Hunter</div><div role="row"><h3>Favored Enemy</h3><p>You always have the Hunter's Mark spell prepared. You can cast it twice without expending a spell slot and regain all uses after a Long Rest.</p></div>`;
     enhanceSheet(document, { enabled: true, bilingual: false });

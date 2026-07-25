@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mountPanel } from "../src/content/panel";
 import { compendiumEntries } from "../src/services/srd-compendium";
 
 describe("compendium SRD local", () => {
   beforeEach(() => { document.body.innerHTML = ""; });
+  afterEach(() => { vi.unstubAllGlobals(); });
 
   function search(value: string): void {
     const input = document.querySelector<HTMLInputElement>("[data-search]")!;
@@ -14,8 +15,8 @@ describe("compendium SRD local", () => {
 
   it("présente des catégories et des centaines de fiches", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
-    expect(document.querySelector("[data-type='spell']")?.textContent).toContain("339");
-    expect(document.querySelector("[data-type='feat']")?.textContent).toContain("17");
+    expect(document.querySelector("[data-type='spell']")?.textContent).toContain("391");
+    expect(document.querySelector("[data-type='feat']")?.textContent).toContain("75");
     expect(document.querySelector("[data-type='rule']")?.textContent).toContain("37");
     expect(document.querySelector("[data-type='classes']")?.textContent).toContain("24");
   });
@@ -66,7 +67,54 @@ describe("compendium SRD local", () => {
   it("propose AideDD uniquement pour une référence absente du SRD", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     search("Chanceux");
-    expect(document.querySelector("a[href*='/feat/fr/chanceux']")).not.toBeNull();
+    expect(document.querySelector("[data-external-url*='/feat/fr/chanceux']")).not.toBeNull();
+  });
+
+  it("affiche les 75 dons locaux et externes dans la catégorie Dons", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("75");
+    expect(document.querySelectorAll("[data-results] [data-entry-id]")).toHaveLength(17);
+    expect(document.querySelectorAll("[data-results] .dd55-external")).toHaveLength(58);
+  });
+
+  it("affiche les 391 sorts locaux et externes dans la catégorie Sorts", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("391");
+    expect(document.querySelectorAll("[data-results] [data-entry-id]")).toHaveLength(339);
+    expect(document.querySelectorAll("[data-results] .dd55-external")).toHaveLength(52);
+  });
+
+  it("retrouve un sort externe en anglais avec son lien AideDD français", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Armor of Agathys");
+    const button = document.querySelector<HTMLButtonElement>("[data-external-url$='/spell/fr/armure-d-agathys']");
+    expect(button).not.toBeNull();
+    expect(button?.textContent).toContain("Armure d'Agathys");
+    expect(button?.textContent).toContain("niveau 1");
+  });
+
+  it("retrouve un don enrichi en anglais avec son lien AideDD français", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Telekinetic");
+    const link = document.querySelector<HTMLButtonElement>("[data-external-url*='/feat/fr/telekinesiste']");
+    expect(link).not.toBeNull();
+    expect(link?.textContent).toContain("Télékinésiste");
+  });
+
+  it("ouvre AideDD via l'extension sans exposer de lien interceptable par Roll20", () => {
+    const sendMessage = vi.fn();
+    vi.stubGlobal("chrome", { runtime: { sendMessage } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Crossbow Expert");
+    const button = document.querySelector<HTMLButtonElement>("[data-external-url*='/feat/fr/maitre-arbaletrier']")!;
+    expect(button.tagName).toBe("BUTTON");
+    button.click();
+    expect(sendMessage).toHaveBeenCalledWith({
+      type: "DD55_OPEN_EXTERNAL",
+      url: "https://www.aidedd.org/feat/fr/maitre-arbaletrier"
+    });
   });
 
   it("filtre les sorts simultanément par classe et par niveau", () => {
