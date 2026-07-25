@@ -1,6 +1,7 @@
 import type { Reference } from "../types";
+import aideddSpellCatalog from "./aidedd-spells.json";
 
-export const spells: Reference[] = [
+const curatedSpells: Reference[] = [
   ["friends", "Friends", "Amis / Faux amis", "amis-faux-amis", 0, ["Amis", "Faux amis"]],
   ["acid-arrow", "Melf's Acid Arrow", "Flèche acide de Melf", "fleche-acide-de-melf", 2],
   ["aid", "Aid", "Aide", "aide", 2],
@@ -86,6 +87,13 @@ export const spells: Reference[] = [
   ["blade-ward", "Blade Ward", "Voile défensif", "voile-defensif", 0],
   ["hunger-of-hadar", "Hunger of Hadar", "Voracité de Hadar", "voracite-de-hadar", 3]
 ].map(([id, nameEn, nameFr, slug, level, aliases]) => ({ id, nameEn, nameFr, slug, level, aliases, source: "PHB 2024" } as Reference));
+
+const curatedSpellIndex = new Map(curatedSpells.map(spell => [spell.nameEn, spell]));
+export const spells: Reference[] = aideddSpellCatalog.map(item => {
+  const curated = curatedSpellIndex.get(item.nameEn);
+  const aliases = [...new Set([...(item.aliases ?? []), ...(curated?.aliases ?? [])])];
+  return { ...item, id: curated?.id ?? item.id, aliases: aliases.length ? aliases : undefined } as Reference;
+});
 
 export const feats: Reference[] = [
   ["alert", "Alert", "Vigilant", "vigilant", "origin"],

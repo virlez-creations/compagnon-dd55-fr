@@ -29,6 +29,10 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
 chrome.runtime.onMessage.addListener((message: unknown, sender) => {
   if (!message || typeof message !== "object") return;
+  if ((message as { type?: string }).type === "DD55_SHEET_DETECTED") {
+    if (sender.tab?.id) void chrome.tabs.sendMessage(sender.tab.id, { type: "DD55_ENABLE_COMPANION" }, { frameId: 0 });
+    return;
+  }
   if ((message as { type?: string }).type === "DD55_OPEN_EXTERNAL") {
     const url = (message as { url?: string }).url;
     if (!url || !/^https:\/\/www\.aidedd\.org\/(?:feat|spell)\/fr\/[a-z0-9-]+$/.test(url)) return;

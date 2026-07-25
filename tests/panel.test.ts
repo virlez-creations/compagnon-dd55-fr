@@ -21,6 +21,16 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-type='classes']")?.textContent).toContain("24");
   });
 
+  it("charge réellement les références suivantes dans l'onglet Tout", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+    const before = document.querySelector("[data-load-more]")?.textContent;
+    document.querySelector<HTMLButtonElement>("[data-load-more]")!.click();
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(160);
+    expect(document.querySelector("[data-load-more]")?.textContent).not.toBe(before);
+  });
+
   it("parcourt les classes et ouvre une sous-classe", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='classes']")!.click();
@@ -74,16 +84,16 @@ describe("compendium SRD local", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
     expect(document.querySelector("[data-result-count]")?.textContent).toContain("75");
-    expect(document.querySelectorAll("[data-results] [data-entry-id]")).toHaveLength(17);
-    expect(document.querySelectorAll("[data-results] .dd55-external")).toHaveLength(58);
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(75);
+    expect(document.querySelector("[data-load-more]")).toBeNull();
   });
 
   it("affiche les 391 sorts locaux et externes dans la catégorie Sorts", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
     expect(document.querySelector("[data-result-count]")?.textContent).toContain("391");
-    expect(document.querySelectorAll("[data-results] [data-entry-id]")).toHaveLength(339);
-    expect(document.querySelectorAll("[data-results] .dd55-external")).toHaveLength(52);
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+    expect(document.querySelector("[data-load-more]")?.textContent).toContain("311 restantes");
   });
 
   it("retrouve un sort externe en anglais avec son lien AideDD français", () => {

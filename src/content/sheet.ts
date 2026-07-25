@@ -24,6 +24,35 @@ const classAliases: Record<string, string> = {
 };
 const referenceNameLookup = new Map([...spells, ...feats].map(reference => [normalizeName(reference.nameEn), reference.nameFr]));
 const classContextCache = new WeakMap<Document, string>();
+let referenceContextCache = new WeakMap<HTMLElement, boolean>();
+
+function isHitPointControl(element: HTMLElement): boolean {
+  if (element.closest("[data-testid*='hit-point' i], [aria-label*='hit point' i], [class*='hit-point' i], [class*='hit_points' i], [data-testid*='health' i]")) return true;
+  const visited: HTMLElement[] = [];
+  let ancestor: HTMLElement | null = element;
+  for (let depth = 0; ancestor && depth < 7; depth++, ancestor = ancestor.parentElement) {
+    const cached = referenceContextCache.get(ancestor);
+    if (cached !== undefined) {
+      visited.forEach(item => referenceContextCache.set(item, cached));
+      return cached;
+    }
+    visited.push(ancestor);
+    const text = normalizeName(ancestor.textContent ?? "");
+    if (text.length > 700) continue;
+    const hasHeading = text.includes("hit points") || text.includes("points de vie");
+    const controlMarkers = ["current", "actuels", "maximum", "temporary", "temporaire", "damage", "degats", "heal", "soigner"];
+    if (hasHeading && controlMarkers.filter(marker => text.includes(marker)).length >= 2) {
+      visited.forEach(item => referenceContextCache.set(item, true));
+      return true;
+    }
+  }
+  visited.forEach(item => referenceContextCache.set(item, false));
+  return false;
+}
+
+function skipReference(element: HTMLElement): boolean {
+  return Boolean(element.closest(SKIP_SELECTOR)) || isHitPointControl(element);
+}
 
 interface IndexedReference {
   item: Reference;
@@ -147,7 +176,7 @@ function findClassFeature(value: string, className?: string): ClassFeatureMatch 
 }
 
 function appendCompendiumReference(element: HTMLElement, entry: CompendiumEntry): void {
-  if (element.closest(SKIP_SELECTOR) || element.querySelector(":scope > .dd55-reference")) return;
+  if (skipReference(element) || element.querySelector(":scope > .dd55-reference")) return;
   const badge = document.createElement("span");
   badge.className = "dd55-reference";
   badge.innerHTML = `<span role="button" tabindex="0" data-dd55-open="${entry.id}" title="Ouvrir dans le compendium">Compendium</span>`;
@@ -161,8 +190,10 @@ function appendCompendiumReference(element: HTMLElement, entry: CompendiumEntry)
 }
 
 function appendReference(element: HTMLElement, match: Reference, kind: "spell" | "feat", preferences: Preferences): void {
-    if (element.closest(SKIP_SELECTOR) || element.querySelector(":scope > .dd55-reference")) return;
-    const local = findCompendiumEntry(match.nameFr, kind);
+    if (skipReference(element) || element.querySelector(":scope > .dd55-reference")) return;
+    const local = match.compendiumId
+      ? compendiumEntries.find(entry => entry.id === match.compendiumId)
+      : findCompendiumEntry(match.nameFr, kind);
     const badge = document.createElement("span");
     badge.className = "dd55-reference";
     const frenchAlreadyVisible = normalizeName(element.textContent ?? "") === normalizeName(match.nameFr);
@@ -185,7 +216,7 @@ function enrichReferences(root: ParentNode, preferences: Preferences): void {
   const handled = new Set<HTMLElement>();
   textNodes.forEach(node => {
     const element = node.parentElement;
-    if (!element || element.closest(SKIP_SELECTOR) || handled.has(element)) return;
+    if (!element || skipReference(element) || handled.has(element)) return;
     const original = originalText.get(node)?.trim() ?? "";
     const visible = node.data.trim();
     if ((!original || original.length > 100) && (!visible || visible.length > 100)) return;
@@ -195,7 +226,7 @@ function enrichReferences(root: ParentNode, preferences: Preferences): void {
     appendReference(element, indexed.item, indexed.kind, preferences);
   });
   root.querySelectorAll<HTMLElement>("button, a, h3, h4, strong, [role='row'], [data-testid*='name' i]").forEach((element) => {
-    if (handled.has(element) || element.closest(SKIP_SELECTOR) || element.querySelector(":scope > .dd55-reference")) return;
+    if (handled.has(element) || skipReference(element) || element.querySelector(":scope > .dd55-reference")) return;
     const raw = element.childElementCount ? [...element.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent).join(" ") : element.textContent;
     const value = raw?.trim() ?? "";
     if (!value || value.length > 100) return;
@@ -207,7 +238,7 @@ function enrichReferences(root: ParentNode, preferences: Preferences): void {
 function enrichClassContent(root: ParentNode): void {
   const className = detectedClass(root);
   root.querySelectorAll<HTMLElement>("button, h3, h4, strong, [role='row'], [data-testid*='name' i]").forEach(element => {
-    if (element.closest(SKIP_SELECTOR)) return;
+    if (skipReference(element)) return;
     const raw = element.childElementCount
       ? [...element.childNodes].filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent).join(" ").trim()
       : element.textContent?.trim() ?? "";
@@ -220,6 +251,7 @@ function enrichClassContent(root: ParentNode): void {
 function escapeHtml(value: string): string { const span = document.createElement("span"); span.textContent = value; return span.innerHTML; }
 
 export function enhanceSheet(root: ParentNode, preferences: Preferences): void {
+  referenceContextCache = new WeakMap<HTMLElement, boolean>();
   root.querySelectorAll(".dd55-content-translation").forEach(element => element.remove());
   translateSheet(root, preferences.enabled);
   if (!preferences.enabled) { root.querySelectorAll(".dd55-reference, .dd55-content-translation").forEach((e) => e.remove()); return; }

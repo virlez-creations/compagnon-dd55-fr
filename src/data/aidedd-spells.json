@@ -1,0 +1,3563 @@
+[
+  {
+    "id": "enlarge-reduce",
+    "nameEn": "Enlarge/Reduce",
+    "nameFr": "Agrandissement/rapetissement",
+    "slug": "agrandissement-rapetissement",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-agrandissement-rapetissement"
+  },
+  {
+    "id": "aid",
+    "nameEn": "Aid",
+    "nameFr": "Aide",
+    "slug": "aide",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-aide"
+  },
+  {
+    "id": "alarm",
+    "nameEn": "Alarm",
+    "nameFr": "Alarme",
+    "slug": "alarme",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-alarme"
+  },
+  {
+    "id": "befuddlement",
+    "nameEn": "Befuddlement",
+    "nameFr": "Aliénation",
+    "slug": "alienation",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-alienation"
+  },
+  {
+    "id": "planar-ally",
+    "nameEn": "Planar Ally",
+    "nameFr": "Allié planaire",
+    "slug": "allie-planaire",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-allie-planaire"
+  },
+  {
+    "id": "enhance-ability",
+    "nameEn": "Enhance Ability",
+    "nameFr": "Amélioration de caractéristique",
+    "slug": "amelioration-de-caracteristique",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-amelioration-de-caracteristique"
+  },
+  {
+    "id": "friends",
+    "nameEn": "Friends",
+    "nameFr": "Amis / Faux amis",
+    "slug": "amis-faux-amis",
+    "level": 0,
+    "source": "PHB 2024",
+    "aliases": [
+      "Amis",
+      "Faux amis"
+    ]
+  },
+  {
+    "id": "animal-friendship",
+    "nameEn": "Animal Friendship",
+    "nameFr": "Amitié avec les animaux",
+    "slug": "amitie-avec-les-animaux",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-amitie-avec-les-animaux"
+  },
+  {
+    "id": "animate-dead",
+    "nameEn": "Animate Dead",
+    "nameFr": "Animation des morts",
+    "slug": "animation-des-morts",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-animation-des-morts"
+  },
+  {
+    "id": "animate-objects",
+    "nameEn": "Animate Objects",
+    "nameFr": "Animation des objets",
+    "slug": "animation-des-objets",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-animation-des-objets"
+  },
+  {
+    "id": "nondetection",
+    "nameEn": "Nondetection",
+    "nameFr": "Antidétection",
+    "slug": "antidetection",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-antidetection"
+  },
+  {
+    "id": "calm-emotions",
+    "nameEn": "Calm Emotions",
+    "nameFr": "Apaisement des émotions",
+    "slug": "apaisement-des-emotions",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-apaisement-des-emotions"
+  },
+  {
+    "id": "seeming",
+    "nameEn": "Seeming",
+    "nameFr": "Apparence trompeuse",
+    "slug": "apparence-trompeuse",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-apparence-trompeuse"
+  },
+  {
+    "id": "find-steed",
+    "nameEn": "Find Steed",
+    "nameFr": "Appel de destrier",
+    "slug": "appel-de-destrier",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-appel-de-destrier"
+  },
+  {
+    "id": "find-familiar",
+    "nameEn": "Find Familiar",
+    "nameFr": "Appel de familier",
+    "slug": "appel-de-familier",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-appel-de-familier"
+  },
+  {
+    "id": "call-lightning",
+    "nameEn": "Call Lightning",
+    "nameFr": "Appel de la foudre",
+    "slug": "appel-de-la-foudre",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-appel-de-la-foudre"
+  },
+  {
+    "id": "elemental-weapon",
+    "nameEn": "Elemental Weapon",
+    "nameFr": "Arme élémentaire",
+    "slug": "arme-elementaire",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "magic-weapon",
+    "nameEn": "Magic Weapon",
+    "nameFr": "Arme magique",
+    "slug": "arme-magique",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-arme-magique"
+  },
+  {
+    "id": "spiritual-weapon",
+    "nameEn": "Spiritual Weapon",
+    "nameFr": "Arme spirituelle",
+    "slug": "arme-spirituelle",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-arme-spirituelle"
+  },
+  {
+    "id": "armor-of-agathys",
+    "nameEn": "Armor of Agathys",
+    "nameFr": "Armure d'Agathys",
+    "slug": "armure-d-agathys",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "mage-armor",
+    "nameEn": "Mage Armor",
+    "nameFr": "Armure de mage",
+    "slug": "armure-de-mage",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Armure du mage"
+    ],
+    "compendiumId": "spell-armure-du-mage"
+  },
+  {
+    "id": "time-stop",
+    "nameEn": "Time Stop",
+    "nameFr": "Arrêt du temps",
+    "slug": "arret-du-temps",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-arret-du-temps"
+  },
+  {
+    "id": "acid-splash",
+    "nameEn": "Acid Splash",
+    "nameFr": "Aspersion d'acide",
+    "slug": "aspersion-d-acide",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Aspersion acide"
+    ],
+    "compendiumId": "spell-aspersion-acide"
+  },
+  {
+    "id": "phantasmal-killer",
+    "nameEn": "Phantasmal Killer",
+    "nameFr": "Assassin imaginaire",
+    "slug": "assassin-imaginaire",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-assassin-imaginaire"
+  },
+  {
+    "id": "guidance",
+    "nameEn": "Guidance",
+    "nameFr": "Assistance",
+    "slug": "assistance",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-assistance"
+  },
+  {
+    "id": "augury",
+    "nameEn": "Augury",
+    "nameFr": "Augure",
+    "slug": "augure",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-augure"
+  },
+  {
+    "id": "aura-of-purity",
+    "nameEn": "Aura of Purity",
+    "nameFr": "Aura de pureté",
+    "slug": "aura-de-purete",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "aura-of-life",
+    "nameEn": "Aura of Life",
+    "nameFr": "Aura de vie",
+    "slug": "aura-de-vie",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-aura-de-vie"
+  },
+  {
+    "id": "aura-of-vitality",
+    "nameEn": "Aura of Vitality",
+    "nameFr": "Aura de vitalité",
+    "slug": "aura-de-vitalite",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "crusaders-mantle",
+    "nameEn": "Crusader's Mantle",
+    "nameFr": "Aura du croisé",
+    "slug": "aura-du-croise",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "nystuls-magic-aura",
+    "nameEn": "Nystul's Magic Aura",
+    "nameFr": "Aura magique de Nystul",
+    "slug": "aura-magique-de-nystul",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Aura magique de l’arcaniste"
+    ],
+    "compendiumId": "spell-aura-magique-de-l-arcaniste"
+  },
+  {
+    "id": "holy-aura",
+    "nameEn": "Holy Aura",
+    "nameFr": "Aura sacrée",
+    "slug": "aura-sacree",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-aura-sacree"
+  },
+  {
+    "id": "antipathy-sympathy",
+    "nameEn": "Antipathy/Sympathy",
+    "nameFr": "Aversion/attirance",
+    "slug": "aversion-attirance",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-aversion-attirance"
+  },
+  {
+    "id": "glibness",
+    "nameEn": "Glibness",
+    "nameFr": "Bagou",
+    "slug": "bagou",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bagou"
+  },
+  {
+    "id": "goodberry",
+    "nameEn": "Goodberry",
+    "nameFr": "Baies nourricières",
+    "slug": "baies-nourricieres",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-baies-nourricieres"
+  },
+  {
+    "id": "banishment",
+    "nameEn": "Banishment",
+    "nameFr": "Bannissement",
+    "slug": "bannissement",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bannissement"
+  },
+  {
+    "id": "blade-barrier",
+    "nameEn": "Blade Barrier",
+    "nameFr": "Barrière de lames",
+    "slug": "barriere-de-lames",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-barriere-de-lames"
+  },
+  {
+    "id": "bless",
+    "nameEn": "Bless",
+    "nameFr": "Bénédiction",
+    "slug": "benediction",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-benediction"
+  },
+  {
+    "id": "inflict-wounds",
+    "nameEn": "Inflict Wounds",
+    "nameFr": "Blessure",
+    "slug": "blessure",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-blessure"
+  },
+  {
+    "id": "magic-mouth",
+    "nameEn": "Magic Mouth",
+    "nameFr": "Bouche magique",
+    "slug": "bouche-magique",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bouche-magique"
+  },
+  {
+    "id": "shield",
+    "nameEn": "Shield",
+    "nameFr": "Bouclier",
+    "slug": "bouclier",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bouclier"
+  },
+  {
+    "id": "fire-shield",
+    "nameEn": "Fire Shield",
+    "nameFr": "Bouclier de feu",
+    "slug": "bouclier-de-feu",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bouclier-de-feu"
+  },
+  {
+    "id": "shield-of-faith",
+    "nameEn": "Shield of Faith",
+    "nameFr": "Bouclier de la foi",
+    "slug": "bouclier-de-la-foi",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bouclier-de-la-foi"
+  },
+  {
+    "id": "poison-spray",
+    "nameEn": "Poison Spray",
+    "nameFr": "Bouffée de poison",
+    "slug": "bouffee-de-poison",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bouffee-de-poison"
+  },
+  {
+    "id": "fireball",
+    "nameEn": "Fireball",
+    "nameFr": "Boule de feu",
+    "slug": "boule-de-feu",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-boule-de-feu"
+  },
+  {
+    "id": "delayed-blast-fireball",
+    "nameEn": "Delayed Blast Fireball",
+    "nameFr": "Boule de feu à retardement",
+    "slug": "boule-de-feu-a-retardement",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-boule-de-feu-a-retardement"
+  },
+  {
+    "id": "gust-of-wind",
+    "nameEn": "Gust of Wind",
+    "nameFr": "Bourrasque",
+    "slug": "bourrasque",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-bourrasque"
+  },
+  {
+    "id": "cloudkill",
+    "nameEn": "Cloudkill",
+    "nameFr": "Brume mortelle",
+    "slug": "brume-mortelle",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-brume-mortelle"
+  },
+  {
+    "id": "forcecage",
+    "nameEn": "Forcecage",
+    "nameFr": "Cage de force",
+    "slug": "cage-de-force",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cage-de-force"
+  },
+  {
+    "id": "vampiric-touch",
+    "nameEn": "Vampiric Touch",
+    "nameFr": "Caresse du vampire",
+    "slug": "caresse-du-vampire",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-caresse-du-vampire"
+  },
+  {
+    "id": "blindness-deafness",
+    "nameEn": "Blindness/Deafness",
+    "nameFr": "Cécité/surdité",
+    "slug": "cecite-surdite",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cecite-surdite"
+  },
+  {
+    "id": "circle-of-death",
+    "nameEn": "Circle of Death",
+    "nameFr": "Cercle de mort",
+    "slug": "cercle-de-mort",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cercle-de-mort"
+  },
+  {
+    "id": "circle-of-power",
+    "nameEn": "Circle of Power",
+    "nameFr": "Cercle de pouvoir",
+    "slug": "cercle-de-pouvoir",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "teleportation-circle",
+    "nameEn": "Teleportation Circle",
+    "nameFr": "Cercle de téléportation",
+    "slug": "cercle-de-teleportation",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cercle-de-teleportation"
+  },
+  {
+    "id": "magic-circle",
+    "nameEn": "Magic Circle",
+    "nameFr": "Cercle magique",
+    "slug": "cercle-magique",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cercle-magique"
+  },
+  {
+    "id": "chain-lightning",
+    "nameEn": "Chain Lightning",
+    "nameFr": "Chaîne d'éclairs",
+    "slug": "chaine-d-eclairs",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-chaine-d-eclairs"
+  },
+  {
+    "id": "antimagic-field",
+    "nameEn": "Antimagic Field",
+    "nameFr": "Champ antimagie",
+    "slug": "champ-antimagie",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-champ-antimagie"
+  },
+  {
+    "id": "shapechange",
+    "nameEn": "Shapechange",
+    "nameFr": "Changement de forme",
+    "slug": "changement-de-forme",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-changement-de-forme"
+  },
+  {
+    "id": "plane-shift",
+    "nameEn": "Plane Shift",
+    "nameFr": "Changement de plan",
+    "slug": "changement-de-plan",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-changement-de-plan"
+  },
+  {
+    "id": "charm-monster",
+    "nameEn": "Charm Monster",
+    "nameFr": "Charme-monstre",
+    "slug": "charme-monstre",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-charme-monstre"
+  },
+  {
+    "id": "charm-person",
+    "nameEn": "Charm Person",
+    "nameFr": "Charme-personne",
+    "slug": "charme-personne",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-charme-personne"
+  },
+  {
+    "id": "blinding-smite",
+    "nameEn": "Blinding Smite",
+    "nameFr": "Châtiment de cécité",
+    "slug": "chatiment-de-cecite",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "wrathful-smite",
+    "nameEn": "Wrathful Smite",
+    "nameFr": "Châtiment de courroux",
+    "slug": "chatiment-de-courroux",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "searing-smite",
+    "nameEn": "Searing Smite",
+    "nameFr": "Châtiment de fournaise",
+    "slug": "chatiment-de-fournaise",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-chatiment-de-fournaise"
+  },
+  {
+    "id": "shining-smite",
+    "nameEn": "Shining Smite",
+    "nameFr": "Châtiment de révélation",
+    "slug": "chatiment-de-revelation",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-chatiment-de-revelation"
+  },
+  {
+    "id": "staggering-smite",
+    "nameEn": "Staggering Smite",
+    "nameFr": "Châtiment de stupeur",
+    "slug": "chatiment-de-stupeur",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "thunderous-smite",
+    "nameEn": "Thunderous Smite",
+    "nameFr": "Châtiment de tonnerre",
+    "slug": "chatiment-de-tonnerre",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "divine-smite",
+    "nameEn": "Divine Smite",
+    "nameFr": "Châtiment divin",
+    "slug": "chatiment-divin",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-chatiment-divin"
+  },
+  {
+    "id": "banishing-smite",
+    "nameEn": "Banishing Smite",
+    "nameFr": "Châtiment du ban",
+    "slug": "chatiment-du-ban",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "tashas-bubbling-cauldron",
+    "nameEn": "Tasha's Bubbling Cauldron",
+    "nameFr": "Chaudron bouillonnant de Tasha",
+    "slug": "chaudron-bouillonnant-de-tasha",
+    "level": 6,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "mordenkainens-faithful-hound",
+    "nameEn": "Mordenkainen's Faithful Hound",
+    "nameFr": "Chien de garde de Mordenkainen",
+    "slug": "chien-de-garde-de-mordenkainen",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Chien de garde"
+    ],
+    "compendiumId": "spell-chien-de-garde"
+  },
+  {
+    "id": "clairvoyance",
+    "nameEn": "Clairvoyance",
+    "nameFr": "Clairvoyance",
+    "slug": "clairvoyance",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-clairvoyance"
+  },
+  {
+    "id": "blink",
+    "nameEn": "Blink",
+    "nameFr": "Clignotement",
+    "slug": "clignotement",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-clignotement"
+  },
+  {
+    "id": "clone",
+    "nameEn": "Clone",
+    "nameFr": "Clone",
+    "slug": "clone",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-clone"
+  },
+  {
+    "id": "leomunds-secret-chest",
+    "nameEn": "Leomund's Secret Chest",
+    "nameFr": "Coffre secret de Léomund",
+    "slug": "coffre-secret-de-leomund",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Coffre secret"
+    ],
+    "compendiumId": "spell-coffre-secret"
+  },
+  {
+    "id": "flame-strike",
+    "nameEn": "Flame Strike",
+    "nameFr": "Colonne de flamme",
+    "slug": "colonne-de-flamme",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-colonne-de-flamme"
+  },
+  {
+    "id": "sending",
+    "nameEn": "Sending",
+    "nameFr": "Communication à distance",
+    "slug": "communication-a-distance",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communication-a-distance"
+  },
+  {
+    "id": "speak-with-animals",
+    "nameEn": "Speak with Animals",
+    "nameFr": "Communication avec les animaux",
+    "slug": "communication-avec-les-animaux",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communication-avec-les-animaux"
+  },
+  {
+    "id": "speak-with-dead",
+    "nameEn": "Speak with Dead",
+    "nameFr": "Communication avec les morts",
+    "slug": "communication-avec-les-morts",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communication-avec-les-morts"
+  },
+  {
+    "id": "speak-with-plants",
+    "nameEn": "Speak with Plants",
+    "nameFr": "Communication avec les plantes",
+    "slug": "communication-avec-les-plantes",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communication-avec-les-plantes"
+  },
+  {
+    "id": "commune",
+    "nameEn": "Commune",
+    "nameFr": "Communion",
+    "slug": "communion",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communion"
+  },
+  {
+    "id": "commune-with-nature",
+    "nameEn": "Commune with Nature",
+    "nameFr": "Communion avec la nature",
+    "slug": "communion-avec-la-nature",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-communion-avec-la-nature"
+  },
+  {
+    "id": "comprehend-languages",
+    "nameEn": "Comprehend Languages",
+    "nameFr": "Compréhension des langues",
+    "slug": "comprehension-des-langues",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-comprehension-des-langues"
+  },
+  {
+    "id": "compulsion",
+    "nameEn": "Compulsion",
+    "nameFr": "Compulsion",
+    "slug": "compulsion",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-compulsion"
+  },
+  {
+    "id": "cone-of-cold",
+    "nameEn": "Cone of Cold",
+    "nameFr": "Cône de froid",
+    "slug": "cone-de-froid",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-cone-de-froid"
+  },
+  {
+    "id": "confusion",
+    "nameEn": "Confusion",
+    "nameFr": "Confusion",
+    "slug": "confusion",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-confusion"
+  },
+  {
+    "id": "contact-other-plane",
+    "nameEn": "Contact Other Plane",
+    "nameFr": "Contact avec les plans",
+    "slug": "contact-avec-les-plans",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-contact-avec-les-plans"
+  },
+  {
+    "id": "chill-touch",
+    "nameEn": "Chill Touch",
+    "nameFr": "Contact glacial",
+    "slug": "contact-glacial",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-contact-glacial"
+  },
+  {
+    "id": "contagion",
+    "nameEn": "Contagion",
+    "nameFr": "Contagion",
+    "slug": "contagion",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-contagion"
+  },
+  {
+    "id": "harm",
+    "nameEn": "Harm",
+    "nameFr": "Contamination",
+    "slug": "contamination",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-contamination"
+  },
+  {
+    "id": "counterspell",
+    "nameEn": "Counterspell",
+    "nameFr": "Contresort",
+    "slug": "contresort",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-contresort"
+  },
+  {
+    "id": "control-water",
+    "nameEn": "Control Water",
+    "nameFr": "Contrôle de l'eau",
+    "slug": "controle-de-l-eau",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-controle-de-l-eau"
+  },
+  {
+    "id": "control-weather",
+    "nameEn": "Control Weather",
+    "nameFr": "Contrôle du climat",
+    "slug": "controle-du-climat",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-controle-du-climat"
+  },
+  {
+    "id": "summon-aberration",
+    "nameEn": "Summon Aberration",
+    "nameFr": "Convocation d'aberration",
+    "slug": "convocation-d-aberration",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-construct",
+    "nameEn": "Summon Construct",
+    "nameFr": "Convocation d'artificiel",
+    "slug": "convocation-d-artificiel",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-elemental",
+    "nameEn": "Summon Elemental",
+    "nameFr": "Convocation d'élémentaire",
+    "slug": "convocation-d-elementaire",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-beast",
+    "nameEn": "Summon Beast",
+    "nameFr": "Convocation de bête",
+    "slug": "convocation-de-bete",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-celestial",
+    "nameEn": "Summon Celestial",
+    "nameFr": "Convocation de céleste",
+    "slug": "convocation-de-celeste",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-dragon",
+    "nameEn": "Summon Dragon",
+    "nameFr": "Convocation de dragon",
+    "slug": "convocation-de-dragon",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-convocation-de-dragon"
+  },
+  {
+    "id": "summon-fey",
+    "nameEn": "Summon Fey",
+    "nameFr": "Convocation de fée",
+    "slug": "convocation-de-fee",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-fiend",
+    "nameEn": "Summon Fiend",
+    "nameFr": "Convocation de fiélon",
+    "slug": "convocation-de-fielon",
+    "level": 6,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "summon-undead",
+    "nameEn": "Summon Undead",
+    "nameFr": "Convocation de mort-vivant",
+    "slug": "convocation-de-mort-vivant",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "drawmijs-instant-summons",
+    "nameEn": "Drawmij's Instant Summons",
+    "nameFr": "Convocations instantanées de Drawmij",
+    "slug": "convocations-instantanees-de-drawmij",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Convocations instantanées"
+    ],
+    "compendiumId": "spell-convocations-instantanees"
+  },
+  {
+    "id": "antilife-shell",
+    "nameEn": "Antilife Shell",
+    "nameFr": "Coquille antivie",
+    "slug": "coquille-antivie",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-coquille-antivie"
+  },
+  {
+    "id": "rope-trick",
+    "nameEn": "Rope Trick",
+    "nameFr": "Corde enchantée",
+    "slug": "corde-enchantee",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-corde-enchantee"
+  },
+  {
+    "id": "cordon-of-arrows",
+    "nameEn": "Cordon of Arrows",
+    "nameFr": "Cordon de flèches",
+    "slug": "cordon-de-fleches",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "color-spray",
+    "nameEn": "Color Spray",
+    "nameFr": "Couleurs dansantes",
+    "slug": "couleurs-dansantes",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-couleurs-dansantes"
+  },
+  {
+    "id": "true-strike",
+    "nameEn": "True Strike",
+    "nameFr": "Coup au but",
+    "slug": "coup-au-but",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-coup-au-but"
+  },
+  {
+    "id": "thunderclap",
+    "nameEn": "Thunderclap",
+    "nameFr": "Coup de tonnerre",
+    "slug": "coup-de-tonnerre",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "crown-of-madness",
+    "nameEn": "Crown of Madness",
+    "nameFr": "Couronne du dément",
+    "slug": "couronne-du-dement",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "ice-knife",
+    "nameEn": "Ice Knife",
+    "nameFr": "Couteau de glace",
+    "slug": "couteau-de-glace",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-couteau-de-glace"
+  },
+  {
+    "id": "creation",
+    "nameEn": "Creation",
+    "nameFr": "Création",
+    "slug": "creation",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-creation"
+  },
+  {
+    "id": "create-undead",
+    "nameEn": "Create Undead",
+    "nameFr": "Création de mort-vivant",
+    "slug": "creation-de-mort-vivant",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-creation-de-mort-vivant"
+  },
+  {
+    "id": "create-food-and-water",
+    "nameEn": "Create Food and Water",
+    "nameFr": "Création de nourriture et d'eau",
+    "slug": "creation-de-nourriture-et-d-eau",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-creation-de-nourriture-et-d-eau"
+  },
+  {
+    "id": "create-or-destroy-water",
+    "nameEn": "Create or Destroy Water",
+    "nameFr": "Création ou destruction d'eau",
+    "slug": "creation-ou-destruction-d-eau",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-creation-ou-destruction-d-eau"
+  },
+  {
+    "id": "spike-growth",
+    "nameEn": "Spike Growth",
+    "nameFr": "Croissance d'épines",
+    "slug": "croissance-d-epines",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-croissance-d-epines"
+  },
+  {
+    "id": "plant-growth",
+    "nameEn": "Plant Growth",
+    "nameFr": "Croissance végétale",
+    "slug": "croissance-vegetale",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-croissance-vegetale"
+  },
+  {
+    "id": "shillelagh",
+    "nameEn": "Shillelagh",
+    "nameFr": "Crosse des druides",
+    "slug": "crosse-des-druides",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-crosse-des-druides"
+  },
+  {
+    "id": "ottos-irresistible-dance",
+    "nameEn": "Otto's Irresistible Dance",
+    "nameFr": "Danse irrésistible d'Otto",
+    "slug": "danse-irresistible-d-otto",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Danse irrésistible"
+    ],
+    "compendiumId": "spell-danse-irresistible"
+  },
+  {
+    "id": "knock",
+    "nameEn": "Knock",
+    "nameFr": "Déblocage",
+    "slug": "deblocage",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-deblocage"
+  },
+  {
+    "id": "eldritch-blast",
+    "nameEn": "Eldritch Blast",
+    "nameFr": "Décharge occulte",
+    "slug": "decharge-occulte",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-decharge-occulte"
+  },
+  {
+    "id": "maze",
+    "nameEn": "Maze",
+    "nameFr": "Dédale",
+    "slug": "dedale",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-dedale"
+  },
+  {
+    "id": "disguise-self",
+    "nameEn": "Disguise Self",
+    "nameFr": "Déguisement",
+    "slug": "deguisement",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-deguisement"
+  },
+  {
+    "id": "remove-curse",
+    "nameEn": "Remove Curse",
+    "nameFr": "Délivrance des malédictions",
+    "slug": "delivrance-des-maledictions",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-delivrance-des-maledictions"
+  },
+  {
+    "id": "demiplane",
+    "nameEn": "Demiplane",
+    "nameFr": "Demi-plan",
+    "slug": "demi-plan",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-demi-plan"
+  },
+  {
+    "id": "disintegrate",
+    "nameEn": "Disintegrate",
+    "nameFr": "Désintégration",
+    "slug": "desintegration",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-desintegration"
+  },
+  {
+    "id": "see-invisibility",
+    "nameEn": "See Invisibility",
+    "nameFr": "Détection de l'invisibilité",
+    "slug": "detection-de-l-invisibilite",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-de-l-invisibilite"
+  },
+  {
+    "id": "detect-magic",
+    "nameEn": "Detect Magic",
+    "nameFr": "Détection de la magie",
+    "slug": "detection-de-la-magie",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-de-la-magie"
+  },
+  {
+    "id": "detect-thoughts",
+    "nameEn": "Detect Thoughts",
+    "nameFr": "Détection des pensées",
+    "slug": "detection-des-pensees",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-des-pensees"
+  },
+  {
+    "id": "find-traps",
+    "nameEn": "Find Traps",
+    "nameFr": "Détection des pièges",
+    "slug": "detection-des-pieges",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-des-pieges"
+  },
+  {
+    "id": "detect-evil-and-good",
+    "nameEn": "Detect Evil and Good",
+    "nameFr": "Détection du mal et du bien",
+    "slug": "detection-du-mal-et-du-bien",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-du-mal-et-du-bien"
+  },
+  {
+    "id": "detect-poison-and-disease",
+    "nameEn": "Detect Poison and Disease",
+    "nameFr": "Détection du poison et des maladies",
+    "slug": "detection-du-poison-et-des-maladies",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-detection-du-poison-et-des-maladies"
+  },
+  {
+    "id": "enthrall",
+    "nameEn": "Enthrall",
+    "nameFr": "Discours captivant",
+    "slug": "discours-captivant",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-discours-captivant"
+  },
+  {
+    "id": "tensers-floating-disk",
+    "nameEn": "Tenser's Floating Disk",
+    "nameFr": "Disque flottant de Tenser",
+    "slug": "disque-flottant-de-tenser",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Disque flottant"
+    ],
+    "compendiumId": "spell-disque-flottant"
+  },
+  {
+    "id": "sequester",
+    "nameEn": "Sequester",
+    "nameFr": "Dissimulation suprême",
+    "slug": "dissimulation-supreme",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-dissimulation-supreme"
+  },
+  {
+    "id": "dispel-magic",
+    "nameEn": "Dispel Magic",
+    "nameFr": "Dissipation de la magie",
+    "slug": "dissipation-de-la-magie",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-dissipation-de-la-magie"
+  },
+  {
+    "id": "dispel-evil-and-good",
+    "nameEn": "Dispel Evil and Good",
+    "nameFr": "Dissipation du mal et du bien",
+    "slug": "dissipation-du-mal-et-du-bien",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-dissipation-du-mal-et-du-bien"
+  },
+  {
+    "id": "divination",
+    "nameEn": "Divination",
+    "nameFr": "Divination",
+    "slug": "divination",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-divination"
+  },
+  {
+    "id": "finger-of-death",
+    "nameEn": "Finger of Death",
+    "nameFr": "Doigt de mort",
+    "slug": "doigt-de-mort",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-doigt-de-mort"
+  },
+  {
+    "id": "dominate-beast",
+    "nameEn": "Dominate Beast",
+    "nameFr": "Domination de bête",
+    "slug": "domination-de-bete",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-domination-de-bete"
+  },
+  {
+    "id": "dominate-monster",
+    "nameEn": "Dominate Monster",
+    "nameFr": "Domination de monstre",
+    "slug": "domination-de-monstre",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-domination-de-monstre"
+  },
+  {
+    "id": "dominate-person",
+    "nameEn": "Dominate Person",
+    "nameFr": "Domination de personne",
+    "slug": "domination-de-personne",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-domination-de-personne"
+  },
+  {
+    "id": "tongues",
+    "nameEn": "Tongues",
+    "nameFr": "Don des langues",
+    "slug": "don-des-langues",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-don-des-langues"
+  },
+  {
+    "id": "mislead",
+    "nameEn": "Mislead",
+    "nameFr": "Double illusoire",
+    "slug": "double-illusoire",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-double-illusoire"
+  },
+  {
+    "id": "gentle-repose",
+    "nameEn": "Gentle Repose",
+    "nameFr": "Doux repos",
+    "slug": "doux-repos",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-doux-repos"
+  },
+  {
+    "id": "druidcraft",
+    "nameEn": "Druidcraft",
+    "nameFr": "Druidisme",
+    "slug": "druidisme",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-druidisme"
+  },
+  {
+    "id": "compelled-duel",
+    "nameEn": "Compelled Duel",
+    "nameFr": "Duel forcé",
+    "slug": "duel-force",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "lightning-bolt",
+    "nameEn": "Lightning Bolt",
+    "nameFr": "Éclair",
+    "slug": "eclair",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-eclair"
+  },
+  {
+    "id": "sunburst",
+    "nameEn": "Sunburst",
+    "nameFr": "Éclat du soleil",
+    "slug": "eclat-du-soleil",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-eclat-du-soleil"
+  },
+  {
+    "id": "elementalism",
+    "nameEn": "Elementalism",
+    "nameFr": "Élémentalisme",
+    "slug": "elementalisme",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-elementalisme"
+  },
+  {
+    "id": "prismatic-spray",
+    "nameEn": "Prismatic Spray",
+    "nameFr": "Embruns prismatiques",
+    "slug": "embruns-prismatiques",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-embruns-prismatiques"
+  },
+  {
+    "id": "imprisonment",
+    "nameEn": "Imprisonment",
+    "nameFr": "Emprisonnement",
+    "slug": "emprisonnement",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-emprisonnement"
+  },
+  {
+    "id": "entangle",
+    "nameEn": "Entangle",
+    "nameFr": "Enchevêtrement",
+    "slug": "enchevetrement",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-enchevetrement"
+  },
+  {
+    "id": "weird",
+    "nameEn": "Weird",
+    "nameFr": "Ennemi subconscient",
+    "slug": "ennemi-subconscient",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-ennemi-subconscient"
+  },
+  {
+    "id": "planar-binding",
+    "nameEn": "Planar Binding",
+    "nameFr": "Entrave planaire",
+    "slug": "entrave-planaire",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-entrave-planaire"
+  },
+  {
+    "id": "mordenkainens-sword",
+    "nameEn": "Mordenkainen's Sword",
+    "nameFr": "Épée de Mordenkainen",
+    "slug": "epee-de-mordenkainen",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Épée arcanique"
+    ],
+    "compendiumId": "spell-epee-arcanique"
+  },
+  {
+    "id": "mind-spike",
+    "nameEn": "Mind Spike",
+    "nameFr": "Épine mentale",
+    "slug": "epine-mentale",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-epine-mentale"
+  },
+  {
+    "id": "sorcerous-burst",
+    "nameEn": "Sorcerous Burst",
+    "nameFr": "Éruption ensorcelée",
+    "slug": "eruption-ensorcelee",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-eruption-ensorcelee"
+  },
+  {
+    "id": "mind-blank",
+    "nameEn": "Mind Blank",
+    "nameFr": "Esprit impénétrable",
+    "slug": "esprit-impenetrable",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-esprit-impenetrable"
+  },
+  {
+    "id": "spirit-guardians",
+    "nameEn": "Spirit Guardians",
+    "nameFr": "Esprits gardiens",
+    "slug": "esprits-gardiens",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-esprits-gardiens"
+  },
+  {
+    "id": "feign-death",
+    "nameEn": "Feign Death",
+    "nameFr": "État cadavérique",
+    "slug": "etat-cadaverique",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "awaken",
+    "nameEn": "Awaken",
+    "nameFr": "Éveil",
+    "slug": "eveil",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-eveil"
+  },
+  {
+    "id": "fabricate",
+    "nameEn": "Fabricate",
+    "nameFr": "Fabrication",
+    "slug": "fabrication",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-fabrication"
+  },
+  {
+    "id": "stone-shape",
+    "nameEn": "Stone Shape",
+    "nameFr": "Façonnage de la pierre",
+    "slug": "faconnage-de-la-pierre",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-faconnage-de-la-pierre"
+  },
+  {
+    "id": "divine-favor",
+    "nameEn": "Divine Favor",
+    "nameFr": "Faveur divine",
+    "slug": "faveur-divine",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-faveur-divine"
+  },
+  {
+    "id": "heroes-feast",
+    "nameEn": "Heroes' Feast",
+    "nameFr": "Festin des héros",
+    "slug": "festin-des-heros",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-festin-des-heros"
+  },
+  {
+    "id": "feather-fall",
+    "nameEn": "Feather Fall",
+    "nameFr": "Feuille morte",
+    "slug": "feuille-morte",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-feuille-morte"
+  },
+  {
+    "id": "continual-flame",
+    "nameEn": "Continual Flame",
+    "nameFr": "Flamme éternelle",
+    "slug": "flamme-eternelle",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-flamme-eternelle"
+  },
+  {
+    "id": "sacred-flame",
+    "nameEn": "Sacred Flame",
+    "nameFr": "Flamme sacrée",
+    "slug": "flamme-sacree",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-flamme-sacree"
+  },
+  {
+    "id": "produce-flame",
+    "nameEn": "Produce Flame",
+    "nameFr": "Flammes",
+    "slug": "flammes",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-flammes"
+  },
+  {
+    "id": "insect-plague",
+    "nameEn": "Insect Plague",
+    "nameFr": "Fléau d'insectes",
+    "slug": "fleau-d-insectes",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-fleau-d-insectes"
+  },
+  {
+    "id": "melfs-acid-arrow",
+    "nameEn": "Melf's Acid Arrow",
+    "nameFr": "Flèche acide de Melf",
+    "slug": "fleche-acide-de-melf",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Flèche acide"
+    ],
+    "compendiumId": "spell-fleche-acide"
+  },
+  {
+    "id": "lightning-arrow",
+    "nameEn": "Lightning Arrow",
+    "nameFr": "Flèche de foudre",
+    "slug": "fleche-de-foudre",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "blight",
+    "nameEn": "Blight",
+    "nameFr": "Flétrissement",
+    "slug": "fletrissement",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-fletrissement"
+  },
+  {
+    "id": "blur",
+    "nameEn": "Blur",
+    "nameFr": "Flou",
+    "slug": "flou",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-flou"
+  },
+  {
+    "id": "fount-of-moonlight",
+    "nameEn": "Fount of Moonlight",
+    "nameFr": "Fontaine de lune",
+    "slug": "fontaine-de-lune",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "phantasmal-force",
+    "nameEn": "Phantasmal Force",
+    "nameFr": "Force fantasmagorique",
+    "slug": "force-fantasmagorique",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-force-fantasmagorique"
+  },
+  {
+    "id": "etherealness",
+    "nameEn": "Etherealness",
+    "nameFr": "Forme éthérée",
+    "slug": "forme-etheree",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-forme-etheree"
+  },
+  {
+    "id": "gaseous-form",
+    "nameEn": "Gaseous Form",
+    "nameFr": "Forme gazeuse",
+    "slug": "forme-gazeuse",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-forme-gazeuse"
+  },
+  {
+    "id": "tashas-hideous-laughter",
+    "nameEn": "Tasha's Hideous Laughter",
+    "nameFr": "Fou rire de Tasha",
+    "slug": "fou-rire-de-tasha",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Fou rire"
+    ],
+    "compendiumId": "spell-fou-rire"
+  },
+  {
+    "id": "thorn-whip",
+    "nameEn": "Thorn Whip",
+    "nameFr": "Fouet épineux",
+    "slug": "fouet-epineux",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "misty-step",
+    "nameEn": "Misty Step",
+    "nameFr": "Foulée brumeuse",
+    "slug": "foulee-brumeuse",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-foulee-brumeuse"
+  },
+  {
+    "id": "shatter",
+    "nameEn": "Shatter",
+    "nameFr": "Fracassement",
+    "slug": "fracassement",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-fracassement"
+  },
+  {
+    "id": "steel-wind-strike",
+    "nameEn": "Steel Wind Strike",
+    "nameFr": "Frappe du vent d'acier",
+    "slug": "frappe-du-vent-d-acier",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "ensnaring-strike",
+    "nameEn": "Ensnaring Strike",
+    "nameFr": "Frappe piégeuse",
+    "slug": "frappe-piegeuse",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-frappe-piegeuse"
+  },
+  {
+    "id": "meld-into-stone",
+    "nameEn": "Meld into Stone",
+    "nameFr": "Fusion dans la pierre",
+    "slug": "fusion-dans-la-pierre",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-fusion-dans-la-pierre"
+  },
+  {
+    "id": "guardian-of-faith",
+    "nameEn": "Guardian of Faith",
+    "nameFr": "Gardien de la foi",
+    "slug": "gardien-de-la-foi",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-gardien-de-la-foi"
+  },
+  {
+    "id": "toll-the-dead",
+    "nameEn": "Toll the Dead",
+    "nameFr": "Glas",
+    "slug": "glas",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "move-earth",
+    "nameEn": "Move Earth",
+    "nameFr": "Glissement de terrain",
+    "slug": "glissement-de-terrain",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-glissement-de-terrain"
+  },
+  {
+    "id": "globe-of-invulnerability",
+    "nameEn": "Globe of Invulnerability",
+    "nameFr": "Globe d'invulnérabilité",
+    "slug": "globe-d-invulnerabilite",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-globe-d-invulnerabilite"
+  },
+  {
+    "id": "glyph-of-warding",
+    "nameEn": "Glyph of Warding",
+    "nameFr": "Glyphe de garde",
+    "slug": "glyphe-de-garde",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-glyphe-de-garde"
+  },
+  {
+    "id": "grease",
+    "nameEn": "Grease",
+    "nameFr": "Graisse",
+    "slug": "graisse",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-graisse"
+  },
+  {
+    "id": "longstrider",
+    "nameEn": "Longstrider",
+    "nameFr": "Grande foulée",
+    "slug": "grande-foulee",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-grande-foulee"
+  },
+  {
+    "id": "hail-of-thorns",
+    "nameEn": "Hail of Thorns",
+    "nameFr": "Grêle d'épines",
+    "slug": "grele-d-epines",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "heal",
+    "nameEn": "Heal",
+    "nameFr": "Guérison",
+    "slug": "guerison",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-guerison"
+  },
+  {
+    "id": "mass-heal",
+    "nameEn": "Mass Heal",
+    "nameFr": "Guérison de groupe",
+    "slug": "guerison-de-groupe",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-guerison-de-groupe"
+  },
+  {
+    "id": "haste",
+    "nameEn": "Haste",
+    "nameFr": "Hâte",
+    "slug": "hate",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-hate"
+  },
+  {
+    "id": "heroism",
+    "nameEn": "Heroism",
+    "nameFr": "Héroïsme",
+    "slug": "heroisme",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-heroisme"
+  },
+  {
+    "id": "identify",
+    "nameEn": "Identify",
+    "nameFr": "Identification",
+    "slug": "identification",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-identification"
+  },
+  {
+    "id": "minor-illusion",
+    "nameEn": "Minor Illusion",
+    "nameFr": "Illusion mineure",
+    "slug": "illusion-mineure",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-illusion-mineure"
+  },
+  {
+    "id": "programmed-illusion",
+    "nameEn": "Programmed Illusion",
+    "nameFr": "Illusion programmée",
+    "slug": "illusion-programmee",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-illusion-programmee"
+  },
+  {
+    "id": "major-image",
+    "nameEn": "Major Image",
+    "nameFr": "Image majeure",
+    "slug": "image-majeure",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-image-majeure"
+  },
+  {
+    "id": "mirror-image",
+    "nameEn": "Mirror Image",
+    "nameFr": "Image miroir",
+    "slug": "image-miroir",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-image-miroir"
+  },
+  {
+    "id": "project-image",
+    "nameEn": "Project Image",
+    "nameFr": "Image projetée",
+    "slug": "image-projetee",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-image-projetee"
+  },
+  {
+    "id": "silent-image",
+    "nameEn": "Silent Image",
+    "nameFr": "Image silencieuse",
+    "slug": "image-silencieuse",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-image-silencieuse"
+  },
+  {
+    "id": "hold-monster",
+    "nameEn": "Hold Monster",
+    "nameFr": "Immobilisation de monstre",
+    "slug": "immobilisation-de-monstre",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-immobilisation-de-monstre"
+  },
+  {
+    "id": "hold-person",
+    "nameEn": "Hold Person",
+    "nameFr": "Immobilisation de personne",
+    "slug": "immobilisation-de-personne",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-immobilisation-de-personne"
+  },
+  {
+    "id": "bane",
+    "nameEn": "Bane",
+    "nameFr": "Imprécation",
+    "slug": "imprecation",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-imprecation"
+  },
+  {
+    "id": "command",
+    "nameEn": "Command",
+    "nameFr": "Injonction",
+    "slug": "injonction",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-injonction"
+  },
+  {
+    "id": "giant-insect",
+    "nameEn": "Giant Insect",
+    "nameFr": "Insecte géant",
+    "slug": "insecte-geant",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-insecte-geant"
+  },
+  {
+    "id": "forbiddance",
+    "nameEn": "Forbiddance",
+    "nameFr": "Interdiction",
+    "slug": "interdiction",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-interdiction"
+  },
+  {
+    "id": "reverse-gravity",
+    "nameEn": "Reverse Gravity",
+    "nameFr": "Inversion de la gravité",
+    "slug": "inversion-de-la-gravite",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-inversion-de-la-gravite"
+  },
+  {
+    "id": "invisibility",
+    "nameEn": "Invisibility",
+    "nameFr": "Invisibilité",
+    "slug": "invisibilite",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invisibilite"
+  },
+  {
+    "id": "greater-invisibility",
+    "nameEn": "Greater Invisibility",
+    "nameFr": "Invisibilité suprême",
+    "slug": "invisibilite-supreme",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invisibilite-supreme"
+  },
+  {
+    "id": "conjure-animals",
+    "nameEn": "Conjure Animals",
+    "nameFr": "Invocation d'animaux",
+    "slug": "invocation-d-animaux",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-d-animaux"
+  },
+  {
+    "id": "conjure-elemental",
+    "nameEn": "Conjure Elemental",
+    "nameFr": "Invocation d'élémentaire",
+    "slug": "invocation-d-elementaire",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-d-elementaire"
+  },
+  {
+    "id": "conjure-minor-elementals",
+    "nameEn": "Conjure Minor Elementals",
+    "nameFr": "Invocation d'élémentaires mineurs",
+    "slug": "invocation-d-elementaires-mineurs",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-d-elementaires-mineurs"
+  },
+  {
+    "id": "conjure-woodland-beings",
+    "nameEn": "Conjure Woodland Beings",
+    "nameFr": "Invocation d'êtres sylvestres",
+    "slug": "invocation-d-etres-sylvestres",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-d-etres-sylvestres"
+  },
+  {
+    "id": "conjure-celestial",
+    "nameEn": "Conjure Celestial",
+    "nameFr": "Invocation de céleste",
+    "slug": "invocation-de-celeste",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-de-celeste"
+  },
+  {
+    "id": "conjure-fey",
+    "nameEn": "Conjure Fey",
+    "nameFr": "Invocation de fée",
+    "slug": "invocation-de-fee",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-invocation-de-fee"
+  },
+  {
+    "id": "conjure-barrage",
+    "nameEn": "Conjure Barrage",
+    "nameFr": "Invocation de projectiles / Hérissement",
+    "slug": "invocation-de-projectiles-herissement",
+    "level": 3,
+    "source": "PHB 2024",
+    "aliases": [
+      "Invocation de projectiles",
+      "Hérissement"
+    ]
+  },
+  {
+    "id": "conjure-volley",
+    "nameEn": "Conjure Volley",
+    "nameFr": "Invocation de volée",
+    "slug": "invocation-de-volee",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "flame-blade",
+    "nameEn": "Flame Blade",
+    "nameFr": "Lame de feu",
+    "slug": "lame-de-feu",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lame-de-feu"
+  },
+  {
+    "id": "slow",
+    "nameEn": "Slow",
+    "nameFr": "Lenteur",
+    "slug": "lenteur",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lenteur"
+  },
+  {
+    "id": "levitate",
+    "nameEn": "Levitate",
+    "nameFr": "Lévitation",
+    "slug": "levitation",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-levitation"
+  },
+  {
+    "id": "grasping-vine",
+    "nameEn": "Grasping Vine",
+    "nameFr": "Liane avide",
+    "slug": "liane-avide",
+    "level": 4,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "freedom-of-movement",
+    "nameEn": "Freedom of Movement",
+    "nameFr": "Liberté de mouvement",
+    "slug": "liberte-de-mouvement",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-liberte-de-mouvement"
+  },
+  {
+    "id": "warding-bond",
+    "nameEn": "Warding Bond",
+    "nameFr": "Lien de protection",
+    "slug": "lien-de-protection",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lien-de-protection"
+  },
+  {
+    "id": "rarys-telepathic-bond",
+    "nameEn": "Rary's Telepathic Bond",
+    "nameFr": "Lien télépathique de Rary",
+    "slug": "lien-telepathique-de-rary",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Lien télépathique"
+    ],
+    "compendiumId": "spell-lien-telepathique"
+  },
+  {
+    "id": "locate-animals-or-plants",
+    "nameEn": "Locate Animals or Plants",
+    "nameFr": "Localisation d'animaux ou de plantes",
+    "slug": "localisation-d-animaux-ou-de-plantes",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-localisation-d-animaux-ou-de-plantes"
+  },
+  {
+    "id": "locate-object",
+    "nameEn": "Locate Object",
+    "nameFr": "Localisation d'objet",
+    "slug": "localisation-d-objet",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-localisation-d-objet"
+  },
+  {
+    "id": "locate-creature",
+    "nameEn": "Locate Creature",
+    "nameFr": "Localisation de créature",
+    "slug": "localisation-de-creature",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-localisation-de-creature"
+  },
+  {
+    "id": "beacon-of-hope",
+    "nameEn": "Beacon of Hope",
+    "nameFr": "Lueur d'espoir",
+    "slug": "lueur-d-espoir",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lueur-d-espoir"
+  },
+  {
+    "id": "faerie-fire",
+    "nameEn": "Faerie Fire",
+    "nameFr": "Lueurs féeriques",
+    "slug": "lueurs-feeriques",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lueurs-feeriques"
+  },
+  {
+    "id": "light",
+    "nameEn": "Light",
+    "nameFr": "Lumière",
+    "slug": "lumiere",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lumiere"
+  },
+  {
+    "id": "daylight",
+    "nameEn": "Daylight",
+    "nameFr": "Lumière du jour",
+    "slug": "lumiere-du-jour",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lumiere-du-jour"
+  },
+  {
+    "id": "dancing-lights",
+    "nameEn": "Dancing Lights",
+    "nameFr": "Lumières dansantes",
+    "slug": "lumieres-dansantes",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-lumieres-dansantes"
+  },
+  {
+    "id": "bigbys-hand",
+    "nameEn": "Bigby's Hand",
+    "nameFr": "Main de Bigby",
+    "slug": "main-de-bigby",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Main arcanique"
+    ],
+    "compendiumId": "spell-main-arcanique"
+  },
+  {
+    "id": "mage-hand",
+    "nameEn": "Mage Hand",
+    "nameFr": "Main de mage",
+    "slug": "main-de-mage",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Main du mage"
+    ],
+    "compendiumId": "spell-main-du-mage"
+  },
+  {
+    "id": "burning-hands",
+    "nameEn": "Burning Hands",
+    "nameFr": "Mains brûlantes",
+    "slug": "mains-brulantes",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mains-brulantes"
+  },
+  {
+    "id": "bestow-curse",
+    "nameEn": "Bestow Curse",
+    "nameFr": "Malédiction",
+    "slug": "malediction",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-malediction"
+  },
+  {
+    "id": "hex",
+    "nameEn": "Hex",
+    "nameFr": "Maléfice",
+    "slug": "malefice",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-malefice"
+  },
+  {
+    "id": "mordenkainens-magnificent-mansion",
+    "nameEn": "Mordenkainen's Magnificent Mansion",
+    "nameFr": "Manoir somptueux de Mordenkainen",
+    "slug": "manoir-somptueux-de-mordenkainen",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Manoir somptueux"
+    ],
+    "compendiumId": "spell-manoir-somptueux"
+  },
+  {
+    "id": "water-walk",
+    "nameEn": "Water Walk",
+    "nameFr": "Marche sur l'eau / Marche sur l'onde",
+    "slug": "marche-sur-l-eau-marche-sur-l-onde",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Marche sur l'eau",
+      "Marche sur l'onde",
+      "Marche sur l’onde"
+    ],
+    "compendiumId": "spell-marche-sur-l-onde"
+  },
+  {
+    "id": "hunters-mark",
+    "nameEn": "Hunter's Mark",
+    "nameFr": "Marque du chasseur",
+    "slug": "marque-du-chasseur",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-marque-du-chasseur"
+  },
+  {
+    "id": "eyebite",
+    "nameEn": "Eyebite",
+    "nameFr": "Mauvais oeil",
+    "slug": "mauvais-oeil",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Mauvais œil"
+    ],
+    "compendiumId": "spell-mauvais-il"
+  },
+  {
+    "id": "message",
+    "nameEn": "Message",
+    "nameFr": "Message",
+    "slug": "message",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-message"
+  },
+  {
+    "id": "animal-messenger",
+    "nameEn": "Animal Messenger",
+    "nameFr": "Messager animal",
+    "slug": "messager-animal",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-messager-animal"
+  },
+  {
+    "id": "heat-metal",
+    "nameEn": "Heat Metal",
+    "nameFr": "Métal brûlant",
+    "slug": "metal-brulant",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-metal-brulant"
+  },
+  {
+    "id": "polymorph",
+    "nameEn": "Polymorph",
+    "nameFr": "Métamorphose",
+    "slug": "metamorphose",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-metamorphose"
+  },
+  {
+    "id": "animal-shapes",
+    "nameEn": "Animal Shapes",
+    "nameFr": "Métamorphose animale",
+    "slug": "metamorphose-animale",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-metamorphose-animale"
+  },
+  {
+    "id": "true-polymorph",
+    "nameEn": "True Polymorph",
+    "nameFr": "Métamorphose suprême",
+    "slug": "metamorphose-supreme",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-metamorphose-supreme"
+  },
+  {
+    "id": "mirage-arcane",
+    "nameEn": "Mirage Arcane",
+    "nameFr": "Mirage",
+    "slug": "mirage",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mirage"
+  },
+  {
+    "id": "alter-self",
+    "nameEn": "Alter Self",
+    "nameFr": "Modification d'apparence",
+    "slug": "modification-d-apparence",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-modification-d-apparence"
+  },
+  {
+    "id": "modify-memory",
+    "nameEn": "Modify Memory",
+    "nameFr": "Modification de mémoire",
+    "slug": "modification-de-memoire",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-modification-de-memoire"
+  },
+  {
+    "id": "phantom-steed",
+    "nameEn": "Phantom Steed",
+    "nameFr": "Monture fantôme",
+    "slug": "monture-fantome",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-monture-fantome"
+  },
+  {
+    "id": "vicious-mockery",
+    "nameEn": "Vicious Mockery",
+    "nameFr": "Moquerie cruelle",
+    "slug": "moquerie-cruelle",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-moquerie-cruelle"
+  },
+  {
+    "id": "healing-word",
+    "nameEn": "Healing Word",
+    "nameFr": "Mot de guérison",
+    "slug": "mot-de-guerison",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-guerison"
+  },
+  {
+    "id": "mass-healing-word",
+    "nameEn": "Mass Healing Word",
+    "nameFr": "Mot de guérison de groupe",
+    "slug": "mot-de-guerison-de-groupe",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-guerison-de-groupe"
+  },
+  {
+    "id": "power-word-stun",
+    "nameEn": "Power Word Stun",
+    "nameFr": "Mot de pouvoir étourdissant",
+    "slug": "mot-de-pouvoir-etourdissant",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-pouvoir-etourdissant"
+  },
+  {
+    "id": "power-word-fortify",
+    "nameEn": "Power Word Fortify",
+    "nameFr": "Mot de pouvoir fortifiant",
+    "slug": "mot-de-pouvoir-fortifiant",
+    "level": 7,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "power-word-heal",
+    "nameEn": "Power Word Heal",
+    "nameFr": "Mot de pouvoir guérisseur",
+    "slug": "mot-de-pouvoir-guerisseur",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-pouvoir-guerisseur"
+  },
+  {
+    "id": "power-word-kill",
+    "nameEn": "Power Word Kill",
+    "nameFr": "Mot de pouvoir mortel",
+    "slug": "mot-de-pouvoir-mortel",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-pouvoir-mortel"
+  },
+  {
+    "id": "word-of-radiance",
+    "nameEn": "Word of Radiance",
+    "nameFr": "Mot de radiance",
+    "slug": "mot-de-radiance",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "word-of-recall",
+    "nameEn": "Word of Recall",
+    "nameFr": "Mot de retour",
+    "slug": "mot-de-retour",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mot-de-retour"
+  },
+  {
+    "id": "hypnotic-pattern",
+    "nameEn": "Hypnotic Pattern",
+    "nameFr": "Motif hypnotique",
+    "slug": "motif-hypnotique",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-motif-hypnotique"
+  },
+  {
+    "id": "wall-of-thorns",
+    "nameEn": "Wall of Thorns",
+    "nameFr": "Mur d'épines",
+    "slug": "mur-d-epines",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-d-epines"
+  },
+  {
+    "id": "wall-of-fire",
+    "nameEn": "Wall of Fire",
+    "nameFr": "Mur de feu",
+    "slug": "mur-de-feu",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-de-feu"
+  },
+  {
+    "id": "wall-of-force",
+    "nameEn": "Wall of Force",
+    "nameFr": "Mur de force",
+    "slug": "mur-de-force",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-de-force"
+  },
+  {
+    "id": "wall-of-ice",
+    "nameEn": "Wall of Ice",
+    "nameFr": "Mur de glace",
+    "slug": "mur-de-glace",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-de-glace"
+  },
+  {
+    "id": "wall-of-stone",
+    "nameEn": "Wall of Stone",
+    "nameFr": "Mur de pierre",
+    "slug": "mur-de-pierre",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-de-pierre"
+  },
+  {
+    "id": "wind-wall",
+    "nameEn": "Wind Wall",
+    "nameFr": "Mur de vent",
+    "slug": "mur-de-vent",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-de-vent"
+  },
+  {
+    "id": "prismatic-wall",
+    "nameEn": "Prismatic Wall",
+    "nameFr": "Mur prismatique",
+    "slug": "mur-prismatique",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mur-prismatique"
+  },
+  {
+    "id": "dissonant-whispers",
+    "nameEn": "Dissonant Whispers",
+    "nameFr": "Murmures dissonants",
+    "slug": "murmures-dissonants",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-murmures-dissonants"
+  },
+  {
+    "id": "legend-lore",
+    "nameEn": "Legend Lore",
+    "nameFr": "Mythes et légendes",
+    "slug": "mythes-et-legendes",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-mythes-et-legendes"
+  },
+  {
+    "id": "fog-cloud",
+    "nameEn": "Fog Cloud",
+    "nameFr": "Nappe de brouillard",
+    "slug": "nappe-de-brouillard",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-nappe-de-brouillard"
+  },
+  {
+    "id": "incendiary-cloud",
+    "nameEn": "Incendiary Cloud",
+    "nameFr": "Nuage incendiaire",
+    "slug": "nuage-incendiaire",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-nuage-incendiaire"
+  },
+  {
+    "id": "stinking-cloud",
+    "nameEn": "Stinking Cloud",
+    "nameFr": "Nuage nauséabond",
+    "slug": "nuage-nauseabond",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-nuage-nauseabond"
+  },
+  {
+    "id": "cloud-of-daggers",
+    "nameEn": "Cloud of Daggers",
+    "nameFr": "Nuée de dagues",
+    "slug": "nuee-de-dagues",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "meteor-swarm",
+    "nameEn": "Meteor Swarm",
+    "nameFr": "Nuée de météores",
+    "slug": "nuee-de-meteores",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-nuee-de-meteores"
+  },
+  {
+    "id": "arcane-eye",
+    "nameEn": "Arcane Eye",
+    "nameFr": "Oeil du mage",
+    "slug": "oeil-du-mage",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Œil du mage"
+    ],
+    "compendiumId": "spell-il-du-mage"
+  },
+  {
+    "id": "chromatic-orb",
+    "nameEn": "Chromatic Orb",
+    "nameFr": "Orbe chromatique",
+    "slug": "orbe-chromatique",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-orbe-chromatique"
+  },
+  {
+    "id": "find-the-path",
+    "nameEn": "Find the Path",
+    "nameFr": "Orientation",
+    "slug": "orientation",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-orientation"
+  },
+  {
+    "id": "divine-word",
+    "nameEn": "Divine Word",
+    "nameFr": "Parole divine",
+    "slug": "parole-divine",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-parole-divine"
+  },
+  {
+    "id": "tree-stride",
+    "nameEn": "Tree Stride",
+    "nameFr": "Passage par les arbres",
+    "slug": "passage-par-les-arbres",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-passage-par-les-arbres"
+  },
+  {
+    "id": "pass-without-trace",
+    "nameEn": "Pass without Trace",
+    "nameFr": "Passage sans trace",
+    "slug": "passage-sans-trace",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-passage-sans-trace"
+  },
+  {
+    "id": "passwall",
+    "nameEn": "Passwall",
+    "nameFr": "Passe-muraille",
+    "slug": "passe-muraille",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-passe-muraille"
+  },
+  {
+    "id": "spider-climb",
+    "nameEn": "Spider Climb",
+    "nameFr": "Pattes d'araignée",
+    "slug": "pattes-d-araignee",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-pattes-d-araignee"
+  },
+  {
+    "id": "barkskin",
+    "nameEn": "Barkskin",
+    "nameFr": "Peau d'écorce",
+    "slug": "peau-d-ecorce",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-peau-d-ecorce"
+  },
+  {
+    "id": "stoneskin",
+    "nameEn": "Stoneskin",
+    "nameFr": "Peau de pierre",
+    "slug": "peau-de-pierre",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-peau-de-pierre"
+  },
+  {
+    "id": "beast-sense",
+    "nameEn": "Beast Sense",
+    "nameFr": "Perception bestiale",
+    "slug": "perception-bestiale",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "synaptic-static",
+    "nameEn": "Synaptic Static",
+    "nameFr": "Perturbations synaptiques",
+    "slug": "perturbations-synaptiques",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "leomunds-tiny-hut",
+    "nameEn": "Leomund's Tiny Hut",
+    "nameFr": "Petite hutte de Léomund",
+    "slug": "petite-hutte-de-leomund",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Petite hutte"
+    ],
+    "compendiumId": "spell-petite-hutte"
+  },
+  {
+    "id": "flesh-to-stone",
+    "nameEn": "Flesh to Stone",
+    "nameFr": "Pétrification",
+    "slug": "petrification",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-petrification"
+  },
+  {
+    "id": "fear",
+    "nameEn": "Fear",
+    "nameFr": "Peur / Terreur",
+    "slug": "peur-terreur",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Peur",
+      "Terreur"
+    ],
+    "compendiumId": "spell-terreur"
+  },
+  {
+    "id": "mind-sliver",
+    "nameEn": "Mind Sliver",
+    "nameFr": "Piqûre mentale",
+    "slug": "piqure-mentale",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "shocking-grasp",
+    "nameEn": "Shocking Grasp",
+    "nameFr": "Poigne électrique",
+    "slug": "poigne-electrique",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-poigne-electrique"
+  },
+  {
+    "id": "gate",
+    "nameEn": "Gate",
+    "nameFr": "Portail",
+    "slug": "portail",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-portail"
+  },
+  {
+    "id": "arcane-gate",
+    "nameEn": "Arcane Gate",
+    "nameFr": "Portail arcanique",
+    "slug": "portail-arcanique",
+    "level": 6,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "dimension-door",
+    "nameEn": "Dimension Door",
+    "nameFr": "Porte dimensionnelle",
+    "slug": "porte-dimensionnelle",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-porte-dimensionnelle"
+  },
+  {
+    "id": "starry-wisp",
+    "nameEn": "Starry Wisp",
+    "nameFr": "Poussière d'étoile",
+    "slug": "poussiere-d-etoile",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-poussiere-d-etoile"
+  },
+  {
+    "id": "contingency",
+    "nameEn": "Contingency",
+    "nameFr": "Préméditation",
+    "slug": "premeditation",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-premeditation"
+  },
+  {
+    "id": "foresight",
+    "nameEn": "Foresight",
+    "nameFr": "Prémonition",
+    "slug": "premonition",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-premonition"
+  },
+  {
+    "id": "yolandes-regal-presence",
+    "nameEn": "Yolande's Regal Presence",
+    "nameFr": "Présence royale de Yolane",
+    "slug": "presence-royale-de-yolane",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "prestidigitation",
+    "nameEn": "Prestidigitation",
+    "nameFr": "Prestidigitation",
+    "slug": "prestidigitation",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-prestidigitation"
+  },
+  {
+    "id": "prayer-of-healing",
+    "nameEn": "Prayer of Healing",
+    "nameFr": "Prière de guérison",
+    "slug": "priere-de-guerison",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-priere-de-guerison"
+  },
+  {
+    "id": "magic-missile",
+    "nameEn": "Magic Missile",
+    "nameFr": "Projectile magique",
+    "slug": "projectile-magique",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-projectile-magique"
+  },
+  {
+    "id": "astral-projection",
+    "nameEn": "Astral Projection",
+    "nameFr": "Projection astrale",
+    "slug": "projection-astrale",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-projection-astrale"
+  },
+  {
+    "id": "protection-from-energy",
+    "nameEn": "Protection from Energy",
+    "nameFr": "Protection contre l'énergie",
+    "slug": "protection-contre-l-energie",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-protection-contre-l-energie"
+  },
+  {
+    "id": "death-ward",
+    "nameEn": "Death Ward",
+    "nameFr": "Protection contre la mort",
+    "slug": "protection-contre-la-mort",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-protection-contre-la-mort"
+  },
+  {
+    "id": "protection-from-evil-and-good",
+    "nameEn": "Protection from Evil and Good",
+    "nameFr": "Protection contre le mal et le bien",
+    "slug": "protection-contre-le-mal-et-le-bien",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-protection-contre-le-mal-et-le-bien"
+  },
+  {
+    "id": "protection-from-poison",
+    "nameEn": "Protection from Poison",
+    "nameFr": "Protection contre le poison",
+    "slug": "protection-contre-le-poison",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-protection-contre-le-poison"
+  },
+  {
+    "id": "guards-and-wards",
+    "nameEn": "Guards and Wards",
+    "nameFr": "Protections et sceaux",
+    "slug": "protections-et-sceaux",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-protections-et-sceaux"
+  },
+  {
+    "id": "purify-food-and-drink",
+    "nameEn": "Purify Food and Drink",
+    "nameFr": "Purification de la nourriture et de l'eau",
+    "slug": "purification-de-la-nourriture-et-de-l-eau",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-purification-de-la-nourriture-et-de-l-eau"
+  },
+  {
+    "id": "geas",
+    "nameEn": "Geas",
+    "nameFr": "Quête",
+    "slug": "quete",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-quete"
+  },
+  {
+    "id": "raise-dead",
+    "nameEn": "Raise Dead",
+    "nameFr": "Rappel à la vie",
+    "slug": "rappel-a-la-vie",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rappel-a-la-vie"
+  },
+  {
+    "id": "ray-of-enfeeblement",
+    "nameEn": "Ray of Enfeeblement",
+    "nameFr": "Rayon affaiblissant",
+    "slug": "rayon-affaiblissant",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-affaiblissant"
+  },
+  {
+    "id": "scorching-ray",
+    "nameEn": "Scorching Ray",
+    "nameFr": "Rayon ardent",
+    "slug": "rayon-ardent",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-ardent"
+  },
+  {
+    "id": "ray-of-frost",
+    "nameEn": "Ray of Frost",
+    "nameFr": "Rayon de givre",
+    "slug": "rayon-de-givre",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-de-givre"
+  },
+  {
+    "id": "moonbeam",
+    "nameEn": "Moonbeam",
+    "nameFr": "Rayon de lune",
+    "slug": "rayon-de-lune",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-de-lune"
+  },
+  {
+    "id": "sunbeam",
+    "nameEn": "Sunbeam",
+    "nameFr": "Rayon de soleil",
+    "slug": "rayon-de-soleil",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-de-soleil"
+  },
+  {
+    "id": "ray-of-sickness",
+    "nameEn": "Ray of Sickness",
+    "nameFr": "Rayon empoisonné",
+    "slug": "rayon-empoisonne",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-empoisonne"
+  },
+  {
+    "id": "guiding-bolt",
+    "nameEn": "Guiding Bolt",
+    "nameFr": "Rayon traçant",
+    "slug": "rayon-tracant",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-rayon-tracant"
+  },
+  {
+    "id": "regenerate",
+    "nameEn": "Regenerate",
+    "nameFr": "Régénération",
+    "slug": "regeneration",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-regeneration"
+  },
+  {
+    "id": "reincarnate",
+    "nameEn": "Reincarnate",
+    "nameFr": "Réincarnation",
+    "slug": "reincarnation",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-reincarnation"
+  },
+  {
+    "id": "mending",
+    "nameEn": "Mending",
+    "nameFr": "Réparation",
+    "slug": "reparation",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-reparation"
+  },
+  {
+    "id": "expeditious-retreat",
+    "nameEn": "Expeditious Retreat",
+    "nameFr": "Repli expéditif",
+    "slug": "repli-expeditif",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-repli-expeditif"
+  },
+  {
+    "id": "hellish-rebuke",
+    "nameEn": "Hellish Rebuke",
+    "nameFr": "Représailles infernales",
+    "slug": "represailles-infernales",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-represailles-infernales"
+  },
+  {
+    "id": "resistance",
+    "nameEn": "Resistance",
+    "nameFr": "Résistance",
+    "slug": "resistance",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-resistance"
+  },
+  {
+    "id": "water-breathing",
+    "nameEn": "Water Breathing",
+    "nameFr": "Respiration aquatique",
+    "slug": "respiration-aquatique",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-respiration-aquatique"
+  },
+  {
+    "id": "lesser-restoration",
+    "nameEn": "Lesser Restoration",
+    "nameFr": "Restauration partielle",
+    "slug": "restauration-partielle",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-restauration-partielle"
+  },
+  {
+    "id": "greater-restoration",
+    "nameEn": "Greater Restoration",
+    "nameFr": "Restauration suprême",
+    "slug": "restauration-supreme",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-restauration-supreme"
+  },
+  {
+    "id": "resurrection",
+    "nameEn": "Resurrection",
+    "nameFr": "Résurrection",
+    "slug": "resurrection",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-resurrection"
+  },
+  {
+    "id": "true-resurrection",
+    "nameEn": "True Resurrection",
+    "nameFr": "Résurrection suprême",
+    "slug": "resurrection-supreme",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-resurrection-supreme"
+  },
+  {
+    "id": "revivify",
+    "nameEn": "Revivify",
+    "nameFr": "Retour à la vie",
+    "slug": "retour-a-la-vie",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-retour-a-la-vie"
+  },
+  {
+    "id": "hallow",
+    "nameEn": "Hallow",
+    "nameFr": "Sanctification",
+    "slug": "sanctification",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-sanctification"
+  },
+  {
+    "id": "sanctuary",
+    "nameEn": "Sanctuary",
+    "nameFr": "Sanctuaire",
+    "slug": "sanctuaire",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-sanctuaire"
+  },
+  {
+    "id": "mordenkainens-private-sanctum",
+    "nameEn": "Mordenkainen's Private Sanctum",
+    "nameFr": "Sanctuaire privé de Mordenkainen",
+    "slug": "sanctuaire-prive-de-mordenkainen",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Sanctuaire privé"
+    ],
+    "compendiumId": "spell-sanctuaire-prive"
+  },
+  {
+    "id": "jump",
+    "nameEn": "Jump",
+    "nameFr": "Saut",
+    "slug": "saut",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-saut"
+  },
+  {
+    "id": "scrying",
+    "nameEn": "Scrying",
+    "nameFr": "Scrutation",
+    "slug": "scrutation",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-scrutation"
+  },
+  {
+    "id": "unseen-servant",
+    "nameEn": "Unseen Servant",
+    "nameFr": "Serviteur invisible",
+    "slug": "serviteur-invisible",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-serviteur-invisible"
+  },
+  {
+    "id": "silence",
+    "nameEn": "Silence",
+    "nameFr": "Silence",
+    "slug": "silence",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-silence"
+  },
+  {
+    "id": "simulacrum",
+    "nameEn": "Simulacrum",
+    "nameFr": "Simulacre",
+    "slug": "simulacre",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-simulacre"
+  },
+  {
+    "id": "false-life",
+    "nameEn": "False Life",
+    "nameFr": "Simulacre de vie",
+    "slug": "simulacre-de-vie",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-simulacre-de-vie"
+  },
+  {
+    "id": "cure-wounds",
+    "nameEn": "Cure Wounds",
+    "nameFr": "Soins",
+    "slug": "soins",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-soins"
+  },
+  {
+    "id": "mass-cure-wounds",
+    "nameEn": "Mass Cure Wounds",
+    "nameFr": "Soins de groupe",
+    "slug": "soins-de-groupe",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-soins-de-groupe"
+  },
+  {
+    "id": "sleep",
+    "nameEn": "Sleep",
+    "nameFr": "Sommeil",
+    "slug": "sommeil",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-sommeil"
+  },
+  {
+    "id": "dream",
+    "nameEn": "Dream",
+    "nameFr": "Songe",
+    "slug": "songe",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-songe"
+  },
+  {
+    "id": "dragons-breath",
+    "nameEn": "Dragon's Breath",
+    "nameFr": "Souffle du dragon",
+    "slug": "souffle-du-dragon",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-souffle-du-dragon"
+  },
+  {
+    "id": "wish",
+    "nameEn": "Wish",
+    "nameFr": "Souhait",
+    "slug": "souhait",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-souhait"
+  },
+  {
+    "id": "flaming-sphere",
+    "nameEn": "Flaming Sphere",
+    "nameFr": "Sphère de feu",
+    "slug": "sphere-de-feu",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-sphere-de-feu"
+  },
+  {
+    "id": "vitriolic-sphere",
+    "nameEn": "Vitriolic Sphere",
+    "nameFr": "Sphère de vitriol",
+    "slug": "sphere-de-vitriol",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-sphere-de-vitriol"
+  },
+  {
+    "id": "otilukes-freezing-sphere",
+    "nameEn": "Otiluke's Freezing Sphere",
+    "nameFr": "Sphère glacée d'Otiluke",
+    "slug": "sphere-glacee-d-otiluke",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Sphère glacée"
+    ],
+    "compendiumId": "spell-sphere-glacee"
+  },
+  {
+    "id": "otilukes-resilient-sphere",
+    "nameEn": "Otiluke's Resilient Sphere",
+    "nameFr": "Sphère résiliente d'Otiluke",
+    "slug": "sphere-resiliente-d-otiluke",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Sphère résiliente"
+    ],
+    "compendiumId": "spell-sphere-resiliente"
+  },
+  {
+    "id": "spare-the-dying",
+    "nameEn": "Spare the Dying",
+    "nameFr": "Stabilisation",
+    "slug": "stabilisation",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-stabilisation"
+  },
+  {
+    "id": "suggestion",
+    "nameEn": "Suggestion",
+    "nameFr": "Suggestion",
+    "slug": "suggestion",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-suggestion"
+  },
+  {
+    "id": "mass-suggestion",
+    "nameEn": "Mass Suggestion",
+    "nameFr": "Suggestion de groupe",
+    "slug": "suggestion-de-groupe",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-suggestion-de-groupe"
+  },
+  {
+    "id": "symbol",
+    "nameEn": "Symbol",
+    "nameFr": "Symbole",
+    "slug": "symbole",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-symbole"
+  },
+  {
+    "id": "telekinesis",
+    "nameEn": "Telekinesis",
+    "nameFr": "Télékinésie",
+    "slug": "telekinesie",
+    "level": 5,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-telekinesie"
+  },
+  {
+    "id": "telepathy",
+    "nameEn": "Telepathy",
+    "nameFr": "Télépathie",
+    "slug": "telepathie",
+    "level": 8,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "teleport",
+    "nameEn": "Teleport",
+    "nameFr": "Téléportation",
+    "slug": "teleportation",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-teleportation"
+  },
+  {
+    "id": "fire-storm",
+    "nameEn": "Fire Storm",
+    "nameFr": "Tempête de feu",
+    "slug": "tempete-de-feu",
+    "level": 7,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tempete-de-feu"
+  },
+  {
+    "id": "ice-storm",
+    "nameEn": "Ice Storm",
+    "nameFr": "Tempête de grêle",
+    "slug": "tempete-de-grele",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tempete-de-grele"
+  },
+  {
+    "id": "sleet-storm",
+    "nameEn": "Sleet Storm",
+    "nameFr": "Tempête de neige",
+    "slug": "tempete-de-neige",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tempete-de-neige"
+  },
+  {
+    "id": "jallarzis-storm-of-radiance",
+    "nameEn": "Jallarzi's Storm of Radiance",
+    "nameFr": "Tempête radieuse de Jallarzi",
+    "slug": "tempete-radieuse-de-jallarzi",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "storm-of-vengeance",
+    "nameEn": "Storm of Vengeance",
+    "nameFr": "Tempête vengeresse",
+    "slug": "tempete-vengeresse",
+    "level": 9,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tempete-vengeresse"
+  },
+  {
+    "id": "darkness",
+    "nameEn": "Darkness",
+    "nameFr": "Ténèbres",
+    "slug": "tenebres",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tenebres"
+  },
+  {
+    "id": "arms-of-hadar",
+    "nameEn": "Arms of Hadar",
+    "nameFr": "Tentacules de Hadar",
+    "slug": "tentacules-de-hadar",
+    "level": 1,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "evards-black-tentacles",
+    "nameEn": "Evard's Black Tentacles",
+    "nameFr": "Tentacules noirs d'Evard",
+    "slug": "tentacules-noirs-d-evard",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Tentacules noirs"
+    ],
+    "compendiumId": "spell-tentacules-noirs"
+  },
+  {
+    "id": "hallucinatory-terrain",
+    "nameEn": "Hallucinatory Terrain",
+    "nameFr": "Terrain hallucinatoire",
+    "slug": "terrain-hallucinatoire",
+    "level": 4,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-terrain-hallucinatoire"
+  },
+  {
+    "id": "illusory-script",
+    "nameEn": "Illusory Script",
+    "nameFr": "Texte illusoire",
+    "slug": "texte-illusoire",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-texte-illusoire"
+  },
+  {
+    "id": "thaumaturgy",
+    "nameEn": "Thaumaturgy",
+    "nameFr": "Thaumaturgie",
+    "slug": "thaumaturgie",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-thaumaturgie"
+  },
+  {
+    "id": "web",
+    "nameEn": "Web",
+    "nameFr": "Toile d'araignée",
+    "slug": "toile-d-araignee",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-toile-d-araignee"
+  },
+  {
+    "id": "fire-bolt",
+    "nameEn": "Fire Bolt",
+    "nameFr": "Trait de feu",
+    "slug": "trait-de-feu",
+    "level": 0,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-trait-de-feu"
+  },
+  {
+    "id": "witch-bolt",
+    "nameEn": "Witch Bolt",
+    "nameFr": "Trait ensorcelé",
+    "slug": "trait-ensorcele",
+    "level": 1,
+    "source": "PHB 2024",
+    "aliases": [
+      "Éclair de sorcière"
+    ]
+  },
+  {
+    "id": "earthquake",
+    "nameEn": "Earthquake",
+    "nameFr": "Tremblement de terre",
+    "slug": "tremblement-de-terre",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tremblement-de-terre"
+  },
+  {
+    "id": "tsunami",
+    "nameEn": "Tsunami",
+    "nameFr": "Tsunami",
+    "slug": "tsunami",
+    "level": 8,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-tsunami"
+  },
+  {
+    "id": "magic-jar",
+    "nameEn": "Magic Jar",
+    "nameFr": "Urne magique / Possession",
+    "slug": "urne-magique-possession",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Urne magique",
+      "Possession"
+    ],
+    "compendiumId": "spell-possession"
+  },
+  {
+    "id": "destructive-wave",
+    "nameEn": "Destructive Wave",
+    "nameFr": "Vague destructrice",
+    "slug": "vague-destructrice",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "thunderwave",
+    "nameEn": "Thunderwave",
+    "nameFr": "Vague tonnante",
+    "slug": "vague-tonnante",
+    "level": 1,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-vague-tonnante"
+  },
+  {
+    "id": "wind-walk",
+    "nameEn": "Wind Walk",
+    "nameFr": "Vent divin",
+    "slug": "vent-divin",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-vent-divin"
+  },
+  {
+    "id": "arcane-lock",
+    "nameEn": "Arcane Lock",
+    "nameFr": "Verrou arcanique / Verrou magique",
+    "slug": "verrou-arcanique-verrou-magique",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "aliases": [
+      "Verrou arcanique",
+      "Verrou magique"
+    ],
+    "compendiumId": "spell-verrou-magique"
+  },
+  {
+    "id": "swift-quiver",
+    "nameEn": "Swift Quiver",
+    "nameFr": "Vif carquois",
+    "slug": "vif-carquois",
+    "level": 5,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "arcane-vigor",
+    "nameEn": "Arcane Vigor",
+    "nameFr": "Vigueur arcanique",
+    "slug": "vigueur-arcanique",
+    "level": 2,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "darkvision",
+    "nameEn": "Darkvision",
+    "nameFr": "Vision dans le noir",
+    "slug": "vision-dans-le-noir",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-vision-dans-le-noir"
+  },
+  {
+    "id": "true-seeing",
+    "nameEn": "True Seeing",
+    "nameFr": "Vision suprême",
+    "slug": "vision-supreme",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-vision-supreme"
+  },
+  {
+    "id": "transport-via-plants",
+    "nameEn": "Transport via Plants",
+    "nameFr": "Voie végétale",
+    "slug": "voie-vegetale",
+    "level": 6,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-voie-vegetale"
+  },
+  {
+    "id": "blade-ward",
+    "nameEn": "Blade Ward",
+    "nameFr": "Voile défensif",
+    "slug": "voile-defensif",
+    "level": 0,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "fly",
+    "nameEn": "Fly",
+    "nameFr": "Vol",
+    "slug": "vol",
+    "level": 3,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-vol"
+  },
+  {
+    "id": "hunger-of-hadar",
+    "nameEn": "Hunger of Hadar",
+    "nameFr": "Voracité de Hadar",
+    "slug": "voracite-de-hadar",
+    "level": 3,
+    "source": "PHB 2024"
+  },
+  {
+    "id": "zone-of-truth",
+    "nameEn": "Zone of Truth",
+    "nameFr": "Zone de vérité",
+    "slug": "zone-de-verite",
+    "level": 2,
+    "source": "SRD 5.2.1",
+    "compendiumId": "spell-zone-de-verite"
+  }
+]

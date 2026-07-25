@@ -52,4 +52,15 @@ describe("sheet enhancement", () => {
     enhanceSheet(document, { enabled: true, bilingual: true });
     expect(document.querySelector(".dd55-content-translation")).toBeNull();
   });
+  it("ne crée pas de référence de sort dans les commandes de points de vie", () => {
+    document.body.innerHTML = `<section class="health-panel"><h2>HIT POINTS</h2><div><span>Current</span><span>Max</span><span>Temp</span></div><div><button>Damage</button><button id="heal-control">Heal</button></div></section>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("#heal-control")?.textContent).toContain("Soigner");
+    expect(document.querySelector(".dd55-reference")).toBeNull();
+  });
+  it("conserve la référence du sort Heal dans une vraie liste de sorts", () => {
+    document.body.innerHTML = `<section><h2>Spells</h2><div role="row"><h3 id="heal-spell">Heal</h3><p>A creature regains Hit Points.</p></div></section>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("#heal-spell .dd55-reference")).not.toBeNull();
+  });
 });

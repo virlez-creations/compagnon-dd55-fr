@@ -7,6 +7,8 @@ dist/
 # Test and coverage output
 coverage/
 .nyc_output/
+test-results/
+playwright-report/
 
 # Tool caches
 .cache/
@@ -44,6 +46,7 @@ venv/
 
 # Local archives and temporary files
 *.tgz
+releases/*.zip
 *.tmp
 *.temp
 *~

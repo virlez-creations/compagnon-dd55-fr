@@ -1,20 +1,24 @@
 {
   "name": "compagnon-dd55-fr",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "vite build --watch",
-    "test": "vitest run",
+    "test": "vitest run --exclude tests/e2e/**",
+    "test:e2e": "npm run build && playwright test",
+    "icons": "node scripts/generate-icons.mjs",
+    "package": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
     "@types/chrome": "^0.0.287",
     "@types/node": "^22.10.2",
     "jsdom": "^25.0.1",
     "typescript": "^5.7.2",
     "vite": "^6.0.3",
-    "vitest": "^2.1.8"
+    "vitest": "^4.1.10"
   }
 }
