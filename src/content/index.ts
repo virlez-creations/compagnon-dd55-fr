@@ -14,9 +14,23 @@ async function loadPreferences(): Promise<Preferences> {
   return { ...defaults, ...(await chrome.storage.local.get(defaults)) } as Preferences;
 }
 
-function processDocument(force = false): void {
-  if (!force && !sheetDetected && !isDnd2024Sheet()) return;
-  sheetDetected = true;
+function ensurePanel(): void {
+  if (window.top !== window) return;
+  mountPanel(preferences, (next) => {
+    preferences = next;
+    if (globalThis.chrome?.storage?.local) void chrome.storage.local.set(next);
+    document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
+    processDocument();
+  });
+}
+
+function processDocument(): void {
+  if (!sheetDetected) {
+    if (!isDnd2024Sheet()) return;
+    sheetDetected = true;
+    if (window.top === window) ensurePanel();
+    else if (globalThis.chrome?.runtime) void chrome.runtime.sendMessage({ type: "DD55_SHEET_DETECTED" });
+  }
   pendingRoots.clear();
   enhanceSheet(document, preferences);
 }
@@ -49,14 +63,6 @@ function scheduleFlush(): void {
 
 async function start(): Promise<void> {
   preferences = await loadPreferences();
-  if (window.top === window) {
-    mountPanel(preferences, (next) => {
-      preferences = next;
-      if (globalThis.chrome?.storage?.local) void chrome.storage.local.set(next);
-      document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
-      processDocument(true);
-    });
-  }
   processDocument();
   new MutationObserver((mutations) => {
     for (const mutation of mutations) {
@@ -79,7 +85,12 @@ async function start(): Promise<void> {
   if (globalThis.chrome?.runtime?.onMessage) {
     chrome.runtime.onMessage.addListener((message: unknown) => {
       if (!message || typeof message !== "object") return;
+      if ((message as { type?: string }).type === "DD55_ENABLE_COMPANION") {
+        ensurePanel();
+        return;
+      }
       if ((message as { type?: string }).type === "DD55_SHOW_ENTRY") {
+        ensurePanel();
         const entryId = (message as { entryId?: string }).entryId;
         if (entryId) document.dispatchEvent(new CustomEvent("dd55:open-entry", { detail: entryId }));
         return;
@@ -88,7 +99,8 @@ async function start(): Promise<void> {
       preferences = { ...preferences, enabled: true };
       if (globalThis.chrome?.storage?.local) void chrome.storage.local.set(preferences);
       document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
-      processDocument(true);
+      processDocument();
+      if (!sheetDetected) return;
       const previous = document.querySelector("#dd55-toast");
       previous?.remove();
       const toast = document.createElement("div");

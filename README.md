@@ -46,6 +46,7 @@ Vous pouvez également faire un clic droit dans la fiche et sélectionner **Trad
 npm test
 npm run typecheck
 npm run build
+npm run test:e2e
 ```
 
 Pour reconstruire automatiquement pendant le développement :
@@ -65,6 +66,14 @@ python scripts/build-compendium.py
 ```
 
 Les scripts produisent les données structurées utilisées par l’extension dans `src/data/`.
+
+## Paquet installable
+
+```bash
+npm run package
+```
+
+L'archive prête à distribuer est générée dans `releases/`. Consultez aussi [la checklist de publication](docs/RELEASE-CHECKLIST.md), [la politique de confidentialité](PRIVACY.md) et [les attributions](THIRD_PARTY_NOTICES.md).
 
 ## Confidentialité
 

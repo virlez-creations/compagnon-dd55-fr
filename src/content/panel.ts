@@ -11,6 +11,7 @@ const spellClassNames = [...new Set(compendiumEntries
   .flatMap(entry => (entry.meta.Classes ?? "").split(", ").filter(Boolean)))].sort((a, b) => a.localeCompare(b, "fr"));
 const spellLevels = ["Mineur", ...Array.from({ length: 9 }, (_, index) => String(index + 1))];
 function hasLocalEntry(item: Reference, kind: "spell" | "feat"): boolean {
+  if (item.compendiumId) return true;
   return [item.nameFr, item.nameEn, ...(item.aliases ?? [])].some(name => findCompendiumEntry(name, kind));
 }
 const externalReferenceCatalog: ExternalReference[] = [
@@ -87,6 +88,8 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
   let currentQuery = "";
   let activeSpellClass = "";
   let activeSpellLevel = "";
+  let displayLimit = 80;
+  let listRendered = false;
 
   const launcher = document.createElement("button");
   launcher.id = "dd55-launcher"; launcher.type = "button"; launcher.textContent = "📖 D&D 5.5 FR"; launcher.setAttribute("aria-expanded", "false");
@@ -104,6 +107,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
   const clearSpellFilters = panel.querySelector<HTMLButtonElement>("[data-clear-spell-filters]")!;
 
   const renderList = () => {
+    listRendered = true;
     let matchingEntries = activeType === "classes"
       ? [...searchCompendium(currentQuery, "class", 1000), ...searchCompendium(currentQuery, "subclass", 1000)].sort((a, b) => a.title.localeCompare(b.title, "fr"))
       : searchCompendium(currentQuery, activeType, 1000);
@@ -111,23 +115,25 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
       (!activeSpellClass || entry.tags.includes(activeSpellClass)) &&
       (!activeSpellLevel || entry.meta.Niveau === activeSpellLevel)
     );
-    const entries = activeType === "spell" || activeType === "feat" ? matchingEntries : matchingEntries.slice(0, 80);
     let externalMatches = activeType === "spell" && activeSpellClass ? [] : externalReferences(currentQuery, activeType);
     if (activeType === "spell" && activeSpellLevel) {
       const wantedLevel = activeSpellLevel === "Mineur" ? 0 : Number(activeSpellLevel);
       externalMatches = externalMatches.filter(({ item }) => item.level === wantedLevel);
     }
-    const external = activeType === "spell" || activeType === "feat" ? externalMatches : externalMatches.slice(0, currentQuery ? 20 : 8);
     const resultCount = matchingEntries.length + externalMatches.length;
     panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? "Classes et sous-classes" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
     panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${resultCount} référence${resultCount > 1 ? "s" : ""}`;
     clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel);
-    const cards = [
-      ...entries.map(entry => ({ title: entry.title, html: renderEntryCard(entry) })),
-      ...external.map(reference => ({ title: reference.item.nameFr, html: renderExternalCard(reference) }))
+    let cards = [
+      ...matchingEntries.map(entry => ({ title: entry.title, html: renderEntryCard(entry) })),
+      ...externalMatches.map(reference => ({ title: reference.item.nameFr, html: renderExternalCard(reference) }))
     ];
     if (activeType === "feat" || activeType === "spell") cards.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    const maximum = displayLimit;
+    const remaining = Math.max(0, cards.length - maximum);
+    cards = cards.slice(0, maximum);
     results.innerHTML = cards.map(card => card.html).join("") || `<p class="dd55-empty">Aucune fiche trouvée.</p>`;
+    if (remaining) results.insertAdjacentHTML("beforeend", `<button type="button" class="dd55-load-more" data-load-more>Afficher ${Math.min(80, remaining)} références de plus <small>${remaining} restantes</small></button>`);
   };
 
   const showEntry = (entry: CompendiumEntry) => {
@@ -142,8 +148,12 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
     panel.scrollTop = 0;
   };
 
-  renderList();
   results.addEventListener("click", event => {
+    if ((event.target as Element).closest("[data-load-more]")) {
+      displayLimit += 80;
+      renderList();
+      return;
+    }
     const external = (event.target as Element).closest<HTMLElement>("[data-external-url]");
     if (external?.dataset.externalUrl) {
       event.preventDefault();
@@ -166,15 +176,16 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
     const button = (event.target as Element).closest<HTMLButtonElement>("[data-type]");
     if (!button) return;
     activeType = (button.dataset.type || undefined) as CompendiumFilter | undefined;
+    displayLimit = 80;
     spellFilters.hidden = activeType !== "spell";
     panel.querySelectorAll(".dd55-tabs button").forEach(item => item.classList.toggle("is-active", item === button));
     renderList();
   });
-  spellClass.addEventListener("change", () => { activeSpellClass = spellClass.value; renderList(); });
-  spellLevel.addEventListener("change", () => { activeSpellLevel = spellLevel.value; renderList(); });
-  clearSpellFilters.addEventListener("click", () => { activeSpellClass = ""; activeSpellLevel = ""; spellClass.value = ""; spellLevel.value = ""; renderList(); });
-  search.addEventListener("input", () => { currentQuery = search.value.trim(); renderList(); });
-  launcher.addEventListener("click", () => { panel.hidden = !panel.hidden; launcher.setAttribute("aria-expanded", String(!panel.hidden)); if (!panel.hidden) search.focus(); });
+  spellClass.addEventListener("change", () => { activeSpellClass = spellClass.value; displayLimit = 80; renderList(); });
+  spellLevel.addEventListener("change", () => { activeSpellLevel = spellLevel.value; displayLimit = 80; renderList(); });
+  clearSpellFilters.addEventListener("click", () => { activeSpellClass = ""; activeSpellLevel = ""; spellClass.value = ""; spellLevel.value = ""; displayLimit = 80; renderList(); });
+  search.addEventListener("input", () => { currentQuery = search.value.trim(); displayLimit = 80; renderList(); });
+  launcher.addEventListener("click", () => { panel.hidden = !panel.hidden; launcher.setAttribute("aria-expanded", String(!panel.hidden)); if (!panel.hidden) { if (!listRendered) renderList(); search.focus(); } });
   panel.querySelector("[data-close]")?.addEventListener("click", () => { panel.hidden = true; launcher.setAttribute("aria-expanded", "false"); });
   panel.addEventListener("change", event => {
     if (!(event.target as Element).matches("[data-enabled], [data-bilingual]")) return;

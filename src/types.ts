@@ -4,6 +4,7 @@ export interface Reference {
   nameFr: string;
   slug: string;
   aliases?: string[];
+  compendiumId?: string;
   level?: number;
   category?: string;
   source?: string;
