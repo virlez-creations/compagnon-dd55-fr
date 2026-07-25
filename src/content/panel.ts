@@ -4,11 +4,24 @@ import { compendiumEntries, findCompendiumEntry, searchCompendium, type Compendi
 import type { Preferences, Reference } from "../types";
 
 type CompendiumFilter = CompendiumType | "classes";
+type ExternalReference = { item: Reference; kind: "spell" | "feat" };
 const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe" };
 const spellClassNames = [...new Set(compendiumEntries
   .filter(entry => entry.type === "spell")
   .flatMap(entry => (entry.meta.Classes ?? "").split(", ").filter(Boolean)))].sort((a, b) => a.localeCompare(b, "fr"));
 const spellLevels = ["Mineur", ...Array.from({ length: 9 }, (_, index) => String(index + 1))];
+function hasLocalEntry(item: Reference, kind: "spell" | "feat"): boolean {
+  return [item.nameFr, item.nameEn, ...(item.aliases ?? [])].some(name => findCompendiumEntry(name, kind));
+}
+const externalReferenceCatalog: ExternalReference[] = [
+  ...spells.map(item => ({ item, kind: "spell" as const })),
+  ...feats.map(item => ({ item, kind: "feat" as const }))
+].filter(({ item, kind }) => !hasLocalEntry(item, kind));
+const localFeatCount = compendiumEntries.filter(entry => entry.type === "feat").length;
+const featReferenceCount = localFeatCount + externalReferenceCatalog.filter(reference => reference.kind === "feat").length;
+const localSpellCount = compendiumEntries.filter(entry => entry.type === "spell").length;
+const spellReferenceCount = localSpellCount + externalReferenceCatalog.filter(reference => reference.kind === "spell").length;
+const totalReferenceCount = compendiumEntries.length + externalReferenceCatalog.length;
 
 function escapeHtml(value: string): string {
   const element = document.createElement("span");
@@ -16,24 +29,32 @@ function escapeHtml(value: string): string {
   return element.innerHTML;
 }
 
-function externalReferences(query: string, type?: CompendiumFilter): Array<{ item: Reference; kind: "spell" | "feat" }> {
+function externalReferences(query: string, type?: CompendiumFilter): ExternalReference[] {
   if (type === "classes" || type === "class" || type === "subclass") return [];
   const normalized = normalizeName(query);
-  const groups: Array<{ item: Reference; kind: "spell" | "feat" }> = [
-    ...spells.map(item => ({ item, kind: "spell" as const })),
-    ...feats.map(item => ({ item, kind: "feat" as const }))
-  ];
-  return groups.filter(({ item, kind }) =>
+  return externalReferenceCatalog.filter(({ item, kind }) =>
     (!type || type === kind) &&
-    !findCompendiumEntry(item.nameFr, kind) &&
-    (!normalized || normalizeName(`${item.nameFr} ${item.nameEn}`).includes(normalized))
-  ).slice(0, normalized ? 20 : 8);
+    (!normalized || normalizeName(`${item.nameFr} ${item.nameEn} ${(item.aliases ?? []).join(" ")}`).includes(normalized))
+  );
 }
 
 function renderEntryCard(entry: CompendiumEntry): string {
   const summary = entry.sections[0]?.content ?? "";
   const icon = entry.type === "spell" ? "✦" : entry.type === "feat" ? "◆" : entry.type === "class" ? "♜" : entry.type === "subclass" ? "♟" : "§";
   return `<button type="button" class="dd55-entry-card" data-entry-id="${entry.id}"><span class="dd55-entry-icon" data-kind="${entry.type}">${icon}</span><span class="dd55-entry-main"><strong>${escapeHtml(entry.title)}</strong><small>${escapeHtml(entry.subtitle)}</small>${summary ? `<span>${escapeHtml(summary.slice(0, 130))}${summary.length > 130 ? "…" : ""}</span>` : ""}</span><span class="dd55-chevron">›</span></button>`;
+}
+
+function renderExternalCard({ item, kind }: ExternalReference): string {
+  const subtype = kind === "spell" ? item.level === 0 ? "Sort mineur" : `Sort de niveau ${item.level}` : "Don";
+  return `<button type="button" class="dd55-entry-card dd55-external" data-external-url="${referenceUrl(kind, item)}"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${escapeHtml(item.nameFr)}</strong><small>${subtype} · ${escapeHtml(item.nameEn)}</small><span>Absent du SRD · consulter sur AideDD</span></span></button>`;
+}
+
+function openExternalUrl(url: string): void {
+  if (typeof globalThis.chrome !== "undefined") {
+    void chrome.runtime.sendMessage({ type: "DD55_OPEN_EXTERNAL", url });
+    return;
+  }
+  window.open(url, "_blank", "noopener,noreferrer");
 }
 
 function renderPresentation(entry: CompendiumEntry, content: string): string {
@@ -70,7 +91,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
   const launcher = document.createElement("button");
   launcher.id = "dd55-launcher"; launcher.type = "button"; launcher.textContent = "📖 D&D 5.5 FR"; launcher.setAttribute("aria-expanded", "false");
   const panel = document.createElement("aside"); panel.id = "dd55-companion"; panel.hidden = true;
-  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><details class="dd55-settings"><summary>Réglages de la feuille</summary><label><input type="checkbox" data-enabled ${preferences.enabled ? "checked" : ""}> Traduire la feuille</label><label><input type="checkbox" data-bilingual ${preferences.bilingual ? "checked" : ""}> Conserver les noms anglais</label></details><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une classe, un sort…" aria-label="Recherche dans le compendium"></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="" class="is-active">Tout <small>${compendiumEntries.length}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="spell">Sorts <small>${compendiumEntries.filter(e => e.type === "spell").length}</small></button><button type="button" data-type="feat">Dons <small>${compendiumEntries.filter(e => e.type === "feat").length}</small></button></nav><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count></span></div><div data-results class="dd55-entry-list"></div></div><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
+  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><details class="dd55-settings"><summary>Réglages de la feuille</summary><label><input type="checkbox" data-enabled ${preferences.enabled ? "checked" : ""}> Traduire la feuille</label><label><input type="checkbox" data-bilingual ${preferences.bilingual ? "checked" : ""}> Conserver les noms anglais</label></details><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une classe, un sort…" aria-label="Recherche dans le compendium"></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="" class="is-active">Tout <small>${totalReferenceCount}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="spell">Sorts <small>${spellReferenceCount}</small></button><button type="button" data-type="feat">Dons <small>${featReferenceCount}</small></button></nav><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count></span></div><div data-results class="dd55-entry-list"></div></div><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
   document.body.append(launcher, panel);
 
   const home = panel.querySelector<HTMLElement>("[data-home]")!;
@@ -90,14 +111,23 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
       (!activeSpellClass || entry.tags.includes(activeSpellClass)) &&
       (!activeSpellLevel || entry.meta.Niveau === activeSpellLevel)
     );
-    const entries = matchingEntries.slice(0, 80);
-    const external = activeType === "spell" && (activeSpellClass || activeSpellLevel) ? [] : externalReferences(currentQuery, activeType);
-    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? "Classes et sous-classes" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
-    panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${matchingEntries.length} fiche${matchingEntries.length > 1 ? "s" : ""}`;
+    const entries = activeType === "spell" || activeType === "feat" ? matchingEntries : matchingEntries.slice(0, 80);
+    let externalMatches = activeType === "spell" && activeSpellClass ? [] : externalReferences(currentQuery, activeType);
+    if (activeType === "spell" && activeSpellLevel) {
+      const wantedLevel = activeSpellLevel === "Mineur" ? 0 : Number(activeSpellLevel);
+      externalMatches = externalMatches.filter(({ item }) => item.level === wantedLevel);
+    }
+    const external = activeType === "spell" || activeType === "feat" ? externalMatches : externalMatches.slice(0, currentQuery ? 20 : 8);
+    const resultCount = matchingEntries.length + externalMatches.length;
+    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? "Classes et sous-classes" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
+    panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${resultCount} référence${resultCount > 1 ? "s" : ""}`;
     clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel);
-    const localCards = entries.map(renderEntryCard).join("");
-    const links = external.map(({ item, kind }) => `<a class="dd55-entry-card dd55-external" href="${referenceUrl(kind, item)}" target="_blank" rel="noopener noreferrer"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${escapeHtml(item.nameFr)}</strong><small>${kind === "spell" ? "Sort" : "Don"} · ${escapeHtml(item.nameEn)}</small><span>Absent du SRD · consulter sur AideDD</span></span></a>`).join("");
-    results.innerHTML = localCards + links || `<p class="dd55-empty">Aucune fiche trouvée.</p>`;
+    const cards = [
+      ...entries.map(entry => ({ title: entry.title, html: renderEntryCard(entry) })),
+      ...external.map(reference => ({ title: reference.item.nameFr, html: renderExternalCard(reference) }))
+    ];
+    if (activeType === "feat" || activeType === "spell") cards.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    results.innerHTML = cards.map(card => card.html).join("") || `<p class="dd55-empty">Aucune fiche trouvée.</p>`;
   };
 
   const showEntry = (entry: CompendiumEntry) => {
@@ -114,6 +144,13 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
 
   renderList();
   results.addEventListener("click", event => {
+    const external = (event.target as Element).closest<HTMLElement>("[data-external-url]");
+    if (external?.dataset.externalUrl) {
+      event.preventDefault();
+      event.stopPropagation();
+      openExternalUrl(external.dataset.externalUrl);
+      return;
+    }
     const target = (event.target as Element).closest<HTMLElement>("[data-entry-id]");
     const entry = target && compendiumEntries.find(item => item.id === target.dataset.entryId);
     if (entry) showEntry(entry);
