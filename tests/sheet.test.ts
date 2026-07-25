@@ -13,4 +13,35 @@ describe("sheet enhancement", () => {
   it("traduit les nœuds imbriqués et les libellés abrégés", () => { document.body.innerHTML = `<div><section><strong><span>ABILITIES</span></strong></section><div>Short</div></div>`; enhanceSheet(document, { enabled: true, bilingual: true }); expect(document.body.textContent).toContain("CARACTÉRISTIQUES"); expect(document.body.textContent).toContain("Court"); });
   it("traduit les actions, états et capacités quelle que soit la casse", () => { document.body.innerHTML = `<div><span>BLINDED</span><span>Dash</span><span>Extra Attack</span><span>Class Features</span></div>`; enhanceSheet(document, { enabled: true, bilingual: true }); expect(document.body.textContent).toContain("Aveuglé"); expect(document.body.textContent).toContain("Foncer"); expect(document.body.textContent).toContain("Attaque supplémentaire"); expect(document.body.textContent).toContain("Capacités de classe"); });
   it("traduit les libellés dynamiques de Roll20", () => { document.body.innerHTML = `<div><span>+8 Attack</span><span>30/120 ft</span><span>Level 4+</span><span>Prerequisite: Fighting Style Feature</span><span>New Item (Attack 2)</span></div>`; enhanceSheet(document, { enabled: true, bilingual: true }); const text = document.body.textContent ?? ""; expect(text).toContain("+8 Attaque"); expect(text).toContain("30/120 pi"); expect(text).toContain("Niveau 4+"); expect(text).toContain("Prérequis : don Style de combat"); expect(text).toContain("Nouvel objet (Attaque 2)"); });
+  it("traduit automatiquement les noms anglais issus du catalogue", () => {
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("button")?.childNodes[0].textContent).toBe("Projectile magique");
+  });
+  it("garde seulement le lien compact vers un sort développé", () => {
+    document.body.innerHTML = `<div role="row"><h3>Fireball</h3><p>A bright streak flashes from your pointing finger to a point you choose within range and then blossoms with a low roar into an explosion of flame.</p></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("h3")?.childNodes[0].textContent).toBe("Boule de feu");
+    expect(document.querySelector("[data-dd55-open='spell-boule-de-feu']")).not.toBeNull();
+    expect(document.querySelector(".dd55-content-translation")).toBeNull();
+  });
+  it("reconnaît les noms de sorts imbriqués dans la structure réelle de Roll20", () => {
+    document.body.innerHTML = `<div class="spell-row"><div class="spell-header"><span class="spell-name">Cure Wounds</span><span>Touch</span></div><div class="spell-details"><div>Duration: Instantaneous</div><div class="description">A creature you touch regains a number of Hit Points equal to 2d8 plus your spellcasting ability modifier.</div></div></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    const name = document.querySelector<HTMLElement>(".spell-name")!;
+    expect(name.childNodes[0].textContent).toBe("Soins");
+    expect(name.querySelector("[data-dd55-open='spell-soins']")).not.toBeNull();
+    expect(document.querySelector(".dd55-content-translation")).toBeNull();
+  });
+  it("relie une aptitude à la bonne fiche de classe sans aperçu", () => {
+    document.body.innerHTML = `<div>Ranger 4 - Hunter</div><div role="row"><h3>Favored Enemy</h3><p>You always have the Hunter's Mark spell prepared. You can cast it twice without expending a spell slot and regain all uses after a Long Rest.</p></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: false });
+    expect(document.querySelector("h3")?.childNodes[0].textContent).toBe("Ennemi juré");
+    expect(document.querySelector("[data-dd55-open='class-rodeur']")).not.toBeNull();
+    expect(document.querySelector(".dd55-content-translation")).toBeNull();
+  });
+  it("retire les anciens aperçus déjà présents dans la page", () => {
+    document.body.innerHTML = `<div role="row"><h3>Fireball</h3><details class="dd55-content-translation"><summary>Version française SRD</summary></details></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector(".dd55-content-translation")).toBeNull();
+  });
 });

@@ -29,7 +29,11 @@ export interface CompendiumEntry {
 
 export const compendiumEntries = data.entries as CompendiumEntry[];
 
-const titleIndex = new Map(compendiumEntries.map(entry => [normalizeName(entry.title), entry]));
+const titleIndex = new Map<string, CompendiumEntry[]>();
+for (const entry of compendiumEntries) {
+  const key = normalizeName(entry.title);
+  titleIndex.set(key, [...(titleIndex.get(key) ?? []), entry]);
+}
 const aliases: Record<string, string> = {
   "fleche acide de melf": "Flèche acide",
   "eclair tracant": "Rayon traçant",
@@ -41,8 +45,8 @@ const aliases: Record<string, string> = {
 export function findCompendiumEntry(name: string, type?: CompendiumType): CompendiumEntry | undefined {
   const normalized = normalizeName(name);
   const canonical = aliases[normalized] ? normalizeName(aliases[normalized]) : normalized;
-  const entry = titleIndex.get(canonical);
-  return entry && (!type || entry.type === type) ? entry : undefined;
+  const entries = titleIndex.get(canonical) ?? [];
+  return type ? entries.find(entry => entry.type === type) : entries[0];
 }
 
 export function searchCompendium(query: string, type?: CompendiumType, limit = 80): CompendiumEntry[] {

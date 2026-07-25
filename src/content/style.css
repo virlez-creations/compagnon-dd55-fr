@@ -19,6 +19,15 @@
 .dd55-tabs button { display: flex; justify-content: center; gap: 5px; border: 1px solid transparent; border-radius: 7px; background: transparent; color: #6b6255; padding: 7px 4px; font: 650 12px system-ui; cursor: pointer; }
 .dd55-tabs button small { color: #9b8d78; font-size: 10px; }
 .dd55-tabs button.is-active { border-color: #e5c98e; background: #fff0c9; color: var(--dd55-red); }
+.dd55-spell-filters { margin: 0 12px 10px; padding: 10px; border: 1px solid #dfcda9; border-radius: 10px; background: linear-gradient(135deg, #fff9eb, #f7ecd6); }
+.dd55-spell-filters > div:first-child { display: flex; align-items: center; justify-content: space-between; margin-bottom: 7px; }
+.dd55-spell-filters > div:first-child > span { color: var(--dd55-red); font: 700 13px Georgia, serif; }
+#dd55-companion .dd55-spell-filters button { border: 0; background: transparent; color: #8f1d1d; padding: 2px 0; font: 650 10px system-ui; text-decoration: underline; cursor: pointer; }
+.dd55-filter-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dd55-filter-fields label { min-width: 0; }
+.dd55-filter-fields label > span { display: block; margin: 0 0 3px 2px; color: #786b58; font-size: 9px; font-weight: 750; letter-spacing: .06em; text-transform: uppercase; }
+#dd55-companion .dd55-filter-fields select { box-sizing: border-box; width: 100%; min-width: 0; border: 1px solid #cbb995; border-radius: 7px; background: #fffdf8; color: #332e28; padding: 7px 25px 7px 8px; font: 11px system-ui; outline: none; }
+#dd55-companion .dd55-filter-fields select:focus { border-color: var(--dd55-red); box-shadow: 0 0 0 2px #8f1d1d1c; }
 .dd55-result-heading { display: flex; align-items: baseline; justify-content: space-between; padding: 12px 16px 8px; }
 .dd55-result-heading strong { font: 700 15px Georgia, serif; }
 .dd55-result-heading span { color: #8a8175; font-size: 11px; }

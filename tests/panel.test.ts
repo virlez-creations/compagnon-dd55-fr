@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from "vitest";
 import { mountPanel } from "../src/content/panel";
+import { compendiumEntries } from "../src/services/srd-compendium";
 
 describe("compendium SRD local", () => {
   beforeEach(() => { document.body.innerHTML = ""; });
@@ -66,5 +67,26 @@ describe("compendium SRD local", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     search("Chanceux");
     expect(document.querySelector("a[href*='/feat/fr/chanceux']")).not.toBeNull();
+  });
+
+  it("filtre les sorts simultanément par classe et par niveau", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    const filters = document.querySelector<HTMLElement>("[data-spell-filters]")!;
+    expect(filters.hidden).toBe(false);
+    const classSelect = document.querySelector<HTMLSelectElement>("[data-spell-class]")!;
+    const levelSelect = document.querySelector<HTMLSelectElement>("[data-spell-level]")!;
+    classSelect.value = "Magicien";
+    classSelect.dispatchEvent(new Event("change"));
+    levelSelect.value = "3";
+    levelSelect.dispatchEvent(new Event("change"));
+    const ids = [...document.querySelectorAll<HTMLElement>("[data-results] [data-entry-id]")].map(element => element.dataset.entryId);
+    expect(ids.length).toBeGreaterThan(0);
+    for (const id of ids) {
+      const entry = compendiumEntries.find(item => item.id === id)!;
+      expect(entry.tags).toContain("Magicien");
+      expect(entry.meta.Niveau).toBe("3");
+    }
+    expect(document.querySelector("[data-results] .dd55-external")).toBeNull();
   });
 });

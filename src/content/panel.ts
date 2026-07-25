@@ -5,6 +5,10 @@ import type { Preferences, Reference } from "../types";
 
 type CompendiumFilter = CompendiumType | "classes";
 const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe" };
+const spellClassNames = [...new Set(compendiumEntries
+  .filter(entry => entry.type === "spell")
+  .flatMap(entry => (entry.meta.Classes ?? "").split(", ").filter(Boolean)))].sort((a, b) => a.localeCompare(b, "fr"));
+const spellLevels = ["Mineur", ...Array.from({ length: 9 }, (_, index) => String(index + 1))];
 
 function escapeHtml(value: string): string {
   const element = document.createElement("span");
@@ -60,25 +64,37 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
   if (document.querySelector("#dd55-companion")) return;
   let activeType: CompendiumFilter | undefined;
   let currentQuery = "";
+  let activeSpellClass = "";
+  let activeSpellLevel = "";
 
   const launcher = document.createElement("button");
   launcher.id = "dd55-launcher"; launcher.type = "button"; launcher.textContent = "📖 D&D 5.5 FR"; launcher.setAttribute("aria-expanded", "false");
   const panel = document.createElement("aside"); panel.id = "dd55-companion"; panel.hidden = true;
-  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><details class="dd55-settings"><summary>Réglages de la feuille</summary><label><input type="checkbox" data-enabled ${preferences.enabled ? "checked" : ""}> Traduire la feuille</label><label><input type="checkbox" data-bilingual ${preferences.bilingual ? "checked" : ""}> Conserver les noms anglais</label></details><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une classe, un sort…" aria-label="Recherche dans le compendium"></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="" class="is-active">Tout <small>${compendiumEntries.length}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="spell">Sorts <small>${compendiumEntries.filter(e => e.type === "spell").length}</small></button><button type="button" data-type="feat">Dons <small>${compendiumEntries.filter(e => e.type === "feat").length}</small></button></nav><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count></span></div><div data-results class="dd55-entry-list"></div></div><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
+  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><details class="dd55-settings"><summary>Réglages de la feuille</summary><label><input type="checkbox" data-enabled ${preferences.enabled ? "checked" : ""}> Traduire la feuille</label><label><input type="checkbox" data-bilingual ${preferences.bilingual ? "checked" : ""}> Conserver les noms anglais</label></details><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une classe, un sort…" aria-label="Recherche dans le compendium"></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="" class="is-active">Tout <small>${compendiumEntries.length}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="spell">Sorts <small>${compendiumEntries.filter(e => e.type === "spell").length}</small></button><button type="button" data-type="feat">Dons <small>${compendiumEntries.filter(e => e.type === "feat").length}</small></button></nav><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count></span></div><div data-results class="dd55-entry-list"></div></div><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
   document.body.append(launcher, panel);
 
   const home = panel.querySelector<HTMLElement>("[data-home]")!;
   const results = panel.querySelector<HTMLElement>("[data-results]")!;
   const detail = panel.querySelector<HTMLElement>("[data-detail]")!;
   const search = panel.querySelector<HTMLInputElement>("[data-search]")!;
+  const spellFilters = panel.querySelector<HTMLElement>("[data-spell-filters]")!;
+  const spellClass = panel.querySelector<HTMLSelectElement>("[data-spell-class]")!;
+  const spellLevel = panel.querySelector<HTMLSelectElement>("[data-spell-level]")!;
+  const clearSpellFilters = panel.querySelector<HTMLButtonElement>("[data-clear-spell-filters]")!;
 
   const renderList = () => {
-    const entries = activeType === "classes"
-      ? [...searchCompendium(currentQuery, "class", 80), ...searchCompendium(currentQuery, "subclass", 80)].sort((a, b) => a.title.localeCompare(b.title, "fr")).slice(0, 80)
-      : searchCompendium(currentQuery, activeType, 80);
-    const external = externalReferences(currentQuery, activeType);
+    let matchingEntries = activeType === "classes"
+      ? [...searchCompendium(currentQuery, "class", 1000), ...searchCompendium(currentQuery, "subclass", 1000)].sort((a, b) => a.title.localeCompare(b.title, "fr"))
+      : searchCompendium(currentQuery, activeType, 1000);
+    if (activeType === "spell") matchingEntries = matchingEntries.filter(entry =>
+      (!activeSpellClass || entry.tags.includes(activeSpellClass)) &&
+      (!activeSpellLevel || entry.meta.Niveau === activeSpellLevel)
+    );
+    const entries = matchingEntries.slice(0, 80);
+    const external = activeType === "spell" && (activeSpellClass || activeSpellLevel) ? [] : externalReferences(currentQuery, activeType);
     panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? "Classes et sous-classes" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
-    panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${entries.length}${entries.length === 80 ? "+" : ""} fiche${entries.length > 1 ? "s" : ""}`;
+    panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${matchingEntries.length} fiche${matchingEntries.length > 1 ? "s" : ""}`;
+    clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel);
     const localCards = entries.map(renderEntryCard).join("");
     const links = external.map(({ item, kind }) => `<a class="dd55-entry-card dd55-external" href="${referenceUrl(kind, item)}" target="_blank" rel="noopener noreferrer"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${escapeHtml(item.nameFr)}</strong><small>${kind === "spell" ? "Sort" : "Don"} · ${escapeHtml(item.nameEn)}</small><span>Absent du SRD · consulter sur AideDD</span></span></a>`).join("");
     results.innerHTML = localCards + links || `<p class="dd55-empty">Aucune fiche trouvée.</p>`;
@@ -113,13 +129,20 @@ export function mountPanel(preferences: Preferences, onChange: (next: Preference
     const button = (event.target as Element).closest<HTMLButtonElement>("[data-type]");
     if (!button) return;
     activeType = (button.dataset.type || undefined) as CompendiumFilter | undefined;
+    spellFilters.hidden = activeType !== "spell";
     panel.querySelectorAll(".dd55-tabs button").forEach(item => item.classList.toggle("is-active", item === button));
     renderList();
   });
+  spellClass.addEventListener("change", () => { activeSpellClass = spellClass.value; renderList(); });
+  spellLevel.addEventListener("change", () => { activeSpellLevel = spellLevel.value; renderList(); });
+  clearSpellFilters.addEventListener("click", () => { activeSpellClass = ""; activeSpellLevel = ""; spellClass.value = ""; spellLevel.value = ""; renderList(); });
   search.addEventListener("input", () => { currentQuery = search.value.trim(); renderList(); });
   launcher.addEventListener("click", () => { panel.hidden = !panel.hidden; launcher.setAttribute("aria-expanded", String(!panel.hidden)); if (!panel.hidden) search.focus(); });
   panel.querySelector("[data-close]")?.addEventListener("click", () => { panel.hidden = true; launcher.setAttribute("aria-expanded", "false"); });
-  panel.addEventListener("change", () => onChange({ enabled: panel.querySelector<HTMLInputElement>("[data-enabled]")!.checked, bilingual: panel.querySelector<HTMLInputElement>("[data-bilingual]")!.checked }));
+  panel.addEventListener("change", event => {
+    if (!(event.target as Element).matches("[data-enabled], [data-bilingual]")) return;
+    onChange({ enabled: panel.querySelector<HTMLInputElement>("[data-enabled]")!.checked, bilingual: panel.querySelector<HTMLInputElement>("[data-bilingual]")!.checked });
+  });
   document.addEventListener("dd55:open-entry", event => {
     const id = (event as CustomEvent<string>).detail;
     const entry = compendiumEntries.find(item => item.id === id);

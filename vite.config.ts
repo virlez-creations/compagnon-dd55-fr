@@ -20,7 +20,7 @@ export default defineConfig({
         manifest_version: 3,
         name: "Compagnon D&D 5.5 FR",
         description: "Traductions françaises et liens AideDD pour la feuille D&D 2024 de Roll20.",
-        version: "0.5.2",
+        version: "0.7.0",
         permissions: ["storage", "contextMenus"],
         host_permissions: [
           "https://app.roll20.net/*",
