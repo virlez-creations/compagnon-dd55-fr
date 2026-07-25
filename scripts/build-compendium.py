@@ -217,6 +217,20 @@ def without_progression_table(lines, class_name):
     return lines[:start] + lines[end + 1:]
 
 
+def without_spell_catalog(lines, class_name):
+    """Retire les listes alphabétiques de sorts placées après les aptitudes de classe."""
+    class_key = class_name.casefold()
+    for index, line in enumerate(lines):
+        key = line.casefold()
+        if key.startswith("liste des sorts") and class_key in key:
+            return lines[:index]
+        is_class_spell_heading = key.startswith("sorts ") and class_key in key
+        is_first_catalog_level = "niveau 0" in key or re.search(r"du\s+1\s*er\s+niveau", key)
+        if is_class_spell_heading and is_first_catalog_level:
+            return lines[:index]
+    return lines
+
+
 def class_presentation_and_features(lines, class_name):
     """Conserve les consignes de création puis les aptitudes, sans répéter l'encadré de traits."""
     first_level = next((index for index, line in enumerate(lines) if re.match(r"^Niveau\s+", line, re.I)), None)
@@ -270,6 +284,7 @@ def class_entries():
             subtitle = "Classe de personnage"
             tags = [title]
             body_lines = without_progression_table(body_lines, title)
+            body_lines = without_spell_catalog(body_lines, title)
             body_lines = class_presentation_and_features(body_lines, title)
             tables = [class_tables[title]] if title in class_tables else []
         else:

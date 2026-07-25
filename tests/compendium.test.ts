@@ -17,6 +17,12 @@ describe("données du compendium", () => {
     expect(fireball.sections.map(section => section.content).join(" ")).toContain("8d6 dégâts de feu");
   });
 
+  it("résout les titres homonymes selon leur type", () => {
+    expect(findCompendiumEntry("Soins", "spell")?.id).toBe("spell-soins");
+    expect(findCompendiumEntry("Soins", "rule")?.id).toBe("rule-soins");
+    expect(findCompendiumEntry("Amélioration de caractéristique", "feat")?.id).toBe("feat-amelioration-de-caracteristique");
+  });
+
   it("résout le nom AideDD d’un don vers sa fiche SRD", () => {
     expect(findCompendiumEntry("Lutteur", "feat")?.id).toBe("feat-empoigneur");
   });
@@ -52,5 +58,14 @@ describe("données du compendium", () => {
     expect(bard.tables![0].headers.slice(-9)).toEqual(Array.from({ length: 9 }, (_, index) => `Empl. ${index + 1}`));
     expect(bard.tables![0].rows[0].slice(0, 5)).toEqual(["1", "+2", "Inspiration bardique, Sorts", "d6", "2"]);
     expect(bard.sections.map(section => section.content).join(" ")).not.toContain("Emplacements par niveau de sort");
+  });
+
+  it("ne concatène plus les catalogues de sorts aux aptitudes de classe", () => {
+    for (const className of ["Barde", "Clerc", "Druide", "Ensorceleur", "Magicien", "Occultiste", "Paladin", "Rôdeur"]) {
+      const entry = findCompendiumEntry(className, "class")!;
+      const content = entry.sections.map(section => section.content).join(" ");
+      expect(content, className).not.toContain("Cette section présente la liste de sorts");
+    }
+    expect(findCompendiumEntry("Barde", "class")!.sections.some(section => section.heading === "Niveau 1 · Sorts")).toBe(true);
   });
 });
