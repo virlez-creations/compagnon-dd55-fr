@@ -8,6 +8,8 @@ from pathlib import Path
 source = Path(sys.argv[1] if len(sys.argv) > 1 else "src/data/srd-pages.json")
 target = Path(sys.argv[2] if len(sys.argv) > 2 else "src/data/srd-compendium.json")
 pages = json.loads(source.read_text(encoding="utf-8"))
+class_tables_path = source.parent / "class-tables.json"
+class_tables = json.loads(class_tables_path.read_text(encoding="utf-8")) if class_tables_path.exists() else {}
 
 
 def slug(value):
@@ -155,8 +157,133 @@ def rule_entries():
     return result
 
 
-entries = spell_entries() + feat_entries() + rule_entries()
+CLASS_CHAPTERS = [
+    ("Barbare", "Barbare", 30, "class", ""),
+    ("Voie du Berserker", "Voie du Berserker", 32, "subclass", "Barbare"),
+    ("Barde", "Barde", 33, "class", ""),
+    ("Collège du Savoir", "Collège du Savoir", 37, "subclass", "Barde"),
+    ("Clerc", "Clerc", 38, "class", ""),
+    ("Domaine de la Vie", "de la Vie", 42, "subclass", "Clerc"),
+    ("Druide", "Druide", 43, "class", ""),
+    ("Cercle de la Terre", "Cercle de la Terre", 48, "subclass", "Druide"),
+    ("Ensorceleur", "Ensorceleur", 49, "class", ""),
+    ("Sorcellerie draconique", "Sorcellerie draconique", 55, "subclass", "Ensorceleur"),
+    ("Guerrier", "Guerrier", 56, "class", ""),
+    ("Champion", "Sous-classe de Guerrier : Champion", 58, "subclass", "Guerrier"),
+    ("Magicien", "Magicien", 58, "class", ""),
+    ("Évocateur", "Sous-classe de Magicien : Évocateur", 64, "subclass", "Magicien"),
+    ("Moine", "Moine", 65, "class", ""),
+    ("Credo de la Paume", "la Paume", 67, "subclass", "Moine"),
+    ("Occultiste", "Occultiste", 68, "class", ""),
+    ("Protecteur Fiélon", "Protecteur Fiélon", 74, "subclass", "Occultiste"),
+    ("Paladin", "Paladin", 75, "class", ""),
+    ("Serment de Dévotion", "Dévotion", 79, "subclass", "Paladin"),
+    ("Rôdeur", "Rôdeur", 80, "class", ""),
+    ("Chasseur", "Sous-classe de Rôdeur : Chasseur", 83, "subclass", "Rôdeur"),
+    ("Roublard", "Roublard", 84, "class", ""),
+    ("Voleur", "Sous-classe de Roublard : Voleur", 86, "subclass", "Roublard")
+]
+
+
+def level_sections(lines):
+    starts = []
+    for index, line in enumerate(lines):
+        match = re.match(r"^Niveau\s+([\d et]+)\s*:\s*(.+)$", line, re.I)
+        if match:
+            starts.append((index, f"Niveau {match.group(1).strip()} · {match.group(2).strip()}"))
+    sections = []
+    if starts and starts[0][0] > 0:
+        intro = clean_inline(" ".join(lines[:starts[0][0]]))
+        if intro:
+            sections.append({"heading": "Présentation", "content": intro})
+    for number, (start, heading) in enumerate(starts):
+        end = starts[number + 1][0] if number + 1 < len(starts) else len(lines)
+        content = clean_inline(" ".join(lines[start + 1:end]))
+        if content:
+            sections.append({"heading": heading, "content": content})
+    if not sections:
+        sections = make_sections(" ".join(lines))
+    return sections
+
+
+def without_progression_table(lines, class_name):
+    title = f"Aptitudes du {class_name}"
+    start = next((index for index, line in enumerate(lines) if line.strip() == title), None)
+    if start is None:
+        return lines
+    end = next((index for index in range(start + 1, min(len(lines), start + 100)) if re.match(r"^20\s+\+", lines[index])), None)
+    if end is None:
+        return lines
+    return lines[:start] + lines[end + 1:]
+
+
+def class_presentation_and_features(lines, class_name):
+    """Conserve les consignes de création puis les aptitudes, sans répéter l'encadré de traits."""
+    first_level = next((index for index, line in enumerate(lines) if re.match(r"^Niveau\s+", line, re.I)), None)
+    if first_level is None:
+        return lines
+    devenir = next((index for index in range(first_level) if lines[index].startswith(f"Devenir {class_name}")), None)
+    aptitude_intro = next((index for index in range(first_level) if lines[index] == f"Aptitudes de classe du {class_name}"), None)
+    if devenir is None or aptitude_intro is None or devenir >= aptitude_intro:
+        return lines
+    return lines[devenir:aptitude_intro] + lines[first_level:]
+
+
+def labeled_value(text, label, following_labels):
+    end = "|".join(re.escape(item) for item in following_labels)
+    match = re.search(rf"{re.escape(label)}\s+(.+?)(?=\s+(?:{end})\s+)", text, re.I)
+    return match.group(1).strip() if match else ""
+
+
+def class_entries():
+    lines = page_lines(30, 86)
+    positions = []
+    cursor = 0
+    for title, marker, expected_page, kind, parent in CLASS_CHAPTERS:
+        found = next((i for i in range(cursor, len(lines)) if lines[i][0].casefold() == marker.casefold() and abs(lines[i][1] - expected_page) <= 1), None)
+        if found is None:
+            raise ValueError(f"Chapitre de classe introuvable : {title} (marqueur {marker})")
+        positions.append((title, found, lines[found][1], kind, parent))
+        cursor = found + 1
+    result = []
+    for number, (title, start, page, kind, parent) in enumerate(positions):
+        end = positions[number + 1][1] if number + 1 < len(positions) else len(lines)
+        body_lines = [line for line, _ in lines[start + 1:end]]
+        tagline = body_lines[0] if kind == "subclass" and body_lines and not body_lines[0].startswith("Niveau") else ""
+        if tagline:
+            body_lines = body_lines[1:]
+        compact = clean_inline(" ".join(body_lines[:80]))
+        meta = {}
+        if kind == "class":
+            primary = re.search(r"Caractéristique\s+principale\s+(.+?)\s+Dé de vie", compact, re.I)
+            hit_die = re.search(r"Dé de vie\s+(.+?)\s+Maîtrise des jets", compact, re.I)
+            saves = re.search(r"Maîtrise des jets\s+de sauvegarde\s+(.+?)\s+Maîtrises de\s+compétence", compact, re.I)
+            skills = labeled_value(compact, "Maîtrises de compétence", ["Maîtrises d’arme"])
+            weapons = labeled_value(compact, "Maîtrises d’arme", ["Maîtrises d’outils", "Formation aux armures"])
+            tools = labeled_value(compact, "Maîtrises d’outils", ["Formation aux armures"])
+            armor = labeled_value(compact, "Formation aux armures", ["Équipement de départ"])
+            equipment = labeled_value(compact, "Équipement de départ", [f"Devenir {title}…", f"Devenir {title}..."])
+            meta = {"Type": "Classe de personnage", "Caractéristique principale": primary.group(1) if primary else "",
+                    "Dé de vie": hit_die.group(1) if hit_die else "", "Jets de sauvegarde": saves.group(1) if saves else "",
+                    "Compétences": skills, "Armes": weapons, "Outils": tools, "Armures": armor,
+                    "Équipement de départ": equipment}
+            subtitle = "Classe de personnage"
+            tags = [title]
+            body_lines = without_progression_table(body_lines, title)
+            body_lines = class_presentation_and_features(body_lines, title)
+            tables = [class_tables[title]] if title in class_tables else []
+        else:
+            meta = {"Type": "Sous-classe", "Classe parente": parent}
+            subtitle = f"Sous-classe de {parent}" + (f" · {tagline}" if tagline else "")
+            tags = [parent]
+            tables = []
+        result.append({"id": kind + "-" + slug(title), "type": kind, "title": title, "page": page,
+                       "subtitle": subtitle, "tags": tags, "meta": meta, "sections": level_sections(body_lines), "tables": tables})
+    return result
+
+
+entries = spell_entries() + feat_entries() + rule_entries() + class_entries()
 payload = {"version": "SRD 5.2.1 FR", "license": "CC BY 4.0", "entries": entries}
 target.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
-counts = {kind: sum(1 for item in entries if item["type"] == kind) for kind in ("spell", "feat", "rule")}
+counts = {kind: sum(1 for item in entries if item["type"] == kind) for kind in ("spell", "feat", "rule", "class", "subclass")}
 print(f"{len(entries)} fiches générées vers {target}: {counts}")

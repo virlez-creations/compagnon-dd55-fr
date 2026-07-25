@@ -15,4 +15,4 @@ Chargez ensuite le dossier `dist` via `chrome://extensions` → **Mode développ
 
 L’extension ne modifie ni champs ni données du personnage. Elle stocke seulement les préférences `enabled` et `bilingual`; les pages AideDD ne s’ouvrent qu’après un clic.
 
-Le contenu du fichier `fr_srd_cc_v5.2.1.pdf` est indexé dans l’extension pour une consultation locale. Pour régénérer les données après une mise à jour du PDF, exécutez `scripts/extract-srd.py` avec Python et `pypdf`.
+Le contenu du fichier `fr_srd_cc_v5.2.1.pdf` est transformé en compendium local structuré : fiches de sorts, dons et règles avec métadonnées. Pour régénérer les données après une mise à jour du PDF, exécutez `scripts/extract-srd.py`, `scripts/extract-class-tables.py`, puis `scripts/build-compendium.py`.

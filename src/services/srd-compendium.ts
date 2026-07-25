@@ -1,11 +1,18 @@
 import data from "../data/srd-compendium.json";
 import { normalizeName } from "./reference-matcher";
 
-export type CompendiumType = "spell" | "feat" | "rule";
+export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass";
 
 export interface CompendiumSection {
   heading?: string;
   content: string;
+}
+
+export interface CompendiumTable {
+  title: string;
+  page: number;
+  headers: string[];
+  rows: string[][];
 }
 
 export interface CompendiumEntry {
@@ -17,6 +24,7 @@ export interface CompendiumEntry {
   tags: string[];
   meta: Record<string, string>;
   sections: CompendiumSection[];
+  tables?: CompendiumTable[];
 }
 
 export const compendiumEntries = data.entries as CompendiumEntry[];
@@ -26,7 +34,8 @@ const aliases: Record<string, string> = {
   "fleche acide de melf": "Flèche acide",
   "eclair tracant": "Rayon traçant",
   "fou rire de tasha": "Fou rire",
-  "armure de mage": "Armure du mage"
+  "armure de mage": "Armure du mage",
+  "lutteur": "Empoigneur"
 };
 
 export function findCompendiumEntry(name: string, type?: CompendiumType): CompendiumEntry | undefined {
@@ -38,8 +47,9 @@ export function findCompendiumEntry(name: string, type?: CompendiumType): Compen
 
 export function searchCompendium(query: string, type?: CompendiumType, limit = 80): CompendiumEntry[] {
   const normalized = normalizeName(query);
+  const canonical = aliases[normalized] ? normalizeName(aliases[normalized]) : normalized;
   return compendiumEntries
-    .filter(entry => (!type || entry.type === type) && (!normalized || normalizeName(`${entry.title} ${entry.subtitle} ${entry.tags.join(" ")}`).includes(normalized)))
+    .filter(entry => (!type || entry.type === type) && (!canonical || normalizeName(`${entry.title} ${entry.subtitle} ${entry.tags.join(" ")}`).includes(canonical)))
     .sort((a, b) => a.title.localeCompare(b.title, "fr"))
     .slice(0, limit);
 }

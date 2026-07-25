@@ -1,0 +1,35 @@
+const MENU_ID = "dd55-translate-sheet";
+let menuReady = false;
+
+function setupContextMenu(): void {
+  if (menuReady) return;
+  menuReady = true;
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: MENU_ID,
+      title: "Traduire cette fiche D&D 2024",
+      contexts: ["all"],
+      documentUrlPatterns: [
+        "https://app.roll20.net/*",
+        "https://*.roll20.net/*",
+        "https://*.roll20preflight.net/*",
+        "https://storage.googleapis.com/roll20-cdn/*"
+      ]
+    });
+  });
+}
+
+setupContextMenu();
+chrome.runtime.onInstalled.addListener(setupContextMenu);
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId !== MENU_ID || !tab?.id) return;
+  void chrome.tabs.sendMessage(tab.id, { type: "DD55_TRANSLATE_SHEET" }, { frameId: info.frameId ?? 0 });
+});
+
+chrome.runtime.onMessage.addListener((message: unknown, sender) => {
+  if (!message || typeof message !== "object" || (message as { type?: string }).type !== "DD55_OPEN_COMPENDIUM") return;
+  const entryId = (message as { entryId?: string }).entryId;
+  if (!entryId || !sender.tab?.id) return;
+  void chrome.tabs.sendMessage(sender.tab.id, { type: "DD55_SHOW_ENTRY", entryId }, { frameId: 0 });
+});

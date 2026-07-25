@@ -1,10 +1,35 @@
 import { translations } from "../data/translations";
 import { feats, spells } from "../data/references";
 import { findReference, referenceUrl } from "../services/reference-matcher";
+import { findCompendiumEntry } from "../services/srd-compendium";
 import type { Preferences, Reference } from "../types";
 
 const SKIP_SELECTOR = "#dd55-companion, #dd55-launcher, script, style, textarea, input, [contenteditable='true'], .dd55-reference";
 const originalText = new WeakMap<Text, string>();
+const translationLookup = new Map(Object.entries(translations).map(([english, french]) => [english.toLocaleLowerCase("en"), french]));
+
+function translateDynamicLabel(value: string): string | undefined {
+  let match = value.match(/^([+-]?\d+)\s+Attack$/i);
+  if (match) return `${match[1]} Attaque`;
+  match = value.match(/^(\d+(?:\/\d+)?)\s*ft\.?$/i);
+  if (match) return `${match[1]} pi`;
+  match = value.match(/^Level\s+(\d+)(\+)?$/i);
+  if (match) return `Niveau ${match[1]}${match[2] ?? ""}`;
+  match = value.match(/^Level\s+(\d+)\s+Feat$/i);
+  if (match) return `Don de niveau ${match[1]}`;
+  match = value.match(/^New Item\s*\(Attack\s*(\d+)\)$/i);
+  if (match) return `Nouvel objet (Attaque ${match[1]})`;
+  match = value.match(/^Prerequisite:\s*(.+)$/i);
+  if (match) {
+    const prerequisite = match[1]
+      .replace(/Fighting Style Feature/gi, "don Style de combat")
+      .replace(/Level\s+(\d+)/gi, "niveau $1")
+      .replace(/Strength/gi, "Force").replace(/Dexterity/gi, "Dextérité")
+      .replace(/Wisdom/gi, "Sagesse").replace(/Charisma/gi, "Charisme");
+    return `Prérequis : ${prerequisite}`;
+  }
+  return undefined;
+}
 
 export function isDnd2024Sheet(root: ParentNode = document): boolean {
   const explicit = root.querySelector("[data-sheet-type*='dnd2024' i], [data-character-sheet*='2024' i], .dnd2024, .sheet-2024, [aria-label*='D&D 2024' i]");
@@ -33,7 +58,7 @@ export function translateSheet(root: ParentNode, enabled: boolean): void {
     if (!originalText.has(node)) originalText.set(node, node.data);
     const original = originalText.get(node)!;
     const trimmed = original.trim();
-    const translated = translations[trimmed];
+    const translated = translations[trimmed] ?? translationLookup.get(trimmed.toLocaleLowerCase("en")) ?? translateDynamicLabel(trimmed);
     if (translated && enabled) {
       const nextText = original.replace(trimmed, translated);
       if (node.data !== nextText) node.data = nextText;
@@ -52,9 +77,17 @@ function enrichCandidates(root: ParentNode, references: Reference[], kind: "spel
     const raw = element.childElementCount ? [...element.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent).join(" ") : element.textContent;
     const match = findReference(raw?.trim() ?? "", references);
     if (!match) return;
+    const local = findCompendiumEntry(match.nameFr, kind);
     const badge = document.createElement("span");
     badge.className = "dd55-reference";
-    badge.innerHTML = `<span lang="fr">${escapeHtml(match.nameFr)}</span>${preferences.bilingual ? `<small lang="en">${escapeHtml(match.nameEn)}</small>` : ""}<a href="${referenceUrl(kind, match)}" target="_blank" rel="noopener noreferrer" title="Voir ${escapeHtml(match.nameFr)} sur AideDD">AideDD ↗</a>`;
+    badge.innerHTML = `<span lang="fr">${escapeHtml(match.nameFr)}</span>${preferences.bilingual ? `<small lang="en">${escapeHtml(match.nameEn)}</small>` : ""}${local ? `<span role="button" tabindex="0" data-dd55-open="${local.id}" title="Ouvrir dans le compendium">Compendium</span>` : `<a href="${referenceUrl(kind, match)}" target="_blank" rel="noopener noreferrer" title="Voir ${escapeHtml(match.nameFr)} sur AideDD">AideDD ↗</a>`}`;
+    const openLocal = () => {
+      if (!local) return;
+      if (typeof chrome !== "undefined" && chrome.runtime?.id) void chrome.runtime.sendMessage({ type: "DD55_OPEN_COMPENDIUM", entryId: local.id });
+      else document.dispatchEvent(new CustomEvent("dd55:open-entry", { detail: local.id }));
+    };
+    badge.querySelector("[data-dd55-open]")?.addEventListener("click", (event) => { event.preventDefault(); event.stopPropagation(); openLocal(); });
+    badge.querySelector("[data-dd55-open]")?.addEventListener("keydown", (event) => { if ((event as KeyboardEvent).key === "Enter") openLocal(); });
     element.append(badge);
   });
 }
