@@ -136,13 +136,127 @@ test("active et désactive les réglages de feuille sans erreur", async ({ page 
   await loadBundle(page);
   await expect(page.locator("#ability-label")).toHaveText("Force");
   await page.locator("#dd55-launcher").click();
-  await page.locator(".dd55-settings summary").click();
+  await page.locator("[data-settings-open]").click();
+  await expect(page.locator("[data-settings] h2")).toHaveText("Réglages");
   await page.locator("[data-enabled]").uncheck();
   await expect(page.locator("#ability-label")).toHaveText("Strength");
   await page.locator("[data-enabled]").check();
   await expect(page.locator("#ability-label")).toHaveText("Force");
   await page.locator("[data-bilingual]").uncheck();
   expect(errors).toEqual([]);
+});
+
+test("bascule instantanément la traduction dans les composants et les iframes", async ({ page }) => {
+  const installStorageMock = async (context: Page | Frame) => context.evaluate(() => {
+    type StorageListener = (changes: Record<string, { oldValue?: unknown; newValue?: unknown }>, area: "local") => void;
+    const state = globalThis as typeof globalThis & { __dd55StorageListener?: StorageListener };
+    const chromeMock = {
+      runtime: { id: "test-extension", sendMessage: async () => undefined, onMessage: { addListener: () => undefined } },
+      storage: {
+        local: { get: async () => ({}), set: async () => undefined },
+        onChanged: { addListener: (listener: StorageListener) => { state.__dd55StorageListener = listener; } }
+      }
+    };
+    const host = globalThis as unknown as { chrome?: Record<string, unknown> };
+    if (host.chrome) Object.assign(host.chrome, chromeMock);
+    else Object.defineProperty(globalThis, "chrome", { value: chromeMock, configurable: true });
+  });
+  await page.setContent(`${sheetSignature}<span id="compound">Strength <b>·</b> Dexterity</span><iframe id="sheet"></iframe>`);
+  await installStorageMock(page);
+  const frame = page.frames().find(candidate => candidate !== page.mainFrame())!;
+  await frame.setContent(`${sheetSignature}<span id="frame-compound">Strength <b>·</b> Dexterity</span>`);
+  await installStorageMock(frame);
+  await loadBundleInFrame(frame);
+  await loadBundle(page);
+  await expect(page.locator("#compound")).toHaveText("Force · Dextérité");
+  await expect(frame.locator("#frame-compound")).toHaveText("Force · Dextérité");
+
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-settings-open]").click();
+  await page.locator("[data-enabled]").uncheck();
+  await expect(page.locator("#compound")).toHaveText("Strength · Dexterity");
+  await frame.evaluate(() => (globalThis as typeof globalThis & { __dd55StorageListener?: (changes: Record<string, { oldValue?: unknown; newValue?: unknown }>, area: "local") => void }).__dd55StorageListener?.({ enabled: { oldValue: true, newValue: false } }, "local"));
+  await expect(frame.locator("#frame-compound")).toHaveText("Strength · Dexterity");
+
+  await page.locator("[data-enabled]").check();
+  await expect(page.locator("#compound")).toHaveText("Force · Dextérité");
+  await frame.evaluate(() => (globalThis as typeof globalThis & { __dd55StorageListener?: (changes: Record<string, { oldValue?: unknown; newValue?: unknown }>, area: "local") => void }).__dd55StorageListener?.({ enabled: { oldValue: false, newValue: true } }, "local"));
+  await expect(frame.locator("#frame-compound")).toHaveText("Force · Dextérité");
+});
+
+test("garde les réglages dans le panneau et applique le thème sombre aux fiches", async ({ page }) => {
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await expect(page.locator("[data-settings-open] svg circle")).toHaveCount(1);
+  await page.locator("[data-settings-open]").click();
+  const bounds = await page.locator(".dd55-settings-content fieldset").nth(1).evaluate(fieldset => {
+    const select = fieldset.querySelector("select")!;
+    const fieldsetRect = fieldset.getBoundingClientRect();
+    const selectRect = select.getBoundingClientRect();
+    return { fieldsetRight: fieldsetRect.right, selectRight: selectRect.right, selectHeight: selectRect.height, fieldsetHeight: fieldsetRect.height, panelOverflow: fieldset.closest("#dd55-companion")!.scrollWidth - fieldset.closest("#dd55-companion")!.clientWidth };
+  });
+  expect(bounds.selectRight).toBeLessThanOrEqual(bounds.fieldsetRight);
+  expect(bounds.selectHeight).toBe(38);
+  expect(bounds.fieldsetHeight).toBeLessThan(280);
+  expect(bounds.panelOverflow).toBe(0);
+  const stickyGap = await page.locator("#dd55-companion").evaluate(panel => {
+    panel.scrollTop = 100;
+    return new Promise<number>(resolve => requestAnimationFrame(() => resolve(Math.abs(panel.querySelector(".dd55-settings-toolbar")!.getBoundingClientRect().top - panel.getBoundingClientRect().top))));
+  });
+  expect(stickyGap).toBeLessThanOrEqual(1);
+
+  await page.locator("[data-setting-theme]").selectOption("dark");
+  await expect(page.locator(".dd55-settings-content legend").first()).toHaveCSS("border-bottom-width", "0px");
+  const contrastRatio = async (foregroundSelector: string, backgroundSelector: string) => page.evaluate(({ foregroundSelector, backgroundSelector }) => {
+    const parse = (value: string) => (value.match(/[\d.]+/g) ?? []).slice(0, 3).map(Number);
+    const luminance = (rgb: number[]) => {
+      const channels = rgb.map(value => { const channel = value / 255; return channel <= .04045 ? channel / 12.92 : ((channel + .055) / 1.055) ** 2.4; });
+      return .2126 * channels[0] + .7152 * channels[1] + .0722 * channels[2];
+    };
+    const foreground = luminance(parse(getComputedStyle(document.querySelector(foregroundSelector)!).color));
+    const background = luminance(parse(getComputedStyle(document.querySelector(backgroundSelector)!).backgroundColor));
+    return (Math.max(foreground, background) + .05) / (Math.min(foreground, background) + .05);
+  }, { foregroundSelector, backgroundSelector });
+  expect(await contrastRatio("[data-setting-theme]", "[data-setting-theme]")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-settings-content label", ".dd55-settings-content fieldset")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-settings-content legend", ".dd55-settings-content fieldset")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-switch small", ".dd55-settings-content fieldset")).toBeGreaterThanOrEqual(4.5);
+  await page.locator("[data-settings-back]").click();
+  expect(await contrastRatio(".dd55-tabs button small", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-entry-main strong", ".dd55-entry-card")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-entry-main small", ".dd55-entry-card")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-entry-main > span", ".dd55-entry-card")).toBeGreaterThanOrEqual(4.5);
+  await page.locator("[data-type='origins']").click();
+  await page.locator("[data-entry-id='species-orc']").click();
+  await expect(page.locator("#dd55-companion")).toHaveAttribute("data-theme", "dark");
+  await expect(page.locator(".dd55-meta-grid div").first()).toHaveCSS("background-color", "rgb(36, 36, 36)");
+  await expect(page.locator(".dd55-article h3").first()).toHaveCSS("color", "rgb(255, 155, 146)");
+  await expect(page.locator(".dd55-related")).toHaveCSS("background-color", "rgb(38, 38, 38)");
+  expect(await contrastRatio(".dd55-meta-grid dt", ".dd55-meta-grid div")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-article p", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-article h3", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-related button", ".dd55-related")).toBeGreaterThanOrEqual(4.5);
+  expect(await contrastRatio(".dd55-source", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
+});
+
+test("déplace le panneau par son en-tête et conserve sa position", async ({ page }) => {
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  const panel = page.locator("#dd55-companion");
+  const header = page.locator("#dd55-companion > header");
+  const before = (await panel.boundingBox())!;
+  const headerBounds = (await header.boundingBox())!;
+  await page.mouse.move(headerBounds.x + 120, headerBounds.y + 30);
+  await page.mouse.down();
+  await page.mouse.move(headerBounds.x - 100, headerBounds.y + 30, { steps: 8 });
+  await page.mouse.up();
+  const after = (await panel.boundingBox())!;
+  expect(after.x).toBeLessThan(before.x - 150);
+  await page.locator("[data-close]").click();
+  await page.locator("#dd55-launcher").click();
+  expect((await panel.boundingBox())!.x).toBeCloseTo(after.x, 0);
 });
 
 test("injecte les liens sans restrictions de panneau en mode diagnostic", async ({ page }) => {

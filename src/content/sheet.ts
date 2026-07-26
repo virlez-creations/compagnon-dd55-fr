@@ -9,6 +9,7 @@ const SKIP_SELECTOR = "#dd55-companion, #dd55-launcher, script, style, textarea,
 // désactivées afin de vérifier l’injection brute des références sur la fiche réelle.
 const restrictReferenceContexts = false;
 const originalText = new WeakMap<Text, string>();
+const translatedTextNodes = new WeakSet<Text>();
 const translationLookup = new Map(Object.entries(translations).map(([english, french]) => [english.toLocaleLowerCase("en"), french]));
 const featureAliases: Record<string, string> = {
   "weapon mastery": "Bottes d’arme", "spellcasting": "Sorts", "favored enemy": "Ennemi juré",
@@ -378,13 +379,18 @@ export function translateSheet(root: ParentNode, enabled: boolean): void {
     if (translated && enabled) {
       const nextText = original.replace(trimmed, translated);
       if (node.data !== nextText) node.data = nextText;
+      translatedTextNodes.add(node);
       element.title ||= trimmed;
       element.dataset.dd55Translated = "true";
-    } else if (!enabled && element.dataset.dd55Translated) {
+    } else if (!enabled && translatedTextNodes.has(node)) {
       if (node.data !== original) node.data = original;
-      delete element.dataset.dd55Translated;
+      translatedTextNodes.delete(node);
     }
   });
+  if (!enabled) {
+    root.querySelectorAll<HTMLElement>("[data-dd55-translated]").forEach(element => delete element.dataset.dd55Translated);
+    if (root instanceof HTMLElement) delete root.dataset.dd55Translated;
+  }
 }
 
 function featureTitle(section: CompendiumSection): string {

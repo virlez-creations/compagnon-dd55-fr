@@ -37,6 +37,13 @@ export interface CompendiumEntry {
   links?: CompendiumLink[];
 }
 
+export interface CompendiumSearchResult {
+  entry: CompendiumEntry;
+  score: number;
+  matchedFields: Array<"title" | "alias" | "subtitle" | "tags" | "meta" | "content">;
+  excerpt: string;
+}
+
 export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries] as CompendiumEntry[];
 
 const titleIndex = new Map<string, CompendiumEntry[]>();
@@ -52,6 +59,97 @@ const aliases: Record<string, string> = {
   "lutteur": "Empoigneur"
 };
 
+const aliasesByTitle = new Map<string, string[]>();
+for (const [alias, title] of Object.entries(aliases)) {
+  const key = normalizeName(title);
+  aliasesByTitle.set(key, [...(aliasesByTitle.get(key) ?? []), alias]);
+}
+
+function normalizeSearchValue(value: string): string {
+  return normalizeName(value).replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
+}
+
+function levenshtein(left: string, right: string): number {
+  if (left === right) return 0;
+  if (!left.length) return right.length;
+  if (!right.length) return left.length;
+  const previous = Array.from({ length: right.length + 1 }, (_, index) => index);
+  for (let leftIndex = 1; leftIndex <= left.length; leftIndex++) {
+    let diagonal = previous[0];
+    previous[0] = leftIndex;
+    for (let rightIndex = 1; rightIndex <= right.length; rightIndex++) {
+      const above = previous[rightIndex];
+      previous[rightIndex] = Math.min(
+        previous[rightIndex] + 1,
+        previous[rightIndex - 1] + 1,
+        diagonal + (left[leftIndex - 1] === right[rightIndex - 1] ? 0 : 1)
+      );
+      diagonal = above;
+    }
+  }
+  return previous[right.length];
+}
+
+function tokenQuality(queryToken: string, value: string): number {
+  const tokens = value.split(" ").filter(Boolean);
+  let best = 0;
+  for (const token of tokens) {
+    if (token === queryToken) best = Math.max(best, 1);
+    else if (queryToken.length >= 3 && token.startsWith(queryToken)) best = Math.max(best, .88);
+    else if (queryToken.length >= 3 && token.includes(queryToken)) best = Math.max(best, .72);
+    else if (queryToken.length >= 4) {
+      const allowance = queryToken.length >= 8 ? 2 : 1;
+      if (Math.abs(token.length - queryToken.length) <= allowance && levenshtein(queryToken, token) <= allowance) best = Math.max(best, .55);
+    }
+  }
+  return best;
+}
+
+function makeExcerpt(entry: CompendiumEntry, queryTokens: string[]): string {
+  const contents = entry.sections.map(section => [section.heading, section.content].filter(Boolean).join(" — "));
+  const source = contents.find(content => queryTokens.some(token => tokenQuality(token, normalizeSearchValue(content)) > 0)) ?? entry.sections[0]?.content ?? "";
+  if (source.length <= 170) return source;
+  const normalized = normalizeSearchValue(source);
+  const position = Math.max(0, ...queryTokens.map(token => normalized.indexOf(token)).filter(index => index >= 0));
+  const start = Math.max(0, Math.min(source.length - 170, position - 55));
+  return `${start ? "…" : ""}${source.slice(start, start + 170).trim()}${start + 170 < source.length ? "…" : ""}`;
+}
+
+export function searchCompendiumResults(query: string, type?: CompendiumType, limit = 80): CompendiumSearchResult[] {
+  const normalizedQuery = normalizeSearchValue(query);
+  const canonicalQuery = aliases[normalizedQuery] ? normalizeSearchValue(aliases[normalizedQuery]) : normalizedQuery;
+  const queryTokens = canonicalQuery.split(" ").filter(Boolean);
+  const weights = { title: 1000, alias: 850, subtitle: 500, tags: 450, meta: 350, content: 100 } as const;
+
+  return compendiumEntries.flatMap(entry => {
+    if (type && entry.type !== type) return [];
+    const fields = {
+      title: normalizeSearchValue(entry.title),
+      alias: normalizeSearchValue((aliasesByTitle.get(normalizeName(entry.title)) ?? []).join(" ")),
+      subtitle: normalizeSearchValue(entry.subtitle),
+      tags: normalizeSearchValue(entry.tags.join(" ")),
+      meta: normalizeSearchValue(Object.entries(entry.meta).flat().join(" ")),
+      content: normalizeSearchValue(entry.sections.flatMap(section => [section.heading ?? "", section.content]).join(" "))
+    };
+    if (!queryTokens.length) return [{ entry, score: 0, matchedFields: [], excerpt: entry.sections[0]?.content ?? "" } satisfies CompendiumSearchResult];
+    const matchedFields = new Set<CompendiumSearchResult["matchedFields"][number]>();
+    let score = fields.title === canonicalQuery ? 10000 : fields.title.startsWith(canonicalQuery) ? 7000 : 0;
+    for (const token of queryTokens) {
+      let bestScore = 0;
+      let bestField: keyof typeof fields | undefined;
+      for (const [field, value] of Object.entries(fields) as Array<[keyof typeof fields, string]>) {
+        const quality = tokenQuality(token, value);
+        const fieldScore = quality * weights[field];
+        if (fieldScore > bestScore) { bestScore = fieldScore; bestField = field; }
+      }
+      if (!bestField) return [];
+      matchedFields.add(bestField);
+      score += bestScore;
+    }
+    return [{ entry, score, matchedFields: [...matchedFields], excerpt: makeExcerpt(entry, queryTokens) } satisfies CompendiumSearchResult];
+  }).sort((a, b) => b.score - a.score || a.entry.title.length - b.entry.title.length || a.entry.title.localeCompare(b.entry.title, "fr")).slice(0, limit);
+}
+
 export function findCompendiumEntry(name: string, type?: CompendiumType): CompendiumEntry | undefined {
   const normalized = normalizeName(name);
   const canonical = aliases[normalized] ? normalizeName(aliases[normalized]) : normalized;
@@ -60,10 +158,5 @@ export function findCompendiumEntry(name: string, type?: CompendiumType): Compen
 }
 
 export function searchCompendium(query: string, type?: CompendiumType, limit = 80): CompendiumEntry[] {
-  const normalized = normalizeName(query);
-  const canonical = aliases[normalized] ? normalizeName(aliases[normalized]) : normalized;
-  return compendiumEntries
-    .filter(entry => (!type || entry.type === type) && (!canonical || normalizeName(`${entry.title} ${entry.subtitle} ${entry.tags.join(" ")}`).includes(canonical)))
-    .sort((a, b) => a.title.localeCompare(b.title, "fr"))
-    .slice(0, limit);
+  return searchCompendiumResults(query, type, limit).map(result => result.entry);
 }

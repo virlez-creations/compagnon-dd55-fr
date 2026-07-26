@@ -34,6 +34,16 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 
 chrome.runtime.onMessage.addListener((message: unknown, sender) => {
   if (!message || typeof message !== "object") return;
+  if ((message as { type?: string }).type === "DD55_PREFERENCES_CHANGED") {
+    const preferences = (message as { preferences?: { enabled?: unknown; bilingual?: unknown } }).preferences;
+    if (!sender.tab?.id || !preferences) return;
+    const safePreferences: { enabled?: boolean; bilingual?: boolean } = {};
+    if (typeof preferences.enabled === "boolean") safePreferences.enabled = preferences.enabled;
+    if (typeof preferences.bilingual === "boolean") safePreferences.bilingual = preferences.bilingual;
+    if (safePreferences.enabled === undefined && safePreferences.bilingual === undefined) return;
+    void chrome.tabs.sendMessage(sender.tab.id, { type: "DD55_APPLY_PREFERENCES", preferences: safePreferences });
+    return;
+  }
   if ((message as { type?: string }).type === "DD55_SHEET_DETECTED") {
     if (sender.tab?.id) void chrome.tabs.sendMessage(sender.tab.id, { type: "DD55_ENABLE_COMPANION" }, { frameId: 0 });
     return;

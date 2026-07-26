@@ -3,7 +3,16 @@ import { mountPanel } from "./panel";
 import { enhanceSheet, isDnd2024Sheet } from "./sheet";
 import type { Preferences } from "../types";
 
-const defaults: Preferences = { enabled: true, bilingual: true, launcherVisible: true };
+const defaults: Preferences = {
+  enabled: true,
+  bilingual: true,
+  theme: "light",
+  fontSize: "normal",
+  resultDensity: "comfortable",
+  defaultCategory: "",
+  expandedByDefault: false,
+  launcherVisible: true
+};
 let preferences = defaults;
 let sheetDetected = false;
 let flushTimer: number | undefined;
@@ -29,6 +38,22 @@ function savePreferences(next: Partial<Preferences>): void {
   }
 }
 
+function broadcastPreferences(next: Partial<Preferences>): void {
+  try {
+    if (!globalThis.chrome?.runtime?.id) return;
+    const pending = chrome.runtime.sendMessage({ type: "DD55_PREFERENCES_CHANGED", preferences: next });
+    void pending.catch(() => undefined);
+  } catch {
+    // Une fiche déjà ouverte continue d'être mise à jour dans le document courant.
+  }
+}
+
+function applySheetPreferences(next: Partial<Preferences>): void {
+  preferences = { ...preferences, ...next };
+  document.querySelectorAll(".dd55-reference").forEach(element => element.remove());
+  processDocument();
+}
+
 function isModernDnd5Table(): boolean {
   if (document.documentElement.dataset.dd55ModernDnd5 === "true") return true;
   return Boolean(document.querySelector("[data-sheet-type*='dnd2024byroll20' i], [data-character-sheet*='dnd2024byroll20' i], [src*='dnd2024byroll20' i], [href*='dnd2024byroll20' i]"));
@@ -37,10 +62,9 @@ function isModernDnd5Table(): boolean {
 function ensurePanel(): void {
   if (window.top !== window) return;
   mountPanel(preferences, (next) => {
-    preferences = { ...preferences, ...next };
+    applySheetPreferences(next);
     savePreferences(next);
-    document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
-    processDocument();
+    broadcastPreferences(next);
   }, (next) => {
     preferences = { ...preferences, ...next };
     savePreferences(next);
@@ -109,6 +133,16 @@ async function start(): Promise<void> {
     if (pendingRoots.size) scheduleFlush();
   }).observe(document.body, { childList: true, characterData: true, subtree: true });
 
+  if (globalThis.chrome?.storage?.onChanged) {
+    chrome.storage.onChanged.addListener((changes, areaName) => {
+      if (areaName !== "local" || (!changes.enabled && !changes.bilingual)) return;
+      const next: Partial<Preferences> = {};
+      if (changes.enabled) next.enabled = changes.enabled.newValue ?? defaults.enabled;
+      if (changes.bilingual) next.bilingual = changes.bilingual.newValue ?? defaults.bilingual;
+      applySheetPreferences(next);
+    });
+  }
+
   if (globalThis.chrome?.runtime?.onMessage) {
     chrome.runtime.onMessage.addListener((message: unknown) => {
       if (!message || typeof message !== "object") return;
@@ -126,6 +160,11 @@ async function start(): Promise<void> {
         ensurePanel();
         const entryId = (message as { entryId?: string }).entryId;
         if (entryId) document.dispatchEvent(new CustomEvent("dd55:open-entry", { detail: entryId }));
+        return;
+      }
+      if ((message as { type?: string }).type === "DD55_APPLY_PREFERENCES") {
+        const next = (message as { preferences?: Partial<Preferences> }).preferences;
+        if (next && (typeof next.enabled === "boolean" || typeof next.bilingual === "boolean")) applySheetPreferences(next);
         return;
       }
       if ((message as { type?: string }).type !== "DD55_TRANSLATE_SHEET") return;
