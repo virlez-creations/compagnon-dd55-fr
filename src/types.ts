@@ -13,6 +13,12 @@ export interface Reference {
 export interface Preferences {
   enabled: boolean;
   bilingual: boolean;
+  theme?: "light" | "dark";
+  fontSize?: "small" | "normal" | "large";
+  resultDensity?: "comfortable" | "compact";
+  defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat";
+  expandedByDefault?: boolean;
   launcherVisible?: boolean;
-  launcherPosition?: { left: number; top: number };
+  launcherPosition?: { left: number; top: number } | null;
+  panelPosition?: { left: number; top: number } | null;
 }

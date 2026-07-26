@@ -22,6 +22,17 @@ describe("sheet enhancement", () => {
     expect(sendMessage).not.toHaveBeenCalled();
   });
   it("restaure le libellé quand désactivé", () => { enhanceSheet(document, { enabled: true, bilingual: true }); enhanceSheet(document, { enabled: false, bilingual: true }); expect(document.querySelector("span")?.textContent).toBe("Strength"); });
+  it("restaure instantanément tous les fragments d’un même composant", () => {
+    document.body.innerHTML = `<div aria-label="D&D 2024 Character Sheet"><span id="compound">Strength <b aria-hidden="true">·</b> Dexterity</span></div>`;
+    const compound = document.querySelector("#compound")!;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(compound.textContent).toContain("Force");
+    expect(compound.textContent).toContain("Dextérité");
+    enhanceSheet(document, { enabled: false, bilingual: true });
+    expect(compound.textContent).toBe("Strength · Dexterity");
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(compound.textContent).toBe("Force · Dextérité");
+  });
   it("reste idempotent lors des passages répétés", () => { enhanceSheet(document, { enabled: true, bilingual: true }); enhanceSheet(document, { enabled: true, bilingual: true }); expect(document.querySelectorAll(".dd55-reference")).toHaveLength(1); });
   it("traduit les nœuds imbriqués et les libellés abrégés", () => { document.body.innerHTML = `<div><section><strong><span>ABILITIES</span></strong></section><div>Short</div></div>`; enhanceSheet(document, { enabled: true, bilingual: true }); expect(document.body.textContent).toContain("CARACTÉRISTIQUES"); expect(document.body.textContent).toContain("Court"); });
   it("traduit les actions, états et capacités quelle que soit la casse", () => { document.body.innerHTML = `<div><span>BLINDED</span><span>Dash</span><span>Extra Attack</span><span>Class Features</span></div>`; enhanceSheet(document, { enabled: true, bilingual: true }); expect(document.body.textContent).toContain("Aveuglé"); expect(document.body.textContent).toContain("Foncer"); expect(document.body.textContent).toContain("Attaque supplémentaire"); expect(document.body.textContent).toContain("Capacités de classe"); });

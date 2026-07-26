@@ -36,6 +36,69 @@ describe("compendium SRD local", () => {
     expect(onChange).toHaveBeenLastCalledWith({ enabled: false, bilingual: false });
   });
 
+  it("ouvre les réglages depuis l’écrou et applique les préférences visuelles", () => {
+    const onChange = vi.fn();
+    mountPanel({ enabled: true, bilingual: true }, onChange);
+    const panel = document.querySelector<HTMLElement>("#dd55-companion")!;
+    const settingsButton = document.querySelector<HTMLButtonElement>("[data-settings-open]")!;
+    expect(settingsButton.nextElementSibling).toMatchObject({ dataset: expect.objectContaining({ expand: "" }) });
+    settingsButton.click();
+    expect(document.querySelector<HTMLElement>("[data-settings]")!.hidden).toBe(false);
+    expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(true);
+
+    const theme = document.querySelector<HTMLSelectElement>("[data-setting-theme]")!;
+    theme.value = "dark";
+    theme.dispatchEvent(new Event("change", { bubbles: true }));
+    expect(panel.dataset.theme).toBe("dark");
+    expect(onChange).toHaveBeenLastCalledWith({ theme: "dark" });
+
+    document.querySelector<HTMLButtonElement>("[data-settings-back]")!.click();
+    expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(false);
+    expect(document.activeElement).toBe(settingsButton);
+  });
+
+  it("restaure les préférences d’affichage et la catégorie initiale", () => {
+    mountPanel({ enabled: true, bilingual: true, theme: "dark", fontSize: "large", resultDensity: "compact", defaultCategory: "spell", expandedByDefault: true }, () => undefined);
+    const panel = document.querySelector<HTMLElement>("#dd55-companion")!;
+    document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();
+    expect(panel.dataset).toMatchObject({ theme: "dark", fontSize: "large", density: "compact" });
+    expect(panel.classList.contains("is-expanded")).toBe(true);
+    expect(document.querySelector("[data-type='spell']")?.classList.contains("is-active")).toBe(true);
+    expect(document.querySelector<HTMLElement>("[data-spell-filters]")!.hidden).toBe(false);
+  });
+
+  it("réinitialise la position et permet de masquer le lanceur", () => {
+    const onLauncherChange = vi.fn();
+    mountPanel({ enabled: true, bilingual: true, launcherPosition: { left: 100, top: 80 }, panelPosition: { left: 60, top: 40 } }, () => undefined, onLauncherChange);
+    document.querySelector<HTMLButtonElement>("[data-settings-open]")!.click();
+    document.querySelector<HTMLButtonElement>("[data-reset-panel]")!.click();
+    expect(document.querySelector<HTMLElement>("#dd55-companion")!.style.left).toBe("");
+    expect(onLauncherChange).toHaveBeenCalledWith({ panelPosition: null });
+    document.querySelector<HTMLButtonElement>("[data-reset-launcher]")!.click();
+    const launcher = document.querySelector<HTMLButtonElement>("#dd55-launcher")!;
+    expect(launcher.style.left).toBe("");
+    expect(onLauncherChange).toHaveBeenCalledWith({ launcherPosition: null });
+    const visible = document.querySelector<HTMLInputElement>("[data-launcher-visible]")!;
+    visible.checked = false;
+    visible.dispatchEvent(new Event("change", { bubbles: true }));
+    expect(launcher.hidden).toBe(true);
+  });
+
+  it("affiche un état vide actionnable", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("requête introuvable xyz");
+    expect(document.querySelector(".dd55-empty")?.textContent).toContain("Aucune fiche trouvée");
+    document.querySelector<HTMLButtonElement>("[data-empty-clear-search]")!.click();
+    expect(document.querySelector<HTMLInputElement>("[data-search]")!.value).toBe("");
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+  });
+
+  it("surligne une correspondance même sans accent dans la requête", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Epuisement");
+    expect(document.querySelector("[data-entry-id='rule-etat-epuisement'] mark")?.textContent).toBe("Épuisement");
+  });
+
   it("charge réellement les références suivantes dans l'onglet Tout", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();

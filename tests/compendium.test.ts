@@ -1,7 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { compendiumEntries, findCompendiumEntry } from "../src/services/srd-compendium";
+import { compendiumEntries, findCompendiumEntry, searchCompendiumResults } from "../src/services/srd-compendium";
 
 describe("données du compendium", () => {
+  it("classe la recherche par pertinence et tolère les variantes de saisie", () => {
+    expect(searchCompendiumResults("feu boule", "spell")[0].entry.id).toBe("spell-boule-de-feu");
+    expect(searchCompendiumResults("epuisemant", "rule").some(result => result.entry.id === "rule-etat-epuisement")).toBe(true);
+    expect(searchCompendiumResults("boule feu 45 m", "spell")[0].entry.id).toBe("spell-boule-de-feu");
+  });
+
+  it("retrouve une fiche depuis son contenu et fournit un extrait", () => {
+    const result = searchCompendiumResults("8d6 dégâts feu", "spell").find(item => item.entry.id === "spell-boule-de-feu");
+    expect(result?.matchedFields).toContain("content");
+    expect(result?.excerpt).toContain("8d6");
+  });
+
   it("contient les catalogues structurés attendus", () => {
     expect(compendiumEntries.filter(entry => entry.type === "spell").length).toBeGreaterThan(300);
     expect(compendiumEntries.filter(entry => entry.type === "feat").length).toBeGreaterThan(10);
