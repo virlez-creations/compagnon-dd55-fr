@@ -13,4 +13,6 @@ export interface Reference {
 export interface Preferences {
   enabled: boolean;
   bilingual: boolean;
+  launcherVisible?: boolean;
+  launcherPosition?: { left: number; top: number };
 }

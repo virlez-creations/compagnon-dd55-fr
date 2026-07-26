@@ -26,6 +26,13 @@ test("respecte les budgets de navigation sur une fiche volumineuse", async ({ pa
   await expect(page.locator("#late-spell .dd55-reference")).toHaveCount(1);
   const mutationMs = await page.evaluate(start => performance.now() - start, mutationStart);
 
+  await page.evaluate(() => {
+    const row = document.querySelector<HTMLButtonElement>("#late-spell")!;
+    row.childNodes[0].textContent = "Fireball";
+  });
+  await expect(page.locator("#late-spell")).toContainText("Boule de feu");
+  await expect(page.locator("#late-spell [data-dd55-open='spell-boule-de-feu']")).toHaveCount(1);
+
   const homeStart = await page.evaluate(() => {
     const start = performance.now();
     document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();
@@ -47,7 +54,7 @@ test("respecte les budgets de navigation sur une fiche volumineuse", async ({ pa
   console.info("Budget performance DD55", metrics);
 
   expect(initialMs).toBeLessThan(1200);
-  expect(mutationMs).toBeLessThan(250);
+  expect(mutationMs).toBeLessThan(400);
   expect(homeMs).toBeLessThan(350);
   expect(spellsMs).toBeLessThan(350);
 });

@@ -3,7 +3,7 @@ import { mountPanel } from "./panel";
 import { enhanceSheet, isDnd2024Sheet } from "./sheet";
 import type { Preferences } from "../types";
 
-const defaults: Preferences = { enabled: true, bilingual: true };
+const defaults: Preferences = { enabled: true, bilingual: true, launcherVisible: true };
 let preferences = defaults;
 let sheetDetected = false;
 let flushTimer: number | undefined;
@@ -11,25 +11,52 @@ const pendingRoots = new Set<Element>();
 
 async function loadPreferences(): Promise<Preferences> {
   if (!globalThis.chrome?.storage?.local) return defaults;
-  return { ...defaults, ...(await chrome.storage.local.get(defaults)) } as Preferences;
+  try {
+    return { ...defaults, ...(await chrome.storage.local.get()) } as Preferences;
+  } catch {
+    return defaults;
+  }
+}
+
+function savePreferences(next: Partial<Preferences>): void {
+  try {
+    if (!globalThis.chrome?.storage?.local || !globalThis.chrome?.runtime?.id) return;
+    const pending = chrome.storage.local.set(next);
+    void pending.catch(() => undefined);
+  } catch {
+    // Le contexte d'une ancienne version peut être invalidé après un rechargement
+    // de l'extension. Le réglage reste appliqué à la page sans créer d'erreur Chrome.
+  }
+}
+
+function isModernDnd5Table(): boolean {
+  if (document.documentElement.dataset.dd55ModernDnd5 === "true") return true;
+  return Boolean(document.querySelector("[data-sheet-type*='dnd2024byroll20' i], [data-character-sheet*='dnd2024byroll20' i], [src*='dnd2024byroll20' i], [href*='dnd2024byroll20' i]"));
 }
 
 function ensurePanel(): void {
   if (window.top !== window) return;
   mountPanel(preferences, (next) => {
-    preferences = next;
-    if (globalThis.chrome?.storage?.local) void chrome.storage.local.set(next);
+    preferences = { ...preferences, ...next };
+    savePreferences(next);
     document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
     processDocument();
+  }, (next) => {
+    preferences = { ...preferences, ...next };
+    savePreferences(next);
   });
 }
 
 function processDocument(): void {
   if (!sheetDetected) {
-    if (!isDnd2024Sheet()) return;
-    sheetDetected = true;
-    if (window.top === window) ensurePanel();
-    else if (globalThis.chrome?.runtime) void chrome.runtime.sendMessage({ type: "DD55_SHEET_DETECTED" });
+    if (isDnd2024Sheet()) {
+      sheetDetected = true;
+      if (window.top === window) ensurePanel();
+      else if (globalThis.chrome?.runtime) void chrome.runtime.sendMessage({ type: "DD55_SHEET_DETECTED" });
+    } else if (window.top === window && isModernDnd5Table()) {
+      ensurePanel();
+      return;
+    } else return;
   }
   pendingRoots.clear();
   enhanceSheet(document, preferences);
@@ -63,13 +90,13 @@ function scheduleFlush(): void {
 
 async function start(): Promise<void> {
   preferences = await loadPreferences();
+  document.addEventListener("dd55:modern-table", processDocument);
   processDocument();
   new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       const target = mutation.target instanceof Element ? mutation.target : mutation.target.parentElement;
       if (!target || target.closest("#dd55-companion, #dd55-launcher, .dd55-reference")) continue;
       const additions = [...mutation.addedNodes];
-      if (additions.length && additions.every(node => node instanceof Element && node.matches(".dd55-reference, #dd55-companion, #dd55-launcher"))) continue;
       if (target === document.body && additions.length) {
         additions.forEach(node => {
           const element = node instanceof Element ? node : node.parentElement;
@@ -80,11 +107,17 @@ async function start(): Promise<void> {
       }
     }
     if (pendingRoots.size) scheduleFlush();
-  }).observe(document.body, { childList: true, subtree: true });
+  }).observe(document.body, { childList: true, characterData: true, subtree: true });
 
   if (globalThis.chrome?.runtime?.onMessage) {
     chrome.runtime.onMessage.addListener((message: unknown) => {
       if (!message || typeof message !== "object") return;
+      if ((message as { type?: string }).type === "DD55_TOGGLE_LAUNCHER") {
+        if (!sheetDetected && !isModernDnd5Table()) return;
+        ensurePanel();
+        document.dispatchEvent(new CustomEvent("dd55:toggle-launcher"));
+        return;
+      }
       if ((message as { type?: string }).type === "DD55_ENABLE_COMPANION") {
         ensurePanel();
         return;
@@ -97,7 +130,7 @@ async function start(): Promise<void> {
       }
       if ((message as { type?: string }).type !== "DD55_TRANSLATE_SHEET") return;
       preferences = { ...preferences, enabled: true };
-      if (globalThis.chrome?.storage?.local) void chrome.storage.local.set(preferences);
+      savePreferences(preferences);
       document.querySelectorAll(".dd55-reference").forEach((element) => element.remove());
       processDocument();
       if (!sheetDetected) return;
