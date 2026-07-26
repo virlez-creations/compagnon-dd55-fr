@@ -19,4 +19,4 @@
 
 ## Livraison
 
-La commande `npm run package` crée `releases/compagnon-dd55-fr-0.8.0.zip`. L'archive contient directement `manifest.json`, les scripts, la feuille de style et les icônes attendus par Chrome/Edge.
+La commande `npm run package` crée l'archive correspondant à la version courante dans `releases/`. Elle contient directement `manifest.json`, les scripts, la feuille de style et les icônes attendus par Chrome/Edge.

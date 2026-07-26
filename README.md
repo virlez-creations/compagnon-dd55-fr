@@ -7,8 +7,10 @@ Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll2
 - traduction automatique des principaux libellés de la feuille D&D 2024 ;
 - affichage optionnel des noms anglais à côté des traductions françaises ;
 - détection des sorts, dons et aptitudes de classe dans les contenus dynamiques de Roll20 ;
-- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes et tables de progression ;
+- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement et tables de progression ;
 - recherche et filtres de sorts par classe et niveau ;
+- catalogue d’armes, d’armures et de boucliers avec filtres par type et maîtrise d’arme, et accès direct à la règle de chaque botte d’arme ;
+- catalogue des espèces et historiques du SRD, avec accès direct au don accordé par chaque historique ;
 - catalogue complémentaire de **391 sorts** et **75 dons**, avec liens vers AideDD lorsque la fiche n’est pas disponible dans le SRD local ;
 - menu contextuel **Traduire cette fiche D&D 2024** ;
 - prise en charge des différentes frames et surfaces utilisées par Roll20.
@@ -33,10 +35,12 @@ Après une modification du code, relancez `npm run build`, puis rechargez l’ex
 
 ## Utilisation
 
-Ouvrez une partie Roll20 utilisant la feuille officielle D&D 2024. Le bouton **D&D 5.5 FR** donne accès au compendium et aux réglages :
+Ouvrez une table Roll20 utilisant la feuille officielle D&D 5 moderne (`dnd2024byroll20`). Le bouton **D&D 5.5 FR** donne accès au compendium dès l'arrivée sur la table :
 
 - **Traduire la feuille** active ou désactive les enrichissements ;
 - **Conserver les noms anglais** affiche les noms bilingues lorsqu’ils sont disponibles.
+
+Faites glisser le bouton pour le placer où vous le souhaitez. Un clic sur l'icône de l'extension dans Chrome ou Edge permet de masquer ou réafficher ce bouton ; sa position et sa visibilité sont mémorisées.
 
 Vous pouvez également faire un clic droit dans la fiche et sélectionner **Traduire cette fiche D&D 2024**. Les références absentes du SRD local ne sont ouvertes sur AideDD qu’après une action explicite de votre part.
 

@@ -8,6 +8,20 @@ describe("données du compendium", () => {
     expect(compendiumEntries.filter(entry => entry.type === "rule").length).toBeGreaterThan(30);
     expect(compendiumEntries.filter(entry => entry.type === "class")).toHaveLength(12);
     expect(compendiumEntries.filter(entry => entry.type === "subclass")).toHaveLength(12);
+    expect(compendiumEntries.filter(entry => entry.type === "equipment")).toHaveLength(51);
+    expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-botte-"))).toHaveLength(8);
+    expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-propriete-arme-"))).toHaveLength(10);
+    expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-etat-"))).toHaveLength(15);
+    expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(9);
+    expect(compendiumEntries.filter(entry => entry.type === "background")).toHaveLength(4);
+  });
+
+  it("expose les propriétés d’arme et les états comme règles structurées", () => {
+    expect(findCompendiumEntry("Légère", "rule")?.sections[0].content).toContain("attaque supplémentaire");
+    expect(findCompendiumEntry("Munitions", "rule")?.page).toBe(96);
+    expect(findCompendiumEntry("À terre", "rule")?.sections.map(section => section.heading)).toContain("Déplacement limité");
+    expect(findCompendiumEntry("Épuisement", "rule")?.sections).toHaveLength(4);
+    expect(findCompendiumEntry("Paralysé", "rule")?.sections).toHaveLength(5);
   });
 
   it("expose les métadonnées et le corps d’un sort", () => {
@@ -21,6 +35,38 @@ describe("données du compendium", () => {
     expect(findCompendiumEntry("Soins", "spell")?.id).toBe("spell-soins");
     expect(findCompendiumEntry("Soins", "rule")?.id).toBe("rule-soins");
     expect(findCompendiumEntry("Amélioration de caractéristique", "feat")?.id).toBe("feat-amelioration-de-caracteristique");
+  });
+
+  it("expose les caractéristiques et la botte d’une arme", () => {
+    const pistol = findCompendiumEntry("Pistolet", "equipment")!;
+    expect(pistol.page).toBe(97);
+    expect(pistol.meta).toMatchObject({
+      "Type d’équipement": "Arme de guerre à distance",
+      Dégâts: "1d10 perforants",
+      "Botte d’arme": "Ouverture"
+    });
+    expect(findCompendiumEntry("Ouverture", "rule")?.id).toBe("rule-botte-ouverture");
+  });
+
+  it("structure les origines et relie les historiques à leur don", () => {
+    const elf = findCompendiumEntry("Elfe", "species")!;
+    expect(elf.meta).toMatchObject({ "Type de créature": "Humanoïde", Vitesse: "9 m" });
+    expect(elf.sections.some(section => section.heading === "Lignage elfique")).toBe(true);
+    const criminal = findCompendiumEntry("Criminel", "background")!;
+    expect(criminal.meta["Don d’origine"]).toBe("Vigilant");
+    expect(criminal.links).toEqual([{ label: "Don accordé par l’historique", entryId: "feat-vigilant", title: "Vigilant" }]);
+  });
+
+  it("présente les choix d’espèce dans des tableaux comparatifs", () => {
+    const expectedRows: Record<string, number> = { Drakéide: 10, Elfe: 3, Gnome: 2, Goliath: 6, Tieffelin: 3 };
+    for (const [name, rowCount] of Object.entries(expectedRows)) {
+      const species = findCompendiumEntry(name, "species")!;
+      expect(species.tables, name).toHaveLength(1);
+      expect(species.tables![0].rows, name).toHaveLength(rowCount);
+      expect(species.tables![0].headers.length, name).toBeGreaterThanOrEqual(2);
+      expect(species.tables![0].rows.every(row => row.length === species.tables![0].headers.length), name).toBe(true);
+    }
+    expect(findCompendiumEntry("Halfelin", "species")?.tables).toBeUndefined();
   });
 
   it("résout le nom AideDD d’un don vers sa fiche SRD", () => {

@@ -22,6 +22,11 @@ function setupContextMenu(): void {
 setupContextMenu();
 chrome.runtime.onInstalled.addListener(setupContextMenu);
 
+chrome.action.onClicked.addListener(tab => {
+  if (!tab.id) return;
+  void chrome.tabs.sendMessage(tab.id, { type: "DD55_TOGGLE_LAUNCHER" }, { frameId: 0 });
+});
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId !== MENU_ID || !tab?.id) return;
   void chrome.tabs.sendMessage(tab.id, { type: "DD55_TRANSLATE_SHEET" }, { frameId: info.frameId ?? 0 });

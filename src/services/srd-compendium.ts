@@ -1,7 +1,16 @@
 import data from "../data/srd-compendium.json";
+import { equipmentEntries } from "../data/equipment";
+import { originEntries } from "../data/origins";
+import { additionalRuleEntries } from "../data/rules";
 import { normalizeName } from "./reference-matcher";
 
-export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass";
+export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass" | "equipment" | "species" | "background";
+
+export interface CompendiumLink {
+  label: string;
+  entryId: string;
+  title: string;
+}
 
 export interface CompendiumSection {
   heading?: string;
@@ -25,9 +34,10 @@ export interface CompendiumEntry {
   meta: Record<string, string>;
   sections: CompendiumSection[];
   tables?: CompendiumTable[];
+  links?: CompendiumLink[];
 }
 
-export const compendiumEntries = data.entries as CompendiumEntry[];
+export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries] as CompendiumEntry[];
 
 const titleIndex = new Map<string, CompendiumEntry[]>();
 for (const entry of compendiumEntries) {
