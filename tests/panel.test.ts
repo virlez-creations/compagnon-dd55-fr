@@ -5,7 +5,11 @@ import { compendiumEntries } from "../src/services/srd-compendium";
 
 describe("compendium SRD local", () => {
   beforeEach(() => { document.body.innerHTML = ""; });
-  afterEach(() => { vi.unstubAllGlobals(); });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    vi.useRealTimers();
+    Reflect.deleteProperty(document, "execCommand");
+  });
 
   function search(value: string): void {
     const input = document.querySelector<HTMLInputElement>("[data-search]")!;
@@ -179,6 +183,75 @@ describe("compendium SRD local", () => {
     expect(detail).toContain("Portée");
     expect(detail).toContain("45 m");
     expect(detail).toContain("8d6 dégâts de feu");
+  });
+
+  it("copie un bloc de texte propre et confirme la copie", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Boule de feu");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='spell-boule-de-feu']")!.click();
+    const button = document.querySelector<HTMLButtonElement>("[data-copy-target='section-0']")!;
+    button.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledOnce());
+    const copied = writeText.mock.calls[0][0] as string;
+    expect(copied).toContain("8d6 dégâts de feu");
+    expect(copied).not.toContain("Copier");
+    expect(copied).not.toContain("À découvrir aussi");
+    await vi.waitFor(() => expect(button.textContent).toContain("✓ Copié"));
+    expect(document.querySelector("[data-copy-status]")?.textContent).toContain("Contenu copié");
+  });
+
+  it("copie la fiche complète dans l’ordre avec ses métadonnées et sa source", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Boule de feu");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='spell-boule-de-feu']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-copy-target='all']")!.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledOnce());
+    const copied = writeText.mock.calls[0][0] as string;
+    expect(copied.startsWith("Boule de feu\n")).toBe(true);
+    expect(copied).toContain("Niveau : 3");
+    expect(copied.indexOf("8d6 dégâts de feu")).toBeLessThan(copied.indexOf("Source : SRD 5.2.1 FR"));
+    expect(copied).not.toContain("Page SRD");
+    expect(copied).not.toContain("À découvrir aussi");
+  });
+
+  it("copie les présentations et les tableaux avec des retours et tabulations", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='classes']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-entry-id='class-barde']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-copy-target='presentation']")!.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledTimes(1));
+    expect(writeText.mock.calls[0][0]).toContain("Présentation\n");
+    document.querySelector<HTMLButtonElement>("[data-copy-target='table-0']")!.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledTimes(2));
+    const copiedTable = writeText.mock.calls[1][0] as string;
+    expect(copiedTable).toContain("Niveau\tBM\tAptitudes de classe");
+    expect(copiedTable.split("\n").length).toBeGreaterThanOrEqual(22);
+  });
+
+  it("utilise la copie de repli puis signale un échec total", async () => {
+    const writeText = vi.fn().mockRejectedValue(new Error("refusé"));
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    const execCommand = vi.fn().mockReturnValueOnce(true).mockReturnValueOnce(false);
+    Object.defineProperty(document, "execCommand", { configurable: true, value: execCommand });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    search("Boule de feu");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='spell-boule-de-feu']")!.click();
+    const sectionButton = document.querySelector<HTMLButtonElement>("[data-copy-target='section-0']")!;
+    sectionButton.click();
+    await vi.waitFor(() => expect(execCommand).toHaveBeenCalledTimes(1));
+    expect(sectionButton.textContent).toContain("✓ Copié");
+    expect(document.querySelector("textarea")).toBeNull();
+    const allButton = document.querySelector<HTMLButtonElement>("[data-copy-target='all']")!;
+    allButton.click();
+    await vi.waitFor(() => expect(execCommand).toHaveBeenCalledTimes(2));
+    expect(allButton.textContent).toContain("Copie impossible");
+    expect(document.querySelector("[data-copy-status]")?.textContent).toContain("échoué");
   });
 
   it("transforme la table textuelle des actions en lignes lisibles", () => {

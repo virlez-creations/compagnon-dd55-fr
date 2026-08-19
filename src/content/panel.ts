@@ -103,9 +103,68 @@ function openExternalUrl(url: string): void {
   window.open(url, "_blank", "noopener,noreferrer");
 }
 
-function renderPresentation(entry: CompendiumEntry, content: string): string {
+function normalizeCopiedContent(value: string): string {
+  const [introduction = "", ...items] = value.trim().split(/\s*•\s*/);
+  const normalizedIntroduction = introduction.replace(/\s+/g, " ").trim();
+  const normalizedItems = items.map(item => item.replace(/\s+/g, " ").trim()).filter(Boolean);
+  return [normalizedIntroduction, ...normalizedItems.map(item => `• ${item}`)].filter(Boolean).join("\n");
+}
+
+function serializeSection(heading: string | undefined, content: string): string {
+  return [heading?.trim(), normalizeCopiedContent(content)].filter(Boolean).join("\n");
+}
+
+function serializeTable(table: CompendiumTable): string {
+  return [table.title, table.headers.join("\t"), ...table.rows.map(row => row.join("\t"))].join("\n");
+}
+
+function serializeEntry(entry: CompendiumEntry): string {
+  const metadata = Object.entries(entry.meta).filter(([, value]) => value).map(([label, value]) => `${label} : ${value}`);
+  const presentation = entry.sections[0]?.heading === "Présentation" ? entry.sections[0] : undefined;
+  const articleSections = presentation ? entry.sections.slice(1) : entry.sections;
+  const blocks = [
+    entry.title,
+    entry.subtitle,
+    metadata.join("\n"),
+    presentation ? serializeSection(presentation.heading, presentation.content) : "",
+    ...(entry.tables ?? []).map(serializeTable),
+    ...articleSections.map(section => serializeSection(section.heading, section.content)),
+    `Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0`
+  ];
+  return blocks.filter(block => block.trim()).join("\n\n");
+}
+
+async function writeClipboardText(value: string): Promise<boolean> {
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch {
+    // Le presse-papiers peut être refusé dans certaines fenêtres Roll20 détachées.
+  }
+  const textarea = document.createElement("textarea");
+  textarea.value = value;
+  textarea.setAttribute("readonly", "");
+  textarea.style.cssText = "position:fixed;left:-9999px;top:0;opacity:0";
+  document.body.append(textarea);
+  textarea.select();
+  try {
+    return document.execCommand("copy");
+  } catch {
+    return false;
+  } finally {
+    textarea.remove();
+  }
+}
+
+function renderCopyButton(target: string, label = "Copier"): string {
+  return `<button type="button" class="dd55-copy-button" data-copy-target="${escapeHtml(target)}" aria-label="${escapeHtml(label)}"><span aria-hidden="true">⧉</span><span data-copy-label>Copier</span></button>`;
+}
+
+function renderPresentation(entry: CompendiumEntry, content: string, copyTarget: string): string {
   if (entry.type !== "class") {
-    return `<section class="dd55-presentation"><div class="dd55-section-kicker">Présentation</div><div class="dd55-presentation-copy"><span aria-hidden="true">✦</span><p>${escapeHtml(content)}</p></div></section>`;
+    return `<section class="dd55-presentation"><div class="dd55-section-bar"><div class="dd55-section-kicker">Présentation</div>${renderCopyButton(copyTarget, "Copier la présentation")}</div><div class="dd55-presentation-copy"><span aria-hidden="true">✦</span><p>${escapeHtml(content)}</p></div></section>`;
   }
   const withoutTitle = content.replace(new RegExp(`^Devenir ${entry.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}…?\\s*`, "i"), "");
   const [levelOne = "", multiclass = ""] = withoutTitle.split(/En tant que personnage multiclassé/i);
@@ -116,16 +175,16 @@ function renderPresentation(entry: CompendiumEntry, content: string): string {
     const items = card.text.split("•").map(item => item.trim()).filter(Boolean);
     return `<div class="dd55-start-card"><span class="dd55-start-icon" aria-hidden="true">${card.icon}</span><div><h4>${card.title}</h4>${items.length > 1 || card.text.includes("•") ? `<ul>${items.map(item => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : `<p>${escapeHtml(card.text.trim())}</p>`}</div></div>`;
   }).join("");
-  return `<section class="dd55-presentation"><div class="dd55-section-kicker">Présentation</div><div class="dd55-section-title"><div><h3>Commencer comme ${escapeHtml(entry.title)}</h3><p>Les éléments reçus lors de la création du personnage.</p></div></div><div class="dd55-start-grid">${cards}</div></section>`;
+  return `<section class="dd55-presentation"><div class="dd55-section-bar"><div class="dd55-section-kicker">Présentation</div>${renderCopyButton(copyTarget, "Copier la présentation")}</div><div class="dd55-section-title"><div><h3>Commencer comme ${escapeHtml(entry.title)}</h3><p>Les éléments reçus lors de la création du personnage.</p></div></div><div class="dd55-start-grid">${cards}</div></section>`;
 }
 
-function renderCompendiumTable(table: CompendiumTable, entry: CompendiumEntry): string {
+function renderCompendiumTable(table: CompendiumTable, entry: CompendiumEntry, copyTarget: string): string {
   const headers = table.headers.map(header => `<th scope="col">${escapeHtml(header)}</th>`).join("");
   const rows = table.rows.map(row => `<tr class="${row[2] && row[2] !== "—" ? "has-feature" : ""}">${row.map((cell, index) => index === 0
     ? `<th scope="row">${escapeHtml(cell)}</th>`
     : `<td>${escapeHtml(cell)}</td>`).join("")}</tr>`).join("");
-  if (entry.type === "class" || entry.type === "subclass") return `<section class="dd55-progression"><div class="dd55-section-kicker">Progression</div><div class="dd55-progression-heading"><div><h3>Progression du ${escapeHtml(entry.title)}</h3><p>Aptitudes et ressources acquises du niveau 1 au niveau 20.</p></div><span>${table.rows.length}<small>niveaux</small></span></div><div class="dd55-table-hint"><span>↔ Faites défiler le tableau horizontalement</span><span><abbr title="Bonus de maîtrise">BM</abbr> : bonus de maîtrise · <abbr title="Emplacement">Empl.</abbr> : emplacement</span></div><div class="dd55-table-scroll" tabindex="0" aria-label="${escapeHtml(table.title)}"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
-  return `<section class="dd55-progression dd55-options-table"><div class="dd55-section-kicker">Choix d’origine</div><div class="dd55-progression-heading"><div><h3>${escapeHtml(table.title)}</h3><p>Comparez les options disponibles avant de faire votre choix.</p></div></div><div class="dd55-table-hint"><span>↔ Faites défiler le tableau horizontalement</span></div><div class="dd55-table-scroll" tabindex="0" aria-label="${escapeHtml(table.title)}"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  if (entry.type === "class" || entry.type === "subclass") return `<section class="dd55-progression"><div class="dd55-section-bar"><div class="dd55-section-kicker">Progression</div>${renderCopyButton(copyTarget, "Copier le tableau de progression")}</div><div class="dd55-progression-heading"><div><h3>Progression du ${escapeHtml(entry.title)}</h3><p>Aptitudes et ressources acquises du niveau 1 au niveau 20.</p></div><span>${table.rows.length}<small>niveaux</small></span></div><div class="dd55-table-hint"><span>↔ Faites défiler le tableau horizontalement</span><span><abbr title="Bonus de maîtrise">BM</abbr> : bonus de maîtrise · <abbr title="Emplacement">Empl.</abbr> : emplacement</span></div><div class="dd55-table-scroll" tabindex="0" aria-label="${escapeHtml(table.title)}"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
+  return `<section class="dd55-progression dd55-options-table"><div class="dd55-section-bar"><div class="dd55-section-kicker">Choix d’origine</div>${renderCopyButton(copyTarget, "Copier le tableau d’options")}</div><div class="dd55-progression-heading"><div><h3>${escapeHtml(table.title)}</h3><p>Comparez les options disponibles avant de faire votre choix.</p></div></div><div class="dd55-table-hint"><span>↔ Faites défiler le tableau horizontalement</span></div><div class="dd55-table-scroll" tabindex="0" aria-label="${escapeHtml(table.title)}"><table><thead><tr>${headers}</tr></thead><tbody>${rows}</tbody></table></div></section>`;
 }
 
 const paragraphStarters = /^(?:Vous|Votre|Vos|Le|La|Les|Un|Une|Des|Ce|Cet|Cette|Ces|Il|Ils|Elle|Elles|Chaque|Lorsque|Si|En|Tant|Pour|Par|Après|Avant|Au|Aux|Dans|Sur|Avec|Sans)\b/i;
@@ -228,6 +287,9 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let listRendered = false;
   let viewBeforeSettings: "home" | "detail" = "home";
   let scrollBeforeSettings = 0;
+  let copyTargets = new Map<string, string>();
+  const copyFeedbackTimers = new WeakMap<HTMLElement, number>();
+  let copyStatusTimer: number | undefined;
 
   const launcher = document.createElement("button");
   launcher.id = "dd55-launcher"; launcher.type = "button"; launcher.textContent = "📖 D&D 5.5 FR"; launcher.setAttribute("aria-expanded", "false");
@@ -452,12 +514,24 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
       ...(subclass ? [{ label: "Sous-classe du SRD", entryId: subclass.id, title: subclass.title, entry: subclass }] : [])
     ].filter(link => link.entry);
     const entryLinks = directLinks.map(link => `<aside class="dd55-mastery-link"><span>${escapeHtml(link.label)}</span><button type="button" data-entry-id="${link.entryId}"><strong>${escapeHtml(link.title)}</strong><small>Ouvrir la fiche complète</small><b>›</b></button></aside>`).join("");
-    const presentation = entry.sections[0]?.heading === "Présentation" ? renderPresentation(entry, entry.sections[0].content) : "";
+    copyTargets = new Map<string, string>();
+    copyTargets.set("all", serializeEntry(entry));
+    const presentationSection = entry.sections[0]?.heading === "Présentation" ? entry.sections[0] : undefined;
+    if (presentationSection) copyTargets.set("presentation", serializeSection(presentationSection.heading, presentationSection.content));
+    const presentation = presentationSection ? renderPresentation(entry, presentationSection.content, "presentation") : "";
     const articleSections = presentation ? entry.sections.slice(1) : entry.sections;
-    const tables = entry.tables?.map(table => renderCompendiumTable(table, entry)).join("") ?? "";
-    const sections = articleSections.map(section => `<section>${section.heading ? `<h3>${escapeHtml(section.heading)}</h3>` : ""}${renderSectionContent(entry, section.content)}</section>`).join("");
+    const tables = entry.tables?.map((table, index) => {
+      const target = `table-${index}`;
+      copyTargets.set(target, serializeTable(table));
+      return renderCompendiumTable(table, entry, target);
+    }).join("") ?? "";
+    const sections = articleSections.map((section, index) => {
+      const target = `section-${index}`;
+      copyTargets.set(target, serializeSection(section.heading, section.content));
+      return `<section class="dd55-copyable-section"><div class="dd55-article-heading">${section.heading ? `<h3>${escapeHtml(section.heading)}</h3>` : "<span></span>"}${renderCopyButton(target, `Copier ${section.heading ? `la section ${section.heading}` : "ce bloc"}`)}</div>${renderSectionContent(entry, section.content)}</section>`;
+    }).join("");
     const related = compendiumEntries.filter(candidate => candidate.id !== entry.id && candidate.type === entry.type && candidate.tags.some(tag => entry.tags.includes(tag))).slice(0, 6);
-    detail.innerHTML = `<div class="dd55-detail-toolbar"><button type="button" data-back>← Compendium</button><span>Page SRD ${entry.page}</span></div><div class="dd55-detail-hero" data-kind="${entry.type}"><span>${typeLabels[entry.type]}</span><h2>${escapeHtml(entry.title)}</h2><p>${escapeHtml(entry.subtitle)}</p></div>${metadata ? `<dl class="dd55-meta-grid">${metadata}</dl>` : ""}${entryLinks}${presentation}${tables}<div class="dd55-article">${sections}</div>${related.length ? `<aside class="dd55-related"><h3>À découvrir aussi</h3>${related.map(item => `<button type="button" data-entry-id="${item.id}">${escapeHtml(item.title)}<span>›</span></button>`).join("")}</aside>` : ""}<p class="dd55-source">Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0</p>`;
+    detail.innerHTML = `<div class="dd55-detail-toolbar"><button type="button" data-back>← Compendium</button><div><span>Page SRD ${entry.page}</span>${renderCopyButton("all", "Copier toute la fiche")}</div></div><p class="dd55-copy-status" data-copy-status role="status" aria-live="polite"></p><div class="dd55-detail-hero" data-kind="${entry.type}"><span>${typeLabels[entry.type]}</span><h2>${escapeHtml(entry.title)}</h2><p>${escapeHtml(entry.subtitle)}</p></div>${metadata ? `<dl class="dd55-meta-grid">${metadata}</dl>` : ""}${entryLinks}${presentation}${tables}<div class="dd55-article">${sections}</div>${related.length ? `<aside class="dd55-related"><h3>À découvrir aussi</h3>${related.map(item => `<button type="button" data-entry-id="${item.id}">${escapeHtml(item.title)}<span>›</span></button>`).join("")}</aside>` : ""}<p class="dd55-source">Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0</p>`;
     panel.scrollTop = 0;
   };
 
@@ -492,7 +566,29 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     const entry = target && compendiumEntries.find(item => item.id === target.dataset.entryId);
     if (entry) showEntry(entry);
   });
-  detail.addEventListener("click", event => {
+  detail.addEventListener("click", async event => {
+    const copyButton = (event.target as Element).closest<HTMLButtonElement>("[data-copy-target]");
+    if (copyButton?.dataset.copyTarget) {
+      event.preventDefault();
+      event.stopPropagation();
+      const value = copyTargets.get(copyButton.dataset.copyTarget);
+      if (!value) return;
+      const copied = await writeClipboardText(value);
+      const status = detail.querySelector<HTMLElement>("[data-copy-status]");
+      const label = copyButton.querySelector<HTMLElement>("[data-copy-label]");
+      if (label) label.textContent = copied ? "✓ Copié" : "Copie impossible";
+      if (status) status.textContent = copied ? "Contenu copié dans le presse-papiers." : "La copie dans le presse-papiers a échoué.";
+      const previousButtonTimer = copyFeedbackTimers.get(copyButton);
+      if (previousButtonTimer !== undefined) window.clearTimeout(previousButtonTimer);
+      copyFeedbackTimers.set(copyButton, window.setTimeout(() => {
+        if (label?.isConnected) label.textContent = "Copier";
+      }, 1800));
+      if (copyStatusTimer !== undefined) window.clearTimeout(copyStatusTimer);
+      copyStatusTimer = window.setTimeout(() => {
+        if (status?.isConnected) status.textContent = "";
+      }, 1800);
+      return;
+    }
     const back = (event.target as Element).closest("[data-back]");
     if (back) { detail.hidden = true; home.hidden = false; panel.scrollTop = 0; return; }
     const target = (event.target as Element).closest<HTMLElement>("[data-entry-id]");
