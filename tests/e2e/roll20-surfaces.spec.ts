@@ -79,6 +79,18 @@ test("fonctionne dans la fiche intégrée, la fenêtre détachée et une iframe"
   await expect(frame!.locator("#dd55-launcher")).toHaveCount(0);
 });
 
+test("tolère une double injection du script de contenu sans redéclaration ni doublon", async ({ page }) => {
+  const errors: string[] = [];
+  page.on("pageerror", error => errors.push(error.message));
+  await page.setContent(`${sheetSignature}<button>Goodberry</button>`);
+  await loadBundle(page);
+  await page.addScriptTag({ path: bundlePath });
+  await expect(page.locator("#dd55-launcher")).toHaveCount(1);
+  await expect(page.locator("body > button", { hasText: "Baies nourricières" })).toHaveCount(1);
+  expect(errors).toEqual([]);
+  expect(await page.evaluate(() => (globalThis as typeof globalThis & { __dd55ContentStarted?: boolean }).__dd55ContentStarted)).toBe(true);
+});
+
 test("ouvre le compendium local et expose le catalogue complet", async ({ page }) => {
   await page.setContent(`${sheetSignature}<button>Goodberry</button>`);
   await loadBundle(page);
@@ -86,13 +98,39 @@ test("ouvre le compendium local et expose le catalogue complet", async ({ page }
   await expect(page.locator("#dd55-companion")).toBeVisible();
   await expect(page.locator(".dd55-tabs")).toContainText("Règles 70");
   await expect(page.locator(".dd55-tabs")).toContainText("Sorts 391");
-  await expect(page.locator(".dd55-tabs")).toContainText("Dons 75");
+  await expect(page.locator(".dd55-tabs")).toContainText("Dons 137");
   await expect(page.locator(".dd55-tabs")).toContainText("Équipement 51");
   await expect(page.locator(".dd55-tabs")).toContainText("Origines 13");
+  await expect(page.locator(".dd55-tabs")).toContainText("Objets magiques 350");
 
   await page.locator("[data-dd55-open='spell-baies-nourricieres']").click();
   await expect(page.locator("[data-detail] h2")).toHaveText("Baies nourricières");
   await expect(page.locator("[data-detail]")).toContainText("Source : SRD 5.2.1 FR");
+});
+
+test("filtre les objets magiques et ouvre les fiches locales ou AideDD", async ({ page }) => {
+  await page.setContent(sheetSignature);
+  await page.evaluate(() => {
+    const state = window as typeof window & { openedUrl?: string };
+    (chrome as unknown as { runtime: { sendMessage: (message: { url?: string }) => Promise<void> } }).runtime = {
+      sendMessage: (message) => { state.openedUrl = message.url; return Promise.resolve(); }
+    };
+  });
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='magic-item']").click();
+  await expect(page.locator("[data-result-count]")).toContainText("350 références");
+  await page.locator("[data-magic-rarity='Artefact']").click();
+  await expect(page.locator("[data-results] .dd55-entry-card").first()).toContainText(/artefact/i);
+  await page.locator("[data-clear-magic-item-filters]").click();
+  await page.locator("[data-search]").fill("Amulette d’antidétection");
+  await page.locator("[data-entry-id='magic-item-amulette-d-antidetection']").click();
+  await expect(page.locator("[data-detail] h2")).toHaveText("Amulette d’antidétection");
+  await expect(page.locator("[data-detail] [data-copy-target='all']")).toBeVisible();
+  await page.locator("[data-back]").click();
+  await page.locator("[data-search]").fill("Dark Shard Amulet");
+  await page.locator("[data-external-url$='/magic-item/fr/amulette-de-sombre-eclat']").click();
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { openedUrl?: string }).openedUrl)).toBe("https://www.aidedd.org/magic-item/fr/amulette-de-sombre-eclat");
 });
 
 test("copie un bloc puis toute une fiche du compendium", async ({ page }) => {
@@ -263,6 +301,39 @@ test("garde les réglages dans le panneau et applique le thème sombre aux fiche
   expect(await contrastRatio(".dd55-article h3", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
   expect(await contrastRatio(".dd55-related button", ".dd55-related")).toBeGreaterThanOrEqual(4.5);
   expect(await contrastRatio(".dd55-source", "#dd55-companion")).toBeGreaterThanOrEqual(4.5);
+});
+
+test("affiche entièrement les textes des onglets et filtres en thème sombre", async ({ page }) => {
+  await page.setViewportSize({ width: 590, height: 720 });
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-expand]").click();
+  await page.locator("#dd55-companion").evaluate(panel => { (panel as HTMLElement).dataset.theme = "dark"; });
+
+  const tabLayout = await page.locator(".dd55-tabs button").evaluateAll(buttons => buttons.map(button => {
+    const element = button as HTMLElement;
+    const style = getComputedStyle(element);
+    const label = element.querySelector<HTMLElement>(".dd55-tab-label")!.getBoundingClientRect();
+    const count = element.querySelector<HTMLElement>("small")!.getBoundingClientRect();
+    return { text: element.textContent?.replace(/\s+/g, " ").trim(), whiteSpace: style.whiteSpace, flexDirection: style.flexDirection, overflow: element.scrollWidth - element.clientWidth, height: element.getBoundingClientRect().height, lineDelta: Math.abs((label.top + label.bottom) / 2 - (count.top + count.bottom) / 2) };
+  }));
+  expect(tabLayout.find(tab => tab.text === "Objets magiques 350")).toBeTruthy();
+  expect(tabLayout.every(tab => tab.whiteSpace === "nowrap" && tab.flexDirection === "row" && tab.overflow <= 1 && tab.lineDelta <= 1)).toBe(true);
+  expect(new Set(tabLayout.map(tab => Math.round(tab.height))).size).toBe(1);
+
+  for (const [type, filter, heading] of [["classes", "[data-class-filters]", "Filtrer les classes"], ["feat", "[data-feat-filters]", "Filtrer les dons"]] as const) {
+    await page.locator(`[data-type='${type}']`).click();
+    await expect(page.locator(`${filter} > div:first-child > span`)).toHaveText(heading);
+    const layout = await page.locator(filter).evaluate(element => {
+      const container = element.getBoundingClientRect();
+      return [...element.querySelectorAll<HTMLElement>("label > span, select")].map(child => {
+        const rect = child.getBoundingClientRect();
+        return { text: child instanceof HTMLSelectElement ? child.selectedOptions[0]?.textContent : child.textContent, left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, containerLeft: container.left, containerRight: container.right, containerTop: container.top, containerBottom: container.bottom };
+      });
+    });
+    expect(layout.every(item => Boolean(item.text?.trim()) && item.left >= item.containerLeft && item.right <= item.containerRight + 1 && item.top >= item.containerTop && item.bottom <= item.containerBottom + 1)).toBe(true);
+  }
 });
 
 test("déplace le panneau par son en-tête et conserve sa position", async ({ page }) => {

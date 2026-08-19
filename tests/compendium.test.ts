@@ -26,6 +26,22 @@ describe("données du compendium", () => {
     expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-etat-"))).toHaveLength(15);
     expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(9);
     expect(compendiumEntries.filter(entry => entry.type === "background")).toHaveLength(4);
+    expect(compendiumEntries.filter(entry => entry.type === "magic-item")).toHaveLength(258);
+  });
+
+  it("expose des fiches complètes pour tous les objets magiques du SRD", () => {
+    const items = compendiumEntries.filter(entry => entry.type === "magic-item");
+    const itemTypes = new Set(["Anneau", "Arme", "Armure", "Baguette", "Bâton", "Objet merveilleux", "Parchemin", "Potion", "Sceptre"]);
+    for (const item of items) {
+      expect(item.title, item.id).not.toBe("");
+      expect(item.page, item.id).toBeGreaterThanOrEqual(220);
+      expect(item.page, item.id).toBeLessThanOrEqual(266);
+      expect(item.itemType, item.id).toBeTruthy();
+      expect(itemTypes.has(item.itemType!), item.id).toBe(true);
+      expect(item.rarities?.length, item.id).toBeGreaterThan(0);
+      expect(item.sections.some(section => section.content.trim().length > 0), item.id).toBe(true);
+    }
+    expect(findCompendiumEntry("Arme +1, +2 ou +3", "magic-item")?.rarities).toEqual(["Peu courant", "Rare", "Très rare"]);
   });
 
   it("expose les propriétés d’arme et les états comme règles structurées", () => {

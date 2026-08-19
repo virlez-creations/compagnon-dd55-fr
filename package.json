@@ -1,6 +1,6 @@
 {
   "name": "compagnon-dd55-fr",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,6 +9,8 @@
     "test": "vitest run --exclude tests/e2e/**",
     "test:e2e": "npm run build && playwright test",
     "icons": "node scripts/generate-icons.mjs",
+    "data:magic-items": "node scripts/build-magic-items.mjs",
+    "data:aidedd-magic-items": "node scripts/import-aidedd-magic-items.mjs",
     "package": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
     "typecheck": "tsc --noEmit"
   },

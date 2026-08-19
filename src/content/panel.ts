@@ -1,12 +1,16 @@
 import { feats, spells } from "../data/references";
-import { normalizeName, referenceUrl } from "../services/reference-matcher";
+import magicItemsData from "../data/aidedd-magic-items.json";
+import { findReference, normalizeName, referenceUrl } from "../services/reference-matcher";
 import { compendiumEntries, findCompendiumEntry, searchCompendiumResults, type CompendiumEntry, type CompendiumSearchResult, type CompendiumTable, type CompendiumType } from "../services/srd-compendium";
-import type { Preferences, Reference } from "../types";
+import type { MagicItemRarity, MagicItemReference, Preferences, Reference } from "../types";
 
 type CompendiumFilter = CompendiumType | "classes" | "origins";
-type ExternalReference = { item: Reference; kind: "spell" | "feat" };
+type ExternalReference = { item: Reference | MagicItemReference; kind: "spell" | "feat" | "magic-item" };
 type ExternalSearchResult = ExternalReference & { score: number };
-const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe", equipment: "Équipement", species: "Espèce", background: "Historique" };
+type MagicItemSort = "name" | "rarity-asc" | "rarity-desc";
+const magicItemRarities: MagicItemRarity[] = ["Courant", "Peu courant", "Rare", "Très rare", "Légendaire", "Artefact", "Variable"];
+const magicItemRarityRank = new Map(magicItemRarities.map((rarity, index) => [rarity, index]));
+const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe", equipment: "Équipement", species: "Espèce", background: "Historique", "magic-item": "Objet magique" };
 const spellClassNames = [...new Set(compendiumEntries
   .filter(entry => entry.type === "spell")
   .flatMap(entry => (entry.meta.Classes ?? "").split(", ").filter(Boolean)))].sort((a, b) => a.localeCompare(b, "fr"));
@@ -14,18 +18,42 @@ const spellLevels = ["Mineur", ...Array.from({ length: 9 }, (_, index) => String
 const equipmentTypes = [...new Set(compendiumEntries.filter(entry => entry.type === "equipment").map(entry => entry.meta["Type d’équipement"]).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
 const weaponMasteries = [...new Set(compendiumEntries.filter(entry => entry.type === "equipment").map(entry => entry.meta["Botte d’arme"]).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
 const ruleKinds = [...new Set(compendiumEntries.filter(entry => entry.type === "rule").map(entry => entry.meta.Catégorie || entry.subtitle).filter(Boolean))].sort((a, b) => a.localeCompare(b, "fr"));
-function hasLocalEntry(item: Reference, kind: "spell" | "feat"): boolean {
+const featCategoryLabels: Record<string, string> = {
+  origin: "Don d’origines",
+  general: "Don général",
+  "fighting-style": "Don de Style de combat",
+  "epic-boon": "Don de faveur épique",
+  dragonmark: "Don de dracogramme"
+};
+const featCategoryOrder = ["origin", "general", "fighting-style", "epic-boon", "dragonmark"];
+const featCategories = featCategoryOrder.filter(category => feats.some(feat => feat.category === category));
+const featSources = [...new Set(feats.map(feat => feat.source).filter((source): source is string => Boolean(source)))];
+function hasLocalEntry(item: Reference, kind: "spell" | "feat" | "magic-item"): boolean {
   if (item.compendiumId) return true;
   return [item.nameFr, item.nameEn, ...(item.aliases ?? [])].some(name => findCompendiumEntry(name, kind));
 }
 const externalReferenceCatalog: ExternalReference[] = [
   ...spells.map(item => ({ item, kind: "spell" as const })),
-  ...feats.map(item => ({ item, kind: "feat" as const }))
+  ...feats.map(item => ({ item, kind: "feat" as const })),
+  ...(magicItemsData.items as MagicItemReference[]).map(item => ({ item, kind: "magic-item" as const }))
 ].filter(({ item, kind }) => !hasLocalEntry(item, kind));
+const localFeatReferences = new Map(compendiumEntries
+  .filter(entry => entry.type === "feat")
+  .flatMap(entry => {
+    const reference = findReference(entry.title, feats);
+    return reference ? [[entry.id, reference] as const] : [];
+  }));
+const indexedExternalReferenceCatalog = externalReferenceCatalog.map(reference => ({
+  ...reference,
+  normalizedTitle: normalizeName(reference.item.nameFr),
+  searchTokens: searchTokens(`${reference.item.nameFr} ${reference.item.nameEn} ${(reference.item.aliases ?? []).join(" ")}`)
+}));
 const localFeatCount = compendiumEntries.filter(entry => entry.type === "feat").length;
 const featReferenceCount = localFeatCount + externalReferenceCatalog.filter(reference => reference.kind === "feat").length;
 const localSpellCount = compendiumEntries.filter(entry => entry.type === "spell").length;
 const spellReferenceCount = localSpellCount + externalReferenceCatalog.filter(reference => reference.kind === "spell").length;
+const localMagicItemCount = compendiumEntries.filter(entry => entry.type === "magic-item").length;
+const magicItemReferenceCount = localMagicItemCount + externalReferenceCatalog.filter(reference => reference.kind === "magic-item").length;
 const totalReferenceCount = compendiumEntries.length + externalReferenceCatalog.length;
 
 function escapeHtml(value: string): string {
@@ -54,10 +82,10 @@ function editDistance(left: string, right: string): number {
 function externalReferences(query: string, type?: CompendiumFilter): ExternalSearchResult[] {
   if (type === "classes" || type === "class" || type === "subclass") return [];
   const wanted = searchTokens(query);
-  return externalReferenceCatalog.flatMap(reference => {
+  return indexedExternalReferenceCatalog.flatMap(reference => {
     if (type && type !== reference.kind) return [];
-    const title = normalizeName(reference.item.nameFr);
-    const tokens = searchTokens(`${reference.item.nameFr} ${reference.item.nameEn} ${(reference.item.aliases ?? []).join(" ")}`);
+    const title = reference.normalizedTitle;
+    const tokens = reference.searchTokens;
     let score = title === normalizeName(query) ? 10000 : title.startsWith(normalizeName(query)) ? 7000 : 0;
     for (const wantedToken of wanted) {
       const exact = tokens.some(token => token === wantedToken);
@@ -86,13 +114,21 @@ function highlightText(value: string, query: string): string {
 function renderEntryCard(result: CompendiumSearchResult, query: string): string {
   const { entry } = result;
   const summary = result.excerpt || entry.sections[0]?.content || "";
-  const icon = entry.type === "spell" ? "✦" : entry.type === "feat" ? "◆" : entry.type === "class" ? "♜" : entry.type === "subclass" ? "♟" : entry.type === "equipment" ? "⚔" : entry.type === "species" ? "♧" : entry.type === "background" ? "⌂" : "§";
+  const icon = entry.type === "spell" ? "✦" : entry.type === "feat" ? "◆" : entry.type === "class" ? "♜" : entry.type === "subclass" ? "♟" : entry.type === "equipment" ? "⚔" : entry.type === "species" ? "♧" : entry.type === "background" ? "⌂" : entry.type === "magic-item" ? "◈" : "§";
   return `<button type="button" class="dd55-entry-card" data-entry-id="${entry.id}"><span class="dd55-entry-icon" data-kind="${entry.type}">${icon}</span><span class="dd55-entry-main"><strong>${highlightText(entry.title, query)}</strong><small>${highlightText(entry.subtitle, query)}</small>${summary ? `<span>${highlightText(summary.slice(0, 170), query)}${summary.length > 170 ? "…" : ""}</span>` : ""}</span><span class="dd55-chevron">›</span></button>`;
 }
 
 function renderExternalCard({ item, kind }: ExternalReference, query: string): string {
-  const subtype = kind === "spell" ? item.level === 0 ? "Sort mineur" : `Sort de niveau ${item.level}` : "Don";
-  return `<button type="button" class="dd55-entry-card dd55-external" data-external-url="${referenceUrl(kind, item)}"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${highlightText(item.nameFr, query)}</strong><small>${highlightText(`${subtype} · ${item.nameEn}`, query)}</small><span>Absent du SRD · consulter sur AideDD</span></span></button>`;
+  const magicItem = kind === "magic-item" ? item as MagicItemReference : undefined;
+  const subtype = kind === "spell" ? item.level === 0 ? "Sort mineur" : `Sort de niveau ${item.level}` : kind === "feat" ? featCategoryLabels[item.category ?? ""] ?? "Don" : `${magicItem!.itemType} · ${magicItem!.rarity}`;
+  const source = item.source ? ` · ${item.source}` : "";
+  return `<button type="button" class="dd55-entry-card dd55-external" data-external-url="${referenceUrl(kind, item)}"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${highlightText(item.nameFr, query)}</strong><small>${highlightText(`${subtype} · ${item.nameEn}${source}`, query)}</small><span>Absent du SRD · consulter sur AideDD</span></span></button>`;
+}
+
+function raritySortValue(rarities: MagicItemRarity[] | undefined, direction: "asc" | "desc"): number {
+  const ranks = (rarities?.length ? rarities : ["Variable" as const]).map(rarity => magicItemRarityRank.get(rarity) ?? magicItemRarities.length - 1);
+  if (ranks.includes(magicItemRarities.length - 1) && ranks.length === 1) return direction === "asc" ? 999 : -999;
+  return direction === "asc" ? Math.min(...ranks) : Math.max(...ranks);
 }
 
 function openExternalUrl(url: string): void {
@@ -283,6 +319,10 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let activeOriginKind: "" | "species" | "background" = "";
   let activeRuleKind = "";
   let activeClassKind: "" | "class" | "subclass" = "class";
+  let activeFeatCategory = "";
+  let activeFeatSource = "";
+  const activeMagicItemRarities = new Set<MagicItemRarity>();
+  let activeMagicItemSort: MagicItemSort = "name";
   let displayLimit = 80;
   let listRendered = false;
   let viewBeforeSettings: "home" | "detail" = "home";
@@ -297,6 +337,20 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   launcher.hidden = currentPreferences.launcherVisible === false;
   const panel = document.createElement("aside"); panel.id = "dd55-companion"; panel.hidden = true;
   panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une origine, un sort, une arme…" aria-label="Recherche dans le compendium"><button type="button" data-clear-search aria-label="Effacer la recherche" hidden>×</button></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="">Tout <small>${totalReferenceCount}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="origins">Origines <small>${compendiumEntries.filter(e => e.type === "species" || e.type === "background").length}</small></button><button type="button" data-type="equipment">Équipement <small>${compendiumEntries.filter(e => e.type === "equipment").length}</small></button><button type="button" data-type="spell">Sorts <small>${spellReferenceCount}</small></button><button type="button" data-type="feat">Dons <small>${featReferenceCount}</small></button></nav><div class="dd55-spell-filters" data-rule-filters hidden><div><span>Filtrer les règles</span><button type="button" data-clear-rule-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de règle</span><select data-rule-kind><option value="">Tous les types</option>${ruleKinds.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-class-filters hidden><div><span>Filtrer les classes</span></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de fiche</span><select data-class-kind><option value="class" selected>Classes seulement</option><option value="subclass">Sous-classes seulement</option><option value="">Classes et sous-classes</option></select></label></div></div><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-origin-filters hidden><div><span>Filtrer les origines</span><button type="button" data-clear-origin-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type d’origine</span><select data-origin-kind><option value="">Espèces et historiques</option><option value="species">Espèces seulement</option><option value="background">Historiques seulement</option></select></label></div></div><div class="dd55-spell-filters" data-equipment-filters hidden><div><span>Filtrer l’équipement</span><button type="button" data-clear-equipment-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type</span><select data-equipment-type><option value="">Tous les types</option>${equipmentTypes.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Maîtrise d’arme</span><select data-weapon-mastery><option value="">Toutes les bottes</option>${weaponMasteries.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count role="status" aria-live="polite"></span></div><div data-results class="dd55-entry-list"></div></div><section data-settings class="dd55-settings-page" hidden><div class="dd55-settings-toolbar"><button type="button" data-settings-back>← Retour</button><h2>Réglages</h2></div><div class="dd55-settings-content"><fieldset><legend>Traduction</legend><label class="dd55-switch"><span><strong>Traduire la feuille</strong><small>Traduit et enrichit la feuille D&D 2024.</small></span><input type="checkbox" data-enabled ${currentPreferences.enabled ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Conserver les noms anglais</strong><small>Affiche le nom original avec sa traduction.</small></span><input type="checkbox" data-bilingual ${currentPreferences.bilingual ? "checked" : ""}></label></fieldset><fieldset><legend>Affichage</legend><label>Thème<select data-setting-theme><option value="light">Clair</option><option value="dark">Sombre</option></select></label><label>Taille du texte<select data-setting-font-size><option value="small">Petite</option><option value="normal">Normale</option><option value="large">Grande</option></select></label><label>Densité des résultats<select data-setting-density><option value="comfortable">Confortable</option><option value="compact">Compacte</option></select></label></fieldset><fieldset><legend>Comportement</legend><label>Catégorie au démarrage<select data-default-category><option value="">Tout</option><option value="rule">Règles</option><option value="classes">Classes</option><option value="origins">Origines</option><option value="equipment">Équipement</option><option value="spell">Sorts</option><option value="feat">Dons</option></select></label><label class="dd55-switch"><span><strong>Ouvrir en grand</strong><small>Agrandit automatiquement le compendium à son ouverture.</small></span><input type="checkbox" data-expanded-default ${currentPreferences.expandedByDefault ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Afficher le lanceur</strong><small>S’il est masqué, utilisez l’icône de l’extension pour le réafficher.</small></span><input type="checkbox" data-launcher-visible ${currentPreferences.launcherVisible !== false ? "checked" : ""}></label></fieldset><fieldset><legend>Positions</legend><p>Vous pouvez déplacer le panneau par son en-tête et le lanceur par glisser-déposer.</p><button type="button" data-reset-panel>Rétablir la position du compendium</button><button type="button" data-reset-launcher>Rétablir la position du lanceur</button></fieldset></div></section><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
+  panel.querySelector(".dd55-tabs")!.insertAdjacentHTML("beforeend", `<button type="button" data-type="magic-item">Objets magiques <small>${magicItemReferenceCount}</small></button>`);
+  panel.querySelectorAll<HTMLButtonElement>(".dd55-tabs button").forEach(button => {
+    const labelNode = [...button.childNodes].find(node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim());
+    if (!labelNode) return;
+    const label = document.createElement("span");
+    label.className = "dd55-tab-label";
+    label.textContent = labelNode.textContent?.trim() ?? "";
+    button.replaceChild(label, labelNode);
+    label.after(document.createTextNode(" "));
+  });
+  panel.querySelector<HTMLElement>("[data-spell-filters]")!.insertAdjacentHTML("afterend", `<div class="dd55-spell-filters" data-feat-filters hidden><div><span>Filtrer les dons</span><button type="button" data-clear-feat-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type de don</span><select data-feat-category><option value="">Tous les types</option>${featCategories.map(category => `<option value="${escapeHtml(category)}">${escapeHtml(featCategoryLabels[category])}</option>`).join("")}</select></label><label><span>Source</span><select data-feat-source><option value="">Toutes les sources</option>${featSources.map(source => `<option value="${escapeHtml(source)}">${escapeHtml(source)}</option>`).join("")}</select></label></div></div>`);
+  panel.querySelector("[data-result-title]")!.parentElement!.insertAdjacentHTML("beforebegin", `<div class="dd55-spell-filters dd55-magic-item-filters" data-magic-item-filters hidden><div><span>Filtrer les objets magiques</span><button type="button" data-clear-magic-item-filters hidden>Effacer</button></div><div class="dd55-rarity-chips" aria-label="Raretés">${magicItemRarities.map(rarity => `<button type="button" data-magic-rarity="${rarity}" aria-pressed="false">${rarity}</button>`).join("")}</div><div class="dd55-filter-fields dd55-filter-single"><label><span>Tri</span><select data-magic-item-sort><option value="name">Nom A–Z</option><option value="rarity-asc">Rareté croissante</option><option value="rarity-desc">Rareté décroissante</option></select></label></div></div>`);
+  panel.querySelector<HTMLInputElement>("[data-search]")!.placeholder = "Rechercher une règle, une origine, un sort, un objet…";
+  panel.querySelector<HTMLSelectElement>("[data-default-category]")!.insertAdjacentHTML("beforeend", `<option value="magic-item">Objets magiques</option>`);
   const closeButton = panel.querySelector<HTMLButtonElement>("[data-close]")!;
   const headerActions = document.createElement("div");
   headerActions.className = "dd55-header-actions";
@@ -435,8 +489,15 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   const ruleFilters = panel.querySelector<HTMLElement>("[data-rule-filters]")!;
   const ruleKind = panel.querySelector<HTMLSelectElement>("[data-rule-kind]")!;
   const clearRuleFilters = panel.querySelector<HTMLButtonElement>("[data-clear-rule-filters]")!;
+  const featFilters = panel.querySelector<HTMLElement>("[data-feat-filters]")!;
+  const featCategory = panel.querySelector<HTMLSelectElement>("[data-feat-category]")!;
+  const featSource = panel.querySelector<HTMLSelectElement>("[data-feat-source]")!;
+  const clearFeatFilters = panel.querySelector<HTMLButtonElement>("[data-clear-feat-filters]")!;
   const classFilters = panel.querySelector<HTMLElement>("[data-class-filters]")!;
   const classKind = panel.querySelector<HTMLSelectElement>("[data-class-kind]")!;
+  const magicItemFilters = panel.querySelector<HTMLElement>("[data-magic-item-filters]")!;
+  const magicItemSort = panel.querySelector<HTMLSelectElement>("[data-magic-item-sort]")!;
+  const clearMagicItemFilters = panel.querySelector<HTMLButtonElement>("[data-clear-magic-item-filters]")!;
 
   panel.querySelector<HTMLSelectElement>("[data-setting-theme]")!.value = currentPreferences.theme ?? "light";
   panel.querySelector<HTMLSelectElement>("[data-setting-font-size]")!.value = currentPreferences.fontSize ?? "normal";
@@ -445,10 +506,12 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
 
   const syncCategory = () => {
     spellFilters.hidden = activeType !== "spell";
+    featFilters.hidden = activeType !== "feat";
     ruleFilters.hidden = activeType !== "rule";
     classFilters.hidden = activeType !== "classes";
     originFilters.hidden = activeType !== "origins";
     equipmentFilters.hidden = activeType !== "equipment";
+    magicItemFilters.hidden = activeType !== "magic-item";
     panel.querySelectorAll<HTMLButtonElement>(".dd55-tabs button").forEach(button => {
       const selected = (button.dataset.type || undefined) === activeType;
       button.classList.toggle("is-active", selected);
@@ -476,29 +539,54 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     );
     if (activeType === "origins" && activeOriginKind) matchingResults = matchingResults.filter(({ entry }) => entry.type === activeOriginKind);
     if (activeType === "rule" && activeRuleKind) matchingResults = matchingResults.filter(({ entry }) => (entry.meta.Catégorie || entry.subtitle) === activeRuleKind);
+    if (activeType === "feat" && (activeFeatCategory || activeFeatSource)) matchingResults = matchingResults.filter(({ entry }) => {
+      const reference = localFeatReferences.get(entry.id);
+      return Boolean(reference &&
+        (!activeFeatCategory || reference.category === activeFeatCategory) &&
+        (!activeFeatSource || reference.source === activeFeatSource));
+    });
+    if (activeType === "magic-item" && activeMagicItemRarities.size) matchingResults = matchingResults.filter(({ entry }) =>
+      (entry.rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity))
+    );
     let externalMatches = activeType === "spell" && activeSpellClass ? [] : externalReferences(currentQuery, activeType);
     if (activeType === "spell" && activeSpellLevel) {
       const wantedLevel = activeSpellLevel === "Mineur" ? 0 : Number(activeSpellLevel);
       externalMatches = externalMatches.filter(({ item }) => item.level === wantedLevel);
     }
+    if (activeType === "feat" && (activeFeatCategory || activeFeatSource)) externalMatches = externalMatches.filter(({ item }) =>
+      (!activeFeatCategory || item.category === activeFeatCategory) &&
+      (!activeFeatSource || item.source === activeFeatSource)
+    );
+    if (activeType === "magic-item" && activeMagicItemRarities.size) externalMatches = externalMatches.filter(({ item }) =>
+      ((item as MagicItemReference).rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity))
+    );
     const resultCount = matchingResults.length + externalMatches.length;
-    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? activeClassKind === "class" ? "Classes du SRD" : activeClassKind === "subclass" ? "Sous-classes du SRD" : "Classes et sous-classes" : activeType === "origins" ? "Espèces et historiques" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType === "equipment" ? "Équipement du SRD" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
+    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? activeClassKind === "class" ? "Classes du SRD" : activeClassKind === "subclass" ? "Sous-classes du SRD" : "Classes et sous-classes" : activeType === "origins" ? "Espèces et historiques" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType === "equipment" ? "Équipement du SRD" : activeType === "magic-item" ? "Objets magiques" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
     panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${resultCount} référence${resultCount > 1 ? "s" : ""}`;
     clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel);
     clearOriginFilters.hidden = !activeOriginKind;
     clearEquipmentFilters.hidden = !(activeEquipmentType || activeWeaponMastery);
     clearRuleFilters.hidden = !activeRuleKind;
+    clearFeatFilters.hidden = !(activeFeatCategory || activeFeatSource);
+    clearMagicItemFilters.hidden = !activeMagicItemRarities.size && activeMagicItemSort === "name";
     clearSearch.hidden = !currentQuery;
     let cards = [
-      ...matchingResults.map(result => ({ title: result.entry.title, score: result.score, local: true, html: renderEntryCard(result, currentQuery) })),
-      ...externalMatches.map(reference => ({ title: reference.item.nameFr, score: reference.score, local: false, html: renderExternalCard(reference, currentQuery) }))
+      ...matchingResults.map(result => ({ title: result.entry.title, score: result.score, local: true, rarities: result.entry.rarities, html: renderEntryCard(result, currentQuery) })),
+      ...externalMatches.map(reference => ({ title: reference.item.nameFr, score: reference.score, local: false, rarities: reference.kind === "magic-item" ? (reference.item as MagicItemReference).rarities : undefined, html: renderExternalCard(reference, currentQuery) }))
     ];
-    if (currentQuery) cards.sort((a, b) => b.score - a.score || Number(b.local) - Number(a.local) || a.title.localeCompare(b.title, "fr"));
+    if (activeType === "magic-item") cards.sort((a, b) => {
+      if (activeMagicItemSort === "name") return a.title.localeCompare(b.title, "fr");
+      const direction = activeMagicItemSort === "rarity-asc" ? "asc" : "desc";
+      const left = raritySortValue(a.rarities, direction);
+      const right = raritySortValue(b.rarities, direction);
+      return (direction === "asc" ? left - right : right - left) || a.title.localeCompare(b.title, "fr");
+    });
+    else if (currentQuery) cards.sort((a, b) => b.score - a.score || Number(b.local) - Number(a.local) || a.title.localeCompare(b.title, "fr"));
     else if (activeType === "feat" || activeType === "spell") cards.sort((a, b) => a.title.localeCompare(b.title, "fr"));
     const maximum = displayLimit;
     const remaining = Math.max(0, cards.length - maximum);
     cards = cards.slice(0, maximum);
-    const hasFilters = Boolean(activeSpellClass || activeSpellLevel || activeEquipmentType || activeWeaponMastery || activeOriginKind || activeRuleKind || (activeType === "classes" && activeClassKind !== ""));
+    const hasFilters = Boolean(activeSpellClass || activeSpellLevel || activeEquipmentType || activeWeaponMastery || activeOriginKind || activeRuleKind || activeFeatCategory || activeFeatSource || activeMagicItemRarities.size || activeMagicItemSort !== "name" || (activeType === "classes" && activeClassKind !== ""));
     results.innerHTML = cards.map(card => card.html).join("") || `<div class="dd55-empty"><strong>Aucune fiche trouvée</strong><p>${currentQuery ? `Aucun résultat pour « ${escapeHtml(currentQuery)} »${hasFilters ? " avec les filtres actifs" : ""}.` : "Aucune référence ne correspond aux filtres actifs."}</p><div>${currentQuery ? `<button type="button" data-empty-clear-search>Effacer la recherche</button>` : ""}${hasFilters ? `<button type="button" data-empty-reset-filters>Réinitialiser les filtres</button>` : ""}</div></div>`;
     if (remaining) results.insertAdjacentHTML("beforeend", `<button type="button" class="dd55-load-more" data-load-more>Afficher ${Math.min(80, remaining)} références de plus <small>${remaining} restantes</small></button>`);
   };
@@ -540,7 +628,10 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     activeOriginKind = ""; originKind.value = "";
     activeEquipmentType = ""; activeWeaponMastery = ""; equipmentType.value = ""; weaponMastery.value = "";
     activeRuleKind = ""; ruleKind.value = "";
+    activeFeatCategory = ""; activeFeatSource = ""; featCategory.value = ""; featSource.value = "";
     activeClassKind = ""; classKind.value = "";
+    activeMagicItemRarities.clear(); activeMagicItemSort = "name"; magicItemSort.value = "name";
+    magicItemFilters.querySelectorAll<HTMLButtonElement>("[data-magic-rarity]").forEach(button => { button.classList.remove("is-active"); button.setAttribute("aria-pressed", "false"); });
     displayLimit = 80;
     renderList();
   };
@@ -613,7 +704,26 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   clearEquipmentFilters.addEventListener("click", () => { activeEquipmentType = ""; activeWeaponMastery = ""; equipmentType.value = ""; weaponMastery.value = ""; displayLimit = 80; renderList(); });
   ruleKind.addEventListener("change", () => { activeRuleKind = ruleKind.value; displayLimit = 80; renderList(); });
   clearRuleFilters.addEventListener("click", () => { activeRuleKind = ""; ruleKind.value = ""; displayLimit = 80; renderList(); });
+  featCategory.addEventListener("change", () => { activeFeatCategory = featCategory.value; displayLimit = 80; renderList(); });
+  featSource.addEventListener("change", () => { activeFeatSource = featSource.value; displayLimit = 80; renderList(); });
+  clearFeatFilters.addEventListener("click", () => { activeFeatCategory = ""; activeFeatSource = ""; featCategory.value = ""; featSource.value = ""; displayLimit = 80; renderList(); });
   classKind.addEventListener("change", () => { activeClassKind = classKind.value as typeof activeClassKind; displayLimit = 80; renderList(); });
+  magicItemFilters.addEventListener("click", event => {
+    const button = (event.target as Element).closest<HTMLButtonElement>("[data-magic-rarity]");
+    if (!button?.dataset.magicRarity) return;
+    const rarity = button.dataset.magicRarity as MagicItemRarity;
+    if (activeMagicItemRarities.has(rarity)) activeMagicItemRarities.delete(rarity); else activeMagicItemRarities.add(rarity);
+    const selected = activeMagicItemRarities.has(rarity);
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-pressed", String(selected));
+    displayLimit = 80; renderList();
+  });
+  magicItemSort.addEventListener("change", () => { activeMagicItemSort = magicItemSort.value as MagicItemSort; displayLimit = 80; renderList(); });
+  clearMagicItemFilters.addEventListener("click", () => {
+    activeMagicItemRarities.clear(); activeMagicItemSort = "name"; magicItemSort.value = "name";
+    magicItemFilters.querySelectorAll<HTMLButtonElement>("[data-magic-rarity]").forEach(button => { button.classList.remove("is-active"); button.setAttribute("aria-pressed", "false"); });
+    displayLimit = 80; renderList();
+  });
   search.addEventListener("input", () => { currentQuery = search.value.trim(); displayLimit = 80; renderList(); });
   clearSearch.addEventListener("click", () => { search.value = ""; currentQuery = ""; displayLimit = 80; renderList(); search.focus(); });
 

@@ -1,10 +1,11 @@
 import data from "../data/srd-compendium.json";
+import magicItems from "../data/magic-items.json";
 import { equipmentEntries } from "../data/equipment";
 import { originEntries } from "../data/origins";
 import { additionalRuleEntries } from "../data/rules";
 import { normalizeName } from "./reference-matcher";
 
-export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass" | "equipment" | "species" | "background";
+export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass" | "equipment" | "species" | "background" | "magic-item";
 
 export interface CompendiumLink {
   label: string;
@@ -35,6 +36,8 @@ export interface CompendiumEntry {
   sections: CompendiumSection[];
   tables?: CompendiumTable[];
   links?: CompendiumLink[];
+  itemType?: string;
+  rarities?: import("../types").MagicItemRarity[];
 }
 
 export interface CompendiumSearchResult {
@@ -44,7 +47,7 @@ export interface CompendiumSearchResult {
   excerpt: string;
 }
 
-export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries] as CompendiumEntry[];
+export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries, ...magicItems.entries] as CompendiumEntry[];
 
 const titleIndex = new Map<string, CompendiumEntry[]>();
 for (const entry of compendiumEntries) {
@@ -67,6 +70,26 @@ for (const [alias, title] of Object.entries(aliases)) {
 
 function normalizeSearchValue(value: string): string {
   return normalizeName(value).replace(/[^\p{L}\p{N}]+/gu, " ").replace(/\s+/g, " ").trim();
+}
+
+type SearchIndexItem = {
+  entry: CompendiumEntry;
+  fields: Record<CompendiumSearchResult["matchedFields"][number], string>;
+};
+let searchIndex: SearchIndexItem[] | undefined;
+function getSearchIndex(): SearchIndexItem[] {
+  searchIndex ??= compendiumEntries.map(entry => ({
+    entry,
+    fields: {
+      title: normalizeSearchValue(entry.title),
+      alias: normalizeSearchValue((aliasesByTitle.get(normalizeName(entry.title)) ?? []).join(" ")),
+      subtitle: normalizeSearchValue(entry.subtitle),
+      tags: normalizeSearchValue(entry.tags.join(" ")),
+      meta: normalizeSearchValue(Object.entries(entry.meta).flat().join(" ")),
+      content: normalizeSearchValue(entry.sections.flatMap(section => [section.heading ?? "", section.content]).join(" "))
+    }
+  }));
+  return searchIndex;
 }
 
 function levenshtein(left: string, right: string): number {
@@ -119,19 +142,14 @@ export function searchCompendiumResults(query: string, type?: CompendiumType, li
   const normalizedQuery = normalizeSearchValue(query);
   const canonicalQuery = aliases[normalizedQuery] ? normalizeSearchValue(aliases[normalizedQuery]) : normalizedQuery;
   const queryTokens = canonicalQuery.split(" ").filter(Boolean);
+  if (!queryTokens.length) return compendiumEntries
+    .filter(entry => !type || entry.type === type)
+    .slice(0, limit)
+    .map(entry => ({ entry, score: 0, matchedFields: [], excerpt: entry.sections[0]?.content ?? "" }));
   const weights = { title: 1000, alias: 850, subtitle: 500, tags: 450, meta: 350, content: 100 } as const;
 
-  return compendiumEntries.flatMap(entry => {
+  return getSearchIndex().flatMap(({ entry, fields }) => {
     if (type && entry.type !== type) return [];
-    const fields = {
-      title: normalizeSearchValue(entry.title),
-      alias: normalizeSearchValue((aliasesByTitle.get(normalizeName(entry.title)) ?? []).join(" ")),
-      subtitle: normalizeSearchValue(entry.subtitle),
-      tags: normalizeSearchValue(entry.tags.join(" ")),
-      meta: normalizeSearchValue(Object.entries(entry.meta).flat().join(" ")),
-      content: normalizeSearchValue(entry.sections.flatMap(section => [section.heading ?? "", section.content]).join(" "))
-    };
-    if (!queryTokens.length) return [{ entry, score: 0, matchedFields: [], excerpt: entry.sections[0]?.content ?? "" } satisfies CompendiumSearchResult];
     const matchedFields = new Set<CompendiumSearchResult["matchedFields"][number]>();
     let score = fields.title === canonicalQuery ? 10000 : fields.title.startsWith(canonicalQuery) ? 7000 : 0;
     for (const token of queryTokens) {

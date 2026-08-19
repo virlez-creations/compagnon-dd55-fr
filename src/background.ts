@@ -1,3 +1,5 @@
+import { isAllowedExternalUrl } from "./services/external-url";
+
 const MENU_ID = "dd55-translate-sheet";
 let menuReady = false;
 
@@ -50,7 +52,7 @@ chrome.runtime.onMessage.addListener((message: unknown, sender) => {
   }
   if ((message as { type?: string }).type === "DD55_OPEN_EXTERNAL") {
     const url = (message as { url?: string }).url;
-    if (!url || !/^https:\/\/www\.aidedd\.org\/(?:feat|spell)\/fr\/[a-z0-9-]+$/.test(url)) return;
+    if (!url || !isAllowedExternalUrl(url)) return;
     void chrome.tabs.create({ url });
     return;
   }
