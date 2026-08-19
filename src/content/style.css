@@ -58,6 +58,12 @@
 .dd55-detail-toolbar { position: sticky; top: 61px; z-index: 3; display: flex; justify-content: space-between; align-items: center; padding: 9px 15px; background: #fffaf0ee; border-bottom: 1px solid var(--dd55-line); backdrop-filter: blur(5px); }
 .dd55-detail-toolbar button { border: 0; border-radius: 6px; background: #fff0c9; color: var(--dd55-red); padding: 7px 10px; cursor: pointer; }
 .dd55-detail-toolbar span { color: #8a8175; font-size: 11px; }
+.dd55-detail-toolbar > div { display: flex; align-items: center; gap: 8px; }
+.dd55-section-bar, .dd55-article-heading { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+#dd55-companion .dd55-copy-button { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 4px; min-height: 26px; border: 1px solid #d7bd88; border-radius: 6px; background: #fff8e8; color: #7f1d1d; padding: 4px 7px; font: 650 10px/1.1 system-ui; cursor: pointer; }
+#dd55-companion .dd55-copy-button:hover, #dd55-companion .dd55-copy-button:focus-visible { border-color: #b88732; background: #ffedc2; outline: 2px solid #b8873244; outline-offset: 1px; }
+#dd55-companion .dd55-copy-button > span[aria-hidden] { font-size: 13px; line-height: 1; }
+.dd55-copy-status { position: fixed; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .dd55-detail-hero { padding: 22px 18px 18px; color: #fff; background: linear-gradient(135deg, #613018, #9b5b2b); }
 .dd55-detail-hero[data-kind="spell"] { background: linear-gradient(135deg, #342358, #6650a4); }
 .dd55-detail-hero[data-kind="feat"] { background: linear-gradient(135deg, #214f31, #3f7a51); }
@@ -76,6 +82,7 @@
 .dd55-meta-grid dd { margin: 2px 0 0; overflow-wrap: anywhere; font-size: 12px; font-weight: 600; }
 .dd55-section-kicker { color: #99712b; font-size: 9px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .dd55-presentation { margin: 18px 14px 0; }
+.dd55-presentation > .dd55-section-bar { margin-bottom: 6px; }
 .dd55-section-title { display: flex; align-items: flex-start; justify-content: space-between; margin: 4px 0 11px; }
 .dd55-section-title h3 { margin: 0; color: #263c43; font: 700 19px/1.2 Georgia, serif; }
 .dd55-section-title p { margin: 3px 0 0; color: #746c60; font-size: 11px; }
@@ -92,7 +99,7 @@
 .dd55-presentation-copy > span { color: #526b9f; font-size: 20px; }
 .dd55-presentation-copy p { margin: 0; color: #3f4654; font-size: 12px; line-height: 1.6; }
 .dd55-progression { margin: 22px 12px 0; border: 1px solid #d9c9aa; border-radius: 12px; overflow: hidden; background: #fffdf8; box-shadow: 0 5px 18px #513d1817; }
-.dd55-progression > .dd55-section-kicker { padding: 11px 13px 0; background: #f9eedb; }
+.dd55-progression > .dd55-section-bar { padding: 8px 10px 3px 13px; background: #f9eedb; }
 .dd55-progression-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 3px 13px 11px; background: #f9eedb; }
 .dd55-progression-heading h3 { margin: 0; color: var(--dd55-red); font: 700 18px/1.2 Georgia, serif; }
 .dd55-progression-heading p { margin: 3px 0 0; color: #756b5d; font-size: 10px; }
@@ -118,6 +125,8 @@
 .dd55-article { padding: 18px; }
 .dd55-article section { margin: 0 0 14px; }
 .dd55-article h3 { margin: 0 0 4px; color: var(--dd55-red); font: 700 15px Georgia, serif; }
+.dd55-article-heading { margin-bottom: 5px; }
+.dd55-article-heading h3 { margin: 0; }
 .dd55-article p { color: #37322c; font-size: 13px; line-height: 1.62; }
 .dd55-prose > p { margin: 0 0 12px; }
 .dd55-prose > p:last-child { margin-bottom: 0; }
@@ -202,6 +211,7 @@
 #dd55-companion[data-theme="dark"] .dd55-settings-toolbar,
 #dd55-companion[data-theme="dark"] .dd55-detail-toolbar { background: #181818f2; }
 #dd55-companion[data-theme="dark"] .dd55-detail-toolbar button,
+#dd55-companion[data-theme="dark"] .dd55-copy-button,
 #dd55-companion[data-theme="dark"] .dd55-settings-page button,
 #dd55-companion[data-theme="dark"] .dd55-load-more { border-color: #646464; background: #303030; color: #f2f2f2; }
 #dd55-companion[data-theme="dark"] .dd55-meta-grid div,
@@ -213,7 +223,7 @@
 #dd55-companion[data-theme="dark"] .dd55-rule-point { background: #292929; }
 #dd55-companion[data-theme="dark"] .dd55-mastery-link,
 #dd55-companion[data-theme="dark"] .dd55-related { border-color: #555; background: #262626; }
-#dd55-companion[data-theme="dark"] .dd55-progression > .dd55-section-kicker,
+#dd55-companion[data-theme="dark"] .dd55-progression > .dd55-section-bar,
 #dd55-companion[data-theme="dark"] .dd55-progression-heading,
 #dd55-companion[data-theme="dark"] .dd55-table-hint { border-color: #555; background: #2b2b2b; }
 #dd55-companion[data-theme="dark"] .dd55-progression tbody tr:nth-child(even) td,
@@ -262,6 +272,6 @@
 .dd55-load-more { width: 100%; border: 1px solid #d6b978; border-radius: 10px; background: #fff8e8; color: #7f1d1d; padding: 12px; font: 700 14px/1.3 system-ui; cursor: pointer; }
 .dd55-load-more small { display: block; margin-top: 3px; color: #78716c; font-weight: 400; }
 @media (min-width: 760px) { #dd55-companion.is-expanded .dd55-settings-content label:not(.dd55-switch) { grid-template-columns: minmax(0, 1fr) minmax(180px, .75fr); align-items: center; gap: 18px; } }
-@media (max-width: 520px) { #dd55-companion { right: 8px; bottom: 64px; width: calc(100vw - 16px); } #dd55-companion.is-expanded { inset: 8px; width: auto; } #dd55-companion > header { padding: 10px 12px; } #dd55-companion > header strong { font-size: 15px; } .dd55-tabs { display: flex; overflow-x: auto; scrollbar-width: thin; } .dd55-tabs button { flex: 0 0 auto; min-width: 82px; } .dd55-table-hint span:last-child { display: none; } }
+@media (max-width: 520px) { #dd55-companion { right: 8px; bottom: 64px; width: calc(100vw - 16px); } #dd55-companion.is-expanded { inset: 8px; width: auto; } #dd55-companion > header { padding: 10px 12px; } #dd55-companion > header strong { font-size: 15px; } .dd55-tabs { display: flex; overflow-x: auto; scrollbar-width: thin; } .dd55-tabs button { flex: 0 0 auto; min-width: 82px; } .dd55-table-hint span:last-child { display: none; } .dd55-detail-toolbar > div > span { display: none; } #dd55-companion .dd55-copy-button { padding: 4px 6px; } }
 #dd55-toast { position: fixed; left: 50%; bottom: 24px; z-index: 2147483647; transform: translateX(-50%); border: 1px solid #d3b56f; border-radius: 9px; background: #fff8e7; color: #6f1717; padding: 10px 15px; box-shadow: 0 7px 25px #0005; font: 650 13px system-ui; animation: dd55-toast-in .18s ease-out; }
 @keyframes dd55-toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }

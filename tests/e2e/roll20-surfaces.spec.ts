@@ -95,6 +95,31 @@ test("ouvre le compendium local et expose le catalogue complet", async ({ page }
   await expect(page.locator("[data-detail]")).toContainText("Source : SRD 5.2.1 FR");
 });
 
+test("copie un bloc puis toute une fiche du compendium", async ({ page }) => {
+  await page.setContent(`${sheetSignature}<button>Goodberry</button>`);
+  await page.evaluate(() => {
+    const state = window as typeof window & { copiedTexts: string[] };
+    state.copiedTexts = [];
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: async (value: string) => { state.copiedTexts.push(value); } }
+    });
+  });
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-dd55-open='spell-baies-nourricieres']").click();
+  await page.locator("[data-copy-target='section-0']").click();
+  await expect(page.locator("[data-copy-target='section-0']")).toContainText("✓ Copié");
+  await page.locator("[data-copy-target='all']").click();
+  await expect(page.locator("[data-copy-target='all']")).toContainText("✓ Copié");
+  const copied = await page.evaluate(() => (window as typeof window & { copiedTexts: string[] }).copiedTexts);
+  expect(copied).toHaveLength(2);
+  expect(copied[0]).toContain("Dix baies");
+  expect(copied[0]).not.toContain("Copier");
+  expect(copied[1]).toContain("Baies nourricières");
+  expect(copied[1]).toContain("Source : SRD 5.2.1 FR");
+});
+
 test("ouvre les propriétés d’arme et les états depuis les règles", async ({ page }) => {
   await page.setContent(sheetSignature);
   await loadBundle(page);
