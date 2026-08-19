@@ -20,11 +20,12 @@ describe("compendium SRD local", () => {
   it("présente des catégories et des centaines de fiches", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     expect(document.querySelector("[data-type='spell']")?.textContent).toContain("391");
-    expect(document.querySelector("[data-type='feat']")?.textContent).toContain("75");
+    expect(document.querySelector("[data-type='feat']")?.textContent).toContain("137");
     expect(document.querySelector("[data-type='rule']")?.textContent).toContain("70");
     expect(document.querySelector("[data-type='classes']")?.textContent).toContain("24");
     expect(document.querySelector("[data-type='equipment']")?.textContent).toContain("51");
     expect(document.querySelector("[data-type='origins']")?.textContent).toContain("13");
+    expect(document.querySelector("[data-type='magic-item']")?.textContent).toContain("350");
   });
 
   it("émet des préférences complètes quand les réglages changent", () => {
@@ -285,12 +286,56 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-external-url*='/feat/fr/chanceux']")).not.toBeNull();
   });
 
-  it("affiche les 75 dons locaux et externes dans la catégorie Dons", () => {
+  it("affiche les 137 dons locaux et externes dans la catégorie Dons", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
-    expect(document.querySelector("[data-result-count]")?.textContent).toContain("75");
-    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(75);
-    expect(document.querySelector("[data-load-more]")).toBeNull();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("137");
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+    expect(document.querySelector("[data-load-more]")?.textContent).toContain("57 restantes");
+  });
+
+  it("conserve les libellés complets dans les onglets et panneaux de filtres", () => {
+    mountPanel({ enabled: true, bilingual: true, theme: "dark" }, () => undefined);
+    expect(document.querySelector("[data-type='magic-item']")?.textContent?.replace(/\s+/g, " ").trim()).toBe("Objets magiques 350");
+    document.querySelector<HTMLButtonElement>("[data-type='classes']")!.click();
+    expect(document.querySelector("[data-class-filters] > div:first-child")?.textContent).toContain("Filtrer les classes");
+    expect(document.querySelector("[data-class-filters] label > span")?.textContent).toBe("Type de fiche");
+    expect(document.querySelector<HTMLSelectElement>("[data-class-kind]")?.selectedOptions[0].textContent).toBe("Classes seulement");
+    document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
+    expect(document.querySelector("[data-feat-filters] > div:first-child")?.textContent).toContain("Filtrer les dons");
+    expect([...document.querySelectorAll("[data-feat-filters] label > span")].map(label => label.textContent)).toEqual(["Type de don", "Source"]);
+    expect(document.querySelector<HTMLSelectElement>("[data-feat-category]")?.selectedOptions[0].textContent).toBe("Tous les types");
+    expect(document.querySelector<HTMLSelectElement>("[data-feat-source]")?.selectedOptions[0].textContent).toBe("Toutes les sources");
+  });
+
+  it("filtre les dons par type et par source", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
+    const category = document.querySelector<HTMLSelectElement>("[data-feat-category]")!;
+    const source = document.querySelector<HTMLSelectElement>("[data-feat-source]")!;
+
+    category.value = "dragonmark";
+    category.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("13");
+    expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent).toContain("Don de dracogramme");
+
+    source.value = "Eberron: Forge of the Artificer";
+    source.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("13");
+
+    category.value = "epic-boon";
+    category.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("1 référence");
+
+    category.value = "origin";
+    category.dispatchEvent(new Event("change"));
+    source.value = "Player's Handbook 2024";
+    source.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-entry-id='feat-vigilant']")).not.toBeNull();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("10");
+
+    document.querySelector<HTMLButtonElement>("[data-clear-feat-filters]")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("137");
   });
 
   it("affiche les 391 sorts locaux et externes dans la catégorie Sorts", () => {
@@ -299,6 +344,42 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-result-count]")?.textContent).toContain("391");
     expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
     expect(document.querySelector("[data-load-more]")?.textContent).toContain("311 restantes");
+  });
+
+  it("filtre et trie les objets magiques locaux et externes par rareté", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='magic-item']")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("350");
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+    expect(document.querySelector("[data-load-more]")?.textContent).toContain("270 restantes");
+    document.querySelector<HTMLButtonElement>("[data-magic-rarity='Artefact']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-magic-rarity='Courant']")!.click();
+    const cards = [...document.querySelectorAll<HTMLElement>("[data-results] .dd55-entry-card")];
+    expect(cards.length).toBeGreaterThan(0);
+    const sort = document.querySelector<HTMLSelectElement>("[data-magic-item-sort]")!;
+    sort.value = "rarity-asc";
+    sort.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent?.toLocaleLowerCase("fr")).toContain("courant");
+    sort.value = "rarity-desc";
+    sort.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent?.toLocaleLowerCase("fr")).toContain("artefact");
+    document.querySelector<HTMLButtonElement>("[data-clear-magic-item-filters]")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("350");
+  });
+
+  it("ouvre une fiche magique locale et une référence AideDD externe", () => {
+    const sendMessage = vi.fn();
+    vi.stubGlobal("chrome", { runtime: { sendMessage } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='magic-item']")!.click();
+    search("Amulette d’antidétection");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='magic-item-amulette-d-antidetection']")!.click();
+    expect(document.querySelector("[data-detail] h2")?.textContent).toBe("Amulette d’antidétection");
+    expect(document.querySelector("[data-detail] [data-copy-target='all']")).not.toBeNull();
+    document.querySelector<HTMLButtonElement>("[data-back]")!.click();
+    search("Dark Shard Amulet");
+    document.querySelector<HTMLButtonElement>("[data-external-url$='/magic-item/fr/amulette-de-sombre-eclat']")!.click();
+    expect(sendMessage).toHaveBeenCalledWith({ type: "DD55_OPEN_EXTERNAL", url: "https://www.aidedd.org/magic-item/fr/amulette-de-sombre-eclat" });
   });
 
   it("retrouve un sort externe en anglais avec son lien AideDD français", () => {

@@ -49,7 +49,15 @@ test("respecte les budgets de navigation sur une fiche volumineuse", async ({ pa
   await expect(page.locator("[data-results] .dd55-entry-card")).toHaveCount(80);
   const spellsMs = await page.evaluate(start => performance.now() - start, spellsStart);
 
-  const metrics = { initialMs, mutationMs, homeMs, spellsMs };
+  const magicItemsStart = await page.evaluate(() => {
+    const start = performance.now();
+    document.querySelector<HTMLButtonElement>("[data-type='magic-item']")!.click();
+    return start;
+  });
+  await expect(page.locator("[data-results] .dd55-entry-card")).toHaveCount(80);
+  const magicItemsMs = await page.evaluate(start => performance.now() - start, magicItemsStart);
+
+  const metrics = { initialMs, mutationMs, homeMs, spellsMs, magicItemsMs };
   await testInfo.attach("performance.json", { body: JSON.stringify(metrics, null, 2), contentType: "application/json" });
   console.info("Budget performance DD55", metrics);
 
@@ -57,4 +65,5 @@ test("respecte les budgets de navigation sur une fiche volumineuse", async ({ pa
   expect(mutationMs).toBeLessThan(400);
   expect(homeMs).toBeLessThan(350);
   expect(spellsMs).toBeLessThan(350);
+  expect(magicItemsMs).toBeLessThan(350);
 });

@@ -11,6 +11,6 @@ export function findReference(value: string, references: Reference[]): Reference
   return references.find((item) => [item.nameEn, item.nameFr, ...(item.aliases ?? [])].some((name) => normalizeName(name) === wanted));
 }
 
-export function referenceUrl(kind: "spell" | "feat", item: Reference): string {
+export function referenceUrl(kind: "spell" | "feat" | "magic-item", item: Reference): string {
   return `https://www.aidedd.org/${kind}/fr/${item.slug}`;
 }

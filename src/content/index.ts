@@ -184,4 +184,8 @@ async function start(): Promise<void> {
   }
 }
 
-if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => void start(), { once: true }); else void start();
+const contentRuntime = globalThis as typeof globalThis & { __dd55ContentStarted?: boolean };
+if (!contentRuntime.__dd55ContentStarted) {
+  contentRuntime.__dd55ContentStarted = true;
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => void start(), { once: true }); else void start();
+}

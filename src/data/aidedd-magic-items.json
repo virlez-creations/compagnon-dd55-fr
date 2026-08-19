@@ -1,0 +1,4851 @@
+{
+  "source": "https://www.aidedd.org/magic-item/fr/",
+  "items": [
+    {
+      "id": "amulet-of-proof-against-detection-and-location",
+      "nameEn": "Amulet of Proof against Detection and Location",
+      "nameFr": "Amulette d'antidétection",
+      "aliases": [],
+      "slug": "amulette-d-antidetection",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-amulette-d-antidetection"
+    },
+    {
+      "id": "amulet-of-health",
+      "nameEn": "Amulet of Health",
+      "nameFr": "Amulette de bonne santé",
+      "aliases": [],
+      "slug": "amulette-de-bonne-sante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-amulette-de-bonne-sante"
+    },
+    {
+      "id": "periapt-of-wound-closure",
+      "nameEn": "Periapt of Wound Closure",
+      "nameFr": "Amulette de cicatrisation",
+      "aliases": [],
+      "slug": "amulette-de-cicatrisation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-amulette-de-cicatrisation"
+    },
+    {
+      "id": "periapt-of-proof-against-poison",
+      "nameEn": "Periapt of Proof against Poison",
+      "nameFr": "Amulette de protection contre le poison",
+      "aliases": [],
+      "slug": "amulette-de-protection-contre-le-poison",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-amulette-de-protection-contre-le-poison"
+    },
+    {
+      "id": "periapt-of-health",
+      "nameEn": "Periapt of Health",
+      "nameFr": "Amulette de santé",
+      "aliases": [],
+      "slug": "amulette-de-sante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-amulette-de-sante"
+    },
+    {
+      "id": "dark-shard-amulet",
+      "nameEn": "Dark Shard Amulet",
+      "nameFr": "Amulette de sombre éclat",
+      "aliases": [],
+      "slug": "amulette-de-sombre-eclat",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "amulet-of-the-planes",
+      "nameEn": "Amulet of the Planes",
+      "nameFr": "Amulette des plans",
+      "aliases": [],
+      "slug": "amulette-des-plans",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024",
+      "compendiumId": "magic-item-amulette-des-plans"
+    },
+    {
+      "id": "clockwork-amulet",
+      "nameEn": "Clockwork Amulet",
+      "nameFr": "Amulette mécanique",
+      "aliases": [],
+      "slug": "amulette-mecanique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "ring-of-free-action",
+      "nameEn": "Ring of Free Action",
+      "nameFr": "Anneau d'action libre",
+      "aliases": [],
+      "slug": "anneau-d-action-libre",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-d-action-libre"
+    },
+    {
+      "id": "ring-of-evasion",
+      "nameEn": "Ring of Evasion",
+      "nameFr": "Anneau d'esquive totale",
+      "aliases": [],
+      "slug": "anneau-d-esquive-totale",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-d-esquive-totale"
+    },
+    {
+      "id": "ring-of-animal-influence",
+      "nameEn": "Ring of Animal Influence",
+      "nameFr": "Anneau d'influence animale",
+      "aliases": [],
+      "slug": "anneau-d-influence-animale",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-d-influence-animale"
+    },
+    {
+      "id": "ring-of-invisibility",
+      "nameEn": "Ring of Invisibility",
+      "nameFr": "Anneau d'invisibilité",
+      "aliases": [],
+      "slug": "anneau-d-invisibilite",
+      "itemType": "Anneau",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-d-invisibilite"
+    },
+    {
+      "id": "ring-of-mind-shielding",
+      "nameEn": "Ring of Mind Shielding",
+      "nameFr": "Anneau de barrière mentale",
+      "aliases": [],
+      "slug": "anneau-de-barriere-mentale",
+      "itemType": "Anneau",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-barriere-mentale"
+    },
+    {
+      "id": "ring-of-warmth",
+      "nameEn": "Ring of Warmth",
+      "nameFr": "Anneau de chaleur constante",
+      "aliases": [],
+      "slug": "anneau-de-chaleur-constante",
+      "itemType": "Anneau",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-chaleur-constante"
+    },
+    {
+      "id": "ring-of-djinni-summoning",
+      "nameEn": "Ring of Djinni Summoning",
+      "nameFr": "Anneau de convocation de djinn",
+      "aliases": [],
+      "slug": "anneau-de-convocation-de-djinn",
+      "itemType": "Anneau",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-convocation-de-djinn"
+    },
+    {
+      "id": "ring-of-shooting-stars",
+      "nameEn": "Ring of Shooting Stars",
+      "nameFr": "Anneau de feu d'étoiles",
+      "aliases": [],
+      "slug": "anneau-de-feu-d-etoiles",
+      "itemType": "Anneau",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-feu-d-etoiles"
+    },
+    {
+      "id": "ring-of-feather-falling",
+      "nameEn": "Ring of Feather Falling",
+      "nameFr": "Anneau de feuille morte",
+      "aliases": [],
+      "slug": "anneau-de-feuille-morte",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-feuille-morte"
+    },
+    {
+      "id": "ring-of-elemental-command",
+      "nameEn": "Ring of Elemental Command",
+      "nameFr": "Anneau de maîtrise élémentaire",
+      "aliases": [],
+      "slug": "anneau-de-maîtrise-elementaire",
+      "itemType": "Anneau",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-maitrise-elementaire"
+    },
+    {
+      "id": "ring-of-water-walking",
+      "nameEn": "Ring of Water Walking",
+      "nameFr": "Anneau de marche sur l'eau",
+      "aliases": [],
+      "slug": "anneau-de-marche-sur-l-eau",
+      "itemType": "Anneau",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-marche-sur-l-eau"
+    },
+    {
+      "id": "ring-of-swimming",
+      "nameEn": "Ring of Swimming",
+      "nameFr": "Anneau de nage",
+      "aliases": [],
+      "slug": "anneau-de-nage",
+      "itemType": "Anneau",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-nage"
+    },
+    {
+      "id": "ring-of-protection",
+      "nameEn": "Ring of Protection",
+      "nameFr": "Anneau de protection",
+      "aliases": [],
+      "slug": "anneau-de-protection",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-protection"
+    },
+    {
+      "id": "ring-of-x-ray-vision",
+      "nameEn": "Ring of X-ray Vision",
+      "nameFr": "Anneau de rayons X",
+      "aliases": [],
+      "slug": "anneau-de-rayons-x",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-rayons-x"
+    },
+    {
+      "id": "ring-of-regeneration",
+      "nameEn": "Ring of Regeneration",
+      "nameFr": "Anneau de régénération",
+      "aliases": [],
+      "slug": "anneau-de-regeneration",
+      "itemType": "Anneau",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-regeneration"
+    },
+    {
+      "id": "ring-of-spell-turning",
+      "nameEn": "Ring of Spell Turning",
+      "nameFr": "Anneau de renvoi des sorts",
+      "aliases": [],
+      "slug": "anneau-de-renvoi-des-sorts",
+      "itemType": "Anneau",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-renvoi-des-sorts"
+    },
+    {
+      "id": "ring-of-resistance",
+      "nameEn": "Ring of Resistance",
+      "nameFr": "Anneau de résistance",
+      "aliases": [],
+      "slug": "anneau-de-resistance",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-resistance"
+    },
+    {
+      "id": "ring-of-jumping",
+      "nameEn": "Ring of Jumping",
+      "nameFr": "Anneau de saut",
+      "aliases": [],
+      "slug": "anneau-de-saut",
+      "itemType": "Anneau",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-saut"
+    },
+    {
+      "id": "ring-of-spell-storing",
+      "nameEn": "Ring of Spell Storing",
+      "nameFr": "Anneau de stockage de sorts",
+      "aliases": [],
+      "slug": "anneau-de-stockage-de-sorts",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-stockage-de-sorts"
+    },
+    {
+      "id": "ring-of-telekinesis",
+      "nameEn": "Ring of Telekinesis",
+      "nameFr": "Anneau de télékinésie",
+      "aliases": [],
+      "slug": "anneau-de-telekinesie",
+      "itemType": "Anneau",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-telekinesie"
+    },
+    {
+      "id": "ring-of-three-wishes",
+      "nameEn": "Ring of Three Wishes",
+      "nameFr": "Anneau de triple souhait",
+      "aliases": [],
+      "slug": "anneau-de-triple-souhait",
+      "itemType": "Anneau",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-de-triple-souhait"
+    },
+    {
+      "id": "ring-of-the-ram",
+      "nameEn": "Ring of the Ram",
+      "nameFr": "Anneau du bélier",
+      "aliases": [],
+      "slug": "anneau-du-belier",
+      "itemType": "Anneau",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-anneau-du-belier"
+    },
+    {
+      "id": "energy-bow",
+      "nameEn": "Energy Bow",
+      "nameFr": "Arc à énergie",
+      "aliases": [],
+      "slug": "arc-a-energie",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-arc-a-energie"
+    },
+    {
+      "id": "oathbow",
+      "nameEn": "Oathbow",
+      "nameFr": "Arc du serment",
+      "aliases": [],
+      "slug": "arc-du-serment",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-arc-du-serment"
+    },
+    {
+      "id": "weapon-1-2-or-3",
+      "nameEn": "Weapon, +1, +2, or +3",
+      "nameFr": "Arme +1, +2 ou +3",
+      "aliases": [],
+      "slug": "arme-1-2-ou-3",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-arme-1-2-ou-3"
+    },
+    {
+      "id": "flame-tongue",
+      "nameEn": "Flame Tongue",
+      "nameFr": "Arme ardente",
+      "aliases": [],
+      "slug": "arme-ardente",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-arme-ardente"
+    },
+    {
+      "id": "vicious-weapon",
+      "nameEn": "Vicious Weapon",
+      "nameFr": "Arme brutale",
+      "aliases": [],
+      "slug": "arme-brutale",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-arme-brutale"
+    },
+    {
+      "id": "adamantine-weapon",
+      "nameEn": "Adamantine Weapon",
+      "nameFr": "Arme en adamantium",
+      "aliases": [],
+      "slug": "arme-en-adamantium",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "silvered-weapon",
+      "nameEn": "Silvered Weapon",
+      "nameFr": "Arme en argent",
+      "aliases": [],
+      "slug": "arme-en-argent",
+      "itemType": "Arme",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "weapon-of-warning",
+      "nameEn": "Weapon of Warning",
+      "nameFr": "Arme vigilante",
+      "aliases": [],
+      "slug": "arme-vigilante",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024",
+      "compendiumId": "magic-item-arme-vigilante"
+    },
+    {
+      "id": "enspelled-weapon",
+      "nameEn": "Enspelled Weapon",
+      "nameFr": "Arme-sortilège",
+      "aliases": [],
+      "slug": "arme-sortilege",
+      "itemType": "Arme",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "armor-1-2-or-3",
+      "nameEn": "Armor, +1, +2, or +3",
+      "nameFr": "Armure +1, +2 ou +3",
+      "aliases": [],
+      "slug": "armure-1-2-ou-3",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare",
+        "Très rare",
+        "Légendaire"
+      ],
+      "rarity": "Rare (+1), très rare (+2) ou légendaire (+3)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-1-2-ou-3"
+    },
+    {
+      "id": "dragon-scale-mail",
+      "nameEn": "Dragon Scale Mail",
+      "nameFr": "Armure d'écailles de dragon",
+      "aliases": [],
+      "slug": "armure-d-ecailles-de-dragon",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-d-ecailles-de-dragon"
+    },
+    {
+      "id": "armor-of-invulnerability",
+      "nameEn": "Armor of Invulnerability",
+      "nameFr": "Armure d'invulnérabilité",
+      "aliases": [],
+      "slug": "armure-d-invulnerabilite",
+      "itemType": "Armure",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-d-invulnerabilite"
+    },
+    {
+      "id": "glamoured-studded-leather",
+      "nameEn": "Glamoured Studded Leather",
+      "nameFr": "Armure de cuir clouté enchantée",
+      "aliases": [],
+      "slug": "armure-de-cuir-cloute-enchantee",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-de-cuir-cloute-enchantee"
+    },
+    {
+      "id": "mithral-armor",
+      "nameEn": "Mithral Armor",
+      "nameFr": "Armure de mithral",
+      "aliases": [],
+      "slug": "armure-de-mithral",
+      "itemType": "Armure",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-de-mithral"
+    },
+    {
+      "id": "armor-of-resistance",
+      "nameEn": "Armor of Resistance",
+      "nameFr": "Armure de résistance",
+      "aliases": [],
+      "slug": "armure-de-resistance",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-de-resistance"
+    },
+    {
+      "id": "armor-of-vulnerability",
+      "nameEn": "Armor of Vulnerability",
+      "nameFr": "Armure de vulnérabilité",
+      "aliases": [],
+      "slug": "armure-de-vulnerabilite",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-de-vulnerabilite"
+    },
+    {
+      "id": "demon-armor",
+      "nameEn": "Demon Armor",
+      "nameFr": "Armure démoniaque",
+      "aliases": [],
+      "slug": "armure-demoniaque",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-demoniaque"
+    },
+    {
+      "id": "mariner-s-armor",
+      "nameEn": "Mariner's Armor",
+      "nameFr": "Armure du matelot",
+      "aliases": [],
+      "slug": "armure-du-matelot",
+      "itemType": "Armure",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "adamantine-armor",
+      "nameEn": "Adamantine Armor",
+      "nameFr": "Armure en adamantium",
+      "aliases": [],
+      "slug": "armure-en-adamantium",
+      "itemType": "Armure",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-en-adamantium"
+    },
+    {
+      "id": "smoldering-armor",
+      "nameEn": "Smoldering Armor",
+      "nameFr": "Armure fumante",
+      "aliases": [],
+      "slug": "armure-fumante",
+      "itemType": "Armure",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "armor-of-gleaming",
+      "nameEn": "Armor of Gleaming",
+      "nameFr": "Armure impeccable",
+      "aliases": [],
+      "slug": "armure-impeccable",
+      "itemType": "Armure",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cast-off-armor",
+      "nameEn": "Cast-Off Armor",
+      "nameFr": "Armure rapide",
+      "aliases": [],
+      "slug": "armure-rapide",
+      "itemType": "Armure",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "enspelled-armor",
+      "nameEn": "Enspelled Armor",
+      "nameFr": "Armure-sortilège",
+      "aliases": [],
+      "slug": "armure-sortilege",
+      "itemType": "Armure",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "wand-of-lightning-bolts",
+      "nameEn": "Wand of Lightning Bolts",
+      "nameFr": "Baguette d'éclairs",
+      "aliases": [],
+      "slug": "baguette-d-eclairs",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-d-eclairs"
+    },
+    {
+      "id": "wand-of-orcus",
+      "nameEn": "Wand of Orcus",
+      "nameFr": "Baguette d'Orcus",
+      "aliases": [],
+      "slug": "baguette-d-orcus",
+      "itemType": "Baguette",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "wand-of-fireballs",
+      "nameEn": "Wand of Fireballs",
+      "nameFr": "Baguette de boules de feu",
+      "aliases": [],
+      "slug": "baguette-de-boules-de-feu",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-boules-de-feu"
+    },
+    {
+      "id": "wand-of-enemy-detection",
+      "nameEn": "Wand of Enemy Detection",
+      "nameFr": "Baguette de détection de l'ennemi",
+      "aliases": [],
+      "slug": "baguette-de-detection-de-l-ennemi",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-detection-de-l-ennemi"
+    },
+    {
+      "id": "wand-of-magic-detection",
+      "nameEn": "Wand of Magic Detection",
+      "nameFr": "Baguette de détection de la magie",
+      "aliases": [],
+      "slug": "baguette-de-detection-de-la-magie",
+      "itemType": "Baguette",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-detection-de-la-magie"
+    },
+    {
+      "id": "wand-of-polymorph",
+      "nameEn": "Wand of Polymorph",
+      "nameFr": "Baguette de métamorphose",
+      "aliases": [],
+      "slug": "baguette-de-metamorphose",
+      "itemType": "Baguette",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-metamorphose"
+    },
+    {
+      "id": "wand-of-paralysis",
+      "nameEn": "Wand of Paralysis",
+      "nameFr": "Baguette de paralysie",
+      "aliases": [],
+      "slug": "baguette-de-paralysie",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-paralysie"
+    },
+    {
+      "id": "wand-of-fear",
+      "nameEn": "Wand of Fear",
+      "nameFr": "Baguette de peur",
+      "aliases": [
+        "Baguette de terreur"
+      ],
+      "slug": "baguette-de-peur-de-terreur",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-terreur"
+    },
+    {
+      "id": "wand-of-magic-missiles",
+      "nameEn": "Wand of Magic Missiles",
+      "nameFr": "Baguette de projectiles magiques",
+      "aliases": [],
+      "slug": "baguette-de-projectiles-magiques",
+      "itemType": "Baguette",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-de-projectiles-magiques"
+    },
+    {
+      "id": "wand-of-web",
+      "nameEn": "Wand of Web",
+      "nameFr": "Baguette de toile d'araignée",
+      "aliases": [
+        "Baguette des toiles"
+      ],
+      "slug": "baguette-de-toile-d-araignee-des-toiles",
+      "itemType": "Baguette",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-des-toiles"
+    },
+    {
+      "id": "wand-of-binding",
+      "nameEn": "Wand of Binding",
+      "nameFr": "Baguette des entraves",
+      "aliases": [],
+      "slug": "baguette-des-entraves",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-des-entraves"
+    },
+    {
+      "id": "wand-of-wonder",
+      "nameEn": "Wand of Wonder",
+      "nameFr": "Baguette des merveilles",
+      "aliases": [],
+      "slug": "baguette-des-merveilles",
+      "itemType": "Baguette",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-des-merveilles"
+    },
+    {
+      "id": "wand-of-secrets",
+      "nameEn": "Wand of Secrets",
+      "nameFr": "Baguette des secrets",
+      "aliases": [],
+      "slug": "baguette-des-secrets",
+      "itemType": "Baguette",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-des-secrets"
+    },
+    {
+      "id": "wand-of-conducting",
+      "nameEn": "Wand of Conducting",
+      "nameFr": "Baguette du chef d'orchestre",
+      "aliases": [],
+      "slug": "baguette-du-chef-d-orchestre",
+      "itemType": "Baguette",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "wand-of-the-war-mage-1-2-or-3",
+      "nameEn": "Wand of the War Mage, +1, +2, or +3",
+      "nameFr": "Baguette du mage de guerre +1, +2 ou +3",
+      "aliases": [],
+      "slug": "baguette-du-mage-de-guerre-1-2-ou-3",
+      "itemType": "Baguette",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baguette-du-mage-de-guerre-1-2-ou-3"
+    },
+    {
+      "id": "wand-of-pyrotechnics",
+      "nameEn": "Wand of Pyrotechnics",
+      "nameFr": "Baguette du pyrotechnicien",
+      "aliases": [],
+      "slug": "baguette-du-pyrotechnicien",
+      "itemType": "Baguette",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "baba-yaga-s-dancing-broom",
+      "nameEn": "Baba Yaga's Dancing Broom",
+      "nameFr": "Balai dansant de Baba Yaga",
+      "aliases": [],
+      "slug": "balai-dansant-de-baba-yaga",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "broom-of-flying",
+      "nameEn": "Broom of Flying",
+      "nameFr": "Balai volant",
+      "aliases": [],
+      "slug": "balai-volant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-balai-volant"
+    },
+    {
+      "id": "wraps-of-unarmed-power",
+      "nameEn": "Wraps of Unarmed Power",
+      "nameFr": "Bandages de pancrace",
+      "aliases": [],
+      "slug": "bandages-de-pancrace",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "headband-of-intellect",
+      "nameEn": "Headband of Intellect",
+      "nameFr": "Bandeau d'intelligence",
+      "aliases": [],
+      "slug": "bandeau-d-intelligence",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bandeau-d-intelligence"
+    },
+    {
+      "id": "folding-boat",
+      "nameEn": "Folding Boat",
+      "nameFr": "Bateau pliable",
+      "aliases": [],
+      "slug": "bateau-pliable",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bateau-pliable"
+    },
+    {
+      "id": "staff-of-charming",
+      "nameEn": "Staff of Charming",
+      "nameFr": "Bâton d'envoûtement",
+      "aliases": [],
+      "slug": "baton-d-envoutement",
+      "itemType": "Bâton",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-d-envoutement"
+    },
+    {
+      "id": "staff-of-fire",
+      "nameEn": "Staff of Fire",
+      "nameFr": "Bâton de feu",
+      "aliases": [],
+      "slug": "baton-de-feu",
+      "itemType": "Bâton",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-feu"
+    },
+    {
+      "id": "staff-of-withering",
+      "nameEn": "Staff of Withering",
+      "nameFr": "Bâton de flétrissement",
+      "aliases": [],
+      "slug": "baton-de-fletrissement",
+      "itemType": "Bâton",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-fletrissement"
+    },
+    {
+      "id": "staff-of-frost",
+      "nameEn": "Staff of Frost",
+      "nameFr": "Bâton de givre",
+      "aliases": [],
+      "slug": "baton-de-givre",
+      "itemType": "Bâton",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-givre"
+    },
+    {
+      "id": "staff-of-healing",
+      "nameEn": "Staff of Healing",
+      "nameFr": "Bâton de guérison",
+      "aliases": [],
+      "slug": "baton-de-guerison",
+      "itemType": "Bâton",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-guerison"
+    },
+    {
+      "id": "quarterstaff-of-the-acrobat",
+      "nameEn": "Quarterstaff of the Acrobat",
+      "nameFr": "Bâton de l'acrobate",
+      "aliases": [],
+      "slug": "baton-de-l-acrobate",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-l-acrobate"
+    },
+    {
+      "id": "staff-of-the-adder",
+      "nameEn": "Staff of the Adder",
+      "nameFr": "Bâton de la vipère",
+      "aliases": [],
+      "slug": "baton-de-la-vipere",
+      "itemType": "Bâton",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "staff-of-power",
+      "nameEn": "Staff of Power",
+      "nameFr": "Bâton de surpuissance",
+      "aliases": [],
+      "slug": "baton-de-surpuissance",
+      "itemType": "Bâton",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-surpuissance"
+    },
+    {
+      "id": "staff-of-thunder-and-lightning",
+      "nameEn": "Staff of Thunder and Lightning",
+      "nameFr": "Bâton de tonnerre et de foudre",
+      "aliases": [],
+      "slug": "baton-de-tonnerre-et-de-foudre",
+      "itemType": "Bâton",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-de-tonnerre-et-de-foudre"
+    },
+    {
+      "id": "staff-of-birdcalls",
+      "nameEn": "Staff of Birdcalls",
+      "nameFr": "Bâton des chants d'oiseaux",
+      "aliases": [],
+      "slug": "baton-des-chants-d-oiseaux",
+      "itemType": "Bâton",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "staff-of-the-woodlands",
+      "nameEn": "Staff of the Woodlands",
+      "nameFr": "Bâton des forêts",
+      "aliases": [],
+      "slug": "baton-des-forets",
+      "itemType": "Bâton",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-des-forets"
+    },
+    {
+      "id": "staff-of-swarming-insects",
+      "nameEn": "Staff of Swarming Insects",
+      "nameFr": "Bâton du grand essaim",
+      "aliases": [],
+      "slug": "baton-du-grand-essaim",
+      "itemType": "Bâton",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-du-grand-essaim"
+    },
+    {
+      "id": "staff-of-the-python",
+      "nameEn": "Staff of the Python",
+      "nameFr": "Bâton du python",
+      "aliases": [],
+      "slug": "baton-du-python",
+      "itemType": "Bâton",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-du-python"
+    },
+    {
+      "id": "staff-of-the-magi",
+      "nameEn": "Staff of the Magi",
+      "nameFr": "Bâton du thaumaturge",
+      "aliases": [],
+      "slug": "baton-du-thaumaturge",
+      "itemType": "Bâton",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-du-thaumaturge"
+    },
+    {
+      "id": "staff-of-flowers",
+      "nameEn": "Staff of Flowers",
+      "nameFr": "Bâton floral",
+      "aliases": [],
+      "slug": "baton-floral",
+      "itemType": "Bâton",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "staff-of-adornment",
+      "nameEn": "Staff of Adornment",
+      "nameFr": "Bâton ostensible",
+      "aliases": [],
+      "slug": "baton-ostensible",
+      "itemType": "Bâton",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "staff-of-striking",
+      "nameEn": "Staff of Striking",
+      "nameFr": "Bâton percussif",
+      "aliases": [],
+      "slug": "baton-percussif",
+      "itemType": "Bâton",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-baton-percussif"
+    },
+    {
+      "id": "enspelled-staff",
+      "nameEn": "Enspelled Staff",
+      "nameFr": "Bâton-sortilège",
+      "aliases": [],
+      "slug": "baton-sortilege",
+      "itemType": "Bâton",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "keoghtom-s-ointment",
+      "nameEn": "Keoghtom's Ointment",
+      "nameFr": "Baume de Keoghtom",
+      "aliases": [],
+      "slug": "baume-de-keoghtom",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "winged-boots",
+      "nameEn": "Winged Boots",
+      "nameFr": "Bottes ailées",
+      "aliases": [],
+      "slug": "bottes-ailees",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-ailees"
+    },
+    {
+      "id": "boots-of-false-tracks",
+      "nameEn": "Boots of False Tracks",
+      "nameFr": "Bottes aux empreintes factices",
+      "aliases": [],
+      "slug": "bottes-aux-empreintes-factices",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "boots-of-levitation",
+      "nameEn": "Boots of Levitation",
+      "nameFr": "Bottes de lévitation",
+      "aliases": [],
+      "slug": "bottes-de-levitation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-de-levitation"
+    },
+    {
+      "id": "boots-of-speed",
+      "nameEn": "Boots of Speed",
+      "nameFr": "Bottes de rapidité",
+      "aliases": [],
+      "slug": "bottes-de-rapidite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-de-rapidite"
+    },
+    {
+      "id": "boots-of-striding-and-springing",
+      "nameEn": "Boots of Striding and Springing",
+      "nameFr": "Bottes de sept lieues",
+      "aliases": [],
+      "slug": "bottes-de-sept-lieues",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-de-sept-lieues"
+    },
+    {
+      "id": "boots-of-the-winterlands",
+      "nameEn": "Boots of the Winterlands",
+      "nameFr": "Bottes des terres gelées",
+      "aliases": [],
+      "slug": "bottes-des-terres-gelees",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-des-terres-gelees"
+    },
+    {
+      "id": "boots-of-elvenkind",
+      "nameEn": "Boots of Elvenkind",
+      "nameFr": "Bottes elfiques",
+      "aliases": [],
+      "slug": "bottes-elfiques",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bottes-elfiques"
+    },
+    {
+      "id": "shield-1-2-or-3",
+      "nameEn": "Shield, +1, +2, or +3",
+      "nameFr": "Bouclier +1, +2 ou +3",
+      "aliases": [],
+      "slug": "bouclier-1-2-ou-3",
+      "itemType": "Armure",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-1-2-ou-3"
+    },
+    {
+      "id": "animated-shield",
+      "nameEn": "Animated Shield",
+      "nameFr": "Bouclier animé",
+      "aliases": [],
+      "slug": "bouclier-anime",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-anime"
+    },
+    {
+      "id": "arrow-catching-shield",
+      "nameEn": "Arrow-Catching Shield",
+      "nameFr": "Bouclier antiprojectiles",
+      "aliases": [],
+      "slug": "bouclier-antiprojectiles",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-antiprojectiles"
+    },
+    {
+      "id": "shield-of-missile-attraction",
+      "nameEn": "Shield of Missile Attraction",
+      "nameFr": "Bouclier d'attraction des projectiles",
+      "aliases": [],
+      "slug": "bouclier-d-attraction-des-projectiles",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-d-attraction-des-projectiles"
+    },
+    {
+      "id": "shield-of-the-cavalier",
+      "nameEn": "Shield of the Cavalier",
+      "nameFr": "Bouclier du cavalier",
+      "aliases": [
+        "Bouclier du hussard"
+      ],
+      "slug": "bouclier-du-cavalier-du-hussard",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-du-hussard"
+    },
+    {
+      "id": "shield-of-expression",
+      "nameEn": "Shield of Expression",
+      "nameFr": "Bouclier expressif",
+      "aliases": [],
+      "slug": "bouclier-expressif",
+      "itemType": "Armure",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "spellguard-shield",
+      "nameEn": "Spellguard Shield",
+      "nameFr": "Bouclier gardesort",
+      "aliases": [],
+      "slug": "bouclier-gardesort",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-gardesort"
+    },
+    {
+      "id": "sentinel-shield",
+      "nameEn": "Sentinel Shield",
+      "nameFr": "Bouclier sentinelle",
+      "aliases": [],
+      "slug": "bouclier-sentinelle",
+      "itemType": "Armure",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouclier-sentinelle"
+    },
+    {
+      "id": "crystal-ball",
+      "nameEn": "Crystal Ball",
+      "nameFr": "Boule de cristal",
+      "aliases": [],
+      "slug": "boule-de-cristal",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-boule-de-cristal"
+    },
+    {
+      "id": "crystal-ball-of-mind-reading",
+      "nameEn": "Crystal Ball of Mind Reading",
+      "nameFr": "Boule de cristal de lecture des pensées",
+      "aliases": [],
+      "slug": "boule-de-cristal-de-lecture-des-pensees",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-boule-de-cristal-de-lecture-des-pensees"
+    },
+    {
+      "id": "crystal-ball-of-telepathy",
+      "nameEn": "Crystal Ball of Telepathy",
+      "nameFr": "Boule de cristal de télépathie",
+      "aliases": [],
+      "slug": "boule-de-cristal-de-telepathie",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-boule-de-cristal-de-telepathie"
+    },
+    {
+      "id": "crystal-ball-of-true-seeing",
+      "nameEn": "Crystal Ball of True Seeing",
+      "nameFr": "Boule de cristal de vision suprême",
+      "aliases": [],
+      "slug": "boule-de-cristal-de-vision-supreme",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-boule-de-cristal-de-vision-supreme"
+    },
+    {
+      "id": "heward-s-handy-spice-pouch",
+      "nameEn": "Heward's Handy Spice Pouch",
+      "nameFr": "Bourse à épices d'Huard",
+      "aliases": [],
+      "slug": "bourse-a-epices-d-huard",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "efreeti-bottle",
+      "nameEn": "Efreeti Bottle",
+      "nameFr": "Bouteille de l'éfrit",
+      "aliases": [
+        "Bouteille du mauvais génie"
+      ],
+      "slug": "bouteille-de-l-efrit-du-mauvais-genie",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bouteille-du-mauvais-genie"
+    },
+    {
+      "id": "bracers-of-archery",
+      "nameEn": "Bracers of Archery",
+      "nameFr": "Bracelets d'archer",
+      "aliases": [],
+      "slug": "bracelets-d-archer",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bracelets-d-archer"
+    },
+    {
+      "id": "bracers-of-defense",
+      "nameEn": "Bracers of Defense",
+      "nameFr": "Bracelets de défense",
+      "aliases": [],
+      "slug": "bracelets-de-defense",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-bracelets-de-defense"
+    },
+    {
+      "id": "brazier-of-commanding-fire-elementals",
+      "nameEn": "Brazier of Commanding Fire Elementals",
+      "nameFr": "Brasero de contrôle des élémentaires du feu",
+      "aliases": [],
+      "slug": "brasero-de-controle-des-elementaires-du-feu",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-brasero-de-controle-des-elementaires-du-feu"
+    },
+    {
+      "id": "brooch-of-shielding",
+      "nameEn": "Brooch of Shielding",
+      "nameFr": "Broche de défense",
+      "aliases": [],
+      "slug": "broche-de-defense",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-broche-de-defense"
+    },
+    {
+      "id": "lock-of-trickery",
+      "nameEn": "Lock of Trickery",
+      "nameFr": "Cadenas sournois",
+      "aliases": [],
+      "slug": "cadenas-sournois",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "veteran-s-cane",
+      "nameEn": "Veteran's Cane",
+      "nameFr": "Canne du vétéran",
+      "aliases": [],
+      "slug": "canne-du-veteran",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cloak-of-many-fashions",
+      "nameEn": "Cloak of Many Fashions",
+      "nameFr": "Cape à la mode",
+      "aliases": [],
+      "slug": "cape-a-la-mode",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cloak-of-invisibility",
+      "nameEn": "Cloak of Invisibility",
+      "nameFr": "Cape d'invisibilité",
+      "aliases": [],
+      "slug": "cape-d-invisibilite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-d-invisibilite"
+    },
+    {
+      "id": "cloak-of-displacement",
+      "nameEn": "Cloak of Displacement",
+      "nameFr": "Cape de déplacement",
+      "aliases": [],
+      "slug": "cape-de-deplacement",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-deplacement"
+    },
+    {
+      "id": "cloak-of-arachnida",
+      "nameEn": "Cloak of Arachnida",
+      "nameFr": "Cape de l'arachnide",
+      "aliases": [],
+      "slug": "cape-de-l-arachnide",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-l-arachnide"
+    },
+    {
+      "id": "cloak-of-the-bat",
+      "nameEn": "Cloak of the Bat",
+      "nameFr": "Cape de la chauve-souris",
+      "aliases": [],
+      "slug": "cape-de-la-chauve-souris",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-la-chauve-souris"
+    },
+    {
+      "id": "cloak-of-the-manta-ray",
+      "nameEn": "Cloak of the Manta Ray",
+      "nameFr": "Cape de la raie manta",
+      "aliases": [],
+      "slug": "cape-de-la-raie-manta",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-la-raie-manta"
+    },
+    {
+      "id": "cloak-of-protection",
+      "nameEn": "Cloak of Protection",
+      "nameFr": "Cape de protection",
+      "aliases": [],
+      "slug": "cape-de-protection",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-protection"
+    },
+    {
+      "id": "wings-of-flying",
+      "nameEn": "Wings of Flying",
+      "nameFr": "Cape de vol",
+      "aliases": [],
+      "slug": "cape-de-vol",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-de-vol"
+    },
+    {
+      "id": "cape-of-the-mountebank",
+      "nameEn": "Cape of the Mountebank",
+      "nameFr": "Cape du prestidigitateur",
+      "aliases": [],
+      "slug": "cape-du-prestidigitateur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-du-prestidigitateur"
+    },
+    {
+      "id": "cloak-of-elvenkind",
+      "nameEn": "Cloak of Elvenkind",
+      "nameFr": "Cape elfique",
+      "aliases": [],
+      "slug": "cape-elfique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cape-elfique"
+    },
+    {
+      "id": "cloak-of-billowing",
+      "nameEn": "Cloak of Billowing",
+      "nameFr": "Cape virevoltante",
+      "aliases": [],
+      "slug": "cape-virevoltante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cap-of-water-breathing",
+      "nameEn": "Cap of Water Breathing",
+      "nameFr": "Capuchon de respiration aquatique",
+      "aliases": [],
+      "slug": "capuchon-de-respiration-aquatique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "decanter-of-endless-water",
+      "nameEn": "Decanter of Endless Water",
+      "nameFr": "Carafe intarissable",
+      "aliases": [],
+      "slug": "carafe-intarissable",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-carafe-intarissable"
+    },
+    {
+      "id": "chime-of-opening",
+      "nameEn": "Chime of Opening",
+      "nameFr": "Carillon d'ouverture",
+      "aliases": [],
+      "slug": "carillon-d-ouverture",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-carillon-d-ouverture"
+    },
+    {
+      "id": "quiver-of-ehlonna",
+      "nameEn": "Quiver of Ehlonna",
+      "nameFr": "Carquois d'Ehlonna",
+      "aliases": [],
+      "slug": "carquois-d-ehlonna",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-carquois-efficace"
+    },
+    {
+      "id": "deck-of-illusions",
+      "nameEn": "Deck of Illusions",
+      "nameFr": "Cartes d'illusion",
+      "aliases": [
+        "Tarot fantasmagorique"
+      ],
+      "slug": "cartes-d-illusion-tarot-fantasmagorique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-tarot-fantasmagorique"
+    },
+    {
+      "id": "deck-of-many-things",
+      "nameEn": "Deck of Many Things",
+      "nameFr": "Cartes merveilleuses",
+      "aliases": [
+        "Tarot merveilleux"
+      ],
+      "slug": "cartes-merveilleuses-tarot-merveilleux",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-tarot-mysterieux"
+    },
+    {
+      "id": "belt-of-giant-strength",
+      "nameEn": "Belt of Giant Strength",
+      "nameFr": "Ceinturon de force de géant",
+      "aliases": [],
+      "slug": "ceinturon-de-force-de-geant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-ceinturon-de-force-de-geant"
+    },
+    {
+      "id": "belt-of-dwarvenkind",
+      "nameEn": "Belt of Dwarvenkind",
+      "nameFr": "Ceinturon des nains",
+      "aliases": [],
+      "slug": "ceinturon-des-nains",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-ceinturon-des-nains"
+    },
+    {
+      "id": "candle-of-the-deep",
+      "nameEn": "Candle of the Deep",
+      "nameFr": "Chandelle des profondeurs",
+      "aliases": [],
+      "slug": "chandelle-des-profondeurs",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "hat-of-disguise",
+      "nameEn": "Hat of Disguise",
+      "nameFr": "Chapeau de déguisement",
+      "aliases": [],
+      "slug": "chapeau-de-deguisement",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-chapeau-de-deguisement"
+    },
+    {
+      "id": "hat-of-wizardry",
+      "nameEn": "Hat of Wizardry",
+      "nameFr": "Chapeau de magicien",
+      "aliases": [],
+      "slug": "chapeau-de-magicien",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "hat-of-vermin",
+      "nameEn": "Hat of Vermin",
+      "nameFr": "Chapeau de vermine",
+      "aliases": [],
+      "slug": "chapeau-de-vermine",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "hat-of-many-spells",
+      "nameEn": "Hat of Many Spells",
+      "nameFr": "Chapeau mille-sorts",
+      "aliases": [],
+      "slug": "chapeau-mille-sorts",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-chapeau-mille-sorts"
+    },
+    {
+      "id": "cauldron-of-rebirth",
+      "nameEn": "Cauldron of Rebirth",
+      "nameFr": "Chaudron de renaissance",
+      "aliases": [],
+      "slug": "chaudron-de-renaissance",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "slippers-of-spider-climbing",
+      "nameEn": "Slippers of Spider Climbing",
+      "nameFr": "Chaussons de l'araignée",
+      "aliases": [],
+      "slug": "chaussons-de-l-araignee",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-chaussons-de-l-araignee"
+    },
+    {
+      "id": "tankard-of-sobriety",
+      "nameEn": "Tankard of Sobriety",
+      "nameFr": "Chope de sobriété",
+      "aliases": [],
+      "slug": "chope-de-sobriete",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "candle-of-invocation",
+      "nameEn": "Candle of Invocation",
+      "nameFr": "Cierge d'invocation",
+      "aliases": [],
+      "slug": "cierge-d-invocation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cierge-d-invocation"
+    },
+    {
+      "id": "scimitar-of-speed",
+      "nameEn": "Scimitar of Speed",
+      "nameFr": "Cimeterre de célérité",
+      "aliases": [],
+      "slug": "cimeterre-de-celerite",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cimeterre-de-celerite"
+    },
+    {
+      "id": "mystery-key",
+      "nameEn": "Mystery Key",
+      "nameFr": "Clef mystérieuse",
+      "aliases": [],
+      "slug": "clef-mysterieuse",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sovereign-glue",
+      "nameEn": "Sovereign Glue",
+      "nameFr": "Colle universelle",
+      "aliases": [],
+      "slug": "colle-universelle",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-colle-universelle"
+    },
+    {
+      "id": "necklace-of-adaptation",
+      "nameEn": "Necklace of Adaptation",
+      "nameFr": "Collier d'adaptation",
+      "aliases": [],
+      "slug": "collier-d-adaptation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-collier-d-adaptation"
+    },
+    {
+      "id": "necklace-of-fireballs",
+      "nameEn": "Necklace of Fireballs",
+      "nameFr": "Collier de boules de feu",
+      "aliases": [],
+      "slug": "collier-de-boules-de-feu",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-collier-de-boules-de-feu"
+    },
+    {
+      "id": "necklace-of-prayer-beads",
+      "nameEn": "Necklace of Prayer Beads",
+      "nameFr": "Collier de prière",
+      "aliases": [
+        "Chapelet mystique"
+      ],
+      "slug": "collier-de-priere-chapelet-mystique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-chapelet-mystique"
+    },
+    {
+      "id": "horn-of-silent-alarm",
+      "nameEn": "Horn of Silent Alarm",
+      "nameFr": "Cor d'alarme silencieuse",
+      "aliases": [],
+      "slug": "cor-d-alarme-silencieuse",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "horn-of-blasting",
+      "nameEn": "Horn of Blasting",
+      "nameFr": "Cor de dévastation",
+      "aliases": [],
+      "slug": "cor-de-devastation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cor-de-devastation"
+    },
+    {
+      "id": "horn-of-valhalla",
+      "nameEn": "Horn of Valhalla",
+      "nameFr": "Cor du Valhalla",
+      "aliases": [],
+      "slug": "cor-du-valhalla",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare",
+        "Très rare",
+        "Légendaire"
+      ],
+      "rarity": "Rare (argent ou airain), très rare (bronze) ou légendaire (fer)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cor-du-valhalla"
+    },
+    {
+      "id": "rope-of-climbing",
+      "nameEn": "Rope of Climbing",
+      "nameFr": "Corde d'ascension",
+      "aliases": [],
+      "slug": "corde-d-ascension",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-corde-d-ascension"
+    },
+    {
+      "id": "rope-of-entanglement",
+      "nameEn": "Rope of Entanglement",
+      "nameFr": "Corde d'enchevêtrement",
+      "aliases": [],
+      "slug": "corde-d-enchevetrement",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-corde-d-enchevetrement"
+    },
+    {
+      "id": "rope-of-mending",
+      "nameEn": "Rope of Mending",
+      "nameFr": "Corde remaillante",
+      "aliases": [],
+      "slug": "corde-remaillante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "ear-horn-of-hearing",
+      "nameEn": "Ear Horn of Hearing",
+      "nameFr": "Cornet acoustique",
+      "aliases": [],
+      "slug": "cornet-acoustique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "alchemy-jug",
+      "nameEn": "Alchemy Jug",
+      "nameFr": "Cruche alchimique",
+      "aliases": [],
+      "slug": "cruche-alchimique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cube-of-summoning",
+      "nameEn": "Cube of Summoning",
+      "nameFr": "Cube de convocation",
+      "aliases": [],
+      "slug": "cube-de-convocation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "cube-of-force",
+      "nameEn": "Cube of Force",
+      "nameFr": "Cube de force",
+      "aliases": [],
+      "slug": "cube-de-force",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cube-de-force"
+    },
+    {
+      "id": "cubic-gate",
+      "nameEn": "Cubic Gate",
+      "nameFr": "Cube des plans",
+      "aliases": [],
+      "slug": "cube-des-plans",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-cube-des-plans"
+    },
+    {
+      "id": "dagger-of-venom",
+      "nameEn": "Dagger of Venom",
+      "nameFr": "Dague venimeuse",
+      "aliases": [],
+      "slug": "dague-venimeuse",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-dague-venimeuse"
+    },
+    {
+      "id": "charlatan-s-die",
+      "nameEn": "Charlatan's Die",
+      "nameFr": "Dé du charlatan",
+      "aliases": [],
+      "slug": "de-du-charlatan",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "whelm",
+      "nameEn": "Whelm",
+      "nameFr": "Déluge",
+      "aliases": [],
+      "slug": "deluge",
+      "itemType": "Arme",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "demonomicon-of-iggwilv",
+      "nameEn": "Demonomicon of Iggwilv",
+      "nameFr": "Demonomicon d'Iggwilv",
+      "aliases": [],
+      "slug": "demonomicon-d-iggwilv",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "circlet-of-blasting",
+      "nameEn": "Circlet of Blasting",
+      "nameFr": "Diadème de destruction",
+      "aliases": [],
+      "slug": "diademe-de-destruction",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-diademe-de-destruction"
+    },
+    {
+      "id": "potion-of-longevity",
+      "nameEn": "Potion of Longevity",
+      "nameFr": "Élixir de jouvence",
+      "aliases": [],
+      "slug": "elixir-de-jouvence",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-elixir-de-jouvence"
+    },
+    {
+      "id": "elixir-of-health",
+      "nameEn": "Elixir of Health",
+      "nameFr": "Élixir de santé",
+      "aliases": [],
+      "slug": "elixir-de-sante",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-elixir-de-sante"
+    },
+    {
+      "id": "censer-of-controlling-air-elementals",
+      "nameEn": "Censer of Controlling Air Elementals",
+      "nameFr": "Encensoir de contrôle des élémentaires de l'air",
+      "aliases": [],
+      "slug": "encensoir-de-controle-des-elementaires-de-l-air",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-encensoir-de-controle-des-elementaires-de-l-air"
+    },
+    {
+      "id": "sword-of-sharpness",
+      "nameEn": "Sword of Sharpness",
+      "nameFr": "Épée acérée",
+      "aliases": [],
+      "slug": "epee-aceree",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-aceree"
+    },
+    {
+      "id": "dancing-sword",
+      "nameEn": "Dancing Sword",
+      "nameFr": "Épée dansante",
+      "aliases": [],
+      "slug": "epee-dansante",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-dansante"
+    },
+    {
+      "id": "sword-of-kas",
+      "nameEn": "Sword of Kas",
+      "nameFr": "Épée de Kas",
+      "aliases": [],
+      "slug": "epee-de-kas",
+      "itemType": "Arme",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sword-of-answering",
+      "nameEn": "Sword of Answering",
+      "nameFr": "Épée de réponse",
+      "aliases": [],
+      "slug": "epee-de-reponse",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sword-of-wounding",
+      "nameEn": "Sword of Wounding",
+      "nameFr": "Épée mordante",
+      "aliases": [],
+      "slug": "epee-mordante",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-mordante"
+    },
+    {
+      "id": "sun-blade",
+      "nameEn": "Sun Blade",
+      "nameFr": "Épée radieuse",
+      "aliases": [],
+      "slug": "epee-radieuse",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-radieuse"
+    },
+    {
+      "id": "moon-touched-sword",
+      "nameEn": "Moon-Touched Sword",
+      "nameFr": "Épée sélène",
+      "aliases": [],
+      "slug": "epee-selene",
+      "itemType": "Arme",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sword-of-vengeance",
+      "nameEn": "Sword of Vengeance",
+      "nameFr": "Épée vengeresse",
+      "aliases": [],
+      "slug": "epee-vengeresse",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sword-of-life-stealing",
+      "nameEn": "Sword of Life Stealing",
+      "nameFr": "Épée voleuse de vie",
+      "aliases": [],
+      "slug": "epee-voleuse-de-vie",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-voleuse-de-vie"
+    },
+    {
+      "id": "vorpal-sword",
+      "nameEn": "Vorpal Sword",
+      "nameFr": "Épée vorpale",
+      "aliases": [],
+      "slug": "epee-vorpale",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-epee-vorpale"
+    },
+    {
+      "id": "wind-fan",
+      "nameEn": "Wind Fan",
+      "nameFr": "Éventail enchanté",
+      "aliases": [],
+      "slug": "eventail-enchante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-eventail-enchante"
+    },
+    {
+      "id": "frost-brand",
+      "nameEn": "Frost Brand",
+      "nameFr": "Fer gelé",
+      "aliases": [],
+      "slug": "fer-gele",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-fer-gele"
+    },
+    {
+      "id": "horseshoes-of-speed",
+      "nameEn": "Horseshoes of Speed",
+      "nameFr": "Fers de rapidité",
+      "aliases": [],
+      "slug": "fers-de-rapidite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-fers-de-rapidite"
+    },
+    {
+      "id": "horseshoes-of-a-zephyr",
+      "nameEn": "Horseshoes of a Zephyr",
+      "nameFr": "Fers de zéphyr",
+      "aliases": [],
+      "slug": "fers-de-zephyr",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-fers-du-zephyr"
+    },
+    {
+      "id": "figurine-of-wondrous-power",
+      "nameEn": "Figurine of Wondrous Power",
+      "nameFr": "Figurine merveilleuse",
+      "aliases": [],
+      "slug": "figurine-merveilleuse",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-figurine-merveilleuse"
+    },
+    {
+      "id": "iron-flask",
+      "nameEn": "Iron Flask",
+      "nameFr": "Flasque de fer",
+      "aliases": [],
+      "slug": "flasque-de-fer",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-flasque-de-fer"
+    },
+    {
+      "id": "pipes-of-the-sewers",
+      "nameEn": "Pipes of the Sewers",
+      "nameFr": "Flûte des égouts",
+      "aliases": [],
+      "slug": "flute-des-egouts",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-flute-des-egouts"
+    },
+    {
+      "id": "pipes-of-haunting",
+      "nameEn": "Pipes of Haunting",
+      "nameFr": "Flûte terrifiante",
+      "aliases": [],
+      "slug": "flute-terrifiante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-flute-terrifiante"
+    },
+    {
+      "id": "daern-s-instant-fortress",
+      "nameEn": "Daern's Instant Fortress",
+      "nameFr": "Forteresse instantanée de Daern",
+      "aliases": [],
+      "slug": "forteresse-instantanee-de-daern",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-forteresse-instantanee"
+    },
+    {
+      "id": "gauntlets-of-ogre-power",
+      "nameEn": "Gauntlets of Ogre Power",
+      "nameFr": "Gantelets de puissance d'ogre",
+      "aliases": [],
+      "slug": "gantelets-de-puissance-d-ogre",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gantelets-de-puissance-d-ogre"
+    },
+    {
+      "id": "gloves-of-thievery",
+      "nameEn": "Gloves of Thievery",
+      "nameFr": "Gants de chapardeur",
+      "aliases": [],
+      "slug": "gants-de-chapardeur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gants-de-chapardeur"
+    },
+    {
+      "id": "gloves-of-swimming-and-climbing",
+      "nameEn": "Gloves of Swimming and Climbing",
+      "nameFr": "Gants de nage et d'escalade",
+      "aliases": [],
+      "slug": "gants-de-nage-et-d-escalade",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gants-de-nage-et-d-escalade"
+    },
+    {
+      "id": "gloves-of-missile-snaring",
+      "nameEn": "Gloves of Missile Snaring",
+      "nameFr": "Gants piégeurs de projectiles",
+      "aliases": [],
+      "slug": "gants-piegeurs-de-projectiles",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gants-piegeurs-de-projectiles"
+    },
+    {
+      "id": "defender",
+      "nameEn": "Defender",
+      "nameFr": "Gardienne",
+      "aliases": [],
+      "slug": "gardienne",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gardienne"
+    },
+    {
+      "id": "gem-of-brightness",
+      "nameEn": "Gem of Brightness",
+      "nameFr": "Gemme d'illumination",
+      "aliases": [],
+      "slug": "gemme-d-illumination",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gemme-d-illumination"
+    },
+    {
+      "id": "gem-of-seeing",
+      "nameEn": "Gem of Seeing",
+      "nameFr": "Gemme de vision",
+      "aliases": [],
+      "slug": "gemme-de-vision",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gemme-de-vision"
+    },
+    {
+      "id": "elemental-gem",
+      "nameEn": "Elemental Gem",
+      "nameFr": "Gemme élémentaire",
+      "aliases": [],
+      "slug": "gemme-elementaire",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-gemme-elementaire"
+    },
+    {
+      "id": "driftglobe",
+      "nameEn": "Driftglobe",
+      "nameFr": "Globe flottant",
+      "aliases": [],
+      "slug": "globe-flottant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "enduring-spellbook",
+      "nameEn": "Enduring Spellbook",
+      "nameFr": "Grimoire résistant",
+      "aliases": [],
+      "slug": "grimoire-resistant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "clothes-of-mending",
+      "nameEn": "Clothes of Mending",
+      "nameFr": "Habits autoréparateurs",
+      "aliases": [],
+      "slug": "habits-autoreparateurs",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "axe-of-the-dwarvish-lords",
+      "nameEn": "Axe of the Dwarvish Lords",
+      "nameFr": "Hache des seigneurs nains",
+      "aliases": [],
+      "slug": "hache-des-seigneurs-nains",
+      "itemType": "Arme",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "berserker-axe",
+      "nameEn": "Berserker Axe",
+      "nameFr": "Hache du berserker",
+      "aliases": [],
+      "slug": "hache-du-berserker",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-hache-du-berserker"
+    },
+    {
+      "id": "executioner-s-axe",
+      "nameEn": "Executioner's Axe",
+      "nameFr": "Hache du bourreau",
+      "aliases": [],
+      "slug": "hache-du-bourreau",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "plate-armor-of-etherealness",
+      "nameEn": "Plate Armor of Etherealness",
+      "nameFr": "Harnois éthéré",
+      "aliases": [],
+      "slug": "harnois-ethere",
+      "itemType": "Armure",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-harnois-ethere"
+    },
+    {
+      "id": "dwarven-plate",
+      "nameEn": "Dwarven Plate",
+      "nameFr": "Harnois nain",
+      "aliases": [],
+      "slug": "harnois-nain",
+      "itemType": "Armure",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-harnois-nain"
+    },
+    {
+      "id": "heward-s-handy-haversack",
+      "nameEn": "Heward's Handy Haversack",
+      "nameFr": "Havresac d'Huard",
+      "aliases": [],
+      "slug": "havresac-d-huard",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-havresac-magique"
+    },
+    {
+      "id": "helm-of-comprehending-languages",
+      "nameEn": "Helm of Comprehending Languages",
+      "nameFr": "Heaume de compréhension des langues",
+      "aliases": [],
+      "slug": "heaume-de-comprehension-des-langues",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-heaume-de-comprehension-des-langues"
+    },
+    {
+      "id": "helm-of-telepathy",
+      "nameEn": "Helm of Telepathy",
+      "nameFr": "Heaume de télépathie",
+      "aliases": [],
+      "slug": "heaume-de-telepathie",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-heaume-de-telepathie"
+    },
+    {
+      "id": "helm-of-teleportation",
+      "nameEn": "Helm of Teleportation",
+      "nameFr": "Heaume de téléportation",
+      "aliases": [],
+      "slug": "heaume-de-teleportation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-heaume-de-teleportation"
+    },
+    {
+      "id": "dread-helm",
+      "nameEn": "Dread Helm",
+      "nameFr": "Heaume effrayant",
+      "aliases": [],
+      "slug": "heaume-effrayant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "helm-of-brilliance",
+      "nameEn": "Helm of Brilliance",
+      "nameFr": "Heaume scintillant",
+      "aliases": [],
+      "slug": "heaume-scintillant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-heaume-scintillant"
+    },
+    {
+      "id": "oil-of-sharpness",
+      "nameEn": "Oil of Sharpness",
+      "nameFr": "Huile d'affûtage",
+      "aliases": [],
+      "slug": "huile-d-affutage",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-huile-d-affutage"
+    },
+    {
+      "id": "oil-of-slipperiness",
+      "nameEn": "Oil of Slipperiness",
+      "nameFr": "Huile d'insaisissabilité",
+      "aliases": [],
+      "slug": "huile-d-insaisissabilite",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-huile-d-insaisissabilite"
+    },
+    {
+      "id": "oil-of-etherealness",
+      "nameEn": "Oil of Etherealness",
+      "nameFr": "Huile éthérée",
+      "aliases": [],
+      "slug": "huile-etheree",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-huile-etheree"
+    },
+    {
+      "id": "instrument-of-illusions",
+      "nameEn": "Instrument of Illusions",
+      "nameFr": "Instrument à illusions",
+      "aliases": [],
+      "slug": "instrument-a-illusions",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "instrument-of-scribing",
+      "nameEn": "Instrument of Scribing",
+      "nameFr": "Instrument à message",
+      "aliases": [],
+      "slug": "instrument-a-message",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "instrument-of-the-bards",
+      "nameEn": "Instrument of the Bards",
+      "nameFr": "Instrument des bardes",
+      "aliases": [],
+      "slug": "instrument-des-bardes",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "bowl-of-commanding-water-elementals",
+      "nameEn": "Bowl of Commanding Water Elementals",
+      "nameFr": "Jatte de contrôle des élémentaires de l'eau",
+      "aliases": [],
+      "slug": "jatte-de-controle-des-elementaires-de-l-eau",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-jatte-de-controle-des-elementaires-de-l-eau"
+    },
+    {
+      "id": "javelin-of-lightning",
+      "nameEn": "Javelin of Lightning",
+      "nameFr": "Javeline de foudre",
+      "aliases": [],
+      "slug": "javeline-de-foudre",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-javeline-de-foudre"
+    },
+    {
+      "id": "luck-blade",
+      "nameEn": "Luck Blade",
+      "nameFr": "Lame porte-bonheur",
+      "aliases": [],
+      "slug": "lame-porte-bonheur",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-lame-porte-bonheur"
+    },
+    {
+      "id": "moonblade",
+      "nameEn": "Moonblade",
+      "nameFr": "Lamelune",
+      "aliases": [],
+      "slug": "lamelune",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "lantern-of-revealing",
+      "nameEn": "Lantern of Revealing",
+      "nameFr": "Lanterne de révélation",
+      "aliases": [],
+      "slug": "lanterne-de-revelation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-lanterne-de-revelation"
+    },
+    {
+      "id": "eyes-of-minute-seeing",
+      "nameEn": "Eyes of Minute Seeing",
+      "nameFr": "Lentilles de netteté",
+      "aliases": [],
+      "slug": "lentilles-de-nettete",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-lentilles-de-nettete"
+    },
+    {
+      "id": "book-of-vile-darkness",
+      "nameEn": "Book of Vile Darkness",
+      "nameFr": "Les Chapitres Interdits",
+      "aliases": [],
+      "slug": "les-chapitres-interdits",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "book-of-exalted-deeds",
+      "nameEn": "Book of Exalted Deeds",
+      "nameFr": "Les Chapitres Sacrés",
+      "aliases": [],
+      "slug": "les-chapitres-sacres",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "iron-bands-of-bilarro",
+      "nameEn": "Iron Bands of Bilarro",
+      "nameFr": "Liens de fer de Bilarro",
+      "aliases": [],
+      "slug": "liens-de-fer-de-bilarro",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-liens-de-fer"
+    },
+    {
+      "id": "goggles-of-night",
+      "nameEn": "Goggles of Night",
+      "nameFr": "Lunettes de nuit",
+      "aliases": [
+        "Lunettes du nyctalope"
+      ],
+      "slug": "lunettes-de-nuit-du-nyctalope",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-lunettes-du-nyctalope"
+    },
+    {
+      "id": "lute-of-thunderous-thumping",
+      "nameEn": "Lute of Thunderous Thumping",
+      "nameFr": "Luth tonitruant",
+      "aliases": [],
+      "slug": "luth-tonitruant",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "efreeti-chain",
+      "nameEn": "Efreeti Chain",
+      "nameFr": "Mailles de l'éfrit",
+      "aliases": [],
+      "slug": "mailles-de-l-efrit",
+      "itemType": "Armure",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)"
+    },
+    {
+      "id": "elven-chain",
+      "nameEn": "Elven Chain",
+      "nameFr": "Mailles elfiques",
+      "aliases": [],
+      "slug": "mailles-elfiques",
+      "itemType": "Armure",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-armure-de-mailles-elfique"
+    },
+    {
+      "id": "nature-s-mantle",
+      "nameEn": "Nature's Mantle",
+      "nameFr": "Mante de dame Nature",
+      "aliases": [],
+      "slug": "mante-de-dame-nature",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "mantle-of-spell-resistance",
+      "nameEn": "Mantle of Spell Resistance",
+      "nameFr": "Manteau de résistance aux sorts",
+      "aliases": [],
+      "slug": "manteau-de-resistance-aux-sorts",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-manteau-de-resistance-aux-sorts"
+    },
+    {
+      "id": "manual-of-gainful-exercise",
+      "nameEn": "Manual of Gainful Exercise",
+      "nameFr": "Manuel d'exercices physiques",
+      "aliases": [],
+      "slug": "manuel-d-exercices-physiques",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-manuel-d-exercices-physiques"
+    },
+    {
+      "id": "manual-of-bodily-health",
+      "nameEn": "Manual of Bodily Health",
+      "nameFr": "Manuel de vitalité",
+      "aliases": [],
+      "slug": "manuel-de-vitalite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-manuel-de-vitalite"
+    },
+    {
+      "id": "manual-of-quickness-of-action",
+      "nameEn": "Manual of Quickness of Action",
+      "nameFr": "Manuel de vivacité",
+      "aliases": [],
+      "slug": "manuel-de-vivacite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-manuel-de-vivacite"
+    },
+    {
+      "id": "manual-of-golems",
+      "nameEn": "Manual of Golems",
+      "nameFr": "Manuel des golems",
+      "aliases": [],
+      "slug": "manuel-des-golems",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-manuel-des-golems"
+    },
+    {
+      "id": "hammer-of-thunderbolts",
+      "nameEn": "Hammer of Thunderbolts",
+      "nameFr": "Marteau de tonnerre",
+      "aliases": [],
+      "slug": "marteau-de-tonnerre",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-marteau-de-tonnerre"
+    },
+    {
+      "id": "dwarven-thrower",
+      "nameEn": "Dwarven Thrower",
+      "nameFr": "Marteau volant des nains",
+      "aliases": [],
+      "slug": "marteau-volant-des-nains",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-marteau-volant-des-nains"
+    },
+    {
+      "id": "mace-of-disruption",
+      "nameEn": "Mace of Disruption",
+      "nameFr": "Masse d'anéantissement",
+      "aliases": [],
+      "slug": "masse-d-aneantissement",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-masse-d-aneantissement"
+    },
+    {
+      "id": "mace-of-smiting",
+      "nameEn": "Mace of Smiting",
+      "nameFr": "Masse destructrice",
+      "aliases": [],
+      "slug": "masse-destructrice",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-masse-destructrice"
+    },
+    {
+      "id": "mace-of-terror",
+      "nameEn": "Mace of Terror",
+      "nameFr": "Masse terrifiante",
+      "aliases": [],
+      "slug": "masse-terrifiante",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024",
+      "compendiumId": "magic-item-masse-terrifiante"
+    },
+    {
+      "id": "thunderous-greatclub",
+      "nameEn": "Thunderous Greatclub",
+      "nameFr": "Massue tonnante",
+      "aliases": [],
+      "slug": "massue-tonnante",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-massue-tonnante"
+    },
+    {
+      "id": "medallion-of-thoughts",
+      "nameEn": "Medallion of Thoughts",
+      "nameFr": "Médaillon des pensées",
+      "aliases": [],
+      "slug": "medaillon-des-pensees",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-medaillon-des-pensees"
+    },
+    {
+      "id": "prosthetic-limb",
+      "nameEn": "Prosthetic Limb",
+      "nameFr": "Membre artificiel",
+      "aliases": [],
+      "slug": "membre-artificiel",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "dimensional-shackles",
+      "nameEn": "Dimensional Shackles",
+      "nameFr": "Menottes dimensionnelles",
+      "aliases": [],
+      "slug": "menottes-dimensionnelles",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-menottes-dimensionnelles"
+    },
+    {
+      "id": "mirror-of-life-trapping",
+      "nameEn": "Mirror of Life Trapping",
+      "nameFr": "Miroir d'emprisonnement",
+      "aliases": [],
+      "slug": "miroir-d-emprisonnement",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-miroir-d-emprisonnement"
+    },
+    {
+      "id": "blackrazor",
+      "nameEn": "Blackrazor",
+      "nameFr": "Noirtranchant",
+      "aliases": [],
+      "slug": "noirtranchant",
+      "itemType": "Arme",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "ersatz-eye",
+      "nameEn": "Ersatz Eye",
+      "nameFr": "Oeil artificiel",
+      "aliases": [],
+      "slug": "oeil-artificiel",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "hag-eye",
+      "nameEn": "Hag Eye",
+      "nameFr": "Oeil de guenaude",
+      "aliases": [],
+      "slug": "oeil-de-guenaude",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "eye-and-hand-of-vecna",
+      "nameEn": "Eye and Hand of Vecna",
+      "nameFr": "Oeil et Main de Vecna",
+      "aliases": [],
+      "slug": "oeil-et-main-de-vecna",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "orb-of-direction",
+      "nameEn": "Orb of Direction",
+      "nameFr": "Orbe boussole",
+      "aliases": [],
+      "slug": "orbe-boussole",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "orb-of-dragonkind",
+      "nameEn": "Orb of Dragonkind",
+      "nameFr": "Orbe des dragons",
+      "aliases": [],
+      "slug": "orbe-des-dragons",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-orbe-draconique"
+    },
+    {
+      "id": "orb-of-time",
+      "nameEn": "Orb of Time",
+      "nameFr": "Orbe horloge",
+      "aliases": [],
+      "slug": "orbe-horloge",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "scroll-of-titan-summoning",
+      "nameEn": "Scroll of Titan Summoning",
+      "nameFr": "Parchemin de convocation de titan",
+      "aliases": [],
+      "slug": "parchemin-de-convocation-de-titan",
+      "itemType": "Parchemin",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "scroll-of-protection",
+      "nameEn": "Scroll of Protection",
+      "nameFr": "Parchemin de protection",
+      "aliases": [],
+      "slug": "parchemin-de-protection",
+      "itemType": "Parchemin",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "spell-scroll",
+      "nameEn": "Spell Scroll",
+      "nameFr": "Parchemin de sort",
+      "aliases": [],
+      "slug": "parchemin-de-sort",
+      "itemType": "Parchemin",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-parchemin-de-sort"
+    },
+    {
+      "id": "perfume-of-bewitching",
+      "nameEn": "Perfume of Bewitching",
+      "nameFr": "Parfum envoûtant",
+      "aliases": [],
+      "slug": "parfum-envoutant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "pole-of-angling",
+      "nameEn": "Pole of Angling",
+      "nameFr": "Perche du pêcheur",
+      "aliases": [],
+      "slug": "perche-du-pecheur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "pole-of-collapsing",
+      "nameEn": "Pole of Collapsing",
+      "nameFr": "Perche rétractable",
+      "aliases": [],
+      "slug": "perche-retractable",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "bead-of-force",
+      "nameEn": "Bead of Force",
+      "nameFr": "Perle de force",
+      "aliases": [],
+      "slug": "perle-de-force",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-perle-de-force"
+    },
+    {
+      "id": "pearl-of-power",
+      "nameEn": "Pearl of Power",
+      "nameFr": "Perle de pouvoir",
+      "aliases": [
+        "Perle de thaumaturgie"
+      ],
+      "slug": "perle-de-pouvoir-de-thaumaturgie",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-perle-de-thaumaturgie"
+    },
+    {
+      "id": "bead-of-refreshment",
+      "nameEn": "Bead of Refreshment",
+      "nameFr": "Perle désaltérante",
+      "aliases": [],
+      "slug": "perle-desalterante",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "bead-of-nourishment",
+      "nameEn": "Bead of Nourishment",
+      "nameFr": "Perle nutritive",
+      "aliases": [],
+      "slug": "perle-nutritive",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-perle-nutritive"
+    },
+    {
+      "id": "philter-of-love",
+      "nameEn": "Philter of Love",
+      "nameFr": "Philtre d'amour",
+      "aliases": [],
+      "slug": "philtre-d-amour",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-philtre-d-amour"
+    },
+    {
+      "id": "rival-coin",
+      "nameEn": "Rival Coin",
+      "nameFr": "Pièce des rivaux",
+      "aliases": [],
+      "slug": "piece-des-rivaux",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "stone-of-controlling-earth-elementals",
+      "nameEn": "Stone of Controlling Earth Elementals",
+      "nameFr": "Pierre de contrôle des élémentaires de la terre",
+      "aliases": [],
+      "slug": "pierre-de-controle-des-elementaires-de-la-terre",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-pierre-de-controle-des-elementaires-de-la-terre"
+    },
+    {
+      "id": "ioun-stone",
+      "nameEn": "Ioun Stone",
+      "nameFr": "Pierre de Ioun",
+      "aliases": [],
+      "slug": "pierre-de-ioun",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-pierre-de-ioun"
+    },
+    {
+      "id": "stone-of-good-luck-luckstone-",
+      "nameEn": "Stone of Good Luck (Luckstone)",
+      "nameFr": "Pierre porte-bonheur",
+      "aliases": [],
+      "slug": "pierre-porte-bonheur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-pierre-porte-bonheur"
+    },
+    {
+      "id": "sending-stones",
+      "nameEn": "Sending Stones",
+      "nameFr": "Pierres messagères",
+      "aliases": [],
+      "slug": "pierres-messageres",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-pierres-messageres"
+    },
+    {
+      "id": "nolzur-s-marvelous-pigments",
+      "nameEn": "Nolzur's Marvelous Pigments",
+      "nameFr": "Pigments merveilleux de Nolzur",
+      "aliases": [],
+      "slug": "pigments-merveilleux-de-nolzur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-pigments-merveilleux"
+    },
+    {
+      "id": "pipe-of-smoke-monsters",
+      "nameEn": "Pipe of Smoke Monsters",
+      "nameFr": "Pipe des monstres de fumée",
+      "aliases": [],
+      "slug": "pipe-des-monstres-de-fumee",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "spirit-board",
+      "nameEn": "Spirit Board",
+      "nameFr": "Planche de spiritisme",
+      "aliases": [],
+      "slug": "planche-de-spiritisme",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "quaal-s-feather-token",
+      "nameEn": "Quaal's Feather Token",
+      "nameFr": "Plume de Quaal",
+      "aliases": [],
+      "slug": "plume-de-quaal",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-plume-magique"
+    },
+    {
+      "id": "pot-of-awakening",
+      "nameEn": "Pot of Awakening",
+      "nameFr": "Pot d'éveil",
+      "aliases": [],
+      "slug": "pot-d-eveil",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "potion-of-growth",
+      "nameEn": "Potion of Growth",
+      "nameFr": "Potion d'agrandissement",
+      "aliases": [],
+      "slug": "potion-d-agrandissement",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-agrandissement"
+    },
+    {
+      "id": "potion-of-animal-friendship",
+      "nameEn": "Potion of Animal Friendship",
+      "nameFr": "Potion d'amitié avec les animaux",
+      "aliases": [],
+      "slug": "potion-d-amitie-avec-les-animaux",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-amitie-avec-les-animaux"
+    },
+    {
+      "id": "potion-of-climbing",
+      "nameEn": "Potion of Climbing",
+      "nameFr": "Potion d'escalade",
+      "aliases": [],
+      "slug": "potion-d-escalade",
+      "itemType": "Potion",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-escalade"
+    },
+    {
+      "id": "potion-of-heroism",
+      "nameEn": "Potion of Heroism",
+      "nameFr": "Potion d'héroïsme",
+      "aliases": [],
+      "slug": "potion-d-heroisme",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-heroisme"
+    },
+    {
+      "id": "potion-of-invisibility",
+      "nameEn": "Potion of Invisibility",
+      "nameFr": "Potion d'invisibilité",
+      "aliases": [],
+      "slug": "potion-d-invisibilite",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-invisibilite"
+    },
+    {
+      "id": "potion-of-greater-invisibility",
+      "nameEn": "Potion of Greater Invisibility",
+      "nameFr": "Potion d'invisibilité suprême",
+      "aliases": [],
+      "slug": "potion-d-invisibilite-supreme",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "potion-of-invulnerability",
+      "nameEn": "Potion of Invulnerability",
+      "nameFr": "Potion d'invulnérabilité",
+      "aliases": [],
+      "slug": "potion-d-invulnerabilite",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-d-invulnerabilite"
+    },
+    {
+      "id": "potion-of-clairvoyance",
+      "nameEn": "Potion of Clairvoyance",
+      "nameFr": "Potion de clairvoyance",
+      "aliases": [],
+      "slug": "potion-de-clairvoyance",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-clairvoyance"
+    },
+    {
+      "id": "potion-of-comprehension",
+      "nameEn": "Potion of Comprehension",
+      "nameFr": "Potion de compréhension",
+      "aliases": [],
+      "slug": "potion-de-comprehension",
+      "itemType": "Potion",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "potion-of-diminution",
+      "nameEn": "Potion of Diminution",
+      "nameFr": "Potion de diminution",
+      "aliases": [],
+      "slug": "potion-de-diminution",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-diminution"
+    },
+    {
+      "id": "potion-of-giant-strength",
+      "nameEn": "Potion of Giant Strength",
+      "nameFr": "Potion de force de géant",
+      "aliases": [],
+      "slug": "potion-de-force-de-geant",
+      "itemType": "Potion",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-force-de-geant"
+    },
+    {
+      "id": "potion-of-gaseous-form",
+      "nameEn": "Potion of Gaseous Form",
+      "nameFr": "Potion de forme gazeuse",
+      "aliases": [],
+      "slug": "potion-de-forme-gazeuse",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-forme-gazeuse"
+    },
+    {
+      "id": "potion-of-mind-reading",
+      "nameEn": "Potion of Mind Reading",
+      "nameFr": "Potion de lecture des pensées",
+      "aliases": [],
+      "slug": "potion-de-lecture-des-pensees",
+      "itemType": "Potion",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-lecture-des-pensees"
+    },
+    {
+      "id": "potion-of-poison",
+      "nameEn": "Potion of Poison",
+      "nameFr": "Potion de poison",
+      "aliases": [
+        "Potion toxique"
+      ],
+      "slug": "potion-de-poison-potion-toxique",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-toxique"
+    },
+    {
+      "id": "potion-of-resistance",
+      "nameEn": "Potion of Resistance",
+      "nameFr": "Potion de résistance",
+      "aliases": [],
+      "slug": "potion-de-resistance",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-resistance"
+    },
+    {
+      "id": "potion-of-water-breathing",
+      "nameEn": "Potion of Water Breathing",
+      "nameFr": "Potion de respiration aquatique",
+      "aliases": [],
+      "slug": "potion-de-respiration-aquatique",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-respiration-aquatique"
+    },
+    {
+      "id": "potion-of-fire-breath",
+      "nameEn": "Potion of Fire Breath",
+      "nameFr": "Potion de souffle enflammé",
+      "aliases": [],
+      "slug": "potion-de-souffle-enflamme",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "potion-of-vitality",
+      "nameEn": "Potion of Vitality",
+      "nameFr": "Potion de vitalité",
+      "aliases": [],
+      "slug": "potion-de-vitalite",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-vitalite"
+    },
+    {
+      "id": "potion-of-speed",
+      "nameEn": "Potion of Speed",
+      "nameFr": "Potion de vitesse",
+      "aliases": [],
+      "slug": "potion-de-vitesse",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-vitesse"
+    },
+    {
+      "id": "potion-of-flying",
+      "nameEn": "Potion of Flying",
+      "nameFr": "Potion de vol",
+      "aliases": [],
+      "slug": "potion-de-vol",
+      "itemType": "Potion",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potion-de-vol"
+    },
+    {
+      "id": "potion-of-pugilism",
+      "nameEn": "Potion of Pugilism",
+      "nameFr": "Potion des pugilistes",
+      "aliases": [],
+      "slug": "potion-des-pugilistes",
+      "itemType": "Potion",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "potions-of-healing",
+      "nameEn": "Potions of Healing",
+      "nameFr": "Potions de guérison",
+      "aliases": [],
+      "slug": "potions-de-guerison",
+      "itemType": "Potion",
+      "rarities": [
+        "Variable"
+      ],
+      "rarity": "Variable",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-potions-de-guerison"
+    },
+    {
+      "id": "dust-of-sneezing-and-choking",
+      "nameEn": "Dust of Sneezing and Choking",
+      "nameFr": "Poudre à éternuer",
+      "aliases": [],
+      "slug": "poudre-a-eternuer",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-poudre-a-eternuer"
+    },
+    {
+      "id": "dust-of-dryness",
+      "nameEn": "Dust of Dryness",
+      "nameFr": "Poudre dessiccative",
+      "aliases": [],
+      "slug": "poudre-dessiccative",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-poudre-dessiccative"
+    },
+    {
+      "id": "talking-doll",
+      "nameEn": "Talking Doll",
+      "nameFr": "Poupée qui parle",
+      "aliases": [],
+      "slug": "poupee-qui-parle",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "dust-of-disappearance",
+      "nameEn": "Dust of Disappearance",
+      "nameFr": "Poussière de disparition",
+      "aliases": [],
+      "slug": "poussiere-de-disparition",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-poussiere-de-disparition"
+    },
+    {
+      "id": "ammunition-1-2-or-3",
+      "nameEn": "Ammunition, +1, +2, or +3",
+      "nameFr": "Projectile +1, +2 ou +3",
+      "aliases": [],
+      "slug": "projectile-1-2-ou-3",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-projectile-1-2-ou-3"
+    },
+    {
+      "id": "walloping-ammunition",
+      "nameEn": "Walloping Ammunition",
+      "nameFr": "Projectile percutant",
+      "aliases": [],
+      "slug": "projectile-percutant",
+      "itemType": "Arme",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "ammunition-of-slaying",
+      "nameEn": "Ammunition of Slaying",
+      "nameFr": "Projectile tueur",
+      "aliases": [],
+      "slug": "projectile-tueur",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-projectile-tueur"
+    },
+    {
+      "id": "well-of-many-worlds",
+      "nameEn": "Well of Many Worlds",
+      "nameFr": "Puits des mondes",
+      "aliases": [],
+      "slug": "puits-des-mondes",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-puits-des-mondes"
+    },
+    {
+      "id": "portable-hole",
+      "nameEn": "Portable Hole",
+      "nameFr": "Puits portable",
+      "aliases": [],
+      "slug": "puits-portable",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-puits-portable"
+    },
+    {
+      "id": "eyes-of-charming",
+      "nameEn": "Eyes of Charming",
+      "nameFr": "Regard charmeur",
+      "aliases": [],
+      "slug": "regard-charmeur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-regard-charmeur"
+    },
+    {
+      "id": "robe-of-stars",
+      "nameEn": "Robe of Stars",
+      "nameFr": "Robe aux étoiles",
+      "aliases": [],
+      "slug": "robe-aux-etoiles",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-robe-aux-etoiles"
+    },
+    {
+      "id": "robe-of-the-archmagi",
+      "nameEn": "Robe of the Archmagi",
+      "nameFr": "Robe de l'archimage",
+      "aliases": [],
+      "slug": "robe-de-l-archimage",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-robe-de-l-archimage"
+    },
+    {
+      "id": "robe-of-eyes",
+      "nameEn": "Robe of Eyes",
+      "nameFr": "Robe de vision totale",
+      "aliases": [],
+      "slug": "robe-de-vision-totale",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-robe-de-vision-totale"
+    },
+    {
+      "id": "robe-of-useful-items",
+      "nameEn": "Robe of Useful Items",
+      "nameFr": "Robe du camelot",
+      "aliases": [],
+      "slug": "robe-du-camelot",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-robe-du-camelot"
+    },
+    {
+      "id": "robe-of-scintillating-colors",
+      "nameEn": "Robe of Scintillating Colors",
+      "nameFr": "Robe prismatique",
+      "aliases": [],
+      "slug": "robe-prismatique",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-robe-prismatique"
+    },
+    {
+      "id": "ruby-of-the-war-mage",
+      "nameEn": "Ruby of the War Mage",
+      "nameFr": "Rubis du mage de guerre",
+      "aliases": [],
+      "slug": "rubis-du-mage-de-guerre",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "bag-of-tricks",
+      "nameEn": "Bag of Tricks",
+      "nameFr": "Sac à malices",
+      "aliases": [],
+      "slug": "sac-a-malices",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sac-a-malices"
+    },
+    {
+      "id": "bag-of-beans",
+      "nameEn": "Bag of Beans",
+      "nameFr": "Sac de haricots magiques",
+      "aliases": [],
+      "slug": "sac-de-haricots-magiques",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sac-de-haricots-magiques"
+    },
+    {
+      "id": "bag-of-devouring",
+      "nameEn": "Bag of Devouring",
+      "nameFr": "Sac dévoreur",
+      "aliases": [],
+      "slug": "sac-devoreur",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sac-devoreur"
+    },
+    {
+      "id": "bag-of-holding",
+      "nameEn": "Bag of Holding",
+      "nameFr": "Sac sans fond",
+      "aliases": [],
+      "slug": "sac-sans-fond",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sac-sans-fond"
+    },
+    {
+      "id": "scarab-of-protection",
+      "nameEn": "Scarab of Protection",
+      "nameFr": "Scarabée de protection",
+      "aliases": [],
+      "slug": "scarabee-de-protection",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-scarabee-de-protection"
+    },
+    {
+      "id": "rod-of-absorption",
+      "nameEn": "Rod of Absorption",
+      "nameFr": "Sceptre d'absorption",
+      "aliases": [],
+      "slug": "sceptre-d-absorption",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-d-absorption"
+    },
+    {
+      "id": "rod-of-lordly-might",
+      "nameEn": "Rod of Lordly Might",
+      "nameFr": "Sceptre de puissance seigneuriale",
+      "aliases": [],
+      "slug": "sceptre-de-puissance-seigneuriale",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-de-puissance-seigneuriale"
+    },
+    {
+      "id": "rod-of-resurrection",
+      "nameEn": "Rod of Resurrection",
+      "nameFr": "Sceptre de résurrection",
+      "aliases": [],
+      "slug": "sceptre-de-resurrection",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-de-resurrection"
+    },
+    {
+      "id": "rod-of-security",
+      "nameEn": "Rod of Security",
+      "nameFr": "Sceptre de sécurité",
+      "aliases": [],
+      "slug": "sceptre-de-securite",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-de-securite"
+    },
+    {
+      "id": "rod-of-rulership",
+      "nameEn": "Rod of Rulership",
+      "nameFr": "Sceptre de suzeraineté",
+      "aliases": [],
+      "slug": "sceptre-de-suzerainete",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-de-suzerainete"
+    },
+    {
+      "id": "rod-of-alertness",
+      "nameEn": "Rod of Alertness",
+      "nameFr": "Sceptre de vigilance",
+      "aliases": [],
+      "slug": "sceptre-de-vigilance",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-de-vigilance"
+    },
+    {
+      "id": "rod-of-the-pact-keeper",
+      "nameEn": "Rod of the Pact Keeper",
+      "nameFr": "Sceptre du gardien des pactes",
+      "aliases": [],
+      "slug": "sceptre-du-gardien-des-pactes",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Peu courant",
+        "Rare",
+        "Très rare"
+      ],
+      "rarity": "Peu courant (+1), rare (+2) ou très rare (+3)",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "immovable-rod",
+      "nameEn": "Immovable Rod",
+      "nameFr": "Sceptre inamovible",
+      "aliases": [],
+      "slug": "sceptre-inamovible",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sceptre-inamovible"
+    },
+    {
+      "id": "tentacle-rod",
+      "nameEn": "Tentacle Rod",
+      "nameFr": "Sceptre-tentacule",
+      "aliases": [],
+      "slug": "sceptre-tentacule",
+      "itemType": "Sceptre",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "saddle-of-the-cavalier",
+      "nameEn": "Saddle of the Cavalier",
+      "nameFr": "Selle du cavalier",
+      "aliases": [
+        "Selle du hussard"
+      ],
+      "slug": "selle-du-cavalier-du-hussard",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "sylvan-talon",
+      "nameEn": "Sylvan Talon",
+      "nameFr": "Serre sylvestre",
+      "aliases": [],
+      "slug": "serre-sylvestre",
+      "itemType": "Arme",
+      "rarities": [
+        "Courant"
+      ],
+      "rarity": "Courant",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "universal-solvent",
+      "nameEn": "Universal Solvent",
+      "nameFr": "Solvant universel",
+      "aliases": [],
+      "slug": "solvant-universel",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-solvant-universel"
+    },
+    {
+      "id": "sphere-of-annihilation",
+      "nameEn": "Sphere of Annihilation",
+      "nameFr": "Sphère d'annihilation",
+      "aliases": [],
+      "slug": "sphere-d-annihilation",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-sphere-d-annihilation"
+    },
+    {
+      "id": "apparatus-of-kwalish",
+      "nameEn": "Apparatus of Kwalish",
+      "nameFr": "Submersible de Kwalish",
+      "aliases": [],
+      "slug": "submersible-de-kwalish",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-submersible-du-crabe"
+    },
+    {
+      "id": "talisman-of-the-sphere",
+      "nameEn": "Talisman of the Sphere",
+      "nameFr": "Talisman de la sphère",
+      "aliases": [],
+      "slug": "talisman-de-la-sphere",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-talisman-de-la-sphere"
+    },
+    {
+      "id": "talisman-of-pure-good",
+      "nameEn": "Talisman of Pure Good",
+      "nameFr": "Talisman du bien ultime",
+      "aliases": [],
+      "slug": "talisman-du-bien-ultime",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-talisman-du-bien-ultime"
+    },
+    {
+      "id": "talisman-of-ultimate-evil",
+      "nameEn": "Talisman of Ultimate Evil",
+      "nameFr": "Talisman du mal absolu",
+      "aliases": [],
+      "slug": "talisman-du-mal-absolu",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-talisman-du-mal-absolu"
+    },
+    {
+      "id": "carpet-of-flying",
+      "nameEn": "Carpet of Flying",
+      "nameFr": "Tapis volant",
+      "aliases": [],
+      "slug": "tapis-volant",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-tapis-volant"
+    },
+    {
+      "id": "tome-of-the-stilled-tongue",
+      "nameEn": "Tome of the Stilled Tongue",
+      "nameFr": "Tome de la langue nouée",
+      "aliases": [],
+      "slug": "tome-de-la-langue-nouee",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "tome-of-leadership-and-influence",
+      "nameEn": "Tome of Leadership and Influence",
+      "nameFr": "Traité d'autorité et d'influence",
+      "aliases": [],
+      "slug": "traite-d-autorite-et-d-influence",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-traite-d-autorite-et-d-influence"
+    },
+    {
+      "id": "tome-of-understanding",
+      "nameEn": "Tome of Understanding",
+      "nameFr": "Traité de compréhension",
+      "aliases": [],
+      "slug": "traite-de-comprehension",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-traite-de-comprehension"
+    },
+    {
+      "id": "tome-of-clear-thought",
+      "nameEn": "Tome of Clear Thought",
+      "nameFr": "Traité de perspicacité",
+      "aliases": [],
+      "slug": "traite-de-perspicacite",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-traite-de-perspicacite"
+    },
+    {
+      "id": "trident-of-fish-command",
+      "nameEn": "Trident of Fish Command",
+      "nameFr": "Trident de domination aquatique",
+      "aliases": [],
+      "slug": "trident-de-domination-aquatique",
+      "itemType": "Arme",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-trident-de-domination-aquatique"
+    },
+    {
+      "id": "dragon-slayer",
+      "nameEn": "Dragon Slayer",
+      "nameFr": "Tueuse de dragons",
+      "aliases": [],
+      "slug": "tueuse-de-dragons",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-tueuse-de-dragons"
+    },
+    {
+      "id": "giant-slayer",
+      "nameEn": "Giant Slayer",
+      "nameFr": "Tueuse de géants",
+      "aliases": [],
+      "slug": "tueuse-de-geants",
+      "itemType": "Arme",
+      "rarities": [
+        "Rare"
+      ],
+      "rarity": "Rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-tueuse-de-geants"
+    },
+    {
+      "id": "eversmoking-bottle",
+      "nameEn": "Eversmoking Bottle",
+      "nameFr": "Urne fumigène",
+      "aliases": [],
+      "slug": "urne-fumigene",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-urne-fumigene"
+    },
+    {
+      "id": "wave",
+      "nameEn": "Wave",
+      "nameFr": "Vague",
+      "aliases": [],
+      "slug": "vague",
+      "itemType": "Arme",
+      "rarities": [
+        "Artefact"
+      ],
+      "rarity": "Artefact",
+      "source": "Dungeon Master's Guide 2024"
+    },
+    {
+      "id": "holy-avenger",
+      "nameEn": "Holy Avenger",
+      "nameFr": "Vengeresse sacrée",
+      "aliases": [],
+      "slug": "vengeresse-sacree",
+      "itemType": "Arme",
+      "rarities": [
+        "Légendaire"
+      ],
+      "rarity": "Légendaire",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-vengeresse-sacree"
+    },
+    {
+      "id": "nine-lives-stealer",
+      "nameEn": "Nine Lives Stealer",
+      "nameFr": "Voleuse de vie",
+      "aliases": [],
+      "slug": "voleuse-de-vie",
+      "itemType": "Arme",
+      "rarities": [
+        "Très rare"
+      ],
+      "rarity": "Très rare",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-voleuse-de-vie"
+    },
+    {
+      "id": "eyes-of-the-eagle",
+      "nameEn": "Eyes of the Eagle",
+      "nameFr": "Yeux de lynx",
+      "aliases": [],
+      "slug": "yeux-de-lynx",
+      "itemType": "Objet merveilleux",
+      "rarities": [
+        "Peu courant"
+      ],
+      "rarity": "Peu courant",
+      "source": "Dungeon Master's Guide 2024 (BR)",
+      "compendiumId": "magic-item-yeux-de-lynx"
+    }
+  ]
+}

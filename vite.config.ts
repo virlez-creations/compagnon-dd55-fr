@@ -16,12 +16,14 @@ export default defineConfig({
   },
   plugins: [{
     name: "copy-manifest",
-    generateBundle() {
+    generateBundle(_, bundle) {
+      const content = bundle["content.js"];
+      if (content?.type === "chunk") content.code = `(() => {\n${content.code}\n})();\n`;
       this.emitFile({ type: "asset", fileName: "manifest.json", source: JSON.stringify({
         manifest_version: 3,
         name: "Compagnon D&D 5.5 FR",
         description: "Traductions françaises et liens AideDD pour la feuille D&D 2024 de Roll20.",
-        version: "0.8.7",
+        version: "0.8.8",
         icons: {
           "16": "icons/icon-16.png",
           "32": "icons/icon-32.png",

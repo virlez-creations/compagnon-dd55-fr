@@ -5,17 +5,18 @@ import { feats, spells } from "../src/data/references";
 import { translations } from "../src/data/translations";
 import { referenceUrl } from "../src/services/reference-matcher";
 import { compendiumEntries } from "../src/services/srd-compendium";
+import magicItemsData from "../src/data/aidedd-magic-items.json";
 
 describe("couverture du catalogue 2024", () => {
   beforeEach(() => { document.body.innerHTML = ""; });
 
-  it("contient les 391 sorts et les 75 dons sans doublon", () => {
+  it("contient les 391 sorts et les 137 dons sans doublon", () => {
     expect(spells).toHaveLength(391);
-    expect(feats).toHaveLength(75);
+    expect(feats).toHaveLength(137);
     expect(new Set(spells.map(spell => spell.id)).size).toBe(391);
     expect(new Set(spells.map(spell => spell.slug)).size).toBe(391);
-    expect(new Set(feats.map(feat => feat.id)).size).toBe(75);
-    expect(new Set(feats.map(feat => feat.slug)).size).toBe(75);
+    expect(new Set(feats.map(feat => feat.id)).size).toBe(137);
+    expect(new Set(feats.map(feat => feat.slug)).size).toBe(137);
   });
 
   it("relie exactement 339 sorts au SRD et 52 sorts à AideDD", () => {
@@ -29,6 +30,21 @@ describe("couverture du catalogue 2024", () => {
     }
     for (const spell of external) {
       expect(referenceUrl("spell", spell), spell.nameEn).toBe(`https://www.aidedd.org/spell/fr/${spell.slug}`);
+    }
+  });
+
+  it("référence 350 objets magiques, dont 258 fiches SRD et 92 liens externes", () => {
+    const items = magicItemsData.items;
+    expect(items).toHaveLength(350);
+    expect(new Set(items.map(item => item.id)).size).toBe(350);
+    expect(new Set(items.map(item => item.slug)).size).toBe(350);
+    expect(items.filter(item => item.compendiumId)).toHaveLength(258);
+    expect(items.filter(item => !item.compendiumId)).toHaveLength(92);
+    for (const item of items) {
+      expect(item.itemType, item.nameFr).not.toBe("");
+      expect(item.rarities.length, item.nameFr).toBeGreaterThan(0);
+      expect(referenceUrl("magic-item", item), item.nameFr).toBe(`https://www.aidedd.org/magic-item/fr/${item.slug}`);
+      if (item.compendiumId) expect(compendiumEntries.find(entry => entry.id === item.compendiumId)?.type).toBe("magic-item");
     }
   });
 
@@ -52,6 +68,12 @@ describe("couverture du catalogue 2024", () => {
         expect(button.querySelector<HTMLAnchorElement>("a")?.href, spell.nameEn).toBe(referenceUrl("spell", spell));
       }
     }
+  }, 15_000);
+
+  it("n’injecte pas de liens d’objets magiques dans l’inventaire Roll20", () => {
+    document.body.innerHTML = `<button data-inventory-item>Amulet of Health</button>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("[data-inventory-item] .dd55-reference")).toBeNull();
   });
 
   it("dépasse le seuil MVP de 80 libellés d'interface", () => {
