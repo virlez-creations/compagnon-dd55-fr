@@ -14,6 +14,8 @@
 - Vérifier une fiche intégrée, une fiche en fenêtre détachée et une fiche chargée dans une iframe.
 - Vérifier les profils Guerrier, Rôdeur, Magicien, Clerc et Roublard.
 - Vérifier que les fiches SRD ouvrent le compendium local et que les autres références ouvrent directement le bon onglet AideDD.
+- Vérifier le bestiaire, les FP fractionnaires, le panneau de filtres avancés et plusieurs profils multi-pages.
+- Vérifier qu’aucune icône de référence n’apparaît dans le résumé, les points de vie, les sens et les maîtrises/langues.
 - Vérifier l'absence d'erreur dans la console de la page et du service worker.
 - Relire `PRIVACY.md` et `THIRD_PARTY_NOTICES.md` avant toute soumission à une boutique.
 

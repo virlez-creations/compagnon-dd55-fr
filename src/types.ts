@@ -25,7 +25,7 @@ export interface Preferences {
   theme?: "light" | "dark";
   fontSize?: "small" | "normal" | "large";
   resultDensity?: "comfortable" | "compact";
-  defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item";
+  defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item" | "monster";
   expandedByDefault?: boolean;
   launcherVisible?: boolean;
   launcherPosition?: { left: number; top: number } | null;

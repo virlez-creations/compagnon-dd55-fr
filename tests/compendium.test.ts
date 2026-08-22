@@ -27,6 +27,36 @@ describe("données du compendium", () => {
     expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(9);
     expect(compendiumEntries.filter(entry => entry.type === "background")).toHaveLength(4);
     expect(compendiumEntries.filter(entry => entry.type === "magic-item")).toHaveLength(258);
+    expect(compendiumEntries.filter(entry => entry.type === "monster")).toHaveLength(330);
+  });
+
+  it("expose les 330 profils de monstres complets et correctement catégorisés", () => {
+    const monsters = compendiumEntries.filter(entry => entry.type === "monster");
+    expect(monsters.filter(entry => entry.monster?.category === "Monstres de A à Z")).toHaveLength(235);
+    expect(monsters.filter(entry => entry.monster?.category === "Animaux")).toHaveLength(95);
+    expect(new Set(monsters.map(entry => entry.id)).size).toBe(330);
+    for (const entry of monsters) {
+      expect(entry.page, entry.title).toBeGreaterThanOrEqual(272);
+      expect(entry.page, entry.title).toBeLessThanOrEqual(380);
+      expect(entry.monster?.creatureType, entry.title).toBeTruthy();
+      expect(entry.monster?.sizes.length, entry.title).toBeGreaterThan(0);
+      expect(entry.monster?.challengeValue, entry.title).toBeGreaterThanOrEqual(0);
+      expect(entry.monster?.armorClass, entry.title).toBeGreaterThan(0);
+      expect(entry.monster?.hitPoints, entry.title).toBeGreaterThan(0);
+      expect(entry.sections.length, entry.title).toBeGreaterThan(0);
+    }
+  });
+
+  it("conserve les profils multi-pages, les FP fractionnaires et les créatures légendaires", () => {
+    const aboleth = findCompendiumEntry("Aboleth", "monster")!;
+    expect(aboleth.monster).toMatchObject({ creatureType: "Aberration", challengeRating: "10", legendary: true, armorClass: 17, hitPoints: 150 });
+    expect(aboleth.sections.at(-1)?.content).not.toContain("Âme-en-peine");
+    const rat = findCompendiumEntry("Rat géant", "monster")!;
+    expect(rat.monster?.challengeRating).toBe("1/8");
+    expect(rat.monster?.challengeValue).toBe(.125);
+    const allosaurus = findCompendiumEntry("Allosaure", "monster")!;
+    expect(allosaurus.monster?.category).toBe("Animaux");
+    expect(allosaurus.sections[0].content).toContain("Morsure");
   });
 
   it("expose des fiches complètes pour tous les objets magiques du SRD", () => {

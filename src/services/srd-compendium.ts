@@ -1,11 +1,33 @@
 import data from "../data/srd-compendium.json";
 import magicItems from "../data/magic-items.json";
+import monsters from "../data/monsters.json";
 import { equipmentEntries } from "../data/equipment";
 import { originEntries } from "../data/origins";
 import { additionalRuleEntries } from "../data/rules";
 import { normalizeName } from "./reference-matcher";
 
-export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass" | "equipment" | "species" | "background" | "magic-item";
+export type CompendiumType = "spell" | "feat" | "rule" | "class" | "subclass" | "equipment" | "species" | "background" | "magic-item" | "monster";
+
+export interface MonsterAbility {
+  score: number;
+  modifier: string;
+  save: string;
+}
+
+export interface MonsterData {
+  category: "Monstres de A à Z" | "Animaux";
+  creatureType: string;
+  subtype?: string | null;
+  sizes: string[];
+  alignment: string;
+  challengeRating: string;
+  challengeValue: number;
+  armorClass: number;
+  hitPoints: number;
+  movementModes: string[];
+  legendary: boolean;
+  abilities: Record<"For" | "Dex" | "Con" | "Int" | "Sag" | "Cha", MonsterAbility>;
+}
 
 export interface CompendiumLink {
   label: string;
@@ -38,6 +60,7 @@ export interface CompendiumEntry {
   links?: CompendiumLink[];
   itemType?: string;
   rarities?: import("../types").MagicItemRarity[];
+  monster?: MonsterData;
 }
 
 export interface CompendiumSearchResult {
@@ -47,7 +70,7 @@ export interface CompendiumSearchResult {
   excerpt: string;
 }
 
-export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries, ...magicItems.entries] as CompendiumEntry[];
+export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries, ...magicItems.entries, ...monsters.entries] as CompendiumEntry[];
 
 const titleIndex = new Map<string, CompendiumEntry[]>();
 for (const entry of compendiumEntries) {

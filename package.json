@@ -1,6 +1,6 @@
 {
   "name": "compagnon-dd55-fr",
-  "version": "0.8.8",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,7 @@
     "icons": "node scripts/generate-icons.mjs",
     "data:magic-items": "node scripts/build-magic-items.mjs",
     "data:aidedd-magic-items": "node scripts/import-aidedd-magic-items.mjs",
+    "data:monsters": "python scripts/build-monsters.py",
     "package": "npm run build && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/package-extension.ps1",
     "typecheck": "tsc --noEmit"
   },

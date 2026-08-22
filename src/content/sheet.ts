@@ -5,9 +5,7 @@ import { compendiumEntries, findCompendiumEntry, type CompendiumEntry, type Comp
 import type { Preferences, Reference } from "../types";
 
 const SKIP_SELECTOR = "#dd55-companion, #dd55-launcher, script, style, textarea, input, [contenteditable='true'], .dd55-reference, .dd55-content-translation";
-// Mode diagnostic 0.8.4 : toutes les exclusions propres aux panneaux Roll20 sont
-// désactivées afin de vérifier l’injection brute des références sur la fiche réelle.
-const restrictReferenceContexts = false;
+const restrictReferenceContexts = true;
 const originalText = new WeakMap<Text, string>();
 const translatedTextNodes = new WeakSet<Text>();
 const translationLookup = new Map(Object.entries(translations).map(([english, french]) => [english.toLocaleLowerCase("en"), french]));
@@ -54,6 +52,7 @@ const classContextCache = new WeakMap<Document, string>();
 const speciesContextCache = new WeakMap<Document, string>();
 let referenceContextCache = new WeakMap<HTMLElement, boolean>();
 let referenceFreeContextCache = new WeakMap<HTMLElement, boolean>();
+let characterSummaryContextCache = new WeakMap<HTMLElement, boolean>();
 const delegatedReferenceDocuments = new WeakSet<Document>();
 
 function markReferenceHost(element: HTMLElement, entryId?: string, externalUrl?: string): void {
@@ -134,17 +133,43 @@ function isHitPointControl(element: HTMLElement): boolean {
   return false;
 }
 
-function skipReference(element: HTMLElement): boolean {
-  return Boolean(element.closest(SKIP_SELECTOR)) || (restrictReferenceContexts && (isHitPointControl(element) || isReferenceFreeContext(element)));
-}
-
 const referenceFreeHeadings = new Set([
-  "equipment", "inventory", "equipement", "inventaire",
-  "armor", "armour", "armure",
   "sense", "senses", "sens",
   "proficiencies & languages", "proficiencies and languages",
   "maitrises & langues", "maitrises et langues"
 ]);
+
+function isCharacterSummaryContext(element: HTMLElement): boolean {
+  if (element.closest("[data-testid*='character-summary' i], [aria-label*='character-summary' i], [class*='character-summary' i], [data-testid*='character-header' i], [class*='character-header' i]")) return true;
+  const visited: HTMLElement[] = [];
+  let ancestor: HTMLElement | null = element;
+  for (let depth = 0; ancestor && depth < 7; depth++, ancestor = ancestor.parentElement) {
+    if (ancestor === element.ownerDocument.body || ancestor === element.ownerDocument.documentElement) break;
+    const cached = characterSummaryContextCache.get(ancestor);
+    if (cached !== undefined) {
+      visited.forEach(item => characterSummaryContextCache.set(item, cached));
+      return cached;
+    }
+    visited.push(ancestor);
+    const text = normalizeName(ancestor.textContent ?? "");
+    if (text.length > 900) continue;
+    const markers = ["inspiration", "initiative", "exp", "experience", "bonus de maitrise", "proficiency bonus"];
+    if (markers.filter(marker => text.includes(marker)).length >= 3) {
+      visited.forEach(item => characterSummaryContextCache.set(item, true));
+      return true;
+    }
+  }
+  visited.forEach(item => characterSummaryContextCache.set(item, false));
+  return false;
+}
+
+function isExcludedReferenceContext(element: HTMLElement): boolean {
+  return isHitPointControl(element) || isCharacterSummaryContext(element) || isReferenceFreeContext(element);
+}
+
+function skipReference(element: HTMLElement): boolean {
+  return Boolean(element.closest(SKIP_SELECTOR)) || (restrictReferenceContexts && isExcludedReferenceContext(element));
+}
 
 function panelHeading(container: HTMLElement): string | undefined {
   // Un titre de panneau doit être un enfant direct. Parcourir récursivement
@@ -203,10 +228,6 @@ function isEquipmentPropertyContext(element: HTMLElement): boolean {
 }
 
 function isReferenceFreeContext(element: HTMLElement): boolean {
-  const ownLabel = [...element.childNodes]
-    .filter(node => node.nodeType === Node.TEXT_NODE)
-    .map(node => node.textContent ?? "").join(" ").trim();
-  if (equipmentPropertyAliases[normalizeName(ownLabel)] && isEquipmentPropertyContext(element)) return true;
   const visited: HTMLElement[] = [];
   let ancestor: HTMLElement | null = element;
   for (let depth = 0; ancestor && depth < 7; depth++, ancestor = ancestor.parentElement) {
@@ -218,9 +239,6 @@ function isReferenceFreeContext(element: HTMLElement): boolean {
     }
     visited.push(ancestor);
     if (ancestor.matches([
-      "[data-testid*='inventory' i]", "[aria-label*='inventory' i]", "[class*='inventory' i]",
-      "[data-testid*='equipment' i]", "[aria-label*='equipment' i]", "[class*='equipment' i]",
-      "[data-testid*='armor' i]", "[aria-label*='armor' i]", "[class*='armor' i]",
       "[data-testid*='sense' i]", "[aria-label*='sense' i]", "[class*='sense' i]",
       "[data-testid*='proficien' i]", "[aria-label*='proficien' i]", "[class*='proficien' i]",
       "[data-testid*='language' i]", "[aria-label*='language' i]", "[class*='language' i]"
@@ -241,16 +259,6 @@ function isReferenceFreeContext(element: HTMLElement): boolean {
     if (panelHeading(ancestor)) {
       visited.forEach(item => referenceFreeContextCache.set(item, true));
       return true;
-    }
-    if (text.length <= 900) {
-      const normalized = normalizeName(text);
-      const itemControls = ancestor.querySelectorAll("button, [role='button']").length >= 2 || /(?:^| )(?:lbs?|kg|poids|quantity|quantite)(?: |$)/.test(normalized);
-      const inventoryLabel = /(?:^| )(?:inventory|inventaire|equipment|equipement)(?: |$)/.test(normalized);
-      const carriedState = ["possession", "carried", "equipped", "stored"].some(label => normalized.includes(label));
-      if (itemControls && (inventoryLabel || carriedState)) {
-        visited.forEach(item => referenceFreeContextCache.set(item, true));
-        return true;
-      }
     }
   }
   visited.forEach(item => referenceFreeContextCache.set(item, false));
@@ -504,15 +512,12 @@ function enrichReferences(root: ParentNode, preferences: Preferences): void {
     const original = originalText.get(node)?.trim() ?? "";
     const visible = node.data.trim();
     if ((!original || original.length > 100) && (!visible || visible.length > 100)) return;
-    if (restrictReferenceContexts && weaponMasteryAliases[normalizeName(original || visible)] && isWeaponMasteryContext(element)) return;
-    if (restrictReferenceContexts && equipmentPropertyAliases[normalizeName(original || visible)] && isEquipmentPropertyContext(element)) return;
     const visibleKey = normalizeName(visible);
     const originalIndexed = referenceIndex.get(normalizeName(original));
     const stillSameReference = originalIndexed && [originalIndexed.item.nameEn, originalIndexed.item.nameFr, ...(originalIndexed.item.aliases ?? [])]
       .some(name => normalizeName(name) === visibleKey);
     const indexed = stillSameReference ? originalIndexed : referenceIndex.get(visibleKey) ?? originalIndexed;
     if (!indexed) return;
-    if (restrictReferenceContexts && isInventoryContext(element)) return;
     handled.add(element);
     appendReference(element, indexed.item, indexed.kind, preferences);
   });
@@ -521,10 +526,8 @@ function enrichReferences(root: ParentNode, preferences: Preferences): void {
     const raw = element.childElementCount ? [...element.childNodes].filter(n => n.nodeType === Node.TEXT_NODE).map(n => n.textContent).join(" ") : element.textContent;
     const value = raw?.trim() ?? "";
     if (!value || value.length > 100) return;
-    if (restrictReferenceContexts && weaponMasteryAliases[normalizeName(value)] && isWeaponMasteryContext(element)) return;
-    if (restrictReferenceContexts && equipmentPropertyAliases[normalizeName(value)] && isEquipmentPropertyContext(element)) return;
     const indexed = referenceIndex.get(normalizeName(value));
-    if (indexed && (!restrictReferenceContexts || !isInventoryContext(element))) appendReference(element, indexed.item, indexed.kind, preferences);
+    if (indexed) appendReference(element, indexed.item, indexed.kind, preferences);
   });
 }
 
@@ -548,6 +551,7 @@ function escapeHtml(value: string): string { const span = document.createElement
 export function enhanceSheet(root: ParentNode, preferences: Preferences): void {
   referenceContextCache = new WeakMap<HTMLElement, boolean>();
   referenceFreeContextCache = new WeakMap<HTMLElement, boolean>();
+  characterSummaryContextCache = new WeakMap<HTMLElement, boolean>();
   root.querySelectorAll(".dd55-content-translation").forEach(element => element.remove());
   const owner = root instanceof Document ? root : root.ownerDocument ?? document;
   ensureDelegatedReferenceClicks(owner);
@@ -562,7 +566,7 @@ export function enhanceSheet(root: ParentNode, preferences: Preferences): void {
   // valides situés ailleurs dans la fiche. Le nettoyage reste limité à la racine modifiée.
   const referenceScope = root;
   referenceScope.querySelectorAll<HTMLElement>(".dd55-reference").forEach(reference => {
-    if (restrictReferenceContexts && reference.parentElement && isReferenceFreeContext(reference.parentElement)) {
+    if (restrictReferenceContexts && reference.parentElement && isExcludedReferenceContext(reference.parentElement)) {
       unmarkReferenceHost(reference.parentElement);
       reference.remove();
     }

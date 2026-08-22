@@ -7,7 +7,8 @@ Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll2
 - traduction automatique des principaux libellés de la feuille D&D 2024 ;
 - affichage optionnel des noms anglais à côté des traductions françaises ;
 - détection des sorts, dons et aptitudes de classe dans les contenus dynamiques de Roll20 ;
-- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement et tables de progression ;
+- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement, objets magiques et tables de progression ;
+- bestiaire DRS hors ligne de **330 profils** (235 monstres et 95 animaux), avec filtres simples par type et FP et filtres avancés repliables ;
 - recherche et filtres de sorts par classe et niveau ;
 - catalogue d’armes, d’armures et de boucliers avec filtres par type et maîtrise d’arme, et accès direct à la règle de chaque botte d’arme ;
 - catalogue des espèces et historiques du SRD, avec accès direct au don accordé par chaque historique ;
@@ -67,6 +68,7 @@ Le fichier `fr_srd_cc_v5.2.1.pdf` sert de source au compendium embarqué. La gé
 python scripts/extract-srd.py
 python scripts/extract-class-tables.py
 python scripts/build-compendium.py
+python scripts/build-monsters.py
 ```
 
 Les scripts produisent les données structurées utilisées par l’extension dans `src/data/`.

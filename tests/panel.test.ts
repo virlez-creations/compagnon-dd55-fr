@@ -26,6 +26,69 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-type='equipment']")?.textContent).toContain("51");
     expect(document.querySelector("[data-type='origins']")?.textContent).toContain("13");
     expect(document.querySelector("[data-type='magic-item']")?.textContent).toContain("350");
+    expect(document.querySelector("[data-type='monster']")?.textContent).toContain("330");
+  });
+
+  it("affiche les filtres minimaux des monstres et replie les options avancées", () => {
+    mountPanel({ enabled: true, bilingual: true, defaultCategory: "monster" }, () => undefined);
+    document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();
+    expect(document.querySelector("[data-type='monster']")?.classList.contains("is-active")).toBe(true);
+    expect(document.querySelector<HTMLElement>("[data-monster-filters]")!.hidden).toBe(false);
+    expect(document.querySelector<HTMLElement>("[data-monster-advanced]")!.hidden).toBe(true);
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("330");
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
+  });
+
+  it("filtre les monstres par type, FP et critères avancés avec bornes cohérentes", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    const type = document.querySelector<HTMLSelectElement>("[data-monster-type]")!;
+    const fpMin = document.querySelector<HTMLSelectElement>("[data-monster-fp-min]")!;
+    const fpMax = document.querySelector<HTMLSelectElement>("[data-monster-fp-max]")!;
+    type.value = "Aberration"; type.dispatchEvent(new Event("change"));
+    fpMin.value = "10"; fpMin.dispatchEvent(new Event("change"));
+    fpMax.value = "10"; fpMax.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-entry-id='monster-aboleth']")).not.toBeNull();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("1 référence");
+    fpMax.value = "1"; fpMax.dispatchEvent(new Event("change"));
+    expect(fpMin.value).toBe("1");
+
+    document.querySelector<HTMLButtonElement>("[data-clear-monster-filters]")!.click();
+    document.querySelector<HTMLButtonElement>("[data-monster-advanced-toggle]")!.click();
+    const category = document.querySelector<HTMLSelectElement>("[data-monster-category]")!;
+    const size = document.querySelector<HTMLSelectElement>("[data-monster-size]")!;
+    category.value = "Animaux"; category.dispatchEvent(new Event("change"));
+    size.value = "G"; size.dispatchEvent(new Event("change"));
+    const count = Number(document.querySelector("[data-result-count]")?.textContent?.match(/\d+/)?.[0]);
+    expect(count).toBeGreaterThan(0);
+    expect(count).toBeLessThan(95);
+    expect(document.querySelector("[data-monster-advanced-count]")?.textContent).toBe("2");
+
+    const caMin = document.querySelector<HTMLInputElement>("[data-monster-ca-min]")!;
+    const caMax = document.querySelector<HTMLInputElement>("[data-monster-ca-max]")!;
+    caMin.value = "20"; caMin.dispatchEvent(new Event("input"));
+    caMax.value = "10"; caMax.dispatchEvent(new Event("input"));
+    expect(caMin.value).toBe("10");
+    document.querySelector<HTMLButtonElement>("[data-clear-monster-filters]")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("330");
+    expect(document.querySelector<HTMLElement>("[data-monster-advanced]")!.hidden).toBe(true);
+  });
+
+  it("affiche et copie un profil de monstre complet", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Aboleth");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-aboleth']")!.click();
+    expect(document.querySelector("[data-detail] h2")?.textContent).toBe("Aboleth");
+    expect(document.querySelectorAll(".dd55-monster-abilities > div")).toHaveLength(6);
+    expect(document.querySelector(".dd55-monster-combat")?.textContent).toContain("150 (20d10 + 40)");
+    expect(document.querySelector(".dd55-monster-category")?.textContent).toContain("Créature légendaire");
+    document.querySelector<HTMLButtonElement>("[data-copy-target='all']")!.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledOnce());
+    expect(writeText.mock.calls[0][0]).toContain("Caractéristiques : For 21 (+5), JS +5");
+    expect(writeText.mock.calls[0][0]).toContain("Actions Légendaires");
   });
 
   it("émet des préférences complètes quand les réglages changent", () => {
