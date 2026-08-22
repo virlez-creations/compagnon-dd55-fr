@@ -9,6 +9,7 @@ Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll2
 - détection des sorts, dons et aptitudes de classe dans les contenus dynamiques de Roll20 ;
 - compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement, objets magiques et tables de progression ;
 - bestiaire DRS hors ligne de **330 profils** (235 monstres et 95 animaux), avec filtres simples par type et FP et filtres avancés repliables ;
+- boutons de jet sur les attaques et actions mécaniques des monstres : préparation d’une carte privée dans le chat Roll20, envoi automatique optionnel ou copie de la macro ;
 - recherche et filtres de sorts par classe et niveau ;
 - catalogue d’armes, d’armures et de boucliers avec filtres par type et maîtrise d’arme, et accès direct à la règle de chaque botte d’arme ;
 - catalogue des espèces et historiques du SRD, avec accès direct au don accordé par chaque historique ;
@@ -42,6 +43,8 @@ Ouvrez une table Roll20 utilisant la feuille officielle D&D 5 moderne (`dnd2024b
 - **Conserver les noms anglais** affiche les noms bilingues lorsqu’ils sont disponibles.
 
 Faites glisser le bouton pour le placer où vous le souhaitez. Un clic sur l'icône de l'extension dans Chrome ou Edge permet de masquer ou réafficher ce bouton ; sa position et sa visibilité sont mémorisées.
+
+Dans une fiche de monstre, le bouton **Roll20** prépare une carte privée pour le MJ avec deux d20 d’attaque, les dégâts, les sauvegardes et les effets disponibles. Par défaut, la commande est placée dans un chat Roll20 visible et vide sans être envoyée. Le réglage **Lancer automatiquement les jets** permet de l’envoyer immédiatement par le bouton officiel du chat. Si le chat est masqué, détaché ou contient déjà un brouillon, la macro est copiée dans le presse-papiers sans écraser le texte existant.
 
 Vous pouvez également faire un clic droit dans la fiche et sélectionner **Traduire cette fiche D&D 2024**. Les références absentes du SRD local ne sont ouvertes sur AideDD qu’après une action explicite de votre part.
 

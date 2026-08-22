@@ -1,6 +1,6 @@
 import data from "../data/srd-compendium.json";
 import magicItems from "../data/magic-items.json";
-import monsters from "../data/monsters.json";
+import monstersJson from "../data/monsters.json?raw";
 import { equipmentEntries } from "../data/equipment";
 import { originEntries } from "../data/origins";
 import { additionalRuleEntries } from "../data/rules";
@@ -12,6 +12,37 @@ export interface MonsterAbility {
   score: number;
   modifier: string;
   save: string;
+}
+
+export type MonsterActionSection = "Actions" | "Actions Bonus" | "Réactions" | "Actions Légendaires";
+
+export interface MonsterAttack {
+  mode: "melee" | "ranged" | "melee-or-ranged";
+  bonus: number;
+  range?: string | null;
+}
+
+export interface MonsterSave {
+  ability: "Force" | "Dextérité" | "Constitution" | "Intelligence" | "Sagesse" | "Charisme";
+  dc: number;
+}
+
+export interface MonsterRollComponent {
+  kind: "damage" | "healing";
+  formula: string;
+  average: number;
+  damageType?: string;
+}
+
+export interface MonsterAction {
+  id: string;
+  section: MonsterActionSection;
+  name: string;
+  description: string;
+  attack?: MonsterAttack | null;
+  saves: MonsterSave[];
+  rolls: MonsterRollComponent[];
+  referenceActionId?: string;
 }
 
 export interface MonsterData {
@@ -27,6 +58,8 @@ export interface MonsterData {
   movementModes: string[];
   legendary: boolean;
   abilities: Record<"For" | "Dex" | "Con" | "Int" | "Sag" | "Cha", MonsterAbility>;
+  actionIntroductions: Partial<Record<MonsterActionSection, string>>;
+  actions: MonsterAction[];
 }
 
 export interface CompendiumLink {
@@ -70,7 +103,8 @@ export interface CompendiumSearchResult {
   excerpt: string;
 }
 
-export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries, ...magicItems.entries, ...monsters.entries] as CompendiumEntry[];
+const monsterEntries = (JSON.parse(monstersJson) as { entries: CompendiumEntry[] }).entries;
+export const compendiumEntries = [...data.entries, ...equipmentEntries, ...originEntries, ...additionalRuleEntries, ...magicItems.entries, ...monsterEntries] as CompendiumEntry[];
 
 const titleIndex = new Map<string, CompendiumEntry[]>();
 for (const entry of compendiumEntries) {
@@ -99,6 +133,18 @@ type SearchIndexItem = {
   entry: CompendiumEntry;
   fields: Record<CompendiumSearchResult["matchedFields"][number], string>;
 };
+
+function entryContentBlocks(entry: CompendiumEntry): string[] {
+  const sections = entry.sections.map(section => [section.heading, section.content].filter(Boolean).join(" — "));
+  if (!entry.monster) return sections;
+  const actions = entry.monster.actions.map(action => `${action.section} — ${action.name}. ${action.description}`);
+  return [...sections, ...actions];
+}
+
+function entrySummary(entry: CompendiumEntry): string {
+  return entry.sections.find(section => section.content)?.content ?? entry.monster?.actions[0]?.description ?? "";
+}
+
 let searchIndex: SearchIndexItem[] | undefined;
 function getSearchIndex(): SearchIndexItem[] {
   searchIndex ??= compendiumEntries.map(entry => ({
@@ -109,7 +155,7 @@ function getSearchIndex(): SearchIndexItem[] {
       subtitle: normalizeSearchValue(entry.subtitle),
       tags: normalizeSearchValue(entry.tags.join(" ")),
       meta: normalizeSearchValue(Object.entries(entry.meta).flat().join(" ")),
-      content: normalizeSearchValue(entry.sections.flatMap(section => [section.heading ?? "", section.content]).join(" "))
+      content: normalizeSearchValue(entryContentBlocks(entry).join(" "))
     }
   }));
   return searchIndex;
@@ -152,8 +198,8 @@ function tokenQuality(queryToken: string, value: string): number {
 }
 
 function makeExcerpt(entry: CompendiumEntry, queryTokens: string[]): string {
-  const contents = entry.sections.map(section => [section.heading, section.content].filter(Boolean).join(" — "));
-  const source = contents.find(content => queryTokens.some(token => tokenQuality(token, normalizeSearchValue(content)) > 0)) ?? entry.sections[0]?.content ?? "";
+  const contents = entryContentBlocks(entry);
+  const source = contents.find(content => queryTokens.some(token => tokenQuality(token, normalizeSearchValue(content)) > 0)) ?? entrySummary(entry);
   if (source.length <= 170) return source;
   const normalized = normalizeSearchValue(source);
   const position = Math.max(0, ...queryTokens.map(token => normalized.indexOf(token)).filter(index => index >= 0));
@@ -168,7 +214,7 @@ export function searchCompendiumResults(query: string, type?: CompendiumType, li
   if (!queryTokens.length) return compendiumEntries
     .filter(entry => !type || entry.type === type)
     .slice(0, limit)
-    .map(entry => ({ entry, score: 0, matchedFields: [], excerpt: entry.sections[0]?.content ?? "" }));
+    .map(entry => ({ entry, score: 0, matchedFields: [], excerpt: entrySummary(entry) }));
   const weights = { title: 1000, alias: 850, subtitle: 500, tags: 450, meta: 350, content: 100 } as const;
 
   return getSearchIndex().flatMap(({ entry, fields }) => {

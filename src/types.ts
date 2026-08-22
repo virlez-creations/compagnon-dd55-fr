@@ -27,6 +27,7 @@ export interface Preferences {
   resultDensity?: "comfortable" | "compact";
   defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item" | "monster";
   expandedByDefault?: boolean;
+  autoRollMonsterActions?: boolean;
   launcherVisible?: boolean;
   launcherPosition?: { left: number; top: number } | null;
   panelPosition?: { left: number; top: number } | null;

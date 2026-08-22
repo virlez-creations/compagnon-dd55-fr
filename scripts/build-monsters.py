@@ -23,6 +23,19 @@ TYPE_PATTERN = "|".join(map(re.escape, CREATURE_TYPES))
 ALIGNMENT_PATTERN = r"(?:non aligné[e]?|Tout alignement|(?:Loyal|Loyale|Neutre|Chaotique)(?: (?:Bon|Bonne|Mauvais|Mauvaise|Neutre))?)"
 DETAIL_LABELS = ("Compétences", "Vulnérabilités", "Résistances", "Immunités", "Équipement", "Sens", "Langues")
 SECTION_HEADINGS = ("Traits", "Actions", "Actions Bonus", "Réactions", "Actions Légendaires")
+ACTION_SECTION_HEADINGS = {"Actions", "Actions Bonus", "Réactions", "Actions Légendaires"}
+SAVE_ABILITIES = ("Force", "Dextérité", "Constitution", "Intelligence", "Sagesse", "Charisme")
+DAMAGE_TYPES = (
+    "acide", "contondant", "contondants", "feu", "force", "foudre", "froid",
+    "nécrotique", "nécrotiques", "perforant", "perforants", "poison",
+    "psychique", "psychiques", "radiant", "radiants", "tonnerre", "tranchant", "tranchants",
+)
+NON_ACTION_PREFIXES = (
+    "après ", "ainsi ", "au ", "aux ", "avec ", "avant ", "ce ", "ces ", "cet ", "cette ",
+    "chaque ", "dans ", "des ", "elle ", "elles ", "en ", "échec", "il ", "ils ", "jusqu’", "la ",
+    "le ", "les ", "l’", "lorsque ", "par ", "pour ", "quand ", "réussite", "sa ", "sans ", "ses ",
+    "si ", "s’il ", "son ", "sur ", "tant ", "touché", "un ", "une ",
+)
 
 STANDARD_SIGNATURE = re.compile(
     rf"^(?P<type>{TYPE_PATTERN})(?: \((?P<subtype>[^)]+)\))? de taille (?P<size>[^,]+), (?P<alignment>{ALIGNMENT_PATTERN})$"
@@ -139,6 +152,160 @@ def parse_sections(lines: list[str]) -> list[dict[str, str]]:
     return sections
 
 
+def is_action_heading(value: str) -> bool:
+    name = compact(value)
+    folded = name.casefold()
+    return (
+        1 < len(name) <= 80
+        and name[0].isupper()
+        and len(name.split()) <= 10
+        and not any(character in name for character in ":;!?")
+        and not folded.startswith(NON_ACTION_PREFIXES)
+    )
+
+
+def split_action_blocks(content: str) -> tuple[str, list[tuple[str, str]]]:
+    ordinary_matches = [
+        match for match in re.finditer(r"(?:(?<=^)|(?<=\. ))(?P<name>[^.!?]{1,80})\.\s+", content)
+        if is_action_heading(match.group("name"))
+    ]
+    mechanical_matches = [
+        match for match in re.finditer(
+            r"(?:(?<=^)|(?<=\s))(?P<name>[A-ZÀ-ÖØ-ÞŒ][^.!?]{1,80})\.\s+(?=(?:Corps à corps|À distance|JS\s))",
+            content,
+        )
+        if is_action_heading(match.group("name"))
+    ]
+    limited_use_matches = [
+        match for match in re.finditer(
+            r"(?:(?<=^)|(?<=\s))(?P<name>[A-ZÀ-ÖØ-ÞŒ][^.!?]{1,70}\((?:(?i:recharge)[^)]*|\d+/(?:(?i:jour|repos)[^)]*))\))\.\s+",
+            content,
+        )
+        if is_action_heading(match.group("name"))
+    ]
+    matches_by_start = {match.start(): match for match in ordinary_matches}
+    matches_by_start.update({match.start(): match for match in mechanical_matches})
+    matches_by_start.update({match.start(): match for match in limited_use_matches})
+    matches = [matches_by_start[position] for position in sorted(matches_by_start)]
+    if not matches:
+        return content, []
+    introduction = content[:matches[0].start()].strip()
+    blocks: list[tuple[str, str]] = []
+    for index, match in enumerate(matches):
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(content)
+        blocks.append((compact(match.group("name")), compact(content[match.end():end])))
+    return introduction, blocks
+
+
+def parse_action(section: str, name: str, description: str, action_id: str) -> dict[str, object]:
+    attack_match = re.search(
+        r"(?P<mode>Corps à corps ou à distance|Corps à corps|À distance)\s*:\s*"
+        r"(?P<bonus>[+−–-]\d+)(?P<details>[^.]*)\.",
+        description,
+    )
+    attack: dict[str, object] | None = None
+    if attack_match:
+        mode = {"Corps à corps": "melee", "À distance": "ranged", "Corps à corps ou à distance": "melee-or-ranged"}[attack_match.group("mode")]
+        range_match = re.search(
+            r"\b(?P<label>allonge|portée)\s+(?P<value>\d+(?:,\d+)?(?:/\d+(?:,\d+)?)?\s*m)",
+            attack_match.group("details"),
+            re.IGNORECASE,
+        )
+        attack = {
+            "mode": mode,
+            "bonus": int(signed(attack_match.group("bonus")).replace("−", "-")),
+            "range": compact(f"{range_match.group('label').capitalize()} {range_match.group('value')}") if range_match else None,
+        }
+
+    saves = [
+        {"ability": match.group("ability"), "dc": int(match.group("dc"))}
+        for match in re.finditer(rf"JS\s+(?P<ability>{'|'.join(SAVE_ABILITIES)})\s*:\s*DD\s*(?P<dc>\d+)", description)
+    ]
+    damage_types = "|".join(map(re.escape, sorted(DAMAGE_TYPES, key=len, reverse=True)))
+    rolls: list[dict[str, object]] = []
+    occupied: list[tuple[int, int]] = []
+    damage_pattern = re.compile(
+        rf"(?P<average>\d+)\s*\((?P<formula>\d+d\d+(?:\s*[+−–x×*-]\s*\d+)?)\)\s+"
+        rf"dégâts?\s+(?:(?:d[’']|de)\s*)?(?P<damage_type>{damage_types})\b",
+        re.IGNORECASE,
+    )
+    for match in damage_pattern.finditer(description):
+        rolls.append({
+            "kind": "damage",
+            "formula": compact(match.group("formula")),
+            "average": int(match.group("average")),
+            "damageType": match.group("damage_type").casefold(),
+        })
+        occupied.append(match.span())
+
+    fixed_damage_pattern = re.compile(
+        rf"(?P<value>\d+)\s+dégâts?\s+(?:(?:d[’']|de)\s*)?(?P<damage_type>{damage_types})\b",
+        re.IGNORECASE,
+    )
+    for match in fixed_damage_pattern.finditer(description):
+        if any(start <= match.start() < end for start, end in occupied):
+            continue
+        rolls.append({
+            "kind": "damage",
+            "formula": match.group("value"),
+            "average": int(match.group("value")),
+            "damageType": match.group("damage_type").casefold(),
+        })
+
+    healing_pattern = re.compile(
+        r"récupère\s+(?P<average>\d+)\s*\((?P<formula>\d+d\d+(?:\s*[+−–x×*-]\s*\d+)?)\)\s+points? de vie",
+        re.IGNORECASE,
+    )
+    for match in healing_pattern.finditer(description):
+        rolls.append({"kind": "healing", "formula": compact(match.group("formula")), "average": int(match.group("average"))})
+
+    return {
+        "id": action_id,
+        "section": section,
+        "name": name,
+        "description": description,
+        "attack": attack,
+        "saves": saves,
+        "rolls": rolls,
+    }
+
+
+def parse_monster_actions(sections: list[dict[str, str]]) -> tuple[dict[str, str], list[dict[str, object]]]:
+    introductions: dict[str, str] = {}
+    actions: list[dict[str, object]] = []
+    used_ids: set[str] = set()
+    for section in sections:
+        heading = section.get("heading")
+        if heading not in ACTION_SECTION_HEADINGS:
+            continue
+        introduction, blocks = split_action_blocks(section["content"])
+        if introduction:
+            introductions[heading] = introduction
+        for name, description in blocks:
+            base_id = f"{slug(heading)}-{slug(name)}"
+            action_id = base_id
+            suffix = 2
+            while action_id in used_ids:
+                action_id = f"{base_id}-{suffix}"
+                suffix += 1
+            used_ids.add(action_id)
+            actions.append(parse_action(heading, name, description, action_id))
+
+    action_names = sorted(actions, key=lambda action: len(str(action["name"])), reverse=True)
+    for action in actions:
+        if action["name"] == "Attaques multiples" or action["attack"] or action["saves"] or action["rolls"]:
+            continue
+        description = str(action["description"])
+        for candidate in action_names:
+            if candidate is action or not (candidate["attack"] or candidate["saves"] or candidate["rolls"]):
+                continue
+            referenced_name = re.escape(str(candidate["name"]))
+            if re.search(rf"(?:attaque de|attaque d[’']|recourt à)\s+{referenced_name}\b", description, re.IGNORECASE):
+                action["referenceActionId"] = candidate["id"]
+                break
+    return introductions, actions
+
+
 def parse_entry(records: list[tuple[int, str]], category: str) -> dict[str, object]:
     page, title = records[0]
     general = signature(records[1][1])
@@ -176,6 +343,10 @@ def parse_entry(records: list[tuple[int, str]], category: str) -> dict[str, obje
     sections = parse_sections(lines[fp_line + 1:])
     if not sections:
         raise ValueError(f"Sections absentes page {page}: {title}")
+    action_introductions, actions = parse_monster_actions(sections)
+    for section in sections:
+        if section.get("heading") in ACTION_SECTION_HEADINGS:
+            section["content"] = ""
 
     sizes = [compact(part) for part in re.split(r"\s+ou\s+", general["size"])]
     speed = combat.group("speed")
@@ -218,6 +389,8 @@ def parse_entry(records: list[tuple[int, str]], category: str) -> dict[str, obje
         "movementModes": movement_modes,
         "legendary": any(section.get("heading") == "Actions Légendaires" for section in sections),
         "abilities": ability_data,
+        "actionIntroductions": action_introductions,
+        "actions": actions,
     }
     tags = [general["type"], *sizes, general["alignment"], f"FP {fp}", category]
     if general["subtype"]:

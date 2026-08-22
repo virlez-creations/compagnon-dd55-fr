@@ -15,6 +15,8 @@
 - Vérifier les profils Guerrier, Rôdeur, Magicien, Clerc et Roublard.
 - Vérifier que les fiches SRD ouvrent le compendium local et que les autres références ouvrent directement le bon onglet AideDD.
 - Vérifier le bestiaire, les FP fractionnaires, le panneau de filtres avancés et plusieurs profils multi-pages.
+- Vérifier les boutons Roll20 sur une attaque, un souffle, une sauvegarde et une action légendaire : deux d20, carte privée MJ, aucun envoi par défaut, envoi lorsque l’option dédiée est active et repli vers le presse-papiers.
+- Vérifier qu’un brouillon existant dans le chat n’est jamais remplacé et que le chat détaché déclenche bien la copie de la macro.
 - Vérifier qu’aucune icône de référence n’apparaît dans le résumé, les points de vie, les sens et les maîtrises/langues.
 - Vérifier l'absence d'erreur dans la console de la page et du service worker.
 - Relire `PRIVACY.md` et `THIRD_PARTY_NOTICES.md` avant toute soumission à une boutique.

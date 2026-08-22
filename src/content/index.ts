@@ -11,6 +11,7 @@ const defaults: Preferences = {
   resultDensity: "comfortable",
   defaultCategory: "",
   expandedByDefault: false,
+  autoRollMonsterActions: false,
   launcherVisible: true
 };
 let preferences = defaults;

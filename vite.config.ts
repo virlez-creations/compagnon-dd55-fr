@@ -22,8 +22,8 @@ export default defineConfig({
       this.emitFile({ type: "asset", fileName: "manifest.json", source: JSON.stringify({
         manifest_version: 3,
         name: "Compagnon D&D 5.5 FR",
-        description: "Traductions françaises et compendium DRS hors ligne avec sorts, règles, objets et monstres pour Roll20.",
-        version: "1.0.0",
+        description: "Traductions françaises et compendium DRS hors ligne avec jets de monstres intégrés pour Roll20.",
+        version: "1.1.0",
         icons: {
           "16": "icons/icon-16.png",
           "32": "icons/icon-32.png",

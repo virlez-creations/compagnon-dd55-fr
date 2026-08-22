@@ -91,6 +91,68 @@ describe("compendium SRD local", () => {
     expect(writeText.mock.calls[0][0]).toContain("Actions Légendaires");
   });
 
+  it("affiche les boutons Roll20 uniquement sur les actions mécaniques", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Aboleth");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-aboleth']")!.click();
+    const cards = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")];
+    const multiattack = cards.find(card => card.querySelector("h4")?.textContent === "Attaques multiples")!;
+    const tentacle = cards.find(card => card.querySelector("h4")?.textContent === "Tentacule")!;
+    const legendaryReference = cards.find(card => card.querySelector("h4")?.textContent === "Coup de tentacule")!;
+    expect(multiattack.querySelector("[data-monster-roll-action]")).toBeNull();
+    expect(tentacle.querySelector("[data-monster-roll-action]")).not.toBeNull();
+    expect(legendaryReference.querySelector("[data-monster-roll-action]")).not.toBeNull();
+    expect(document.querySelector(".dd55-copyable-section h3")?.textContent).toBe("Traits");
+  });
+
+  it("préremplit le chat Roll20 sans envoyer la macro", () => {
+    document.body.innerHTML = `<div id="textchat-input"><textarea></textarea><button id="send-chat">Envoyer</button></div>`;
+    const sent = vi.fn();
+    document.querySelector("#send-chat")!.addEventListener("click", sent);
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Aboleth");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-aboleth']")!.click();
+    const action = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")].find(card => card.querySelector("h4")?.textContent === "Tentacule")!;
+    action.querySelector<HTMLButtonElement>("[data-monster-roll-action]")!.click();
+    const chat = document.querySelector<HTMLTextAreaElement>("#textchat-input textarea")!;
+    expect(chat.value).toContain("/w gm &{template:default}");
+    expect(chat.value).toContain("{{Attaque 1=[[1d20+9]]}}");
+    expect(sent).not.toHaveBeenCalled();
+    expect(document.querySelector("[data-copy-status]")?.textContent).toContain("n’a pas été envoyée");
+  });
+
+  it("envoie le jet quand l’option automatique est active", () => {
+    document.body.innerHTML = `<div id="textchat-input"><textarea></textarea><button id="chatSendBtn" class="btn">Envoyer</button></div>`;
+    const sent = vi.fn();
+    document.querySelector("#chatSendBtn")!.addEventListener("click", sent);
+    mountPanel({ enabled: true, bilingual: true, autoRollMonsterActions: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Aboleth");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-aboleth']")!.click();
+    const action = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")].find(card => card.querySelector("h4")?.textContent === "Tentacule")!;
+    action.querySelector<HTMLButtonElement>("[data-monster-roll-action]")!.click();
+    expect(sent).toHaveBeenCalledOnce();
+    expect(document.querySelector("[data-copy-status]")?.textContent).toContain("Jet envoyé");
+  });
+
+  it("copie la macro sans écraser un brouillon Roll20", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    vi.stubGlobal("navigator", { clipboard: { writeText } });
+    document.body.innerHTML = `<div id="textchat-input"><textarea>brouillon MJ</textarea></div>`;
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Ankheg");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-ankheg']")!.click();
+    const action = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")].find(card => card.querySelector("h4")?.textContent?.startsWith("Aspersion acide"))!;
+    action.querySelector<HTMLButtonElement>("[data-monster-roll-action]")!.click();
+    await vi.waitFor(() => expect(writeText).toHaveBeenCalledOnce());
+    expect(document.querySelector<HTMLTextAreaElement>("#textchat-input textarea")!.value).toBe("brouillon MJ");
+    expect(writeText.mock.calls[0][0]).toContain("{{Sauvegarde=Dextérité DD 12}}");
+    await vi.waitFor(() => expect(document.querySelector("[data-copy-status]")?.textContent).toContain("Macro Roll20 copiée"));
+  });
+
   it("émet des préférences complètes quand les réglages changent", () => {
     const onChange = vi.fn();
     mountPanel({ enabled: true, bilingual: true }, onChange);
@@ -119,6 +181,12 @@ describe("compendium SRD local", () => {
     theme.dispatchEvent(new Event("change", { bubbles: true }));
     expect(panel.dataset.theme).toBe("dark");
     expect(onChange).toHaveBeenLastCalledWith({ theme: "dark" });
+
+    const autoRoll = document.querySelector<HTMLInputElement>("[data-auto-roll-monsters]")!;
+    expect(autoRoll.checked).toBe(false);
+    autoRoll.checked = true;
+    autoRoll.dispatchEvent(new Event("change", { bubbles: true }));
+    expect(onChange).toHaveBeenLastCalledWith({ autoRollMonsterActions: true });
 
     document.querySelector<HTMLButtonElement>("[data-settings-back]")!.click();
     expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(false);

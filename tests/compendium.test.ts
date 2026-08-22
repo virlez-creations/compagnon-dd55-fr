@@ -56,7 +56,29 @@ describe("données du compendium", () => {
     expect(rat.monster?.challengeValue).toBe(.125);
     const allosaurus = findCompendiumEntry("Allosaure", "monster")!;
     expect(allosaurus.monster?.category).toBe("Animaux");
-    expect(allosaurus.sections[0].content).toContain("Morsure");
+    expect(allosaurus.monster?.actions.some(action => action.name === "Morsure")).toBe(true);
+  });
+
+  it("structure les actions mécaniques et leurs références sans faux jets", () => {
+    const monsters = compendiumEntries.filter(entry => entry.monster);
+    const actionIds = monsters.flatMap(entry => entry.monster!.actions.map(action => `${entry.id}:${action.id}`));
+    expect(actionIds.length).toBeGreaterThan(900);
+    expect(new Set(actionIds).size).toBe(actionIds.length);
+    const aboleth = findCompendiumEntry("Aboleth", "monster")!;
+    expect(aboleth.monster!.actions.find(action => action.name === "Tentacule")).toMatchObject({
+      attack: { mode: "melee", bonus: 9, range: "Allonge 4,50 m" },
+      rolls: [{ kind: "damage", formula: "2d6 + 5", average: 12, damageType: "contondants" }]
+    });
+    expect(aboleth.monster!.actions.find(action => action.name === "Coup de tentacule")?.referenceActionId).toBe("actions-tentacule");
+    expect(aboleth.monster!.actions.find(action => action.name === "Attaques multiples")?.referenceActionId).toBeUndefined();
+    const ankheg = findCompendiumEntry("Ankheg", "monster")!;
+    expect(ankheg.monster!.actions.find(action => action.name.startsWith("Aspersion acide"))).toMatchObject({
+      saves: [{ ability: "Dextérité", dc: 12 }],
+      rolls: [{ formula: "4d6", damageType: "acide" }]
+    });
+    const dragon = findCompendiumEntry("Dragon bleu adulte", "monster")!;
+    expect(dragon.monster!.actions.find(action => action.name === "Incantation")?.rolls).toEqual([]);
+    expect(dragon.monster!.actions.find(action => action.name.startsWith("Souffle de foudre"))?.rolls[0].formula).toBe("11d10");
   });
 
   it("expose des fiches complètes pour tous les objets magiques du SRD", () => {

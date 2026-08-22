@@ -125,6 +125,45 @@ test("filtre les monstres et ouvre un profil DRS complet", async ({ page }) => {
   await expect(page.locator(".dd55-monster-statblock")).toContainText("Créature légendaire");
 });
 
+test("prépare ou envoie les jets de monstre selon le réglage et conserve les brouillons", async ({ page }) => {
+  await page.setContent(`${sheetSignature}<div id="textchat-input"><textarea></textarea><button id="chatSendBtn" class="btn">Envoyer</button></div>`);
+  await page.evaluate(() => {
+    const state = window as typeof window & { chatSends: number; copiedTexts: string[] };
+    state.chatSends = 0;
+    state.copiedTexts = [];
+    document.querySelector("#chatSendBtn")?.addEventListener("click", () => state.chatSends++);
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: async (value: string) => { state.copiedTexts.push(value); } }
+    });
+  });
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='monster']").click();
+  await page.locator("[data-search]").fill("Aboleth");
+  await page.locator("[data-entry-id='monster-aboleth']").click();
+  const tentacle = page.locator(".dd55-monster-action").filter({ has: page.getByRole("heading", { name: "Tentacule", exact: true }) });
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue(/\/w gm &\{template:default\}.*Attaque 1=\[\[1d20\+9\]\]/);
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(0);
+  await expect(page.locator("[data-copy-status]")).toContainText("n’a pas été envoyée");
+
+  await page.locator("#textchat-input textarea").fill("brouillon MJ");
+  const memory = page.locator(".dd55-monster-action").filter({ has: page.getByRole("heading", { name: "Assimilation de mémoire", exact: true }) });
+  await memory.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue("brouillon MJ");
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { copiedTexts: string[] }).copiedTexts.length)).toBe(1);
+  expect(await page.evaluate(() => (window as typeof window & { copiedTexts: string[] }).copiedTexts[0])).toContain("Sauvegarde=Intelligence DD 16");
+
+  await page.locator("#textchat-input textarea").fill("");
+  await page.locator("[data-settings-open]").click();
+  await page.locator("[data-auto-roll-monsters]").check();
+  await page.locator("[data-settings-back]").click();
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(1);
+  await expect(page.locator("[data-copy-status]")).toContainText("Jet envoyé");
+});
+
 test("filtre les objets magiques et ouvre les fiches locales ou AideDD", async ({ page }) => {
   await page.setContent(sheetSignature);
   await page.evaluate(() => {
