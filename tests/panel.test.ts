@@ -137,6 +137,34 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-copy-status]")?.textContent).toContain("Jet envoyé");
   });
 
+  it("demande Normal, Avantage ou Désavantage avant une attaque", async () => {
+    document.body.innerHTML = `<div id="textchat-input"><textarea></textarea><button id="chatSendBtn">Envoyer</button></div>`;
+    mountPanel({ enabled: true, bilingual: true, monsterRollMode: "ask" }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Aboleth");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-aboleth']")!.click();
+    const action = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")].find(card => card.querySelector("h4")?.textContent === "Tentacule")!;
+    action.querySelector<HTMLButtonElement>("[data-monster-roll-action]")!.click();
+
+    expect(document.querySelector("[data-roll-mode-dialog]")).not.toBeNull();
+    expect(document.querySelector<HTMLTextAreaElement>("#textchat-input textarea")!.value).toBe("");
+    document.querySelector<HTMLButtonElement>("[data-roll-mode-choice='advantage']")!.click();
+    await vi.waitFor(() => expect(document.querySelector<HTMLTextAreaElement>("#textchat-input textarea")!.value).toContain("Attaque avec Avantage=[[2d20kh1+9]]"));
+    expect(document.querySelector("[data-roll-mode-dialog]")).toBeNull();
+  });
+
+  it("ne demande pas de mode pour une action sans jet d’attaque", async () => {
+    document.body.innerHTML = `<div id="textchat-input"><textarea></textarea></div>`;
+    mountPanel({ enabled: true, bilingual: true, monsterRollMode: "ask" }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='monster']")!.click();
+    search("Ankheg");
+    document.querySelector<HTMLButtonElement>("[data-entry-id='monster-ankheg']")!.click();
+    const action = [...document.querySelectorAll<HTMLElement>(".dd55-monster-action")].find(card => card.querySelector("h4")?.textContent?.startsWith("Aspersion acide"))!;
+    action.querySelector<HTMLButtonElement>("[data-monster-roll-action]")!.click();
+    expect(document.querySelector("[data-roll-mode-dialog]")).toBeNull();
+    await vi.waitFor(() => expect(document.querySelector<HTMLTextAreaElement>("#textchat-input textarea")!.value).toContain("Sauvegarde=Dextérité DD 12"));
+  });
+
   it("copie la macro sans écraser un brouillon Roll20", async () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     vi.stubGlobal("navigator", { clipboard: { writeText } });
@@ -187,6 +215,12 @@ describe("compendium SRD local", () => {
     autoRoll.checked = true;
     autoRoll.dispatchEvent(new Event("change", { bubbles: true }));
     expect(onChange).toHaveBeenLastCalledWith({ autoRollMonsterActions: true });
+
+    const rollMode = document.querySelector<HTMLSelectElement>("[data-monster-roll-mode]")!;
+    expect(rollMode.value).toBe("two");
+    rollMode.value = "ask";
+    rollMode.dispatchEvent(new Event("change", { bubbles: true }));
+    expect(onChange).toHaveBeenLastCalledWith({ monsterRollMode: "ask" });
 
     document.querySelector<HTMLButtonElement>("[data-settings-back]")!.click();
     expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(false);

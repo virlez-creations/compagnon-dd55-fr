@@ -11,6 +11,7 @@ const defaults: Preferences = {
   resultDensity: "comfortable",
   defaultCategory: "",
   expandedByDefault: false,
+  monsterRollMode: "two",
   autoRollMonsterActions: false,
   launcherVisible: true
 };

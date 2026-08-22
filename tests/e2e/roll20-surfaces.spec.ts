@@ -162,6 +162,18 @@ test("prépare ou envoie les jets de monstre selon le réglage et conserve les b
   await tentacle.locator("[data-monster-roll-action]").click();
   await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(1);
   await expect(page.locator("[data-copy-status]")).toContainText("Jet envoyé");
+
+  await page.locator("#textchat-input textarea").fill("");
+  await page.locator("[data-settings-open]").click();
+  await page.locator("[data-monster-roll-mode]").selectOption("ask");
+  await page.locator("[data-settings-back]").click();
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("[data-roll-mode-dialog]")).toBeVisible();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue("");
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(1);
+  await page.locator("[data-roll-mode-choice='disadvantage']").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue(/Attaque avec Désavantage=\[\[2d20kl1\+9\]\]/);
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(2);
 });
 
 test("filtre les objets magiques et ouvre les fiches locales ou AideDD", async ({ page }) => {

@@ -315,6 +315,17 @@
 #dd55-companion .dd55-monster-roll { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; gap: 4px; min-height: 27px; border: 1px solid #b66f36; border-radius: 999px; background: #7f1d1d; color: #fff8e8; padding: 4px 8px; font: 700 9px/1 system-ui; cursor: pointer; }
 #dd55-companion .dd55-monster-roll:hover, #dd55-companion .dd55-monster-roll:focus-visible { background: #a42b24; outline: 2px solid #b8873266; outline-offset: 1px; }
 #dd55-companion .dd55-monster-roll > span[aria-hidden] { font-size: 14px; line-height: 1; }
+.dd55-roll-mode-overlay { position: absolute; inset: 0; z-index: 20; display: grid; min-width: 0; place-items: center; padding: 16px; background: #211b18b8; backdrop-filter: blur(2px); }
+.dd55-roll-mode-dialog { box-sizing: border-box; width: min(100%, 370px); max-height: calc(100% - 16px); overflow: auto; border: 1px solid #c9a558; border-radius: 13px; background: #fffdf8; color: #403a32; padding: 14px; box-shadow: 0 16px 45px #0007; }
+.dd55-roll-mode-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.dd55-roll-mode-heading h3 { margin: 0; color: #6d201c; font: 700 17px/1.25 Georgia, serif; }
+#dd55-companion .dd55-roll-mode-heading button { display: grid; width: 30px; height: 30px; flex: 0 0 auto; place-items: center; border: 1px solid #d4c09a; border-radius: 999px; background: #fff8e8; color: #6d201c; padding: 0; font: 700 18px/1 system-ui; cursor: pointer; }
+.dd55-roll-mode-dialog > p { margin: 7px 0 13px; color: #786f63; font: 600 12px/1.4 system-ui; }
+.dd55-roll-mode-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+#dd55-companion .dd55-roll-mode-options button { display: flex; min-width: 0; min-height: 70px; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: 1px solid #cbb995; border-radius: 9px; background: #fff8e8; color: #6d201c; padding: 8px 5px; cursor: pointer; }
+#dd55-companion .dd55-roll-mode-options button:hover, #dd55-companion .dd55-roll-mode-options button:focus-visible { border-color: #a92c25; background: #f8e5cf; outline: 2px solid #b8873266; outline-offset: 1px; }
+.dd55-roll-mode-options strong { font-size: 11px; overflow-wrap: anywhere; }
+.dd55-roll-mode-options small { color: #786f63; font-size: 9px; line-height: 1.25; text-align: center; }
 #dd55-companion[data-theme="dark"] .dd55-monster-basic select,
 #dd55-companion[data-theme="dark"] .dd55-monster-ranges input { border-color: #595959; background: #242424; color: #f5f5f5; }
 #dd55-companion[data-theme="dark"] .dd55-monster-basic label > span,
@@ -340,8 +351,17 @@
 #dd55-companion[data-theme="dark"] .dd55-monster-action-heading { background: #312b25; }
 #dd55-companion[data-theme="dark"] .dd55-monster-action-heading h4 { color: #ffaaa2; }
 #dd55-companion[data-theme="dark"] .dd55-monster-action-content p { color: #ded8d0; }
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-dialog { border-color: #9c7542; background: #242424; color: #f5f5f5; }
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-heading h3 { color: #ffaaa2; }
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-dialog > p,
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-options small { color: #c9c2b9; }
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-heading button,
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-options button { border-color: #595959; background: #303030; color: #ffaaa2; }
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-options button:hover,
+#dd55-companion[data-theme="dark"] .dd55-roll-mode-options button:focus-visible { border-color: #d85a50; background: #3a302a; }
 @media (min-width: 760px) { #dd55-companion.is-expanded .dd55-settings-content label:not(.dd55-switch) { grid-template-columns: minmax(0, 1fr) minmax(180px, .75fr); align-items: center; gap: 18px; } }
 @container (max-width: 380px) { .dd55-filter-fields { grid-template-columns: minmax(0, 1fr); } .dd55-tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); } .dd55-monster-basic { grid-template-columns: 1fr 1fr; } .dd55-monster-basic label:first-child { grid-column: 1 / -1; } .dd55-monster-ranges { grid-template-columns: 1fr; } }
+@container (max-width: 330px) { .dd55-roll-mode-options { grid-template-columns: 1fr; } #dd55-companion .dd55-roll-mode-options button { min-height: 52px; } }
 @media (max-width: 520px) { #dd55-companion { right: 8px; bottom: 64px; width: calc(100vw - 16px); } #dd55-companion.is-expanded { inset: 8px; width: auto; } #dd55-companion > header { padding: 10px 12px; } #dd55-companion > header strong { font-size: 15px; } .dd55-tabs { display: flex; overflow-x: auto; scrollbar-width: thin; } .dd55-tabs button { flex: 0 0 auto; min-width: max-content; } .dd55-table-hint span:last-child { display: none; } .dd55-detail-toolbar > div > span { display: none; } #dd55-companion .dd55-copy-button { padding: 4px 6px; } }
 #dd55-toast { position: fixed; left: 50%; bottom: 24px; z-index: 2147483647; transform: translateX(-50%); border: 1px solid #d3b56f; border-radius: 9px; background: #fff8e7; color: #6f1717; padding: 10px 15px; box-shadow: 0 7px 25px #0005; font: 650 13px system-ui; animation: dd55-toast-in .18s ease-out; }
 @keyframes dd55-toast-in { from { opacity: 0; transform: translate(-50%, 8px); } to { opacity: 1; transform: translate(-50%, 0); } }

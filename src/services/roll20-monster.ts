@@ -38,7 +38,9 @@ export function isMonsterActionRollable(monster: MonsterData, action: MonsterAct
   return Boolean(resolveMonsterAction(monster, action));
 }
 
-export function buildMonsterRollCommand(entry: CompendiumEntry, action: MonsterAction): string | undefined {
+export type MonsterAttackRollMode = "two" | "single" | "advantage" | "disadvantage";
+
+export function buildMonsterRollCommand(entry: CompendiumEntry, action: MonsterAction, attackRollMode: MonsterAttackRollMode = "two"): string | undefined {
   if (!entry.monster) return undefined;
   const mechanics = resolveMonsterAction(entry.monster, action);
   if (!mechanics) return undefined;
@@ -46,7 +48,10 @@ export function buildMonsterRollCommand(entry: CompendiumEntry, action: MonsterA
 
   if (mechanics.attack) {
     const bonus = mechanics.attack.bonus >= 0 ? `+${mechanics.attack.bonus}` : String(mechanics.attack.bonus);
-    fields.push(`{{Attaque 1=[[1d20${bonus}]]}}`, `{{Attaque 2=[[1d20${bonus}]]}}`);
+    if (attackRollMode === "two") fields.push(`{{Attaque 1=[[1d20${bonus}]]}}`, `{{Attaque 2=[[1d20${bonus}]]}}`);
+    else if (attackRollMode === "advantage") fields.push(`{{Attaque avec Avantage=[[2d20kh1${bonus}]]}}`);
+    else if (attackRollMode === "disadvantage") fields.push(`{{Attaque avec Désavantage=[[2d20kl1${bonus}]]}}`);
+    else fields.push(`{{Attaque=[[1d20${bonus}]]}}`);
     if (mechanics.attack.range) fields.push(`{{Portée=${sanitizeTemplateText(mechanics.attack.range)}}}`);
   }
 

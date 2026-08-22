@@ -1,14 +1,15 @@
 import { feats, spells } from "../data/references";
 import magicItemsData from "../data/aidedd-magic-items.json";
 import { findReference, normalizeName, referenceUrl } from "../services/reference-matcher";
-import { buildMonsterRollCommand, isMonsterActionRollable, prepareRoll20Chat } from "../services/roll20-monster";
-import { compendiumEntries, findCompendiumEntry, searchCompendiumResults, type CompendiumEntry, type CompendiumSearchResult, type CompendiumTable, type CompendiumType, type MonsterActionSection } from "../services/srd-compendium";
-import type { MagicItemRarity, MagicItemReference, Preferences, Reference } from "../types";
+import { buildMonsterRollCommand, isMonsterActionRollable, prepareRoll20Chat, resolveMonsterAction, type MonsterAttackRollMode } from "../services/roll20-monster";
+import { compendiumEntries, findCompendiumEntry, searchCompendiumResults, type CompendiumEntry, type CompendiumSearchResult, type CompendiumTable, type CompendiumType, type MonsterAction, type MonsterActionSection } from "../services/srd-compendium";
+import type { MagicItemRarity, MagicItemReference, MonsterRollMode, Preferences, Reference } from "../types";
 
 type CompendiumFilter = CompendiumType | "classes" | "origins";
 type ExternalReference = { item: Reference | MagicItemReference; kind: "spell" | "feat" | "magic-item" };
 type ExternalSearchResult = ExternalReference & { score: number };
 type MagicItemSort = "name" | "rarity-asc" | "rarity-desc";
+type MonsterRollTarget = { entry: CompendiumEntry; action: MonsterAction };
 const magicItemRarities: MagicItemRarity[] = ["Courant", "Peu courant", "Rare", "Très rare", "Légendaire", "Artefact", "Variable"];
 const magicItemRarityRank = new Map(magicItemRarities.map((rarity, index) => [rarity, index]));
 const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe", equipment: "Équipement", species: "Espèce", background: "Historique", "magic-item": "Objet magique", monster: "Monstre" };
@@ -327,15 +328,15 @@ function renderSectionContent(entry: CompendiumEntry, content: string): string {
   return entry.id === "rule-actions" ? renderActionsRule(content) : renderProse(content);
 }
 
-function renderMonsterActionSection(entry: CompendiumEntry, heading: MonsterActionSection, commands: Map<string, string>): string | undefined {
+function renderMonsterActionSection(entry: CompendiumEntry, heading: MonsterActionSection, targets: Map<string, MonsterRollTarget>): string | undefined {
   if (!entry.monster) return undefined;
   const actions = entry.monster.actions.filter(action => action.section === heading);
   if (!actions.length) return undefined;
   const introduction = entry.monster.actionIntroductions[heading];
   const cards = actions.map(action => {
-    const command = buildMonsterRollCommand(entry, action);
-    if (command) commands.set(action.id, command);
-    const rollButton = isMonsterActionRollable(entry.monster!, action)
+    const rollable = isMonsterActionRollable(entry.monster!, action);
+    if (rollable) targets.set(action.id, { entry, action });
+    const rollButton = rollable
       ? `<button type="button" class="dd55-monster-roll" data-monster-roll-action="${escapeHtml(action.id)}" aria-label="Préparer ${escapeHtml(action.name)} dans le chat Roll20" title="Préremplir le chat Roll20 ou copier la macro"><span aria-hidden="true">⚄</span><span data-roll-label>Roll20</span></button>`
       : "";
     return `<article class="dd55-monster-action${rollButton ? " is-rollable" : ""}"><div class="dd55-monster-action-heading"><h4>${escapeHtml(action.name)}</h4>${rollButton}</div><div class="dd55-monster-action-content">${renderParagraphs(action.description)}</div></article>`;
@@ -347,7 +348,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   if (document.querySelector("#dd55-companion")) return;
   let currentPreferences: Preferences = {
     theme: "light", fontSize: "normal", resultDensity: "comfortable", defaultCategory: "",
-    expandedByDefault: false, autoRollMonsterActions: false, launcherVisible: true, ...preferences
+    expandedByDefault: false, monsterRollMode: "two", autoRollMonsterActions: false, launcherVisible: true, ...preferences
   };
   let activeType = (currentPreferences.defaultCategory || undefined) as CompendiumFilter | undefined;
   let currentQuery = "";
@@ -379,7 +380,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let viewBeforeSettings: "home" | "detail" = "home";
   let scrollBeforeSettings = 0;
   let copyTargets = new Map<string, string>();
-  let monsterRollTargets = new Map<string, string>();
+  let monsterRollTargets = new Map<string, MonsterRollTarget>();
   const copyFeedbackTimers = new WeakMap<HTMLElement, number>();
   let copyStatusTimer: number | undefined;
 
@@ -389,7 +390,8 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   launcher.hidden = currentPreferences.launcherVisible === false;
   const panel = document.createElement("aside"); panel.id = "dd55-companion"; panel.hidden = true;
   panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une origine, un sort, une arme…" aria-label="Recherche dans le compendium"><button type="button" data-clear-search aria-label="Effacer la recherche" hidden>×</button></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="">Tout <small>${totalReferenceCount}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="origins">Origines <small>${compendiumEntries.filter(e => e.type === "species" || e.type === "background").length}</small></button><button type="button" data-type="equipment">Équipement <small>${compendiumEntries.filter(e => e.type === "equipment").length}</small></button><button type="button" data-type="spell">Sorts <small>${spellReferenceCount}</small></button><button type="button" data-type="feat">Dons <small>${featReferenceCount}</small></button></nav><div class="dd55-spell-filters" data-rule-filters hidden><div><span>Filtrer les règles</span><button type="button" data-clear-rule-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de règle</span><select data-rule-kind><option value="">Tous les types</option>${ruleKinds.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-class-filters hidden><div><span>Filtrer les classes</span></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de fiche</span><select data-class-kind><option value="class" selected>Classes seulement</option><option value="subclass">Sous-classes seulement</option><option value="">Classes et sous-classes</option></select></label></div></div><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-origin-filters hidden><div><span>Filtrer les origines</span><button type="button" data-clear-origin-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type d’origine</span><select data-origin-kind><option value="">Espèces et historiques</option><option value="species">Espèces seulement</option><option value="background">Historiques seulement</option></select></label></div></div><div class="dd55-spell-filters" data-equipment-filters hidden><div><span>Filtrer l’équipement</span><button type="button" data-clear-equipment-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type</span><select data-equipment-type><option value="">Tous les types</option>${equipmentTypes.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Maîtrise d’arme</span><select data-weapon-mastery><option value="">Toutes les bottes</option>${weaponMasteries.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count role="status" aria-live="polite"></span></div><div data-results class="dd55-entry-list"></div></div><section data-settings class="dd55-settings-page" hidden><div class="dd55-settings-toolbar"><button type="button" data-settings-back>← Retour</button><h2>Réglages</h2></div><div class="dd55-settings-content"><fieldset><legend>Traduction</legend><label class="dd55-switch"><span><strong>Traduire la feuille</strong><small>Traduit et enrichit la feuille D&D 2024.</small></span><input type="checkbox" data-enabled ${currentPreferences.enabled ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Conserver les noms anglais</strong><small>Affiche le nom original avec sa traduction.</small></span><input type="checkbox" data-bilingual ${currentPreferences.bilingual ? "checked" : ""}></label></fieldset><fieldset><legend>Affichage</legend><label>Thème<select data-setting-theme><option value="light">Clair</option><option value="dark">Sombre</option></select></label><label>Taille du texte<select data-setting-font-size><option value="small">Petite</option><option value="normal">Normale</option><option value="large">Grande</option></select></label><label>Densité des résultats<select data-setting-density><option value="comfortable">Confortable</option><option value="compact">Compacte</option></select></label></fieldset><fieldset><legend>Comportement</legend><label>Catégorie au démarrage<select data-default-category><option value="">Tout</option><option value="rule">Règles</option><option value="classes">Classes</option><option value="origins">Origines</option><option value="equipment">Équipement</option><option value="spell">Sorts</option><option value="feat">Dons</option></select></label><label class="dd55-switch"><span><strong>Ouvrir en grand</strong><small>Agrandit automatiquement le compendium à son ouverture.</small></span><input type="checkbox" data-expanded-default ${currentPreferences.expandedByDefault ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Afficher le lanceur</strong><small>S’il est masqué, utilisez l’icône de l’extension pour le réafficher.</small></span><input type="checkbox" data-launcher-visible ${currentPreferences.launcherVisible !== false ? "checked" : ""}></label></fieldset><fieldset><legend>Positions</legend><p>Vous pouvez déplacer le panneau par son en-tête et le lanceur par glisser-déposer.</p><button type="button" data-reset-panel>Rétablir la position du compendium</button><button type="button" data-reset-launcher>Rétablir la position du lanceur</button></fieldset></div></section><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
-  panel.querySelector<HTMLInputElement>("[data-expanded-default]")!.closest("label")!.insertAdjacentHTML("afterend", `<label class="dd55-switch"><span><strong>Lancer automatiquement les jets</strong><small>Envoie immédiatement la carte privée au MJ quand le chat Roll20 est disponible et vide.</small></span><input type="checkbox" data-auto-roll-monsters ${currentPreferences.autoRollMonsterActions ? "checked" : ""}></label>`);
+  panel.querySelector<HTMLInputElement>("[data-expanded-default]")!.closest("label")!.insertAdjacentHTML("afterend", `<label>Mode des jets d’attaque<select data-monster-roll-mode><option value="two">Toujours lancer deux dés</option><option value="single">Lancer un seul dé</option><option value="ask">Demander à chaque jet</option></select></label><label class="dd55-switch"><span><strong>Lancer automatiquement les jets</strong><small>Envoie immédiatement la carte privée au MJ quand le chat Roll20 est disponible et vide.</small></span><input type="checkbox" data-auto-roll-monsters ${currentPreferences.autoRollMonsterActions ? "checked" : ""}></label>`);
+  panel.querySelector<HTMLSelectElement>("[data-monster-roll-mode]")!.value = currentPreferences.monsterRollMode ?? "two";
   panel.querySelector(".dd55-tabs")!.insertAdjacentHTML("beforeend", `<button type="button" data-type="magic-item">Objets magiques <small>${magicItemReferenceCount}</small></button>`);
   panel.querySelector(".dd55-tabs")!.insertAdjacentHTML("beforeend", `<button type="button" data-type="monster">Monstres <small>${monsterEntries.length}</small></button>`);
   panel.querySelectorAll<HTMLButtonElement>(".dd55-tabs button").forEach(button => {
@@ -439,6 +441,34 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     onChange(next);
   };
   applyVisualPreferences();
+
+  const askMonsterRollMode = (actionName: string, opener: HTMLElement): Promise<Exclude<MonsterAttackRollMode, "two"> | undefined> => new Promise(resolve => {
+    const overlay = document.createElement("div");
+    overlay.className = "dd55-roll-mode-overlay";
+    overlay.dataset.rollModeDialog = "";
+    overlay.innerHTML = `<div class="dd55-roll-mode-dialog" role="dialog" aria-modal="true" aria-labelledby="dd55-roll-mode-title"><div class="dd55-roll-mode-heading"><h3 id="dd55-roll-mode-title">Comment lancer l’attaque ?</h3><button type="button" data-roll-mode-cancel aria-label="Annuler">×</button></div><p>${escapeHtml(actionName)}</p><div class="dd55-roll-mode-options"><button type="button" data-roll-mode-choice="single"><strong>Normal</strong><small>1d20</small></button><button type="button" data-roll-mode-choice="advantage"><strong>Avantage</strong><small>2d20, meilleur résultat</small></button><button type="button" data-roll-mode-choice="disadvantage"><strong>Désavantage</strong><small>2d20, moins bon résultat</small></button></div></div>`;
+    const finish = (choice?: Exclude<MonsterAttackRollMode, "two">) => {
+      overlay.remove();
+      if (!choice && opener.isConnected) opener.focus();
+      resolve(choice);
+    };
+    overlay.addEventListener("click", event => {
+      const choiceButton = (event.target as Element).closest<HTMLButtonElement>("[data-roll-mode-choice]");
+      if (choiceButton?.dataset.rollModeChoice) {
+        finish(choiceButton.dataset.rollModeChoice as Exclude<MonsterAttackRollMode, "two">);
+        return;
+      }
+      if (event.target === overlay || (event.target as Element).closest("[data-roll-mode-cancel]")) finish();
+    });
+    overlay.addEventListener("keydown", event => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      event.stopPropagation();
+      finish();
+    });
+    panel.append(overlay);
+    overlay.querySelector<HTMLButtonElement>("[data-roll-mode-choice]")!.focus();
+  });
 
   const placeLauncher = (left: number, top: number) => {
     const maxLeft = Math.max(0, window.innerWidth - launcher.offsetWidth);
@@ -714,7 +744,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     ].filter(link => link.entry);
     const entryLinks = directLinks.map(link => `<aside class="dd55-mastery-link"><span>${escapeHtml(link.label)}</span><button type="button" data-entry-id="${link.entryId}"><strong>${escapeHtml(link.title)}</strong><small>Ouvrir la fiche complète</small><b>›</b></button></aside>`).join("");
     copyTargets = new Map<string, string>();
-    monsterRollTargets = new Map<string, string>();
+    monsterRollTargets = new Map<string, MonsterRollTarget>();
     copyTargets.set("all", serializeEntry(entry));
     const presentationSection = entry.sections[0]?.heading === "Présentation" ? entry.sections[0] : undefined;
     if (presentationSection) copyTargets.set("presentation", serializeSection(presentationSection.heading, presentationSection.content));
@@ -786,7 +816,15 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     if (rollButton?.dataset.monsterRollAction) {
       event.preventDefault();
       event.stopPropagation();
-      const command = monsterRollTargets.get(rollButton.dataset.monsterRollAction);
+      const target = monsterRollTargets.get(rollButton.dataset.monsterRollAction);
+      if (!target?.entry.monster) return;
+      let attackRollMode: MonsterAttackRollMode = currentPreferences.monsterRollMode === "single" ? "single" : "two";
+      if (currentPreferences.monsterRollMode === "ask" && resolveMonsterAction(target.entry.monster, target.action)?.attack) {
+        const choice = await askMonsterRollMode(target.action.name, rollButton);
+        if (!choice) return;
+        attackRollMode = choice;
+      }
+      const command = buildMonsterRollCommand(target.entry, target.action, attackRollMode);
       if (!command) return;
       const chatResult = prepareRoll20Chat(command, currentPreferences.autoRollMonsterActions === true);
       const copied = chatResult === "unavailable" ? await writeClipboardText(command) : false;
@@ -961,6 +999,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     else if (target.matches("[data-setting-density]")) updatePreferences({ resultDensity: target.value as Preferences["resultDensity"] });
     else if (target.matches("[data-default-category]")) updatePreferences({ defaultCategory: target.value as Preferences["defaultCategory"] });
     else if (target.matches("[data-expanded-default]")) { const checked = (target as HTMLInputElement).checked; updatePreferences({ expandedByDefault: checked }); setExpanded(checked); }
+    else if (target.matches("[data-monster-roll-mode]")) updatePreferences({ monsterRollMode: target.value as MonsterRollMode });
     else if (target.matches("[data-auto-roll-monsters]")) updatePreferences({ autoRollMonsterActions: (target as HTMLInputElement).checked });
     else if (target.matches("[data-launcher-visible]")) { const checked = (target as HTMLInputElement).checked; updatePreferences({ launcherVisible: checked }); launcher.hidden = !checked; }
   });

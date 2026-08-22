@@ -11,6 +11,7 @@ export interface Reference {
 }
 
 export type MagicItemRarity = "Courant" | "Peu courant" | "Rare" | "Très rare" | "Légendaire" | "Artefact" | "Variable";
+export type MonsterRollMode = "two" | "single" | "ask";
 
 export interface MagicItemReference extends Reference {
   itemType: string;
@@ -27,6 +28,7 @@ export interface Preferences {
   resultDensity?: "comfortable" | "compact";
   defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item" | "monster";
   expandedByDefault?: boolean;
+  monsterRollMode?: MonsterRollMode;
   autoRollMonsterActions?: boolean;
   launcherVisible?: boolean;
   launcherPosition?: { left: number; top: number } | null;

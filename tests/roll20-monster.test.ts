@@ -13,6 +13,15 @@ describe("macros Roll20 des monstres", () => {
     expect(command).toBe("/w gm &{template:default} {{name=Assassin — Épée courte}} {{Attaque 1=[[1d20+7]]}} {{Attaque 2=[[1d20+7]]}} {{Portée=Allonge 1,50 m}} {{Dégâts perforants=[[1d6+4]]}} {{Dégâts poison=[[5d6]]}} {{Effet=Corps à corps : +7 , allonge 1,50 m. Touché : 7 (1d6 + 4) dégâts perforants plus 17 (5d6) dégâts de poison, et la cible subit l’état Empoisonné jusqu’au début du tour suivant de l’assassin.}}");
   });
 
+  it("génère un jet normal, avec Avantage ou avec Désavantage selon le mode", () => {
+    const aboleth = findCompendiumEntry("Aboleth", "monster")!;
+    const tentacle = aboleth.monster!.actions.find(action => action.name === "Tentacule")!;
+    expect(buildMonsterRollCommand(aboleth, tentacle, "single")).toContain("{{Attaque=[[1d20+9]]}}");
+    expect(buildMonsterRollCommand(aboleth, tentacle, "single")).not.toContain("Attaque 2");
+    expect(buildMonsterRollCommand(aboleth, tentacle, "advantage")).toContain("{{Attaque avec Avantage=[[2d20kh1+9]]}}");
+    expect(buildMonsterRollCommand(aboleth, tentacle, "disadvantage")).toContain("{{Attaque avec Désavantage=[[2d20kl1+9]]}}");
+  });
+
   it("génère les sauvegardes, les soins et les références d’action", () => {
     const aboleth = findCompendiumEntry("Aboleth", "monster")!;
     const memory = aboleth.monster!.actions.find(action => action.name === "Assimilation de mémoire")!;
