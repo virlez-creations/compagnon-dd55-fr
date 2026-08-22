@@ -27,6 +27,58 @@ describe("données du compendium", () => {
     expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(9);
     expect(compendiumEntries.filter(entry => entry.type === "background")).toHaveLength(4);
     expect(compendiumEntries.filter(entry => entry.type === "magic-item")).toHaveLength(258);
+    expect(compendiumEntries.filter(entry => entry.type === "monster")).toHaveLength(330);
+  });
+
+  it("expose les 330 profils de monstres complets et correctement catégorisés", () => {
+    const monsters = compendiumEntries.filter(entry => entry.type === "monster");
+    expect(monsters.filter(entry => entry.monster?.category === "Monstres de A à Z")).toHaveLength(235);
+    expect(monsters.filter(entry => entry.monster?.category === "Animaux")).toHaveLength(95);
+    expect(new Set(monsters.map(entry => entry.id)).size).toBe(330);
+    for (const entry of monsters) {
+      expect(entry.page, entry.title).toBeGreaterThanOrEqual(272);
+      expect(entry.page, entry.title).toBeLessThanOrEqual(380);
+      expect(entry.monster?.creatureType, entry.title).toBeTruthy();
+      expect(entry.monster?.sizes.length, entry.title).toBeGreaterThan(0);
+      expect(entry.monster?.challengeValue, entry.title).toBeGreaterThanOrEqual(0);
+      expect(entry.monster?.armorClass, entry.title).toBeGreaterThan(0);
+      expect(entry.monster?.hitPoints, entry.title).toBeGreaterThan(0);
+      expect(entry.sections.length, entry.title).toBeGreaterThan(0);
+    }
+  });
+
+  it("conserve les profils multi-pages, les FP fractionnaires et les créatures légendaires", () => {
+    const aboleth = findCompendiumEntry("Aboleth", "monster")!;
+    expect(aboleth.monster).toMatchObject({ creatureType: "Aberration", challengeRating: "10", legendary: true, armorClass: 17, hitPoints: 150 });
+    expect(aboleth.sections.at(-1)?.content).not.toContain("Âme-en-peine");
+    const rat = findCompendiumEntry("Rat géant", "monster")!;
+    expect(rat.monster?.challengeRating).toBe("1/8");
+    expect(rat.monster?.challengeValue).toBe(.125);
+    const allosaurus = findCompendiumEntry("Allosaure", "monster")!;
+    expect(allosaurus.monster?.category).toBe("Animaux");
+    expect(allosaurus.monster?.actions.some(action => action.name === "Morsure")).toBe(true);
+  });
+
+  it("structure les actions mécaniques et leurs références sans faux jets", () => {
+    const monsters = compendiumEntries.filter(entry => entry.monster);
+    const actionIds = monsters.flatMap(entry => entry.monster!.actions.map(action => `${entry.id}:${action.id}`));
+    expect(actionIds.length).toBeGreaterThan(900);
+    expect(new Set(actionIds).size).toBe(actionIds.length);
+    const aboleth = findCompendiumEntry("Aboleth", "monster")!;
+    expect(aboleth.monster!.actions.find(action => action.name === "Tentacule")).toMatchObject({
+      attack: { mode: "melee", bonus: 9, range: "Allonge 4,50 m" },
+      rolls: [{ kind: "damage", formula: "2d6 + 5", average: 12, damageType: "contondants" }]
+    });
+    expect(aboleth.monster!.actions.find(action => action.name === "Coup de tentacule")?.referenceActionId).toBe("actions-tentacule");
+    expect(aboleth.monster!.actions.find(action => action.name === "Attaques multiples")?.referenceActionId).toBeUndefined();
+    const ankheg = findCompendiumEntry("Ankheg", "monster")!;
+    expect(ankheg.monster!.actions.find(action => action.name.startsWith("Aspersion acide"))).toMatchObject({
+      saves: [{ ability: "Dextérité", dc: 12 }],
+      rolls: [{ formula: "4d6", damageType: "acide" }]
+    });
+    const dragon = findCompendiumEntry("Dragon bleu adulte", "monster")!;
+    expect(dragon.monster!.actions.find(action => action.name === "Incantation")?.rolls).toEqual([]);
+    expect(dragon.monster!.actions.find(action => action.name.startsWith("Souffle de foudre"))?.rolls[0].formula).toBe("11d10");
   });
 
   it("expose des fiches complètes pour tous les objets magiques du SRD", () => {

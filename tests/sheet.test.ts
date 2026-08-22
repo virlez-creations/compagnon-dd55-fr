@@ -89,11 +89,11 @@ describe("sheet enhancement", () => {
     enhanceSheet(document, { enabled: true, bilingual: true });
     expect(document.querySelector(".dd55-content-translation")).toBeNull();
   });
-  it("injecte aussi les références dans les commandes de points de vie en mode sans restrictions", () => {
+  it("n’injecte aucune référence dans les commandes de points de vie", () => {
     document.body.innerHTML = `<section class="health-panel"><h2>HIT POINTS</h2><div><span>Current</span><span>Max</span><span>Temp</span></div><div><button>Damage</button><button id="heal-control">Heal</button></div></section>`;
     enhanceSheet(document, { enabled: true, bilingual: true });
     expect(document.querySelector("#heal-control")?.textContent).toContain("Soigner");
-    expect(document.querySelector("#heal-control [data-dd55-open='spell-guerison']")).not.toBeNull();
+    expect(document.querySelector("#heal-control [data-dd55-open='spell-guerison']")).toBeNull();
   });
   it("conserve la référence du sort Heal dans une vraie liste de sorts", () => {
     document.body.innerHTML = `<section><h2>Spells</h2><div role="row"><h3 id="heal-spell">Heal</h3><p>A creature regains Hit Points.</p></div></section>`;
@@ -125,13 +125,24 @@ describe("sheet enhancement", () => {
     expect(document.querySelector("#light-spell")?.childNodes[0].textContent).toBe("Lumière");
     expect(document.querySelector("#light-spell [data-dd55-open='spell-lumiere']")).not.toBeNull();
   });
-  it("injecte les liens dans Armure, Sens et Maîtrises et langues en mode sans restrictions", () => {
+  it("retire les liens dans Sens et Maîtrises et langues sans étendre l’exclusion à un autre panneau", () => {
     document.body.innerHTML = `<div>Orc</div><section><div>ARMOR</div><div id="armor-reference">Alert</div></section><section><div>SENSES</div><div id="sense-reference">Darkvision</div></section><section><div>PROFICIENCIES & LANGUAGES</div><div id="proficiency-reference">Magic Missile</div></section>`;
     enhanceSheet(document, { enabled: true, bilingual: true });
     expect(document.querySelector("#armor-reference .dd55-reference")).not.toBeNull();
-    expect(document.querySelector("#sense-reference .dd55-reference")).not.toBeNull();
-    expect(document.querySelector("#proficiency-reference .dd55-reference")).not.toBeNull();
+    expect(document.querySelector("#sense-reference .dd55-reference")).toBeNull();
+    expect(document.querySelector("#proficiency-reference .dd55-reference")).toBeNull();
     expect(document.querySelector("#proficiency-reference")?.childNodes[0].textContent).toBe("Projectile magique");
+  });
+  it("retire aussi les liens des sous-sections d’armure incluses dans Maîtrises et langues", () => {
+    document.body.innerHTML = `<section><h2>PROFICIENCIES & LANGUAGES</h2><div><h3>ARMOR</h3><span id="nested-light">Light</span></div></section>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("#nested-light")?.childNodes[0].textContent).not.toBe("Light");
+    expect(document.querySelector("#nested-light .dd55-reference")).toBeNull();
+  });
+  it("n’injecte aucune référence dans le résumé du personnage", () => {
+    document.body.innerHTML = `<section class="character-summary"><span>Rogue 3</span><span>Exp: 0/2700</span><span>Proficiency Bonus +2</span><button>Inspiration</button><button id="summary-spell">Initiative</button></section>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector(".character-summary .dd55-reference")).toBeNull();
   });
   it("conserve les anciens liens injectés en mode sans restrictions", () => {
     document.body.innerHTML = `<section><div>EQUIPMENT</div><div id="equipment-entry">Dagger<span class="dd55-reference"><span data-dd55-open="equipment-weapon-dague">Compendium</span></span></div></section>`;

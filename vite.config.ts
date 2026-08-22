@@ -1,5 +1,8 @@
 import { defineConfig } from "vite";
 import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
+
+const packageMetadata = JSON.parse(readFileSync(fileURLToPath(new URL("./package.json", import.meta.url)), "utf8")) as { version: string };
 
 export default defineConfig({
   build: {
@@ -22,8 +25,8 @@ export default defineConfig({
       this.emitFile({ type: "asset", fileName: "manifest.json", source: JSON.stringify({
         manifest_version: 3,
         name: "Compagnon D&D 5.5 FR",
-        description: "Traductions françaises et liens AideDD pour la feuille D&D 2024 de Roll20.",
-        version: "0.8.8",
+        description: "Traductions françaises et compendium DRS hors ligne avec jets de monstres intégrés pour Roll20.",
+        version: packageMetadata.version,
         icons: {
           "16": "icons/icon-16.png",
           "32": "icons/icon-32.png",

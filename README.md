@@ -7,7 +7,9 @@ Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll2
 - traduction automatique des principaux libellés de la feuille D&D 2024 ;
 - affichage optionnel des noms anglais à côté des traductions françaises ;
 - détection des sorts, dons et aptitudes de classe dans les contenus dynamiques de Roll20 ;
-- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement et tables de progression ;
+- compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement, objets magiques et tables de progression ;
+- bestiaire DRS hors ligne de **330 profils** (235 monstres et 95 animaux), avec filtres simples par type et FP et filtres avancés repliables ;
+- boutons de jet sur les attaques et actions mécaniques des monstres : un ou deux d20, choix Normal/Avantage/Désavantage à la demande, envoi automatique optionnel ou copie de la macro ;
 - recherche et filtres de sorts par classe et niveau ;
 - catalogue d’armes, d’armures et de boucliers avec filtres par type et maîtrise d’arme, et accès direct à la règle de chaque botte d’arme ;
 - catalogue des espèces et historiques du SRD, avec accès direct au don accordé par chaque historique ;
@@ -42,6 +44,8 @@ Ouvrez une table Roll20 utilisant la feuille officielle D&D 5 moderne (`dnd2024b
 
 Faites glisser le bouton pour le placer où vous le souhaitez. Un clic sur l'icône de l'extension dans Chrome ou Edge permet de masquer ou réafficher ce bouton ; sa position et sa visibilité sont mémorisées.
 
+Dans une fiche de monstre, le bouton **Roll20** prépare une carte privée pour le MJ avec le jet d’attaque, les dégâts, les sauvegardes et les effets disponibles. Le réglage **Mode des jets d’attaque** permet de toujours lancer deux d20 indépendants, de lancer un seul d20 ou de demander à chaque attaque entre Normal, Avantage et Désavantage. Dans ce dernier mode, l’Avantage conserve le meilleur de deux d20 et le Désavantage le moins bon. Par défaut, la commande est placée dans un chat Roll20 visible et vide sans être envoyée. Le réglage **Lancer automatiquement les jets** permet de l’envoyer immédiatement par le bouton officiel du chat. Si le chat est masqué, détaché ou contient déjà un brouillon, la macro est copiée dans le presse-papiers sans écraser le texte existant.
+
 Vous pouvez également faire un clic droit dans la fiche et sélectionner **Traduire cette fiche D&D 2024**. Les références absentes du SRD local ne sont ouvertes sur AideDD qu’après une action explicite de votre part.
 
 ## Développement et vérifications
@@ -67,6 +71,7 @@ Le fichier `fr_srd_cc_v5.2.1.pdf` sert de source au compendium embarqué. La gé
 python scripts/extract-srd.py
 python scripts/extract-class-tables.py
 python scripts/build-compendium.py
+python scripts/build-monsters.py
 ```
 
 Les scripts produisent les données structurées utilisées par l’extension dans `src/data/`.

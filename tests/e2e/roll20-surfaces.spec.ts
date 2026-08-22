@@ -102,10 +102,78 @@ test("ouvre le compendium local et expose le catalogue complet", async ({ page }
   await expect(page.locator(".dd55-tabs")).toContainText("Équipement 51");
   await expect(page.locator(".dd55-tabs")).toContainText("Origines 13");
   await expect(page.locator(".dd55-tabs")).toContainText("Objets magiques 350");
+  await expect(page.locator(".dd55-tabs")).toContainText("Monstres 330");
 
   await page.locator("[data-dd55-open='spell-baies-nourricieres']").click();
   await expect(page.locator("[data-detail] h2")).toHaveText("Baies nourricières");
   await expect(page.locator("[data-detail]")).toContainText("Source : SRD 5.2.1 FR");
+});
+
+test("filtre les monstres et ouvre un profil DRS complet", async ({ page }) => {
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='monster']").click();
+  await expect(page.locator("[data-result-count]")).toContainText("330 références");
+  await expect(page.locator("[data-monster-advanced]")).toBeHidden();
+  await page.locator("[data-monster-type]").selectOption("Aberration");
+  await page.locator("[data-monster-fp-min]").selectOption("10");
+  await page.locator("[data-monster-fp-max]").selectOption("10");
+  await page.locator("[data-entry-id='monster-aboleth']").click();
+  await expect(page.locator("[data-detail] h2")).toHaveText("Aboleth");
+  await expect(page.locator(".dd55-monster-abilities > div")).toHaveCount(6);
+  await expect(page.locator(".dd55-monster-statblock")).toContainText("Créature légendaire");
+});
+
+test("prépare ou envoie les jets de monstre selon le réglage et conserve les brouillons", async ({ page }) => {
+  await page.setContent(`${sheetSignature}<div id="textchat-input"><textarea></textarea><button id="chatSendBtn" class="btn">Envoyer</button></div>`);
+  await page.evaluate(() => {
+    const state = window as typeof window & { chatSends: number; copiedTexts: string[] };
+    state.chatSends = 0;
+    state.copiedTexts = [];
+    document.querySelector("#chatSendBtn")?.addEventListener("click", () => state.chatSends++);
+    Object.defineProperty(navigator, "clipboard", {
+      configurable: true,
+      value: { writeText: async (value: string) => { state.copiedTexts.push(value); } }
+    });
+  });
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='monster']").click();
+  await page.locator("[data-search]").fill("Aboleth");
+  await page.locator("[data-entry-id='monster-aboleth']").click();
+  const tentacle = page.locator(".dd55-monster-action").filter({ has: page.getByRole("heading", { name: "Tentacule", exact: true }) });
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue(/\/w gm &\{template:default\}.*Attaque 1=\[\[1d20\+9\]\]/);
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(0);
+  await expect(page.locator("[data-copy-status]")).toContainText("n’a pas été envoyée");
+
+  await page.locator("#textchat-input textarea").fill("brouillon MJ");
+  const memory = page.locator(".dd55-monster-action").filter({ has: page.getByRole("heading", { name: "Assimilation de mémoire", exact: true }) });
+  await memory.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue("brouillon MJ");
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { copiedTexts: string[] }).copiedTexts.length)).toBe(1);
+  expect(await page.evaluate(() => (window as typeof window & { copiedTexts: string[] }).copiedTexts[0])).toContain("Sauvegarde=Intelligence DD 16");
+
+  await page.locator("#textchat-input textarea").fill("");
+  await page.locator("[data-settings-open]").click();
+  await page.locator("[data-auto-roll-monsters]").check();
+  await page.locator("[data-settings-back]").click();
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(1);
+  await expect(page.locator("[data-copy-status]")).toContainText("Jet envoyé");
+
+  await page.locator("#textchat-input textarea").fill("");
+  await page.locator("[data-settings-open]").click();
+  await page.locator("[data-monster-roll-mode]").selectOption("ask");
+  await page.locator("[data-settings-back]").click();
+  await tentacle.locator("[data-monster-roll-action]").click();
+  await expect(page.locator("[data-roll-mode-dialog]")).toBeVisible();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue("");
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(1);
+  await page.locator("[data-roll-mode-choice='disadvantage']").click();
+  await expect(page.locator("#textchat-input textarea")).toHaveValue(/Attaque avec Désavantage=\[\[2d20kl1\+9\]\]/);
+  await expect.poll(() => page.evaluate(() => (window as typeof window & { chatSends: number }).chatSends)).toBe(2);
 });
 
 test("filtre les objets magiques et ouvre les fiches locales ou AideDD", async ({ page }) => {
@@ -355,7 +423,7 @@ test("déplace le panneau par son en-tête et conserve sa position", async ({ pa
   expect((await panel.boundingBox())!.x).toBeCloseTo(after.x, 0);
 });
 
-test("injecte les liens sans restrictions de panneau en mode diagnostic", async ({ page }) => {
+test("conserve les liens hors des cadres de résumé ciblés", async ({ page }) => {
   await page.setContent(`${sheetSignature}<div>Orc</div><section><div>EQUIPMENT</div><div role="row"><h3 id="dagger-item">Dagger</h3><span id="light-property">Light</span><span id="carried-state">Possession</span><span>1 lb</span><button>−</button><button>+</button></div></section><section><h2>Spells</h2><div role="row"><h3 id="light-spell">Light</h3></div></section><div role="row"><h3 id="species-feature">Adrenaline Rush</h3></div>`);
   await loadBundle(page);
   await expect(page.locator("#carried-state .dd55-reference")).toHaveCount(1);
@@ -365,6 +433,33 @@ test("injecte les liens sans restrictions de panneau en mode diagnostic", async 
   await expect(page.locator("#light-spell")).toContainText("Lumière");
   await expect(page.locator("#light-spell [data-dd55-open='spell-lumiere']")).toHaveCount(1);
   await expect(page.locator("#species-feature [data-dd55-open='species-orc']")).toHaveCount(1);
+});
+
+test("supprime les références des cadres résumé, points de vie, sens et maîtrises", async ({ page }) => {
+  await page.setContent(`${sheetSignature}<section class="character-summary"><span>Rogue 3</span><span>Exp: 0/2700</span><span>Proficiency Bonus +2</span><button>Inspiration</button><button>Initiative</button></section><section class="health-panel"><h2>HIT POINTS</h2><span>Current</span><span>Maximum</span><button>Damage</button><button id="heal-summary">Heal</button></section><section class="senses-panel"><h2>SENSES</h2><span id="darkvision-summary">Darkvision</span></section><section class="proficiencies-panel"><h2>PROFICIENCIES & LANGUAGES</h2><span id="light-summary">Light</span></section><section><h2>Spells</h2><h3 id="real-heal-spell">Heal</h3></section>`);
+  await loadBundle(page);
+  await expect(page.locator(".character-summary .dd55-reference, .health-panel .dd55-reference, .senses-panel .dd55-reference, .proficiencies-panel .dd55-reference")).toHaveCount(0);
+  await expect(page.locator("#real-heal-spell [data-dd55-open='spell-guerison']")).toHaveCount(1);
+});
+
+test("garde les filtres avancés des monstres lisibles sur un panneau étroit", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 720 });
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='monster']").click();
+  await page.locator("[data-monster-advanced-toggle]").click();
+  const layout = await page.locator("#dd55-companion").evaluate(panel => {
+    const advanced = panel.querySelector<HTMLElement>("[data-monster-advanced]")!;
+    const bounds = panel.getBoundingClientRect();
+    const controls = [...advanced.querySelectorAll<HTMLElement>("select, input")].map(control => {
+      const rect = control.getBoundingClientRect();
+      return { left: rect.left, right: rect.right };
+    });
+    return { overflow: panel.scrollWidth - panel.clientWidth, controls, left: bounds.left, right: bounds.right };
+  });
+  expect(layout.overflow).toBeLessThanOrEqual(1);
+  expect(layout.controls.every(control => control.left >= layout.left && control.right <= layout.right + 1)).toBe(true);
 });
 
 test("filtre l’équipement et ouvre la règle de maîtrise depuis une arme", async ({ page }) => {
