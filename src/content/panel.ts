@@ -3,14 +3,18 @@ import magicItemsData from "../data/aidedd-magic-items.json";
 import { findReference, normalizeName, referenceUrl } from "../services/reference-matcher";
 import { buildMonsterRollCommand, isMonsterActionRollable, prepareRoll20Chat, resolveMonsterAction, type MonsterAttackRollMode } from "../services/roll20-monster";
 import { compendiumEntries, findCompendiumEntry, searchCompendiumResults, type CompendiumEntry, type CompendiumSearchResult, type CompendiumTable, type CompendiumType, type MonsterAction, type MonsterActionSection } from "../services/srd-compendium";
-import type { MagicItemRarity, MagicItemReference, MonsterRollMode, Preferences, Reference } from "../types";
+import type { MagicItemRarity, MagicItemReference, MonsterRollMode, Preferences, RecentReference, Reference, SpellReference, SpellSchool } from "../types";
 
-type CompendiumFilter = CompendiumType | "classes" | "origins";
+type CompendiumFilter = CompendiumType | "classes" | "origins" | "recent";
 type ExternalReference = { item: Reference | MagicItemReference; kind: "spell" | "feat" | "magic-item" };
 type ExternalSearchResult = ExternalReference & { score: number };
+type SpellSort = "name" | "level";
 type MagicItemSort = "name" | "rarity-asc" | "rarity-desc";
+type MagicItemType = "Anneau" | "Arme" | "Armure" | "Baguette" | "Bâton" | "Objet merveilleux" | "Parchemin" | "Potion" | "Sceptre";
 type MonsterRollTarget = { entry: CompendiumEntry; action: MonsterAction };
 const magicItemRarities: MagicItemRarity[] = ["Courant", "Peu courant", "Rare", "Très rare", "Légendaire", "Artefact", "Variable"];
+const magicItemTypes: MagicItemType[] = ["Anneau", "Arme", "Armure", "Baguette", "Bâton", "Objet merveilleux", "Parchemin", "Potion", "Sceptre"];
+const spellSchools: SpellSchool[] = ["Abjuration", "Divination", "Enchantement", "Évocation", "Illusion", "Invocation", "Nécromancie", "Transmutation"];
 const magicItemRarityRank = new Map(magicItemRarities.map((rarity, index) => [rarity, index]));
 const typeLabels: Record<CompendiumType, string> = { spell: "Sort", feat: "Don", rule: "Règle", class: "Classe", subclass: "Sous-classe", equipment: "Équipement", species: "Espèce", background: "Historique", "magic-item": "Objet magique", monster: "Monstre" };
 const spellClassNames = [...new Set(compendiumEntries
@@ -133,13 +137,23 @@ function renderExternalCard({ item, kind }: ExternalReference, query: string): s
   const magicItem = kind === "magic-item" ? item as MagicItemReference : undefined;
   const subtype = kind === "spell" ? item.level === 0 ? "Sort mineur" : `Sort de niveau ${item.level}` : kind === "feat" ? featCategoryLabels[item.category ?? ""] ?? "Don" : `${magicItem!.itemType} · ${magicItem!.rarity}`;
   const source = item.source ? ` · ${item.source}` : "";
-  return `<button type="button" class="dd55-entry-card dd55-external" data-external-url="${referenceUrl(kind, item)}"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${highlightText(item.nameFr, query)}</strong><small>${highlightText(`${subtype} · ${item.nameEn}${source}`, query)}</small><span>Absent du SRD · consulter sur AideDD</span></span></button>`;
+  return `<button type="button" class="dd55-entry-card dd55-external" data-external-url="${referenceUrl(kind, item)}" data-reference-kind="${kind}" data-reference-id="${escapeHtml(item.id)}"><span class="dd55-entry-icon" data-kind="external">↗</span><span class="dd55-entry-main"><strong>${highlightText(item.nameFr, query)}</strong><small>${highlightText(`${subtype} · ${item.nameEn}${source}`, query)}</small><span>Absent du SRD · consulter sur AideDD</span></span></button>`;
 }
 
 function raritySortValue(rarities: MagicItemRarity[] | undefined, direction: "asc" | "desc"): number {
   const ranks = (rarities?.length ? rarities : ["Variable" as const]).map(rarity => magicItemRarityRank.get(rarity) ?? magicItemRarities.length - 1);
   if (ranks.includes(magicItemRarities.length - 1) && ranks.length === 1) return direction === "asc" ? 999 : -999;
   return direction === "asc" ? Math.min(...ranks) : Math.max(...ranks);
+}
+
+function spellLevelValue(value: string | number | undefined): number {
+  if (value === "Mineur") return 0;
+  const level = Number(value);
+  return Number.isFinite(level) ? level : Number.POSITIVE_INFINITY;
+}
+
+function magicItemTypeFamily(value: string | undefined): MagicItemType | undefined {
+  return magicItemTypes.find(type => value === type || value?.startsWith(`${type} (`));
 }
 
 function openExternalUrl(url: string): void {
@@ -189,7 +203,7 @@ function serializeEntry(entry: CompendiumEntry): string {
     presentation ? serializeSection(presentation.heading, presentation.content) : "",
     ...(entry.tables ?? []).map(serializeTable),
     ...articleSections.map(section => serializeEntrySection(entry, section.heading, section.content)),
-    `Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0`
+    entry.source ? `Source : ${entry.source.label}${entry.source.url ? ` — ${entry.source.url}` : ""}` : `Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0`
   ];
   return blocks.filter(block => block.trim()).join("\n\n");
 }
@@ -354,6 +368,10 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let currentQuery = "";
   let activeSpellClass = "";
   let activeSpellLevel = "";
+  let activeSpellSchool: "" | SpellSchool = "";
+  let activeSpellRitual: "" | "yes" | "no" = "";
+  let activeSpellConcentration: "" | "yes" | "no" = "";
+  let activeSpellSort: SpellSort = "name";
   let activeEquipmentType = "";
   let activeWeaponMastery = "";
   let activeOriginKind: "" | "species" | "background" = "";
@@ -362,6 +380,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let activeFeatCategory = "";
   let activeFeatSource = "";
   const activeMagicItemRarities = new Set<MagicItemRarity>();
+  let activeMagicItemType: "" | MagicItemType = "";
   let activeMagicItemSort: MagicItemSort = "name";
   let activeMonsterType = "";
   let activeMonsterFpMin = "";
@@ -375,8 +394,14 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   let activeMonsterCaMax = "";
   let activeMonsterHpMin = "";
   let activeMonsterHpMax = "";
+  let recentReferences: RecentReference[] = (currentPreferences.recentReferences ?? []).filter((reference): reference is RecentReference =>
+    reference?.kind === "local" && typeof reference.entryId === "string"
+      || reference?.kind === "external" && ["spell", "feat", "magic-item"].includes(reference.referenceKind) && typeof reference.referenceId === "string"
+  ).slice(0, 10);
   let displayLimit = 80;
   let listRendered = false;
+  let listScrollBeforeDetail = 0;
+  let displayLimitBeforeDetail = 80;
   let viewBeforeSettings: "home" | "detail" = "home";
   let scrollBeforeSettings = 0;
   let copyTargets = new Map<string, string>();
@@ -389,7 +414,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   launcher.title = "Ouvrir le compendium · déplacer par glisser-déposer";
   launcher.hidden = currentPreferences.launcherVisible === false;
   const panel = document.createElement("aside"); panel.id = "dd55-companion"; panel.hidden = true;
-  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une origine, un sort, une arme…" aria-label="Recherche dans le compendium"><button type="button" data-clear-search aria-label="Effacer la recherche" hidden>×</button></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="">Tout <small>${totalReferenceCount}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="origins">Origines <small>${compendiumEntries.filter(e => e.type === "species" || e.type === "background").length}</small></button><button type="button" data-type="equipment">Équipement <small>${compendiumEntries.filter(e => e.type === "equipment").length}</small></button><button type="button" data-type="spell">Sorts <small>${spellReferenceCount}</small></button><button type="button" data-type="feat">Dons <small>${featReferenceCount}</small></button></nav><div class="dd55-spell-filters" data-rule-filters hidden><div><span>Filtrer les règles</span><button type="button" data-clear-rule-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de règle</span><select data-rule-kind><option value="">Tous les types</option>${ruleKinds.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-class-filters hidden><div><span>Filtrer les classes</span></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de fiche</span><select data-class-kind><option value="class" selected>Classes seulement</option><option value="subclass">Sous-classes seulement</option><option value="">Classes et sous-classes</option></select></label></div></div><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-origin-filters hidden><div><span>Filtrer les origines</span><button type="button" data-clear-origin-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type d’origine</span><select data-origin-kind><option value="">Espèces et historiques</option><option value="species">Espèces seulement</option><option value="background">Historiques seulement</option></select></label></div></div><div class="dd55-spell-filters" data-equipment-filters hidden><div><span>Filtrer l’équipement</span><button type="button" data-clear-equipment-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type</span><select data-equipment-type><option value="">Tous les types</option>${equipmentTypes.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Maîtrise d’arme</span><select data-weapon-mastery><option value="">Toutes les bottes</option>${weaponMasteries.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count role="status" aria-live="polite"></span></div><div data-results class="dd55-entry-list"></div></div><section data-settings class="dd55-settings-page" hidden><div class="dd55-settings-toolbar"><button type="button" data-settings-back>← Retour</button><h2>Réglages</h2></div><div class="dd55-settings-content"><fieldset><legend>Traduction</legend><label class="dd55-switch"><span><strong>Traduire la feuille</strong><small>Traduit et enrichit la feuille D&D 2024.</small></span><input type="checkbox" data-enabled ${currentPreferences.enabled ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Conserver les noms anglais</strong><small>Affiche le nom original avec sa traduction.</small></span><input type="checkbox" data-bilingual ${currentPreferences.bilingual ? "checked" : ""}></label></fieldset><fieldset><legend>Affichage</legend><label>Thème<select data-setting-theme><option value="light">Clair</option><option value="dark">Sombre</option></select></label><label>Taille du texte<select data-setting-font-size><option value="small">Petite</option><option value="normal">Normale</option><option value="large">Grande</option></select></label><label>Densité des résultats<select data-setting-density><option value="comfortable">Confortable</option><option value="compact">Compacte</option></select></label></fieldset><fieldset><legend>Comportement</legend><label>Catégorie au démarrage<select data-default-category><option value="">Tout</option><option value="rule">Règles</option><option value="classes">Classes</option><option value="origins">Origines</option><option value="equipment">Équipement</option><option value="spell">Sorts</option><option value="feat">Dons</option></select></label><label class="dd55-switch"><span><strong>Ouvrir en grand</strong><small>Agrandit automatiquement le compendium à son ouverture.</small></span><input type="checkbox" data-expanded-default ${currentPreferences.expandedByDefault ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Afficher le lanceur</strong><small>S’il est masqué, utilisez l’icône de l’extension pour le réafficher.</small></span><input type="checkbox" data-launcher-visible ${currentPreferences.launcherVisible !== false ? "checked" : ""}></label></fieldset><fieldset><legend>Positions</legend><p>Vous pouvez déplacer le panneau par son en-tête et le lanceur par glisser-déposer.</p><button type="button" data-reset-panel>Rétablir la position du compendium</button><button type="button" data-reset-launcher>Rétablir la position du lanceur</button></fieldset></div></section><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
+  panel.innerHTML = `<header><div><strong>Compendium D&D 5.5 FR</strong><small>SRD 5.2.1 · hors ligne</small></div><button type="button" data-close aria-label="Fermer">×</button></header><div data-home><div class="dd55-search-wrap"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 4.5 4.5"></path></svg><input data-search type="search" placeholder="Rechercher une règle, une origine, un sort, une arme…" aria-label="Recherche dans le compendium"><button type="button" data-clear-search aria-label="Effacer la recherche" hidden>×</button></div><nav class="dd55-tabs" aria-label="Catégories"><button type="button" data-type="">Tout <small>${totalReferenceCount}</small></button><button type="button" data-type="rule">Règles <small>${compendiumEntries.filter(e => e.type === "rule").length}</small></button><button type="button" data-type="classes">Classes <small>${compendiumEntries.filter(e => e.type === "class" || e.type === "subclass").length}</small></button><button type="button" data-type="origins">Origines <small>${compendiumEntries.filter(e => e.type === "species" || e.type === "background").length}</small></button><button type="button" data-type="equipment">Équipement <small>${compendiumEntries.filter(e => e.type === "equipment").length}</small></button><button type="button" data-type="spell">Sorts <small>${spellReferenceCount}</small></button><button type="button" data-type="feat">Dons <small>${featReferenceCount}</small></button></nav><div class="dd55-spell-filters" data-rule-filters hidden><div><span>Filtrer les règles</span><button type="button" data-clear-rule-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de règle</span><select data-rule-kind><option value="">Tous les types</option>${ruleKinds.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-spell-filters" data-class-filters hidden><div><span>Filtrer les classes</span></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type de fiche</span><select data-class-kind><option value="class" selected>Classes seulement</option><option value="subclass">Sous-classes seulement</option><option value="">Classes et sous-classes</option></select></label></div></div><div class="dd55-spell-filters" data-spell-filters hidden><div><span>Filtrer les sorts</span><button type="button" data-clear-spell-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-spell-basic-fields"><label><span>Classe</span><select data-spell-class><option value="">Toutes les classes</option>${spellClassNames.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Niveau</span><select data-spell-level><option value="">Tous les niveaux</option>${spellLevels.map(level => `<option value="${level}">${level === "Mineur" ? "Sort mineur" : `Niveau ${level}`}</option>`).join("")}</select></label><label><span>Tri</span><select data-spell-sort><option value="name">Nom A–Z</option><option value="level">Niveau croissant</option></select></label></div></div><div class="dd55-spell-filters" data-origin-filters hidden><div><span>Filtrer les origines</span><button type="button" data-clear-origin-filters hidden>Effacer</button></div><div class="dd55-filter-fields dd55-filter-single"><label><span>Type d’origine</span><select data-origin-kind><option value="">Espèces et historiques</option><option value="species">Espèces seulement</option><option value="background">Historiques seulement</option></select></label></div></div><div class="dd55-spell-filters" data-equipment-filters hidden><div><span>Filtrer l’équipement</span><button type="button" data-clear-equipment-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type</span><select data-equipment-type><option value="">Tous les types</option>${equipmentTypes.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label><label><span>Maîtrise d’arme</span><select data-weapon-mastery><option value="">Toutes les bottes</option>${weaponMasteries.map(name => `<option value="${escapeHtml(name)}">${escapeHtml(name)}</option>`).join("")}</select></label></div></div><div class="dd55-result-heading"><strong data-result-title>Tout le compendium</strong><span data-result-count role="status" aria-live="polite"></span></div><div data-results class="dd55-entry-list"></div></div><section data-settings class="dd55-settings-page" hidden><div class="dd55-settings-toolbar"><button type="button" data-settings-back>← Retour</button><h2>Réglages</h2></div><div class="dd55-settings-content"><fieldset><legend>Traduction</legend><label class="dd55-switch"><span><strong>Traduire la feuille</strong><small>Traduit et enrichit la feuille D&D 2024.</small></span><input type="checkbox" data-enabled ${currentPreferences.enabled ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Conserver les noms anglais</strong><small>Affiche le nom original avec sa traduction.</small></span><input type="checkbox" data-bilingual ${currentPreferences.bilingual ? "checked" : ""}></label></fieldset><fieldset><legend>Affichage</legend><label>Thème<select data-setting-theme><option value="light">Clair</option><option value="dark">Sombre</option></select></label><label>Taille du texte<select data-setting-font-size><option value="small">Petite</option><option value="normal">Normale</option><option value="large">Grande</option></select></label><label>Densité des résultats<select data-setting-density><option value="comfortable">Confortable</option><option value="compact">Compacte</option></select></label></fieldset><fieldset><legend>Comportement</legend><label>Catégorie au démarrage<select data-default-category><option value="">Tout</option><option value="rule">Règles</option><option value="classes">Classes</option><option value="origins">Origines</option><option value="equipment">Équipement</option><option value="spell">Sorts</option><option value="feat">Dons</option></select></label><label class="dd55-switch"><span><strong>Ouvrir en grand</strong><small>Agrandit automatiquement le compendium à son ouverture.</small></span><input type="checkbox" data-expanded-default ${currentPreferences.expandedByDefault ? "checked" : ""}></label><label class="dd55-switch"><span><strong>Afficher le lanceur</strong><small>S’il est masqué, utilisez l’icône de l’extension pour le réafficher.</small></span><input type="checkbox" data-launcher-visible ${currentPreferences.launcherVisible !== false ? "checked" : ""}></label></fieldset><fieldset><legend>Positions</legend><p>Vous pouvez déplacer le panneau par son en-tête et le lanceur par glisser-déposer.</p><button type="button" data-reset-panel>Rétablir la position du compendium</button><button type="button" data-reset-launcher>Rétablir la position du lanceur</button></fieldset></div></section><article data-detail hidden></article><footer>Contenu local issu du SRD 5.2.1 FR · CC BY 4.0.<details><summary>Attribution et licence</summary>Cette œuvre inclut du matériel issu du System Reference Document 5.2.1 (« SRD 5.2.1 ») de Wizards of the Coast LLC, disponible sur <a href="https://www.dndbeyond.com/srd" target="_blank" rel="noopener noreferrer">D&D Beyond</a>, sous <a href="https://creativecommons.org/licenses/by/4.0/legalcode.fr" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</details></footer>`;
   panel.querySelector<HTMLInputElement>("[data-expanded-default]")!.closest("label")!.insertAdjacentHTML("afterend", `<label>Mode des jets d’attaque<select data-monster-roll-mode><option value="two">Toujours lancer deux dés</option><option value="single">Lancer un seul dé</option><option value="ask">Demander à chaque jet</option></select></label><label class="dd55-switch"><span><strong>Lancer automatiquement les jets</strong><small>Envoie immédiatement la carte privée au MJ quand le chat Roll20 est disponible et vide.</small></span><input type="checkbox" data-auto-roll-monsters ${currentPreferences.autoRollMonsterActions ? "checked" : ""}></label>`);
   panel.querySelector<HTMLSelectElement>("[data-monster-roll-mode]")!.value = currentPreferences.monsterRollMode ?? "two";
   panel.querySelector(".dd55-tabs")!.insertAdjacentHTML("beforeend", `<button type="button" data-type="magic-item">Objets magiques <small>${magicItemReferenceCount}</small></button>`);
@@ -404,14 +429,28 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     label.after(document.createTextNode(" "));
   });
   panel.querySelector<HTMLElement>("[data-spell-filters]")!.insertAdjacentHTML("afterend", `<div class="dd55-spell-filters" data-feat-filters hidden><div><span>Filtrer les dons</span><button type="button" data-clear-feat-filters hidden>Effacer</button></div><div class="dd55-filter-fields"><label><span>Type de don</span><select data-feat-category><option value="">Tous les types</option>${featCategories.map(category => `<option value="${escapeHtml(category)}">${escapeHtml(featCategoryLabels[category])}</option>`).join("")}</select></label><label><span>Source</span><select data-feat-source><option value="">Toutes les sources</option>${featSources.map(source => `<option value="${escapeHtml(source)}">${escapeHtml(source)}</option>`).join("")}</select></label></div></div>`);
-  panel.querySelector("[data-result-title]")!.parentElement!.insertAdjacentHTML("beforebegin", `<div class="dd55-spell-filters dd55-magic-item-filters" data-magic-item-filters hidden><div><span>Filtrer les objets magiques</span><button type="button" data-clear-magic-item-filters hidden>Effacer</button></div><div class="dd55-rarity-chips" aria-label="Raretés">${magicItemRarities.map(rarity => `<button type="button" data-magic-rarity="${rarity}" aria-pressed="false">${rarity}</button>`).join("")}</div><div class="dd55-filter-fields dd55-filter-single"><label><span>Tri</span><select data-magic-item-sort><option value="name">Nom A–Z</option><option value="rarity-asc">Rareté croissante</option><option value="rarity-desc">Rareté décroissante</option></select></label></div></div>`);
+  panel.querySelector<HTMLElement>("[data-spell-filters]")!.insertAdjacentHTML("beforeend", `<button type="button" class="dd55-advanced-toggle" data-spell-advanced-toggle aria-expanded="false"><span>Filtres avancés</span><small data-spell-advanced-count hidden></small><b aria-hidden="true">⌄</b></button><div class="dd55-monster-advanced" data-spell-advanced hidden><div class="dd55-filter-fields dd55-spell-advanced-fields"><label><span>École</span><select data-spell-school><option value="">Toutes les écoles</option>${spellSchools.map(school => `<option value="${school}">${school}</option>`).join("")}</select></label><label><span>Rituel</span><select data-spell-ritual><option value="">Tous</option><option value="yes">Oui seulement</option><option value="no">Non seulement</option></select></label><label><span>Concentration</span><select data-spell-concentration><option value="">Tous</option><option value="yes">Oui seulement</option><option value="no">Non seulement</option></select></label></div></div>`);
+  panel.querySelector("[data-result-title]")!.parentElement!.insertAdjacentHTML("beforebegin", `<div class="dd55-spell-filters dd55-magic-item-filters" data-magic-item-filters hidden><div><span>Filtrer les objets magiques</span><button type="button" data-clear-magic-item-filters hidden>Effacer</button></div><div class="dd55-rarity-chips" aria-label="Raretés">${magicItemRarities.map(rarity => `<button type="button" data-magic-rarity="${rarity}" aria-pressed="false">${rarity}</button>`).join("")}</div><div class="dd55-filter-fields"><label><span>Type d’objet</span><select data-magic-item-type><option value="">Tous les types</option>${magicItemTypes.map(type => `<option value="${escapeHtml(type)}">${escapeHtml(type)}</option>`).join("")}</select></label><label><span>Tri</span><select data-magic-item-sort><option value="name">Nom A–Z</option><option value="rarity-asc">Rareté croissante</option><option value="rarity-desc">Rareté décroissante</option></select></label></div></div>`);
   panel.querySelector("[data-result-title]")!.parentElement!.insertAdjacentHTML("beforebegin", `<div class="dd55-spell-filters dd55-monster-filters" data-monster-filters hidden><div><span>Filtrer les monstres</span><button type="button" data-clear-monster-filters hidden>Tout effacer</button></div><div class="dd55-monster-basic"><label><span>Type</span><select data-monster-type><option value="">Tous les types</option>${monsterTypes.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}</select></label><label><span>FP min</span><select data-monster-fp-min><option value="">Minimum</option>${monsterChallengeRatings.map(value => `<option value="${value}">${value}</option>`).join("")}</select></label><label><span>FP max</span><select data-monster-fp-max><option value="">Maximum</option>${monsterChallengeRatings.map(value => `<option value="${value}">${value}</option>`).join("")}</select></label></div><button type="button" class="dd55-advanced-toggle" data-monster-advanced-toggle aria-expanded="false"><span>Filtres avancés</span><small data-monster-advanced-count hidden></small><b aria-hidden="true">⌄</b></button><div class="dd55-monster-advanced" data-monster-advanced hidden><div class="dd55-filter-fields"><label><span>Taille</span><select data-monster-size><option value="">Toutes</option>${monsterSizes.map(value => `<option value="${value}">${value}</option>`).join("")}</select></label><label><span>Catégorie</span><select data-monster-category><option value="">Toutes</option><option value="Monstres de A à Z">Monstres de A à Z</option><option value="Animaux">Animaux</option></select></label><label><span>Alignement</span><select data-monster-alignment><option value="">Tous</option>${monsterAlignments.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}</select></label><label><span>Déplacement</span><select data-monster-movement><option value="">Tous</option>${monsterMovementModes.map(value => `<option value="${value}">${value}</option>`).join("")}</select></label><label><span>Légendaire</span><select data-monster-legendary><option value="">Tous</option><option value="yes">Oui seulement</option><option value="no">Non seulement</option></select></label></div><div class="dd55-monster-ranges"><fieldset><legend>Classe d’armure</legend><input type="number" min="0" inputmode="numeric" placeholder="Min" aria-label="CA minimale" data-monster-ca-min><span>à</span><input type="number" min="0" inputmode="numeric" placeholder="Max" aria-label="CA maximale" data-monster-ca-max></fieldset><fieldset><legend>Points de vie</legend><input type="number" min="0" inputmode="numeric" placeholder="Min" aria-label="Points de vie minimaux" data-monster-hp-min><span>à</span><input type="number" min="0" inputmode="numeric" placeholder="Max" aria-label="Points de vie maximaux" data-monster-hp-max></fieldset></div></div></div>`);
   panel.querySelector<HTMLInputElement>("[data-search]")!.placeholder = "Rechercher une règle, un sort, un objet, un monstre…";
   panel.querySelector<HTMLSelectElement>("[data-default-category]")!.insertAdjacentHTML("beforeend", `<option value="magic-item">Objets magiques</option>`);
   panel.querySelector<HTMLSelectElement>("[data-default-category]")!.insertAdjacentHTML("beforeend", `<option value="monster">Monstres</option>`);
+  panel.querySelector<HTMLSelectElement>("[data-default-category]")!.insertAdjacentHTML("beforeend", `<option value="recent">Récents</option>`);
+  panel.querySelector<HTMLElement>("[data-result-title]")!.parentElement!.insertAdjacentHTML("beforeend", `<button type="button" class="dd55-clear-recents" data-clear-recents hidden>Effacer l’historique</button>`);
+  ["rule", "class", "spell", "origin", "equipment", "feat", "magic-item", "monster"].forEach(name => {
+    const heading = panel.querySelector<HTMLElement>(`[data-${name}-filters] > div:first-child > span`);
+    heading?.insertAdjacentHTML("beforeend", ` <small class="dd55-filter-count" data-${name}-filter-count hidden></small>`);
+  });
   const closeButton = panel.querySelector<HTMLButtonElement>("[data-close]")!;
   const headerActions = document.createElement("div");
   headerActions.className = "dd55-header-actions";
+  const recentButton = document.createElement("button");
+  recentButton.type = "button";
+  recentButton.dataset.recentOpen = "";
+  recentButton.setAttribute("aria-label", `Ouvrir les références récentes (${recentReferences.length})`);
+  recentButton.setAttribute("aria-pressed", String(activeType === "recent"));
+  recentButton.title = "Références récentes";
+  recentButton.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span class="dd55-header-badge" data-recent-count ${recentReferences.length ? "" : "hidden"}>${recentReferences.length}</span>`;
   const settingsButton = document.createElement("button");
   settingsButton.type = "button";
   settingsButton.dataset.settingsOpen = "";
@@ -426,7 +465,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   expandButton.title = "Agrandir le compendium";
   expandButton.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg>`;
   closeButton.innerHTML = `<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg>`;
-  headerActions.append(settingsButton, expandButton, closeButton);
+  headerActions.append(recentButton, settingsButton, expandButton, closeButton);
   panel.querySelector("header")!.append(headerActions);
   document.body.append(launcher, panel);
 
@@ -560,10 +599,18 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   const results = panel.querySelector<HTMLElement>("[data-results]")!;
   const detail = panel.querySelector<HTMLElement>("[data-detail]")!;
   const search = panel.querySelector<HTMLInputElement>("[data-search]")!;
+  search.setAttribute("aria-keyshortcuts", "Control+K Meta+K");
   const clearSearch = panel.querySelector<HTMLButtonElement>("[data-clear-search]")!;
   const spellFilters = panel.querySelector<HTMLElement>("[data-spell-filters]")!;
   const spellClass = panel.querySelector<HTMLSelectElement>("[data-spell-class]")!;
   const spellLevel = panel.querySelector<HTMLSelectElement>("[data-spell-level]")!;
+  const spellSort = panel.querySelector<HTMLSelectElement>("[data-spell-sort]")!;
+  const spellSchool = panel.querySelector<HTMLSelectElement>("[data-spell-school]")!;
+  const spellRitual = panel.querySelector<HTMLSelectElement>("[data-spell-ritual]")!;
+  const spellConcentration = panel.querySelector<HTMLSelectElement>("[data-spell-concentration]")!;
+  const spellAdvanced = panel.querySelector<HTMLElement>("[data-spell-advanced]")!;
+  const spellAdvancedToggle = panel.querySelector<HTMLButtonElement>("[data-spell-advanced-toggle]")!;
+  const spellAdvancedCount = panel.querySelector<HTMLElement>("[data-spell-advanced-count]")!;
   const clearSpellFilters = panel.querySelector<HTMLButtonElement>("[data-clear-spell-filters]")!;
   const originFilters = panel.querySelector<HTMLElement>("[data-origin-filters]")!;
   const originKind = panel.querySelector<HTMLSelectElement>("[data-origin-kind]")!;
@@ -582,6 +629,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   const classFilters = panel.querySelector<HTMLElement>("[data-class-filters]")!;
   const classKind = panel.querySelector<HTMLSelectElement>("[data-class-kind]")!;
   const magicItemFilters = panel.querySelector<HTMLElement>("[data-magic-item-filters]")!;
+  const magicItemType = panel.querySelector<HTMLSelectElement>("[data-magic-item-type]")!;
   const magicItemSort = panel.querySelector<HTMLSelectElement>("[data-magic-item-sort]")!;
   const clearMagicItemFilters = panel.querySelector<HTMLButtonElement>("[data-clear-magic-item-filters]")!;
   const monsterFilters = panel.querySelector<HTMLElement>("[data-monster-filters]")!;
@@ -601,6 +649,8 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   const monsterAdvancedToggle = panel.querySelector<HTMLButtonElement>("[data-monster-advanced-toggle]")!;
   const monsterAdvancedCount = panel.querySelector<HTMLElement>("[data-monster-advanced-count]")!;
   const clearMonsterFilters = panel.querySelector<HTMLButtonElement>("[data-clear-monster-filters]")!;
+  const clearRecents = panel.querySelector<HTMLButtonElement>("[data-clear-recents]")!;
+  const recentCount = panel.querySelector<HTMLElement>("[data-recent-count]")!;
 
   panel.querySelector<HTMLSelectElement>("[data-setting-theme]")!.value = currentPreferences.theme ?? "light";
   panel.querySelector<HTMLSelectElement>("[data-setting-font-size]")!.value = currentPreferences.fontSize ?? "normal";
@@ -616,6 +666,9 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     equipmentFilters.hidden = activeType !== "equipment";
     magicItemFilters.hidden = activeType !== "magic-item";
     monsterFilters.hidden = activeType !== "monster";
+    clearRecents.hidden = activeType !== "recent";
+    recentButton.classList.toggle("is-active", activeType === "recent");
+    recentButton.setAttribute("aria-pressed", String(activeType === "recent"));
     panel.querySelectorAll<HTMLButtonElement>(".dd55-tabs button").forEach(button => {
       const selected = (button.dataset.type || undefined) === activeType;
       button.classList.toggle("is-active", selected);
@@ -639,8 +692,92 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   };
   syncMonsterAdvanced(false);
 
+  const spellAdvancedFilterCount = () => [activeSpellSchool, activeSpellRitual, activeSpellConcentration].filter(Boolean).length;
+  const syncSpellAdvanced = (expanded = !spellAdvanced.hidden) => {
+    spellAdvanced.hidden = !expanded;
+    spellAdvancedToggle.setAttribute("aria-expanded", String(expanded));
+    spellAdvancedToggle.classList.toggle("is-open", expanded);
+    const count = spellAdvancedFilterCount();
+    spellAdvancedCount.hidden = count === 0;
+    spellAdvancedCount.textContent = count ? String(count) : "";
+  };
+  syncSpellAdvanced(false);
+
+  const setFilterCount = (name: string, count: number) => {
+    const badge = panel.querySelector<HTMLElement>(`[data-${name}-filter-count]`);
+    if (!badge) return;
+    badge.hidden = count === 0;
+    badge.textContent = count ? String(count) : "";
+  };
+  const syncFilterCounts = () => {
+    setFilterCount("rule", Number(Boolean(activeRuleKind)));
+    setFilterCount("class", Number(Boolean(activeClassKind)));
+    setFilterCount("spell", Number(Boolean(activeSpellClass)) + Number(Boolean(activeSpellLevel)) + spellAdvancedFilterCount());
+    setFilterCount("origin", Number(Boolean(activeOriginKind)));
+    setFilterCount("equipment", Number(Boolean(activeEquipmentType)) + Number(Boolean(activeWeaponMastery)));
+    setFilterCount("feat", Number(Boolean(activeFeatCategory)) + Number(Boolean(activeFeatSource)));
+    setFilterCount("magic-item", Number(Boolean(activeMagicItemType)) + activeMagicItemRarities.size);
+    setFilterCount("monster", Number(Boolean(activeMonsterType)) + Number(Boolean(activeMonsterFpMin)) + Number(Boolean(activeMonsterFpMax)) + monsterAdvancedFilterCount());
+  };
+
+  const recentKey = (reference: RecentReference) => reference.kind === "local"
+    ? `local:${reference.entryId}`
+    : `${reference.referenceKind}:${reference.referenceId}`;
+  const persistRecents = (next: RecentReference[]) => {
+    recentReferences = next.slice(0, 10);
+    recentCount.textContent = String(recentReferences.length);
+    recentCount.hidden = recentReferences.length === 0;
+    recentButton.setAttribute("aria-label", `Ouvrir les références récentes (${recentReferences.length})`);
+    currentPreferences = { ...currentPreferences, recentReferences };
+    onLauncherChange?.({ recentReferences });
+  };
+  const addRecent = (reference: RecentReference) => {
+    const key = recentKey(reference);
+    persistRecents([reference, ...recentReferences.filter(item => recentKey(item) !== key)]);
+  };
+  const resolveRecent = (reference: RecentReference): { local?: CompendiumEntry; external?: ExternalReference } | undefined => {
+    if (reference.kind === "local") {
+      const local = compendiumEntries.find(entry => entry.id === reference.entryId);
+      return local ? { local } : undefined;
+    }
+    const external = externalReferenceCatalog.find(item => item.kind === reference.referenceKind && item.item.id === reference.referenceId);
+    return external ? { external } : undefined;
+  };
+
+  const spellEntryMetadata = (entry: CompendiumEntry) => ({
+    school: entry.meta["École"] as SpellSchool | undefined,
+    ritual: /rituel/i.test(entry.meta.Incantation ?? ""),
+    concentration: /concentration/i.test(entry.meta["Durée"] ?? "")
+  });
+  const matchesBooleanFilter = (value: boolean, filter: "" | "yes" | "no") => !filter || value === (filter === "yes");
+
   const renderList = () => {
     listRendered = true;
+    syncFilterCounts();
+    syncSpellAdvanced();
+    if (activeType === "recent") {
+      const resolved = recentReferences.map(reference => ({ reference, value: resolveRecent(reference) })).filter(item => item.value);
+      if (resolved.length !== recentReferences.length) persistRecents(resolved.map(item => item.reference));
+      const normalizedQuery = normalizeName(currentQuery);
+      const cards = resolved.flatMap(({ value }) => {
+        if (value?.local) {
+          const entry = value.local;
+          const searchable = normalizeName(`${entry.title} ${entry.subtitle} ${entry.tags.join(" ")}`);
+          return normalizedQuery && !searchable.includes(normalizedQuery) ? [] : [renderEntryCard({ entry, score: 0, matchedFields: [], excerpt: "" }, currentQuery)];
+        }
+        if (value?.external) {
+          const { item } = value.external;
+          const searchable = normalizeName(`${item.nameFr} ${item.nameEn} ${(item.aliases ?? []).join(" ")}`);
+          return normalizedQuery && !searchable.includes(normalizedQuery) ? [] : [renderExternalCard(value.external, currentQuery)];
+        }
+        return [];
+      });
+      panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Récents pour « ${currentQuery} »` : "Consultés récemment";
+      panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${cards.length} référence${cards.length > 1 ? "s" : ""}`;
+      clearSearch.hidden = !currentQuery;
+      results.innerHTML = cards.join("") || `<div class="dd55-empty"><strong>${recentReferences.length ? "Aucune fiche trouvée" : "Aucune fiche consultée"}</strong><p>${currentQuery ? `Aucun élément récent ne correspond à « ${escapeHtml(currentQuery)} ».` : "Les fiches locales et AideDD que vous ouvrez apparaîtront ici."}</p><div>${currentQuery ? `<button type="button" data-empty-clear-search>Effacer la recherche</button>` : ""}</div></div>`;
+      return;
+    }
     let matchingResults = activeType === "classes"
       ? (activeClassKind
         ? searchCompendiumResults(currentQuery, activeClassKind, 1000)
@@ -650,7 +787,10 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
         : searchCompendiumResults(currentQuery, activeType, 1000);
     if (activeType === "spell") matchingResults = matchingResults.filter(({ entry }) =>
       (!activeSpellClass || entry.tags.includes(activeSpellClass)) &&
-      (!activeSpellLevel || entry.meta.Niveau === activeSpellLevel)
+      (!activeSpellLevel || entry.meta.Niveau === activeSpellLevel) &&
+      (!activeSpellSchool || spellEntryMetadata(entry).school === activeSpellSchool) &&
+      matchesBooleanFilter(spellEntryMetadata(entry).ritual, activeSpellRitual) &&
+      matchesBooleanFilter(spellEntryMetadata(entry).concentration, activeSpellConcentration)
     );
     if (activeType === "equipment") matchingResults = matchingResults.filter(({ entry }) =>
       (!activeEquipmentType || entry.meta["Type d’équipement"] === activeEquipmentType) &&
@@ -664,8 +804,9 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
         (!activeFeatCategory || reference.category === activeFeatCategory) &&
         (!activeFeatSource || reference.source === activeFeatSource));
     });
-    if (activeType === "magic-item" && activeMagicItemRarities.size) matchingResults = matchingResults.filter(({ entry }) =>
-      (entry.rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity))
+    if (activeType === "magic-item" && (activeMagicItemType || activeMagicItemRarities.size)) matchingResults = matchingResults.filter(({ entry }) =>
+      (!activeMagicItemType || magicItemTypeFamily(entry.meta["Type d’objet"] ?? entry.itemType) === activeMagicItemType) &&
+      (!activeMagicItemRarities.size || (entry.rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity)))
     );
     if (activeType === "monster") matchingResults = matchingResults.filter(({ entry }) => {
       const monster = entry.monster;
@@ -690,28 +831,37 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
       const wantedLevel = activeSpellLevel === "Mineur" ? 0 : Number(activeSpellLevel);
       externalMatches = externalMatches.filter(({ item }) => item.level === wantedLevel);
     }
+    if (activeType === "spell" && (activeSpellSchool || activeSpellRitual || activeSpellConcentration)) externalMatches = externalMatches.filter(({ item }) => {
+      const spell = item as SpellReference;
+      return (!activeSpellSchool || spell.school === activeSpellSchool)
+        && matchesBooleanFilter(spell.ritual, activeSpellRitual)
+        && matchesBooleanFilter(spell.concentration, activeSpellConcentration);
+    });
     if (activeType === "feat" && (activeFeatCategory || activeFeatSource)) externalMatches = externalMatches.filter(({ item }) =>
       (!activeFeatCategory || item.category === activeFeatCategory) &&
       (!activeFeatSource || item.source === activeFeatSource)
     );
-    if (activeType === "magic-item" && activeMagicItemRarities.size) externalMatches = externalMatches.filter(({ item }) =>
-      ((item as MagicItemReference).rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity))
-    );
+    if (activeType === "magic-item" && (activeMagicItemType || activeMagicItemRarities.size)) externalMatches = externalMatches.filter(({ item }) => {
+      const magicItem = item as MagicItemReference;
+      return (!activeMagicItemType || magicItemTypeFamily(magicItem.itemType) === activeMagicItemType) &&
+        (!activeMagicItemRarities.size || (magicItem.rarities ?? []).some(rarity => activeMagicItemRarities.has(rarity)));
+    });
     const resultCount = matchingResults.length + externalMatches.length;
-    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? activeClassKind === "class" ? "Classes du SRD" : activeClassKind === "subclass" ? "Sous-classes du SRD" : "Classes et sous-classes" : activeType === "origins" ? "Espèces et historiques" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType === "equipment" ? "Équipement du SRD" : activeType === "magic-item" ? "Objets magiques" : activeType === "monster" ? "Monstres du DRS" : activeType ? `${typeLabels[activeType]}s du SRD` : "Tout le compendium";
+    panel.querySelector<HTMLElement>("[data-result-title]")!.textContent = currentQuery ? `Résultats pour « ${currentQuery} »` : activeType === "classes" ? activeClassKind === "class" ? "Classes du SRD" : activeClassKind === "subclass" ? "Sous-classes du SRD" : "Classes et sous-classes" : activeType === "origins" ? "Espèces et historiques" : activeType === "feat" ? "Dons du compendium" : activeType === "spell" ? "Sorts du compendium" : activeType === "equipment" ? "Équipement du SRD" : activeType === "magic-item" ? "Objets magiques" : activeType === "monster" ? "Monstres du DRS" : activeType ? `${typeLabels[activeType as CompendiumType]}s du SRD` : "Tout le compendium";
     panel.querySelector<HTMLElement>("[data-result-count]")!.textContent = `${resultCount} référence${resultCount > 1 ? "s" : ""}`;
-    clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel);
+    clearSpellFilters.hidden = !(activeSpellClass || activeSpellLevel || spellAdvancedFilterCount() || activeSpellSort !== "name");
     clearOriginFilters.hidden = !activeOriginKind;
     clearEquipmentFilters.hidden = !(activeEquipmentType || activeWeaponMastery);
     clearRuleFilters.hidden = !activeRuleKind;
     clearFeatFilters.hidden = !(activeFeatCategory || activeFeatSource);
-    clearMagicItemFilters.hidden = !activeMagicItemRarities.size && activeMagicItemSort === "name";
+    clearMagicItemFilters.hidden = !activeMagicItemType && !activeMagicItemRarities.size && activeMagicItemSort === "name";
     clearMonsterFilters.hidden = !(activeMonsterType || activeMonsterFpMin || activeMonsterFpMax || monsterAdvancedFilterCount());
     syncMonsterAdvanced();
+    syncSpellAdvanced();
     clearSearch.hidden = !currentQuery;
     let cards = [
-      ...matchingResults.map(result => ({ title: result.entry.title, score: result.score, local: true, rarities: result.entry.rarities, html: renderEntryCard(result, currentQuery) })),
-      ...externalMatches.map(reference => ({ title: reference.item.nameFr, score: reference.score, local: false, rarities: reference.kind === "magic-item" ? (reference.item as MagicItemReference).rarities : undefined, html: renderExternalCard(reference, currentQuery) }))
+      ...matchingResults.map(result => ({ title: result.entry.title, score: result.score, local: true, rarities: result.entry.rarities, spellLevel: result.entry.type === "spell" ? spellLevelValue(result.entry.meta.Niveau) : Number.POSITIVE_INFINITY, html: renderEntryCard(result, currentQuery) })),
+      ...externalMatches.map(reference => ({ title: reference.item.nameFr, score: reference.score, local: false, rarities: reference.kind === "magic-item" ? (reference.item as MagicItemReference).rarities : undefined, spellLevel: reference.kind === "spell" ? spellLevelValue(reference.item.level) : Number.POSITIVE_INFINITY, html: renderExternalCard(reference, currentQuery) }))
     ];
     if (activeType === "magic-item") cards.sort((a, b) => {
       if (activeMagicItemSort === "name") return a.title.localeCompare(b.title, "fr");
@@ -720,17 +870,35 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
       const right = raritySortValue(b.rarities, direction);
       return (direction === "asc" ? left - right : right - left) || a.title.localeCompare(b.title, "fr");
     });
+    else if (activeType === "spell") cards.sort((a, b) => (activeSpellSort === "level" ? a.spellLevel - b.spellLevel : 0) || a.title.localeCompare(b.title, "fr"));
     else if (currentQuery) cards.sort((a, b) => b.score - a.score || Number(b.local) - Number(a.local) || a.title.localeCompare(b.title, "fr"));
-    else if (activeType === "feat" || activeType === "spell" || activeType === "monster") cards.sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    else if (activeType === "feat" || activeType === "monster") cards.sort((a, b) => a.title.localeCompare(b.title, "fr"));
     const maximum = displayLimit;
     const remaining = Math.max(0, cards.length - maximum);
     cards = cards.slice(0, maximum);
-    const hasFilters = Boolean(activeSpellClass || activeSpellLevel || activeEquipmentType || activeWeaponMastery || activeOriginKind || activeRuleKind || activeFeatCategory || activeFeatSource || activeMagicItemRarities.size || activeMagicItemSort !== "name" || activeMonsterType || activeMonsterFpMin || activeMonsterFpMax || monsterAdvancedFilterCount() || (activeType === "classes" && activeClassKind !== ""));
+    const hasFilters = Boolean(activeSpellClass || activeSpellLevel || spellAdvancedFilterCount() || activeEquipmentType || activeWeaponMastery || activeOriginKind || activeRuleKind || activeFeatCategory || activeFeatSource || activeMagicItemType || activeMagicItemRarities.size || activeMagicItemSort !== "name" || activeMonsterType || activeMonsterFpMin || activeMonsterFpMax || monsterAdvancedFilterCount() || (activeType === "classes" && activeClassKind !== ""));
     results.innerHTML = cards.map(card => card.html).join("") || `<div class="dd55-empty"><strong>Aucune fiche trouvée</strong><p>${currentQuery ? `Aucun résultat pour « ${escapeHtml(currentQuery)} »${hasFilters ? " avec les filtres actifs" : ""}.` : "Aucune référence ne correspond aux filtres actifs."}</p><div>${currentQuery ? `<button type="button" data-empty-clear-search>Effacer la recherche</button>` : ""}${hasFilters ? `<button type="button" data-empty-reset-filters>Réinitialiser les filtres</button>` : ""}</div></div>`;
     if (remaining) results.insertAdjacentHTML("beforeend", `<button type="button" class="dd55-load-more" data-load-more>Afficher ${Math.min(80, remaining)} références de plus <small>${remaining} restantes</small></button>`);
   };
 
+  const returnToList = (focusSearch = false) => {
+    detail.hidden = true;
+    settings.hidden = true;
+    home.hidden = false;
+    displayLimit = displayLimitBeforeDetail;
+    renderList();
+    window.requestAnimationFrame(() => {
+      panel.scrollTop = listScrollBeforeDetail;
+      if (focusSearch) { search.focus(); search.select(); }
+    });
+  };
+
   const showEntry = (entry: CompendiumEntry) => {
+    if (!home.hidden) {
+      listScrollBeforeDetail = panel.scrollTop;
+      displayLimitBeforeDetail = displayLimit;
+    }
+    addRecent({ kind: "local", entryId: entry.id });
     home.hidden = true; settings.hidden = true; detail.hidden = false;
     const monsterPrimaryKeys = new Set(["Type", "Taille", "Alignement", "CA", "Initiative", "Points de vie", "Vitesse", "FP"]);
     const metadata = Object.entries(entry.meta).filter(([label, value]) => value && (!entry.monster || !monsterPrimaryKeys.has(label))).map(([label, value]) => `<div class="${value.length > 85 ? "is-wide" : ""}"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join("");
@@ -764,7 +932,11 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
       return `<section class="dd55-copyable-section"><div class="dd55-article-heading">${section.heading ? `<h3>${escapeHtml(section.heading)}</h3>` : "<span></span>"}${renderCopyButton(target, `Copier ${section.heading ? `la section ${section.heading}` : "ce bloc"}`)}</div>${monsterSection ?? renderSectionContent(entry, section.content)}</section>`;
     }).join("");
     const related = compendiumEntries.filter(candidate => candidate.id !== entry.id && candidate.type === entry.type && candidate.tags.some(tag => entry.tags.includes(tag))).slice(0, 6);
-    detail.innerHTML = `<div class="dd55-detail-toolbar"><button type="button" data-back>← Compendium</button><div><span>Page SRD ${entry.page}</span>${renderCopyButton("all", "Copier toute la fiche")}</div></div><p class="dd55-copy-status" data-copy-status role="status" aria-live="polite"></p><div class="dd55-detail-hero" data-kind="${entry.type}"><span>${typeLabels[entry.type]}</span><h2>${escapeHtml(entry.title)}</h2><p>${escapeHtml(entry.subtitle)}</p></div>${monsterBlock}${metadata ? `<dl class="dd55-meta-grid">${metadata}</dl>` : ""}${entryLinks}${presentation}${tables}<div class="dd55-article">${sections}</div>${related.length ? `<aside class="dd55-related"><h3>À découvrir aussi</h3>${related.map(item => `<button type="button" data-entry-id="${item.id}">${escapeHtml(item.title)}<span>›</span></button>`).join("")}</aside>` : ""}<p class="dd55-source">Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0</p>`;
+    const toolbarSource = entry.source?.pageLabel ?? `Page SRD ${entry.page}`;
+    const sourceHtml = entry.source
+      ? `Source : ${entry.source.url ? `<a href="${escapeHtml(entry.source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(entry.source.label)}</a>` : escapeHtml(entry.source.label)}`
+      : `Source : SRD 5.2.1 FR, page ${entry.page} · CC BY 4.0`;
+    detail.innerHTML = `<div class="dd55-detail-toolbar"><button type="button" data-back>← Compendium</button><div><span>${escapeHtml(toolbarSource)}</span>${renderCopyButton("all", "Copier toute la fiche")}</div></div><p class="dd55-copy-status" data-copy-status role="status" aria-live="polite"></p><div class="dd55-detail-hero" data-kind="${entry.type}"><span>${typeLabels[entry.type]}</span><h2>${escapeHtml(entry.title)}</h2><p>${escapeHtml(entry.subtitle)}</p></div>${monsterBlock}${metadata ? `<dl class="dd55-meta-grid">${metadata}</dl>` : ""}${entryLinks}${presentation}${tables}<div class="dd55-article">${sections}</div>${related.length ? `<aside class="dd55-related"><h3>À découvrir aussi</h3>${related.map(item => `<button type="button" data-entry-id="${item.id}">${escapeHtml(item.title)}<span>›</span></button>`).join("")}</aside>` : ""}<p class="dd55-source">${sourceHtml}</p>`;
     panel.scrollTop = 0;
   };
 
@@ -777,13 +949,14 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   };
 
   const resetFilters = () => {
-    activeSpellClass = ""; activeSpellLevel = ""; spellClass.value = ""; spellLevel.value = "";
+    activeSpellClass = ""; activeSpellLevel = ""; activeSpellSchool = ""; activeSpellRitual = ""; activeSpellConcentration = ""; activeSpellSort = "name";
+    spellClass.value = ""; spellLevel.value = ""; spellSchool.value = ""; spellRitual.value = ""; spellConcentration.value = ""; spellSort.value = "name"; syncSpellAdvanced(false);
     activeOriginKind = ""; originKind.value = "";
     activeEquipmentType = ""; activeWeaponMastery = ""; equipmentType.value = ""; weaponMastery.value = "";
     activeRuleKind = ""; ruleKind.value = "";
     activeFeatCategory = ""; activeFeatSource = ""; featCategory.value = ""; featSource.value = "";
     activeClassKind = ""; classKind.value = "";
-    activeMagicItemRarities.clear(); activeMagicItemSort = "name"; magicItemSort.value = "name";
+    activeMagicItemRarities.clear(); activeMagicItemType = ""; magicItemType.value = ""; activeMagicItemSort = "name"; magicItemSort.value = "name";
     magicItemFilters.querySelectorAll<HTMLButtonElement>("[data-magic-rarity]").forEach(button => { button.classList.remove("is-active"); button.setAttribute("aria-pressed", "false"); });
     resetMonsterFilters();
     displayLimit = 80;
@@ -804,6 +977,9 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     if (external?.dataset.externalUrl) {
       event.preventDefault();
       event.stopPropagation();
+      const referenceKind = external.dataset.referenceKind as "spell" | "feat" | "magic-item" | undefined;
+      const referenceId = external.dataset.referenceId;
+      if (referenceKind && referenceId) addRecent({ kind: "external", referenceKind, referenceId });
       openExternalUrl(external.dataset.externalUrl);
       return;
     }
@@ -871,7 +1047,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
       return;
     }
     const back = (event.target as Element).closest("[data-back]");
-    if (back) { detail.hidden = true; home.hidden = false; panel.scrollTop = 0; return; }
+    if (back) { returnToList(); return; }
     const target = (event.target as Element).closest<HTMLElement>("[data-entry-id]");
     const entry = target && compendiumEntries.find(item => item.id === target.dataset.entryId);
     if (entry) showEntry(entry);
@@ -881,13 +1057,33 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     if (!button) return;
     activeType = (button.dataset.type || undefined) as CompendiumFilter | undefined;
     if (activeType === "monster") syncMonsterAdvanced(false);
+    if (activeType === "spell") syncSpellAdvanced(false);
     displayLimit = 80;
+    syncCategory();
+    renderList();
+  });
+  recentButton.addEventListener("click", () => {
+    activeType = "recent";
+    displayLimit = 80;
+    home.hidden = false;
+    settings.hidden = true;
+    detail.hidden = true;
+    panel.scrollTop = 0;
     syncCategory();
     renderList();
   });
   spellClass.addEventListener("change", () => { activeSpellClass = spellClass.value; displayLimit = 80; renderList(); });
   spellLevel.addEventListener("change", () => { activeSpellLevel = spellLevel.value; displayLimit = 80; renderList(); });
-  clearSpellFilters.addEventListener("click", () => { activeSpellClass = ""; activeSpellLevel = ""; spellClass.value = ""; spellLevel.value = ""; displayLimit = 80; renderList(); });
+  spellSort.addEventListener("change", () => { activeSpellSort = spellSort.value as SpellSort; displayLimit = 80; renderList(); });
+  spellSchool.addEventListener("change", () => { activeSpellSchool = spellSchool.value as "" | SpellSchool; displayLimit = 80; renderList(); });
+  spellRitual.addEventListener("change", () => { activeSpellRitual = spellRitual.value as "" | "yes" | "no"; displayLimit = 80; renderList(); });
+  spellConcentration.addEventListener("change", () => { activeSpellConcentration = spellConcentration.value as "" | "yes" | "no"; displayLimit = 80; renderList(); });
+  spellAdvancedToggle.addEventListener("click", () => syncSpellAdvanced(spellAdvanced.hidden));
+  clearSpellFilters.addEventListener("click", () => {
+    activeSpellClass = ""; activeSpellLevel = ""; activeSpellSchool = ""; activeSpellRitual = ""; activeSpellConcentration = ""; activeSpellSort = "name";
+    spellClass.value = ""; spellLevel.value = ""; spellSchool.value = ""; spellRitual.value = ""; spellConcentration.value = ""; spellSort.value = "name";
+    syncSpellAdvanced(false); displayLimit = 80; renderList();
+  });
   originKind.addEventListener("change", () => { activeOriginKind = originKind.value as typeof activeOriginKind; displayLimit = 80; renderList(); });
   clearOriginFilters.addEventListener("click", () => { activeOriginKind = ""; originKind.value = ""; displayLimit = 80; renderList(); });
   equipmentType.addEventListener("change", () => { activeEquipmentType = equipmentType.value; displayLimit = 80; renderList(); });
@@ -909,9 +1105,10 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     button.setAttribute("aria-pressed", String(selected));
     displayLimit = 80; renderList();
   });
+  magicItemType.addEventListener("change", () => { activeMagicItemType = magicItemType.value as "" | MagicItemType; displayLimit = 80; renderList(); });
   magicItemSort.addEventListener("change", () => { activeMagicItemSort = magicItemSort.value as MagicItemSort; displayLimit = 80; renderList(); });
   clearMagicItemFilters.addEventListener("click", () => {
-    activeMagicItemRarities.clear(); activeMagicItemSort = "name"; magicItemSort.value = "name";
+    activeMagicItemRarities.clear(); activeMagicItemType = ""; magicItemType.value = ""; activeMagicItemSort = "name"; magicItemSort.value = "name";
     magicItemFilters.querySelectorAll<HTMLButtonElement>("[data-magic-rarity]").forEach(button => { button.classList.remove("is-active"); button.setAttribute("aria-pressed", "false"); });
     displayLimit = 80; renderList();
   });
@@ -949,6 +1146,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
   clearMonsterFilters.addEventListener("click", () => { resetMonsterFilters(); displayLimit = 80; renderList(); });
   search.addEventListener("input", () => { currentQuery = search.value.trim(); displayLimit = 80; renderList(); });
   clearSearch.addEventListener("click", () => { search.value = ""; currentQuery = ""; displayLimit = 80; renderList(); search.focus(); });
+  clearRecents.addEventListener("click", () => { persistRecents([]); displayLimit = 80; renderList(); });
 
   const setExpanded = (expanded: boolean) => {
     panel.classList.toggle("is-expanded", expanded);
@@ -966,6 +1164,7 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     launcher.setAttribute("aria-expanded", String(!panel.hidden));
     if (!panel.hidden) {
       syncMonsterAdvanced(false);
+      syncSpellAdvanced(false);
       if (!listRendered) renderList();
       setExpanded(Boolean(currentPreferences.expandedByDefault));
       if (!currentPreferences.expandedByDefault && currentPreferences.panelPosition) placePanel(currentPreferences.panelPosition.left, currentPreferences.panelPosition.top);
@@ -1013,10 +1212,28 @@ export function mountPanel(preferences: Preferences, onChange: (next: Partial<Pr
     currentPreferences = { ...currentPreferences, panelPosition: null };
     onLauncherChange?.({ panelPosition: null });
   });
-  panel.addEventListener("keydown", event => {
-    if (event.key !== "Escape") return;
-    if (!settings.hidden) { event.preventDefault(); closeSettings(); return; }
-    panel.hidden = true; launcher.setAttribute("aria-expanded", "false"); launcher.focus();
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !panel.hidden) {
+      if (panel.querySelector("[data-roll-mode-dialog]")) return;
+      event.preventDefault();
+      if (!settings.hidden) { closeSettings(); return; }
+      if (!detail.hidden) { returnToList(); return; }
+      panel.hidden = true; launcher.setAttribute("aria-expanded", "false"); launcher.focus();
+      return;
+    }
+    if (event.key.toLocaleLowerCase() !== "k" || !(event.ctrlKey || event.metaKey) || event.altKey || event.shiftKey) return;
+    if (panel.querySelector("[data-roll-mode-dialog]")) return;
+    event.preventDefault();
+    panel.hidden = false;
+    launcher.setAttribute("aria-expanded", "true");
+    if (!settings.hidden) { settings.hidden = true; detail.hidden = true; home.hidden = false; }
+    if (!detail.hidden) returnToList(true);
+    else {
+      home.hidden = false;
+      if (!listRendered) renderList();
+      search.focus();
+      search.select();
+    }
   });
   document.addEventListener("dd55:open-entry", event => {
     const id = (event as CustomEvent<string>).detail;

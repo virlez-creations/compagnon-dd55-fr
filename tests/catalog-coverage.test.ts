@@ -33,6 +33,19 @@ describe("couverture du catalogue 2024", () => {
     }
   });
 
+  it("fournit école, rituel et concentration pour les 391 sorts", () => {
+    const schools = ["Abjuration", "Divination", "Enchantement", "Évocation", "Illusion", "Invocation", "Nécromancie", "Transmutation"];
+    expect(new Set(spells.map(spell => spell.school))).toEqual(new Set(schools));
+    for (const spell of spells) {
+      expect(schools, spell.nameFr).toContain(spell.school);
+      expect(typeof spell.ritual, spell.nameFr).toBe("boolean");
+      expect(typeof spell.concentration, spell.nameFr).toBe("boolean");
+    }
+    expect(spells.find(spell => spell.slug === "armure-d-agathys")).toMatchObject({ school: "Abjuration", ritual: false, concentration: false });
+    expect(spells.find(spell => spell.slug === "arme-elementaire")).toMatchObject({ school: "Transmutation", ritual: false, concentration: true });
+    expect(spells.find(spell => spell.slug === "etat-cadaverique")).toMatchObject({ school: "Nécromancie", ritual: true, concentration: false });
+  });
+
   it("référence 350 objets magiques, dont 258 fiches SRD et 92 liens externes", () => {
     const items = magicItemsData.items;
     expect(items).toHaveLength(350);

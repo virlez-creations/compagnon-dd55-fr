@@ -123,7 +123,7 @@ async function start(): Promise<void> {
       const target = mutation.target instanceof Element ? mutation.target : mutation.target.parentElement;
       if (!target || target.closest("#dd55-companion, #dd55-launcher, .dd55-reference")) continue;
       const additions = [...mutation.addedNodes];
-      if (target === document.body && additions.length) {
+      if (mutation.type === "childList" && additions.length) {
         additions.forEach(node => {
           const element = node instanceof Element ? node : node.parentElement;
           if (element) queueRoot(element);

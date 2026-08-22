@@ -100,7 +100,7 @@ test("ouvre le compendium local et expose le catalogue complet", async ({ page }
   await expect(page.locator(".dd55-tabs")).toContainText("Sorts 391");
   await expect(page.locator(".dd55-tabs")).toContainText("Dons 137");
   await expect(page.locator(".dd55-tabs")).toContainText("Équipement 51");
-  await expect(page.locator(".dd55-tabs")).toContainText("Origines 13");
+  await expect(page.locator(".dd55-tabs")).toContainText("Origines 14");
   await expect(page.locator(".dd55-tabs")).toContainText("Objets magiques 350");
   await expect(page.locator(".dd55-tabs")).toContainText("Monstres 330");
 
@@ -188,9 +188,14 @@ test("filtre les objets magiques et ouvre les fiches locales ou AideDD", async (
   await page.locator("#dd55-launcher").click();
   await page.locator("[data-type='magic-item']").click();
   await expect(page.locator("[data-result-count]")).toContainText("350 références");
-  await page.locator("[data-magic-rarity='Artefact']").click();
-  await expect(page.locator("[data-results] .dd55-entry-card").first()).toContainText(/artefact/i);
+  await page.locator("[data-magic-item-type]").selectOption("Arme");
+  await page.locator("[data-magic-rarity='Rare']").click();
+  const filteredCards = page.locator("[data-results] .dd55-entry-card");
+  await expect(filteredCards.first()).toBeVisible();
+  expect(await filteredCards.locator("small").allTextContents()).toEqual(expect.arrayContaining([expect.stringMatching(/Arme.*rare/i)]));
+  expect((await filteredCards.locator("small").allTextContents()).every(text => /Arme/i.test(text) && /rare/i.test(text))).toBe(true);
   await page.locator("[data-clear-magic-item-filters]").click();
+  await expect(page.locator("[data-magic-item-type]")).toHaveValue("");
   await page.locator("[data-search]").fill("Amulette d’antidétection");
   await page.locator("[data-entry-id='magic-item-amulette-d-antidetection']").click();
   await expect(page.locator("[data-detail] h2")).toHaveText("Amulette d’antidétection");
@@ -386,13 +391,16 @@ test("affiche entièrement les textes des onglets et filtres en thème sombre", 
     const count = element.querySelector<HTMLElement>("small")!.getBoundingClientRect();
     return { text: element.textContent?.replace(/\s+/g, " ").trim(), whiteSpace: style.whiteSpace, flexDirection: style.flexDirection, overflow: element.scrollWidth - element.clientWidth, height: element.getBoundingClientRect().height, lineDelta: Math.abs((label.top + label.bottom) / 2 - (count.top + count.bottom) / 2) };
   }));
+  expect(tabLayout).toHaveLength(9);
+  await expect(page.locator(".dd55-tabs [data-type='recent']")).toHaveCount(0);
+  await expect(page.locator("[data-recent-open]")).toBeVisible();
   expect(tabLayout.find(tab => tab.text === "Objets magiques 350")).toBeTruthy();
   expect(tabLayout.every(tab => tab.whiteSpace === "nowrap" && tab.flexDirection === "row" && tab.overflow <= 1 && tab.lineDelta <= 1)).toBe(true);
   expect(new Set(tabLayout.map(tab => Math.round(tab.height))).size).toBe(1);
 
-  for (const [type, filter, heading] of [["classes", "[data-class-filters]", "Filtrer les classes"], ["feat", "[data-feat-filters]", "Filtrer les dons"]] as const) {
+  for (const [type, filter, heading] of [["classes", "[data-class-filters]", "Filtrer les classes"], ["feat", "[data-feat-filters]", "Filtrer les dons"], ["magic-item", "[data-magic-item-filters]", "Filtrer les objets magiques"]] as const) {
     await page.locator(`[data-type='${type}']`).click();
-    await expect(page.locator(`${filter} > div:first-child > span`)).toHaveText(heading);
+    await expect(page.locator(`${filter} > div:first-child > span`)).toContainText(heading);
     const layout = await page.locator(filter).evaluate(element => {
       const container = element.getBoundingClientRect();
       return [...element.querySelectorAll<HTMLElement>("label > span, select")].map(child => {
@@ -402,6 +410,79 @@ test("affiche entièrement les textes des onglets et filtres en thème sombre", 
     });
     expect(layout.every(item => Boolean(item.text?.trim()) && item.left >= item.containerLeft && item.right <= item.containerRight + 1 && item.top >= item.containerTop && item.bottom <= item.containerBottom + 1)).toBe(true);
   }
+});
+
+test("garde les filtres des objets magiques lisibles sur un panneau étroit", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 720 });
+  await page.setContent(sheetSignature);
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='magic-item']").click();
+  const layout = await page.locator("#dd55-companion").evaluate(panel => {
+    const filters = panel.querySelector<HTMLElement>("[data-magic-item-filters]")!;
+    const bounds = panel.getBoundingClientRect();
+    const controls = [...filters.querySelectorAll<HTMLElement>("select, button")].flatMap(control => {
+      const rect = control.getBoundingClientRect();
+      return rect.width && rect.height ? [{ left: rect.left, right: rect.right }] : [];
+    });
+    return { overflow: panel.scrollWidth - panel.clientWidth, controls, left: bounds.left, right: bounds.right };
+  });
+  expect(layout.overflow).toBeLessThanOrEqual(1);
+  expect(layout.controls.every(control => control.left >= layout.left && control.right <= layout.right + 1)).toBe(true);
+});
+
+test("combine les filtres avancés des sorts, les récents et la navigation clavier", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 720 });
+  await page.setContent(sheetSignature);
+  await page.evaluate(() => {
+    Object.defineProperty(globalThis.chrome, "runtime", { configurable: true, value: { sendMessage: () => Promise.resolve() } });
+  });
+  await loadBundle(page);
+  await page.locator("#dd55-launcher").click();
+  await page.locator("[data-type='spell']").click();
+  await expect(page.locator("[data-spell-sort]")).toHaveValue("name");
+  await page.locator("[data-spell-sort]").selectOption("level");
+  const levelOrder = await page.locator("[data-results] .dd55-entry-card").evaluateAll(cards => cards.map(card => {
+    const subtitle = card.querySelector("small")?.textContent ?? "";
+    return /sort mineur/i.test(subtitle) ? 0 : Number(subtitle.match(/niveau\s+(\d+)/i)?.[1]);
+  }));
+  expect(levelOrder).toEqual([...levelOrder].sort((left, right) => left - right));
+  await expect(page.locator("[data-spell-filter-count]")).toBeHidden();
+  await expect(page.locator("[data-spell-advanced]")).toBeHidden();
+  await page.locator("[data-spell-advanced-toggle]").click();
+  await page.locator("[data-spell-level]").selectOption("1");
+  await page.locator("[data-spell-school]").selectOption("Abjuration");
+  await page.locator("[data-spell-concentration]").selectOption("no");
+  await page.locator("[data-search]").fill("Armor of Agathys");
+  await expect(page.locator("[data-external-url$='/spell/fr/armure-d-agathys']")).toBeVisible();
+  await expect(page.locator("[data-spell-advanced-count]")).toHaveText("2");
+  await expect(page.locator("[data-spell-filter-count]")).toHaveText("3");
+  const narrowLayout = await page.locator("#dd55-companion").evaluate(panel => ({
+    overflow: panel.scrollWidth - panel.clientWidth,
+    controls: [...panel.querySelectorAll<HTMLElement>("[data-spell-filters] select")].map(control => {
+      const rect = control.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, panelLeft: panel.getBoundingClientRect().left, panelRight: panel.getBoundingClientRect().right };
+    })
+  }));
+  expect(narrowLayout.overflow).toBeLessThanOrEqual(1);
+  expect(narrowLayout.controls.every(control => control.left >= control.panelLeft && control.right <= control.panelRight + 1)).toBe(true);
+
+  await page.locator("[data-external-url$='/spell/fr/armure-d-agathys']").click();
+  await page.locator("[data-recent-open]").click();
+  await expect(page.locator("[data-external-url$='/spell/fr/armure-d-agathys']")).toBeVisible();
+  await expect(page.locator("[data-recent-count]")).toHaveText("1");
+  await page.locator("[data-type='spell']").click();
+  await page.locator("[data-clear-spell-filters]").click();
+  await expect(page.locator("[data-spell-sort]")).toHaveValue("name");
+  await page.locator("[data-search]").fill("Boule de feu");
+  await page.locator("[data-entry-id='spell-boule-de-feu']").click();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("[data-home]")).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#dd55-companion")).toBeHidden();
+  await page.keyboard.press("Control+K");
+  await expect(page.locator("#dd55-companion")).toBeVisible();
+  await expect(page.locator("[data-search]")).toBeFocused();
 });
 
 test("déplace le panneau par son en-tête et conserve sa position", async ({ page }) => {
@@ -482,7 +563,7 @@ test("ouvre une origine puis le don lié à son historique", async ({ page }) =>
   await loadBundle(page);
   await page.locator("#dd55-launcher").click();
   await page.locator("[data-type='origins']").click();
-  await expect(page.locator("[data-results] .dd55-entry-card")).toHaveCount(13);
+  await expect(page.locator("[data-results] .dd55-entry-card")).toHaveCount(14);
   await page.locator("[data-origin-kind]").selectOption("background");
   await expect(page.locator("[data-results] .dd55-entry-card")).toHaveCount(4);
   await page.locator("[data-origin-kind]").selectOption("");
@@ -495,6 +576,11 @@ test("ouvre une origine puis le don lié à son historique", async ({ page }) =>
   await expect(page.locator(".dd55-options-table")).toContainText("Héritages fiélons");
   await expect(page.locator(".dd55-options-table tbody tr")).toHaveCount(3);
   await expect(page.locator(".dd55-options-table .dd55-progression-heading > span")).toHaveCount(0);
+  await page.locator("[data-back]").click();
+  await page.locator("[data-results] [data-entry-id='species-aasimar']").click();
+  await expect(page.locator("[data-detail]")).toContainText("Mains guérisseuses");
+  await expect(page.locator("[data-detail]")).toContainText("Source complémentaire");
+  await expect(page.locator("[data-detail]")).not.toContainText("Page SRD 0");
 });
 
 test("reste absent hors d'une feuille D&D 2024 et charge les références suivantes", async ({ page }) => {

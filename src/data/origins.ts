@@ -9,6 +9,7 @@ type RawOriginEntry = {
   sections: Array<{ heading?: string; content: string }>;
   links?: Array<{ label: string; entryId: string; title: string }>;
   tables?: Array<{ title: string; headers: string[]; rows: string[][] }>;
+  source?: { label: string; url?: string; pageLabel?: string };
 };
 
 function slug(value: string): string {
@@ -85,6 +86,30 @@ export const backgroundEntries: RawOriginEntry[] = backgrounds.map(background =>
 }));
 
 export const speciesEntries: RawOriginEntry[] = [
+  {
+    title: "Aasimar", page: 0, size: "M (entre 1,20 m et 2,10 m) ou P (entre 60 cm et 1,20 m), au choix", speed: "9 m",
+    source: {
+      label: "Contenu complémentaire — D&D 5e (2024) Wikidot, d’après le Player’s Handbook 2024",
+      url: "https://dnd2024.wikidot.com/species:aasimar",
+      pageLabel: "Source complémentaire"
+    },
+    tables: [{
+      title: "Options de Révélation céleste",
+      headers: ["Option", "Effet"],
+      rows: [
+        ["Ailes célestes", "Des ailes spectrales vous confèrent une Vitesse de vol égale à votre Vitesse."],
+        ["Rayonnement intérieur", "Vous émettez une Lumière vive sur 3 m, puis une Lumière faible sur 3 m de plus. À la fin de chacun de vos tours, les autres créatures dans un rayon de 3 m subissent des dégâts radiants égaux à votre bonus de maîtrise."],
+        ["Voile nécrotique", "Les créatures non alliées dans un rayon de 3 m effectuent un jet de sauvegarde de Charisme (DD 8 + modificateur de Charisme + bonus de maîtrise). En cas d’échec, elles sont Effrayées jusqu’à la fin de votre tour suivant."]
+      ]
+    }],
+    sections: [
+      ["Résistance céleste", "Vous bénéficiez de la Résistance aux dégâts nécrotiques et radiants."],
+      ["Vision dans le noir", "Vous disposez de la Vision dans le noir sur 18 m."],
+      ["Mains guérisseuses", "Par une action Magie, touchez une créature et lancez un nombre de d4 égal à votre bonus de maîtrise. La cible récupère autant de points de vie que le total obtenu. Vous récupérez cette aptitude après un Repos long."],
+      ["Porteur de lumière", "Vous connaissez le sort mineur lumière et utilisez le Charisme comme caractéristique d’incantation."],
+      ["Révélation céleste", "À partir du niveau 3, vous pouvez choisir une option de Révélation céleste et vous transformer par une action Bonus pendant 1 minute. Vous récupérez cette aptitude après un Repos long. Une fois à chacun de vos tours, quand une attaque ou un sort inflige des dégâts à une cible, vous pouvez lui infliger des dégâts supplémentaires égaux à votre bonus de maîtrise. Ces dégâts sont radiants avec Ailes célestes ou Rayonnement intérieur, et nécrotiques avec Voile nécrotique."]
+    ]
+  },
   {
     title: "Drakéide", page: 88, size: "M (entre 1,50 m et 2,10 m)", speed: "9 m",
     tables: [{
@@ -215,7 +240,8 @@ export const speciesEntries: RawOriginEntry[] = [
   tags: ["Origine", "Espèce", "Humanoïde", species.title, ...species.sections.map(section => section[0])],
   meta: { "Type de créature": "Humanoïde", "Catégorie de taille": species.size, Vitesse: species.speed },
   sections: species.sections.map(([heading, content]) => ({ heading, content })),
-  tables: species.tables
+  tables: species.tables,
+  source: species.source
 }));
 
 export const originEntries: RawOriginEntry[] = [...backgroundEntries, ...speciesEntries];

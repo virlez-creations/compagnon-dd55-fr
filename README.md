@@ -1,6 +1,6 @@
 # Compagnon D&D 5.5 FR
 
-Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll20**. Elle traduit l’interface en français, enrichit les sorts, dons et aptitudes, et donne accès à un compendium local fondé sur le SRD 5.2.1 français.
+Extension Chrome/Edge Manifest V3 pour la feuille **D&D 2024 de Roll20**. Elle traduit l’interface en français, enrichit les sorts, dons et aptitudes, et donne accès à un compendium et un bestiaire locaux fondés sur le SRD 5.2.1 français.
 
 ## Fonctionnalités
 
@@ -10,9 +10,13 @@ Extension Chrome/Edge Manifest V3 pour la feuille officielle **D&D 2024 de Roll2
 - compendium local consultable hors ligne : règles, sorts, dons, classes, sous-classes, origines, équipement, objets magiques et tables de progression ;
 - bestiaire DRS hors ligne de **330 profils** (235 monstres et 95 animaux), avec filtres simples par type et FP et filtres avancés repliables ;
 - boutons de jet sur les attaques et actions mécaniques des monstres : un ou deux d20, choix Normal/Avantage/Désavantage à la demande, envoi automatique optionnel ou copie de la macro ;
-- recherche et filtres de sorts par classe et niveau ;
+- recherche, tri des sorts par nom ou niveau et filtres par classe et niveau, complétés par un panneau avancé repliable pour l’école, les rituels et la concentration ;
+- bouton d’historique compact dans l’en-tête pour retrouver les 10 dernières fiches locales ou références AideDD consultées, sans ajouter une ligne aux catégories ;
+- retour à la liste avec position et nombre de résultats restaurés, raccourci `Ctrl/Cmd + K` vers la recherche et navigation progressive avec Échap ;
+- compteurs de filtres actifs dans chaque catégorie ;
+- catalogue de 350 objets magiques avec filtres combinables par type et rareté ;
 - catalogue d’armes, d’armures et de boucliers avec filtres par type et maîtrise d’arme, et accès direct à la règle de chaque botte d’arme ;
-- catalogue des espèces et historiques du SRD, avec accès direct au don accordé par chaque historique ;
+- catalogue de 10 espèces, dont les neuf espèces du SRD et une fiche Aasimar complémentaire clairement attribuée, ainsi que les historiques du SRD avec accès direct au don accordé ;
 - catalogue complémentaire de **391 sorts** et **75 dons**, avec liens vers AideDD lorsque la fiche n’est pas disponible dans le SRD local ;
 - menu contextuel **Traduire cette fiche D&D 2024** ;
 - prise en charge des différentes frames et surfaces utilisées par Roll20.
@@ -74,6 +78,8 @@ python scripts/build-compendium.py
 python scripts/build-monsters.py
 ```
 
+Pour actualiser les métadonnées École, Rituel et Concentration des 391 références AideDD, exécutez `npm run data:aidedd-spells`. Cette génération est la seule étape qui accède au réseau ; l’extension construite reste entièrement hors ligne.
+
 Les scripts produisent les données structurées utilisées par l’extension dans `src/data/`.
 
 ## Paquet installable
@@ -86,7 +92,7 @@ L'archive prête à distribuer est générée dans `releases/`. Consultez aussi 
 
 ## Confidentialité
 
-L’extension ne modifie pas les champs ni les données du personnage. Elle conserve uniquement les préférences `enabled` et `bilingual` dans le stockage local du navigateur. Le compendium SRD est embarqué dans l’extension et fonctionne hors ligne.
+L’extension ne collecte ni ne transmet les champs ou données du personnage. Elle traite localement les contenus visibles nécessaires à la traduction et conserve uniquement les préférences d’interface ainsi que les identifiants des 10 dernières références consultées dans le stockage local du navigateur. Le compendium SRD est embarqué dans l’extension et fonctionne hors ligne.
 
 ## Attribution
 

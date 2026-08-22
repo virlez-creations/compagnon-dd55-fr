@@ -6,7 +6,10 @@
     "slug": "agrandissement-rapetissement",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-agrandissement-rapetissement"
+    "compendiumId": "spell-agrandissement-rapetissement",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "aid",
@@ -15,7 +18,10 @@
     "slug": "aide",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-aide"
+    "compendiumId": "spell-aide",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "alarm",
@@ -24,7 +30,10 @@
     "slug": "alarme",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-alarme"
+    "compendiumId": "spell-alarme",
+    "school": "Abjuration",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "befuddlement",
@@ -33,7 +42,10 @@
     "slug": "alienation",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-alienation"
+    "compendiumId": "spell-alienation",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "planar-ally",
@@ -42,7 +54,10 @@
     "slug": "allie-planaire",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-allie-planaire"
+    "compendiumId": "spell-allie-planaire",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "enhance-ability",
@@ -51,7 +66,10 @@
     "slug": "amelioration-de-caracteristique",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-amelioration-de-caracteristique"
+    "compendiumId": "spell-amelioration-de-caracteristique",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "friends",
@@ -63,7 +81,10 @@
     "aliases": [
       "Amis",
       "Faux amis"
-    ]
+    ],
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "animal-friendship",
@@ -72,7 +93,10 @@
     "slug": "amitie-avec-les-animaux",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-amitie-avec-les-animaux"
+    "compendiumId": "spell-amitie-avec-les-animaux",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "animate-dead",
@@ -81,7 +105,10 @@
     "slug": "animation-des-morts",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-animation-des-morts"
+    "compendiumId": "spell-animation-des-morts",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "animate-objects",
@@ -90,7 +117,10 @@
     "slug": "animation-des-objets",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-animation-des-objets"
+    "compendiumId": "spell-animation-des-objets",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "nondetection",
@@ -99,7 +129,10 @@
     "slug": "antidetection",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-antidetection"
+    "compendiumId": "spell-antidetection",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "calm-emotions",
@@ -108,7 +141,10 @@
     "slug": "apaisement-des-emotions",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-apaisement-des-emotions"
+    "compendiumId": "spell-apaisement-des-emotions",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "seeming",
@@ -117,7 +153,10 @@
     "slug": "apparence-trompeuse",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-apparence-trompeuse"
+    "compendiumId": "spell-apparence-trompeuse",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "find-steed",
@@ -126,7 +165,10 @@
     "slug": "appel-de-destrier",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-appel-de-destrier"
+    "compendiumId": "spell-appel-de-destrier",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "find-familiar",
@@ -135,7 +177,10 @@
     "slug": "appel-de-familier",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-appel-de-familier"
+    "compendiumId": "spell-appel-de-familier",
+    "school": "Invocation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "call-lightning",
@@ -144,7 +189,10 @@
     "slug": "appel-de-la-foudre",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-appel-de-la-foudre"
+    "compendiumId": "spell-appel-de-la-foudre",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "elemental-weapon",
@@ -152,7 +200,10 @@
     "nameFr": "Arme élémentaire",
     "slug": "arme-elementaire",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "magic-weapon",
@@ -161,7 +212,10 @@
     "slug": "arme-magique",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-arme-magique"
+    "compendiumId": "spell-arme-magique",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "spiritual-weapon",
@@ -170,7 +224,10 @@
     "slug": "arme-spirituelle",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-arme-spirituelle"
+    "compendiumId": "spell-arme-spirituelle",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "armor-of-agathys",
@@ -178,7 +235,10 @@
     "nameFr": "Armure d'Agathys",
     "slug": "armure-d-agathys",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mage-armor",
@@ -190,7 +250,10 @@
     "aliases": [
       "Armure du mage"
     ],
-    "compendiumId": "spell-armure-du-mage"
+    "compendiumId": "spell-armure-du-mage",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "time-stop",
@@ -199,7 +262,10 @@
     "slug": "arret-du-temps",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-arret-du-temps"
+    "compendiumId": "spell-arret-du-temps",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "acid-splash",
@@ -211,7 +277,10 @@
     "aliases": [
       "Aspersion acide"
     ],
-    "compendiumId": "spell-aspersion-acide"
+    "compendiumId": "spell-aspersion-acide",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "phantasmal-killer",
@@ -220,7 +289,10 @@
     "slug": "assassin-imaginaire",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-assassin-imaginaire"
+    "compendiumId": "spell-assassin-imaginaire",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "guidance",
@@ -229,7 +301,10 @@
     "slug": "assistance",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-assistance"
+    "compendiumId": "spell-assistance",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "augury",
@@ -238,7 +313,10 @@
     "slug": "augure",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-augure"
+    "compendiumId": "spell-augure",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "aura-of-purity",
@@ -246,7 +324,10 @@
     "nameFr": "Aura de pureté",
     "slug": "aura-de-purete",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "aura-of-life",
@@ -255,7 +336,10 @@
     "slug": "aura-de-vie",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-aura-de-vie"
+    "compendiumId": "spell-aura-de-vie",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "aura-of-vitality",
@@ -263,7 +347,10 @@
     "nameFr": "Aura de vitalité",
     "slug": "aura-de-vitalite",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "crusaders-mantle",
@@ -271,7 +358,10 @@
     "nameFr": "Aura du croisé",
     "slug": "aura-du-croise",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "nystuls-magic-aura",
@@ -283,7 +373,10 @@
     "aliases": [
       "Aura magique de l’arcaniste"
     ],
-    "compendiumId": "spell-aura-magique-de-l-arcaniste"
+    "compendiumId": "spell-aura-magique-de-l-arcaniste",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "holy-aura",
@@ -292,7 +385,10 @@
     "slug": "aura-sacree",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-aura-sacree"
+    "compendiumId": "spell-aura-sacree",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "antipathy-sympathy",
@@ -301,7 +397,10 @@
     "slug": "aversion-attirance",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-aversion-attirance"
+    "compendiumId": "spell-aversion-attirance",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "glibness",
@@ -310,7 +409,10 @@
     "slug": "bagou",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bagou"
+    "compendiumId": "spell-bagou",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "goodberry",
@@ -319,7 +421,10 @@
     "slug": "baies-nourricieres",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-baies-nourricieres"
+    "compendiumId": "spell-baies-nourricieres",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "banishment",
@@ -328,7 +433,10 @@
     "slug": "bannissement",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bannissement"
+    "compendiumId": "spell-bannissement",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "blade-barrier",
@@ -337,7 +445,10 @@
     "slug": "barriere-de-lames",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-barriere-de-lames"
+    "compendiumId": "spell-barriere-de-lames",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "bless",
@@ -346,7 +457,10 @@
     "slug": "benediction",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-benediction"
+    "compendiumId": "spell-benediction",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "inflict-wounds",
@@ -355,7 +469,10 @@
     "slug": "blessure",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-blessure"
+    "compendiumId": "spell-blessure",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "magic-mouth",
@@ -364,7 +481,10 @@
     "slug": "bouche-magique",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bouche-magique"
+    "compendiumId": "spell-bouche-magique",
+    "school": "Illusion",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "shield",
@@ -373,7 +493,10 @@
     "slug": "bouclier",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bouclier"
+    "compendiumId": "spell-bouclier",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "fire-shield",
@@ -382,7 +505,10 @@
     "slug": "bouclier-de-feu",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bouclier-de-feu"
+    "compendiumId": "spell-bouclier-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "shield-of-faith",
@@ -391,7 +517,10 @@
     "slug": "bouclier-de-la-foi",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bouclier-de-la-foi"
+    "compendiumId": "spell-bouclier-de-la-foi",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "poison-spray",
@@ -400,7 +529,10 @@
     "slug": "bouffee-de-poison",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bouffee-de-poison"
+    "compendiumId": "spell-bouffee-de-poison",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "fireball",
@@ -409,7 +541,10 @@
     "slug": "boule-de-feu",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-boule-de-feu"
+    "compendiumId": "spell-boule-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "delayed-blast-fireball",
@@ -418,7 +553,10 @@
     "slug": "boule-de-feu-a-retardement",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-boule-de-feu-a-retardement"
+    "compendiumId": "spell-boule-de-feu-a-retardement",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "gust-of-wind",
@@ -427,7 +565,10 @@
     "slug": "bourrasque",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-bourrasque"
+    "compendiumId": "spell-bourrasque",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "cloudkill",
@@ -436,7 +577,10 @@
     "slug": "brume-mortelle",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-brume-mortelle"
+    "compendiumId": "spell-brume-mortelle",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "forcecage",
@@ -445,7 +589,10 @@
     "slug": "cage-de-force",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cage-de-force"
+    "compendiumId": "spell-cage-de-force",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "vampiric-touch",
@@ -454,7 +601,10 @@
     "slug": "caresse-du-vampire",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-caresse-du-vampire"
+    "compendiumId": "spell-caresse-du-vampire",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "blindness-deafness",
@@ -463,7 +613,10 @@
     "slug": "cecite-surdite",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cecite-surdite"
+    "compendiumId": "spell-cecite-surdite",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "circle-of-death",
@@ -472,7 +625,10 @@
     "slug": "cercle-de-mort",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cercle-de-mort"
+    "compendiumId": "spell-cercle-de-mort",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "circle-of-power",
@@ -480,7 +636,10 @@
     "nameFr": "Cercle de pouvoir",
     "slug": "cercle-de-pouvoir",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "teleportation-circle",
@@ -489,7 +648,10 @@
     "slug": "cercle-de-teleportation",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cercle-de-teleportation"
+    "compendiumId": "spell-cercle-de-teleportation",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "magic-circle",
@@ -498,7 +660,10 @@
     "slug": "cercle-magique",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cercle-magique"
+    "compendiumId": "spell-cercle-magique",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "chain-lightning",
@@ -507,7 +672,10 @@
     "slug": "chaine-d-eclairs",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-chaine-d-eclairs"
+    "compendiumId": "spell-chaine-d-eclairs",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "antimagic-field",
@@ -516,7 +684,10 @@
     "slug": "champ-antimagie",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-champ-antimagie"
+    "compendiumId": "spell-champ-antimagie",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "shapechange",
@@ -525,7 +696,10 @@
     "slug": "changement-de-forme",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-changement-de-forme"
+    "compendiumId": "spell-changement-de-forme",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "plane-shift",
@@ -534,7 +708,10 @@
     "slug": "changement-de-plan",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-changement-de-plan"
+    "compendiumId": "spell-changement-de-plan",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "charm-monster",
@@ -543,7 +720,10 @@
     "slug": "charme-monstre",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-charme-monstre"
+    "compendiumId": "spell-charme-monstre",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "charm-person",
@@ -552,7 +732,10 @@
     "slug": "charme-personne",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-charme-personne"
+    "compendiumId": "spell-charme-personne",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "blinding-smite",
@@ -560,7 +743,10 @@
     "nameFr": "Châtiment de cécité",
     "slug": "chatiment-de-cecite",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "wrathful-smite",
@@ -568,7 +754,10 @@
     "nameFr": "Châtiment de courroux",
     "slug": "chatiment-de-courroux",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "searing-smite",
@@ -577,7 +766,10 @@
     "slug": "chatiment-de-fournaise",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-chatiment-de-fournaise"
+    "compendiumId": "spell-chatiment-de-fournaise",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "shining-smite",
@@ -586,7 +778,10 @@
     "slug": "chatiment-de-revelation",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-chatiment-de-revelation"
+    "compendiumId": "spell-chatiment-de-revelation",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "staggering-smite",
@@ -594,7 +789,10 @@
     "nameFr": "Châtiment de stupeur",
     "slug": "chatiment-de-stupeur",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "thunderous-smite",
@@ -602,7 +800,10 @@
     "nameFr": "Châtiment de tonnerre",
     "slug": "chatiment-de-tonnerre",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "divine-smite",
@@ -611,7 +812,10 @@
     "slug": "chatiment-divin",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-chatiment-divin"
+    "compendiumId": "spell-chatiment-divin",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "banishing-smite",
@@ -619,7 +823,10 @@
     "nameFr": "Châtiment du ban",
     "slug": "chatiment-du-ban",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "tashas-bubbling-cauldron",
@@ -627,7 +834,10 @@
     "nameFr": "Chaudron bouillonnant de Tasha",
     "slug": "chaudron-bouillonnant-de-tasha",
     "level": 6,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mordenkainens-faithful-hound",
@@ -639,7 +849,10 @@
     "aliases": [
       "Chien de garde"
     ],
-    "compendiumId": "spell-chien-de-garde"
+    "compendiumId": "spell-chien-de-garde",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "clairvoyance",
@@ -648,7 +861,10 @@
     "slug": "clairvoyance",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-clairvoyance"
+    "compendiumId": "spell-clairvoyance",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "blink",
@@ -657,7 +873,10 @@
     "slug": "clignotement",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-clignotement"
+    "compendiumId": "spell-clignotement",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "clone",
@@ -666,7 +885,10 @@
     "slug": "clone",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-clone"
+    "compendiumId": "spell-clone",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "leomunds-secret-chest",
@@ -678,7 +900,10 @@
     "aliases": [
       "Coffre secret"
     ],
-    "compendiumId": "spell-coffre-secret"
+    "compendiumId": "spell-coffre-secret",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "flame-strike",
@@ -687,7 +912,10 @@
     "slug": "colonne-de-flamme",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-colonne-de-flamme"
+    "compendiumId": "spell-colonne-de-flamme",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sending",
@@ -696,7 +924,10 @@
     "slug": "communication-a-distance",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communication-a-distance"
+    "compendiumId": "spell-communication-a-distance",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "speak-with-animals",
@@ -705,7 +936,10 @@
     "slug": "communication-avec-les-animaux",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communication-avec-les-animaux"
+    "compendiumId": "spell-communication-avec-les-animaux",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "speak-with-dead",
@@ -714,7 +948,10 @@
     "slug": "communication-avec-les-morts",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communication-avec-les-morts"
+    "compendiumId": "spell-communication-avec-les-morts",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "speak-with-plants",
@@ -723,7 +960,10 @@
     "slug": "communication-avec-les-plantes",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communication-avec-les-plantes"
+    "compendiumId": "spell-communication-avec-les-plantes",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "commune",
@@ -732,7 +972,10 @@
     "slug": "communion",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communion"
+    "compendiumId": "spell-communion",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "commune-with-nature",
@@ -741,7 +984,10 @@
     "slug": "communion-avec-la-nature",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-communion-avec-la-nature"
+    "compendiumId": "spell-communion-avec-la-nature",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "comprehend-languages",
@@ -750,7 +996,10 @@
     "slug": "comprehension-des-langues",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-comprehension-des-langues"
+    "compendiumId": "spell-comprehension-des-langues",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "compulsion",
@@ -759,7 +1008,10 @@
     "slug": "compulsion",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-compulsion"
+    "compendiumId": "spell-compulsion",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "cone-of-cold",
@@ -768,7 +1020,10 @@
     "slug": "cone-de-froid",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-cone-de-froid"
+    "compendiumId": "spell-cone-de-froid",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "confusion",
@@ -777,7 +1032,10 @@
     "slug": "confusion",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-confusion"
+    "compendiumId": "spell-confusion",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "contact-other-plane",
@@ -786,7 +1044,10 @@
     "slug": "contact-avec-les-plans",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-contact-avec-les-plans"
+    "compendiumId": "spell-contact-avec-les-plans",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "chill-touch",
@@ -795,7 +1056,10 @@
     "slug": "contact-glacial",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-contact-glacial"
+    "compendiumId": "spell-contact-glacial",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "contagion",
@@ -804,7 +1068,10 @@
     "slug": "contagion",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-contagion"
+    "compendiumId": "spell-contagion",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "harm",
@@ -813,7 +1080,10 @@
     "slug": "contamination",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-contamination"
+    "compendiumId": "spell-contamination",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "counterspell",
@@ -822,7 +1092,10 @@
     "slug": "contresort",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-contresort"
+    "compendiumId": "spell-contresort",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "control-water",
@@ -831,7 +1104,10 @@
     "slug": "controle-de-l-eau",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-controle-de-l-eau"
+    "compendiumId": "spell-controle-de-l-eau",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "control-weather",
@@ -840,7 +1116,10 @@
     "slug": "controle-du-climat",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-controle-du-climat"
+    "compendiumId": "spell-controle-du-climat",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-aberration",
@@ -848,7 +1127,10 @@
     "nameFr": "Convocation d'aberration",
     "slug": "convocation-d-aberration",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-construct",
@@ -856,7 +1138,10 @@
     "nameFr": "Convocation d'artificiel",
     "slug": "convocation-d-artificiel",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-elemental",
@@ -864,7 +1149,10 @@
     "nameFr": "Convocation d'élémentaire",
     "slug": "convocation-d-elementaire",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-beast",
@@ -872,7 +1160,10 @@
     "nameFr": "Convocation de bête",
     "slug": "convocation-de-bete",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-celestial",
@@ -880,7 +1171,10 @@
     "nameFr": "Convocation de céleste",
     "slug": "convocation-de-celeste",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-dragon",
@@ -889,7 +1183,10 @@
     "slug": "convocation-de-dragon",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-convocation-de-dragon"
+    "compendiumId": "spell-convocation-de-dragon",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-fey",
@@ -897,7 +1194,10 @@
     "nameFr": "Convocation de fée",
     "slug": "convocation-de-fee",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-fiend",
@@ -905,7 +1205,10 @@
     "nameFr": "Convocation de fiélon",
     "slug": "convocation-de-fielon",
     "level": 6,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "summon-undead",
@@ -913,7 +1216,10 @@
     "nameFr": "Convocation de mort-vivant",
     "slug": "convocation-de-mort-vivant",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "drawmijs-instant-summons",
@@ -925,7 +1231,10 @@
     "aliases": [
       "Convocations instantanées"
     ],
-    "compendiumId": "spell-convocations-instantanees"
+    "compendiumId": "spell-convocations-instantanees",
+    "school": "Invocation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "antilife-shell",
@@ -934,7 +1243,10 @@
     "slug": "coquille-antivie",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-coquille-antivie"
+    "compendiumId": "spell-coquille-antivie",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "rope-trick",
@@ -943,7 +1255,10 @@
     "slug": "corde-enchantee",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-corde-enchantee"
+    "compendiumId": "spell-corde-enchantee",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "cordon-of-arrows",
@@ -951,7 +1266,10 @@
     "nameFr": "Cordon de flèches",
     "slug": "cordon-de-fleches",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "color-spray",
@@ -960,7 +1278,10 @@
     "slug": "couleurs-dansantes",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-couleurs-dansantes"
+    "compendiumId": "spell-couleurs-dansantes",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "true-strike",
@@ -969,7 +1290,10 @@
     "slug": "coup-au-but",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-coup-au-but"
+    "compendiumId": "spell-coup-au-but",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "thunderclap",
@@ -977,7 +1301,10 @@
     "nameFr": "Coup de tonnerre",
     "slug": "coup-de-tonnerre",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "crown-of-madness",
@@ -985,7 +1312,10 @@
     "nameFr": "Couronne du dément",
     "slug": "couronne-du-dement",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "ice-knife",
@@ -994,7 +1324,10 @@
     "slug": "couteau-de-glace",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-couteau-de-glace"
+    "compendiumId": "spell-couteau-de-glace",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "creation",
@@ -1003,7 +1336,10 @@
     "slug": "creation",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-creation"
+    "compendiumId": "spell-creation",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "create-undead",
@@ -1012,7 +1348,10 @@
     "slug": "creation-de-mort-vivant",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-creation-de-mort-vivant"
+    "compendiumId": "spell-creation-de-mort-vivant",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "create-food-and-water",
@@ -1021,7 +1360,10 @@
     "slug": "creation-de-nourriture-et-d-eau",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-creation-de-nourriture-et-d-eau"
+    "compendiumId": "spell-creation-de-nourriture-et-d-eau",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "create-or-destroy-water",
@@ -1030,7 +1372,10 @@
     "slug": "creation-ou-destruction-d-eau",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-creation-ou-destruction-d-eau"
+    "compendiumId": "spell-creation-ou-destruction-d-eau",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "spike-growth",
@@ -1039,7 +1384,10 @@
     "slug": "croissance-d-epines",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-croissance-d-epines"
+    "compendiumId": "spell-croissance-d-epines",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "plant-growth",
@@ -1048,7 +1396,10 @@
     "slug": "croissance-vegetale",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-croissance-vegetale"
+    "compendiumId": "spell-croissance-vegetale",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "shillelagh",
@@ -1057,7 +1408,10 @@
     "slug": "crosse-des-druides",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-crosse-des-druides"
+    "compendiumId": "spell-crosse-des-druides",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "ottos-irresistible-dance",
@@ -1069,7 +1423,10 @@
     "aliases": [
       "Danse irrésistible"
     ],
-    "compendiumId": "spell-danse-irresistible"
+    "compendiumId": "spell-danse-irresistible",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "knock",
@@ -1078,7 +1435,10 @@
     "slug": "deblocage",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-deblocage"
+    "compendiumId": "spell-deblocage",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "eldritch-blast",
@@ -1087,7 +1447,10 @@
     "slug": "decharge-occulte",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-decharge-occulte"
+    "compendiumId": "spell-decharge-occulte",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "maze",
@@ -1096,7 +1459,10 @@
     "slug": "dedale",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-dedale"
+    "compendiumId": "spell-dedale",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "disguise-self",
@@ -1105,7 +1471,10 @@
     "slug": "deguisement",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-deguisement"
+    "compendiumId": "spell-deguisement",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "remove-curse",
@@ -1114,7 +1483,10 @@
     "slug": "delivrance-des-maledictions",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-delivrance-des-maledictions"
+    "compendiumId": "spell-delivrance-des-maledictions",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "demiplane",
@@ -1123,7 +1495,10 @@
     "slug": "demi-plan",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-demi-plan"
+    "compendiumId": "spell-demi-plan",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "disintegrate",
@@ -1132,7 +1507,10 @@
     "slug": "desintegration",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-desintegration"
+    "compendiumId": "spell-desintegration",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "see-invisibility",
@@ -1141,7 +1519,10 @@
     "slug": "detection-de-l-invisibilite",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-de-l-invisibilite"
+    "compendiumId": "spell-detection-de-l-invisibilite",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "detect-magic",
@@ -1150,7 +1531,10 @@
     "slug": "detection-de-la-magie",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-de-la-magie"
+    "compendiumId": "spell-detection-de-la-magie",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": true
   },
   {
     "id": "detect-thoughts",
@@ -1159,7 +1543,10 @@
     "slug": "detection-des-pensees",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-des-pensees"
+    "compendiumId": "spell-detection-des-pensees",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "find-traps",
@@ -1168,7 +1555,10 @@
     "slug": "detection-des-pieges",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-des-pieges"
+    "compendiumId": "spell-detection-des-pieges",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "detect-evil-and-good",
@@ -1177,7 +1567,10 @@
     "slug": "detection-du-mal-et-du-bien",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-du-mal-et-du-bien"
+    "compendiumId": "spell-detection-du-mal-et-du-bien",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "detect-poison-and-disease",
@@ -1186,7 +1579,10 @@
     "slug": "detection-du-poison-et-des-maladies",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-detection-du-poison-et-des-maladies"
+    "compendiumId": "spell-detection-du-poison-et-des-maladies",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": true
   },
   {
     "id": "enthrall",
@@ -1195,7 +1591,10 @@
     "slug": "discours-captivant",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-discours-captivant"
+    "compendiumId": "spell-discours-captivant",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "tensers-floating-disk",
@@ -1207,7 +1606,10 @@
     "aliases": [
       "Disque flottant"
     ],
-    "compendiumId": "spell-disque-flottant"
+    "compendiumId": "spell-disque-flottant",
+    "school": "Invocation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "sequester",
@@ -1216,7 +1618,10 @@
     "slug": "dissimulation-supreme",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-dissimulation-supreme"
+    "compendiumId": "spell-dissimulation-supreme",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dispel-magic",
@@ -1225,7 +1630,10 @@
     "slug": "dissipation-de-la-magie",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-dissipation-de-la-magie"
+    "compendiumId": "spell-dissipation-de-la-magie",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dispel-evil-and-good",
@@ -1234,7 +1642,10 @@
     "slug": "dissipation-du-mal-et-du-bien",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-dissipation-du-mal-et-du-bien"
+    "compendiumId": "spell-dissipation-du-mal-et-du-bien",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "divination",
@@ -1243,7 +1654,10 @@
     "slug": "divination",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-divination"
+    "compendiumId": "spell-divination",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "finger-of-death",
@@ -1252,7 +1666,10 @@
     "slug": "doigt-de-mort",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-doigt-de-mort"
+    "compendiumId": "spell-doigt-de-mort",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dominate-beast",
@@ -1261,7 +1678,10 @@
     "slug": "domination-de-bete",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-domination-de-bete"
+    "compendiumId": "spell-domination-de-bete",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "dominate-monster",
@@ -1270,7 +1690,10 @@
     "slug": "domination-de-monstre",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-domination-de-monstre"
+    "compendiumId": "spell-domination-de-monstre",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "dominate-person",
@@ -1279,7 +1702,10 @@
     "slug": "domination-de-personne",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-domination-de-personne"
+    "compendiumId": "spell-domination-de-personne",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "tongues",
@@ -1288,7 +1714,10 @@
     "slug": "don-des-langues",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-don-des-langues"
+    "compendiumId": "spell-don-des-langues",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mislead",
@@ -1297,7 +1726,10 @@
     "slug": "double-illusoire",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-double-illusoire"
+    "compendiumId": "spell-double-illusoire",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "gentle-repose",
@@ -1306,7 +1738,10 @@
     "slug": "doux-repos",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-doux-repos"
+    "compendiumId": "spell-doux-repos",
+    "school": "Nécromancie",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "druidcraft",
@@ -1315,7 +1750,10 @@
     "slug": "druidisme",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-druidisme"
+    "compendiumId": "spell-druidisme",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "compelled-duel",
@@ -1323,7 +1761,10 @@
     "nameFr": "Duel forcé",
     "slug": "duel-force",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "lightning-bolt",
@@ -1332,7 +1773,10 @@
     "slug": "eclair",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-eclair"
+    "compendiumId": "spell-eclair",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sunburst",
@@ -1341,7 +1785,10 @@
     "slug": "eclat-du-soleil",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-eclat-du-soleil"
+    "compendiumId": "spell-eclat-du-soleil",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "elementalism",
@@ -1350,7 +1797,10 @@
     "slug": "elementalisme",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-elementalisme"
+    "compendiumId": "spell-elementalisme",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "prismatic-spray",
@@ -1359,7 +1809,10 @@
     "slug": "embruns-prismatiques",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-embruns-prismatiques"
+    "compendiumId": "spell-embruns-prismatiques",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "imprisonment",
@@ -1368,7 +1821,10 @@
     "slug": "emprisonnement",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-emprisonnement"
+    "compendiumId": "spell-emprisonnement",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "entangle",
@@ -1377,7 +1833,10 @@
     "slug": "enchevetrement",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-enchevetrement"
+    "compendiumId": "spell-enchevetrement",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "weird",
@@ -1386,7 +1845,10 @@
     "slug": "ennemi-subconscient",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-ennemi-subconscient"
+    "compendiumId": "spell-ennemi-subconscient",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "planar-binding",
@@ -1395,7 +1857,10 @@
     "slug": "entrave-planaire",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-entrave-planaire"
+    "compendiumId": "spell-entrave-planaire",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mordenkainens-sword",
@@ -1407,7 +1872,10 @@
     "aliases": [
       "Épée arcanique"
     ],
-    "compendiumId": "spell-epee-arcanique"
+    "compendiumId": "spell-epee-arcanique",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mind-spike",
@@ -1416,7 +1884,10 @@
     "slug": "epine-mentale",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-epine-mentale"
+    "compendiumId": "spell-epine-mentale",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "sorcerous-burst",
@@ -1425,7 +1896,10 @@
     "slug": "eruption-ensorcelee",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-eruption-ensorcelee"
+    "compendiumId": "spell-eruption-ensorcelee",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mind-blank",
@@ -1434,7 +1908,10 @@
     "slug": "esprit-impenetrable",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-esprit-impenetrable"
+    "compendiumId": "spell-esprit-impenetrable",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "spirit-guardians",
@@ -1443,7 +1920,10 @@
     "slug": "esprits-gardiens",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-esprits-gardiens"
+    "compendiumId": "spell-esprits-gardiens",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "feign-death",
@@ -1451,7 +1931,10 @@
     "nameFr": "État cadavérique",
     "slug": "etat-cadaverique",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Nécromancie",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "awaken",
@@ -1460,7 +1943,10 @@
     "slug": "eveil",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-eveil"
+    "compendiumId": "spell-eveil",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "fabricate",
@@ -1469,7 +1955,10 @@
     "slug": "fabrication",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-fabrication"
+    "compendiumId": "spell-fabrication",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "stone-shape",
@@ -1478,7 +1967,10 @@
     "slug": "faconnage-de-la-pierre",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-faconnage-de-la-pierre"
+    "compendiumId": "spell-faconnage-de-la-pierre",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "divine-favor",
@@ -1487,7 +1979,10 @@
     "slug": "faveur-divine",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-faveur-divine"
+    "compendiumId": "spell-faveur-divine",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "heroes-feast",
@@ -1496,7 +1991,10 @@
     "slug": "festin-des-heros",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-festin-des-heros"
+    "compendiumId": "spell-festin-des-heros",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "feather-fall",
@@ -1505,7 +2003,10 @@
     "slug": "feuille-morte",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-feuille-morte"
+    "compendiumId": "spell-feuille-morte",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "continual-flame",
@@ -1514,7 +2015,10 @@
     "slug": "flamme-eternelle",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-flamme-eternelle"
+    "compendiumId": "spell-flamme-eternelle",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sacred-flame",
@@ -1523,7 +2027,10 @@
     "slug": "flamme-sacree",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-flamme-sacree"
+    "compendiumId": "spell-flamme-sacree",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "produce-flame",
@@ -1532,7 +2039,10 @@
     "slug": "flammes",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-flammes"
+    "compendiumId": "spell-flammes",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "insect-plague",
@@ -1541,7 +2051,10 @@
     "slug": "fleau-d-insectes",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-fleau-d-insectes"
+    "compendiumId": "spell-fleau-d-insectes",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "melfs-acid-arrow",
@@ -1553,7 +2066,10 @@
     "aliases": [
       "Flèche acide"
     ],
-    "compendiumId": "spell-fleche-acide"
+    "compendiumId": "spell-fleche-acide",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "lightning-arrow",
@@ -1561,7 +2077,10 @@
     "nameFr": "Flèche de foudre",
     "slug": "fleche-de-foudre",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "blight",
@@ -1570,7 +2089,10 @@
     "slug": "fletrissement",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-fletrissement"
+    "compendiumId": "spell-fletrissement",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "blur",
@@ -1579,7 +2101,10 @@
     "slug": "flou",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-flou"
+    "compendiumId": "spell-flou",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "fount-of-moonlight",
@@ -1587,7 +2112,10 @@
     "nameFr": "Fontaine de lune",
     "slug": "fontaine-de-lune",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "phantasmal-force",
@@ -1596,7 +2124,10 @@
     "slug": "force-fantasmagorique",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-force-fantasmagorique"
+    "compendiumId": "spell-force-fantasmagorique",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "etherealness",
@@ -1605,7 +2136,10 @@
     "slug": "forme-etheree",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-forme-etheree"
+    "compendiumId": "spell-forme-etheree",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "gaseous-form",
@@ -1614,7 +2148,10 @@
     "slug": "forme-gazeuse",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-forme-gazeuse"
+    "compendiumId": "spell-forme-gazeuse",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "tashas-hideous-laughter",
@@ -1626,7 +2163,10 @@
     "aliases": [
       "Fou rire"
     ],
-    "compendiumId": "spell-fou-rire"
+    "compendiumId": "spell-fou-rire",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "thorn-whip",
@@ -1634,7 +2174,10 @@
     "nameFr": "Fouet épineux",
     "slug": "fouet-epineux",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "misty-step",
@@ -1643,7 +2186,10 @@
     "slug": "foulee-brumeuse",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-foulee-brumeuse"
+    "compendiumId": "spell-foulee-brumeuse",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "shatter",
@@ -1652,7 +2198,10 @@
     "slug": "fracassement",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-fracassement"
+    "compendiumId": "spell-fracassement",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "steel-wind-strike",
@@ -1660,7 +2209,10 @@
     "nameFr": "Frappe du vent d'acier",
     "slug": "frappe-du-vent-d-acier",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "ensnaring-strike",
@@ -1669,7 +2221,10 @@
     "slug": "frappe-piegeuse",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-frappe-piegeuse"
+    "compendiumId": "spell-frappe-piegeuse",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "meld-into-stone",
@@ -1678,7 +2233,10 @@
     "slug": "fusion-dans-la-pierre",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-fusion-dans-la-pierre"
+    "compendiumId": "spell-fusion-dans-la-pierre",
+    "school": "Transmutation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "guardian-of-faith",
@@ -1687,7 +2245,10 @@
     "slug": "gardien-de-la-foi",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-gardien-de-la-foi"
+    "compendiumId": "spell-gardien-de-la-foi",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "toll-the-dead",
@@ -1695,7 +2256,10 @@
     "nameFr": "Glas",
     "slug": "glas",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "move-earth",
@@ -1704,7 +2268,10 @@
     "slug": "glissement-de-terrain",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-glissement-de-terrain"
+    "compendiumId": "spell-glissement-de-terrain",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "globe-of-invulnerability",
@@ -1713,7 +2280,10 @@
     "slug": "globe-d-invulnerabilite",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-globe-d-invulnerabilite"
+    "compendiumId": "spell-globe-d-invulnerabilite",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "glyph-of-warding",
@@ -1722,7 +2292,10 @@
     "slug": "glyphe-de-garde",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-glyphe-de-garde"
+    "compendiumId": "spell-glyphe-de-garde",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "grease",
@@ -1731,7 +2304,10 @@
     "slug": "graisse",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-graisse"
+    "compendiumId": "spell-graisse",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "longstrider",
@@ -1740,7 +2316,10 @@
     "slug": "grande-foulee",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-grande-foulee"
+    "compendiumId": "spell-grande-foulee",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "hail-of-thorns",
@@ -1748,7 +2327,10 @@
     "nameFr": "Grêle d'épines",
     "slug": "grele-d-epines",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "heal",
@@ -1757,7 +2339,10 @@
     "slug": "guerison",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-guerison"
+    "compendiumId": "spell-guerison",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mass-heal",
@@ -1766,7 +2351,10 @@
     "slug": "guerison-de-groupe",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-guerison-de-groupe"
+    "compendiumId": "spell-guerison-de-groupe",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "haste",
@@ -1775,7 +2363,10 @@
     "slug": "hate",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-hate"
+    "compendiumId": "spell-hate",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "heroism",
@@ -1784,7 +2375,10 @@
     "slug": "heroisme",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-heroisme"
+    "compendiumId": "spell-heroisme",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "identify",
@@ -1793,7 +2387,10 @@
     "slug": "identification",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-identification"
+    "compendiumId": "spell-identification",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "minor-illusion",
@@ -1802,7 +2399,10 @@
     "slug": "illusion-mineure",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-illusion-mineure"
+    "compendiumId": "spell-illusion-mineure",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "programmed-illusion",
@@ -1811,7 +2411,10 @@
     "slug": "illusion-programmee",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-illusion-programmee"
+    "compendiumId": "spell-illusion-programmee",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "major-image",
@@ -1820,7 +2423,10 @@
     "slug": "image-majeure",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-image-majeure"
+    "compendiumId": "spell-image-majeure",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mirror-image",
@@ -1829,7 +2435,10 @@
     "slug": "image-miroir",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-image-miroir"
+    "compendiumId": "spell-image-miroir",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "project-image",
@@ -1838,7 +2447,10 @@
     "slug": "image-projetee",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-image-projetee"
+    "compendiumId": "spell-image-projetee",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "silent-image",
@@ -1847,7 +2459,10 @@
     "slug": "image-silencieuse",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-image-silencieuse"
+    "compendiumId": "spell-image-silencieuse",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hold-monster",
@@ -1856,7 +2471,10 @@
     "slug": "immobilisation-de-monstre",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-immobilisation-de-monstre"
+    "compendiumId": "spell-immobilisation-de-monstre",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hold-person",
@@ -1865,7 +2483,10 @@
     "slug": "immobilisation-de-personne",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-immobilisation-de-personne"
+    "compendiumId": "spell-immobilisation-de-personne",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "bane",
@@ -1874,7 +2495,10 @@
     "slug": "imprecation",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-imprecation"
+    "compendiumId": "spell-imprecation",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "command",
@@ -1883,7 +2507,10 @@
     "slug": "injonction",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-injonction"
+    "compendiumId": "spell-injonction",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "giant-insect",
@@ -1892,7 +2519,10 @@
     "slug": "insecte-geant",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-insecte-geant"
+    "compendiumId": "spell-insecte-geant",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "forbiddance",
@@ -1901,7 +2531,10 @@
     "slug": "interdiction",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-interdiction"
+    "compendiumId": "spell-interdiction",
+    "school": "Abjuration",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "reverse-gravity",
@@ -1910,7 +2543,10 @@
     "slug": "inversion-de-la-gravite",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-inversion-de-la-gravite"
+    "compendiumId": "spell-inversion-de-la-gravite",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "invisibility",
@@ -1919,7 +2555,10 @@
     "slug": "invisibilite",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invisibilite"
+    "compendiumId": "spell-invisibilite",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "greater-invisibility",
@@ -1928,7 +2567,10 @@
     "slug": "invisibilite-supreme",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invisibilite-supreme"
+    "compendiumId": "spell-invisibilite-supreme",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-animals",
@@ -1937,7 +2579,10 @@
     "slug": "invocation-d-animaux",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-d-animaux"
+    "compendiumId": "spell-invocation-d-animaux",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-elemental",
@@ -1946,7 +2591,10 @@
     "slug": "invocation-d-elementaire",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-d-elementaire"
+    "compendiumId": "spell-invocation-d-elementaire",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-minor-elementals",
@@ -1955,7 +2603,10 @@
     "slug": "invocation-d-elementaires-mineurs",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-d-elementaires-mineurs"
+    "compendiumId": "spell-invocation-d-elementaires-mineurs",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-woodland-beings",
@@ -1964,7 +2615,10 @@
     "slug": "invocation-d-etres-sylvestres",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-d-etres-sylvestres"
+    "compendiumId": "spell-invocation-d-etres-sylvestres",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-celestial",
@@ -1973,7 +2627,10 @@
     "slug": "invocation-de-celeste",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-de-celeste"
+    "compendiumId": "spell-invocation-de-celeste",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-fey",
@@ -1982,7 +2639,10 @@
     "slug": "invocation-de-fee",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-invocation-de-fee"
+    "compendiumId": "spell-invocation-de-fee",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "conjure-barrage",
@@ -1994,7 +2654,10 @@
     "aliases": [
       "Invocation de projectiles",
       "Hérissement"
-    ]
+    ],
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "conjure-volley",
@@ -2002,7 +2665,10 @@
     "nameFr": "Invocation de volée",
     "slug": "invocation-de-volee",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "flame-blade",
@@ -2011,7 +2677,10 @@
     "slug": "lame-de-feu",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lame-de-feu"
+    "compendiumId": "spell-lame-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "slow",
@@ -2020,7 +2689,10 @@
     "slug": "lenteur",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lenteur"
+    "compendiumId": "spell-lenteur",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "levitate",
@@ -2029,7 +2701,10 @@
     "slug": "levitation",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-levitation"
+    "compendiumId": "spell-levitation",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "grasping-vine",
@@ -2037,7 +2712,10 @@
     "nameFr": "Liane avide",
     "slug": "liane-avide",
     "level": 4,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "freedom-of-movement",
@@ -2046,7 +2724,10 @@
     "slug": "liberte-de-mouvement",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-liberte-de-mouvement"
+    "compendiumId": "spell-liberte-de-mouvement",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "warding-bond",
@@ -2055,7 +2736,10 @@
     "slug": "lien-de-protection",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lien-de-protection"
+    "compendiumId": "spell-lien-de-protection",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "rarys-telepathic-bond",
@@ -2067,7 +2751,10 @@
     "aliases": [
       "Lien télépathique"
     ],
-    "compendiumId": "spell-lien-telepathique"
+    "compendiumId": "spell-lien-telepathique",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "locate-animals-or-plants",
@@ -2076,7 +2763,10 @@
     "slug": "localisation-d-animaux-ou-de-plantes",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-localisation-d-animaux-ou-de-plantes"
+    "compendiumId": "spell-localisation-d-animaux-ou-de-plantes",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "locate-object",
@@ -2085,7 +2775,10 @@
     "slug": "localisation-d-objet",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-localisation-d-objet"
+    "compendiumId": "spell-localisation-d-objet",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "locate-creature",
@@ -2094,7 +2787,10 @@
     "slug": "localisation-de-creature",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-localisation-de-creature"
+    "compendiumId": "spell-localisation-de-creature",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "beacon-of-hope",
@@ -2103,7 +2799,10 @@
     "slug": "lueur-d-espoir",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lueur-d-espoir"
+    "compendiumId": "spell-lueur-d-espoir",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "faerie-fire",
@@ -2112,7 +2811,10 @@
     "slug": "lueurs-feeriques",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lueurs-feeriques"
+    "compendiumId": "spell-lueurs-feeriques",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "light",
@@ -2121,7 +2823,10 @@
     "slug": "lumiere",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lumiere"
+    "compendiumId": "spell-lumiere",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "daylight",
@@ -2130,7 +2835,10 @@
     "slug": "lumiere-du-jour",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lumiere-du-jour"
+    "compendiumId": "spell-lumiere-du-jour",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dancing-lights",
@@ -2139,7 +2847,10 @@
     "slug": "lumieres-dansantes",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-lumieres-dansantes"
+    "compendiumId": "spell-lumieres-dansantes",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "bigbys-hand",
@@ -2151,7 +2862,10 @@
     "aliases": [
       "Main arcanique"
     ],
-    "compendiumId": "spell-main-arcanique"
+    "compendiumId": "spell-main-arcanique",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mage-hand",
@@ -2163,7 +2877,10 @@
     "aliases": [
       "Main du mage"
     ],
-    "compendiumId": "spell-main-du-mage"
+    "compendiumId": "spell-main-du-mage",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "burning-hands",
@@ -2172,7 +2889,10 @@
     "slug": "mains-brulantes",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mains-brulantes"
+    "compendiumId": "spell-mains-brulantes",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "bestow-curse",
@@ -2181,7 +2901,10 @@
     "slug": "malediction",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-malediction"
+    "compendiumId": "spell-malediction",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hex",
@@ -2190,7 +2913,10 @@
     "slug": "malefice",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-malefice"
+    "compendiumId": "spell-malefice",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mordenkainens-magnificent-mansion",
@@ -2202,7 +2928,10 @@
     "aliases": [
       "Manoir somptueux"
     ],
-    "compendiumId": "spell-manoir-somptueux"
+    "compendiumId": "spell-manoir-somptueux",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "water-walk",
@@ -2216,7 +2945,10 @@
       "Marche sur l'onde",
       "Marche sur l’onde"
     ],
-    "compendiumId": "spell-marche-sur-l-onde"
+    "compendiumId": "spell-marche-sur-l-onde",
+    "school": "Transmutation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "hunters-mark",
@@ -2225,7 +2957,10 @@
     "slug": "marque-du-chasseur",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-marque-du-chasseur"
+    "compendiumId": "spell-marque-du-chasseur",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "eyebite",
@@ -2237,7 +2972,10 @@
     "aliases": [
       "Mauvais œil"
     ],
-    "compendiumId": "spell-mauvais-il"
+    "compendiumId": "spell-mauvais-il",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "message",
@@ -2246,7 +2984,10 @@
     "slug": "message",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-message"
+    "compendiumId": "spell-message",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "animal-messenger",
@@ -2255,7 +2996,10 @@
     "slug": "messager-animal",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-messager-animal"
+    "compendiumId": "spell-messager-animal",
+    "school": "Enchantement",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "heat-metal",
@@ -2264,7 +3008,10 @@
     "slug": "metal-brulant",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-metal-brulant"
+    "compendiumId": "spell-metal-brulant",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "polymorph",
@@ -2273,7 +3020,10 @@
     "slug": "metamorphose",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-metamorphose"
+    "compendiumId": "spell-metamorphose",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "animal-shapes",
@@ -2282,7 +3032,10 @@
     "slug": "metamorphose-animale",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-metamorphose-animale"
+    "compendiumId": "spell-metamorphose-animale",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "true-polymorph",
@@ -2291,7 +3044,10 @@
     "slug": "metamorphose-supreme",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-metamorphose-supreme"
+    "compendiumId": "spell-metamorphose-supreme",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mirage-arcane",
@@ -2300,7 +3056,10 @@
     "slug": "mirage",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mirage"
+    "compendiumId": "spell-mirage",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "alter-self",
@@ -2309,7 +3068,10 @@
     "slug": "modification-d-apparence",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-modification-d-apparence"
+    "compendiumId": "spell-modification-d-apparence",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "modify-memory",
@@ -2318,7 +3080,10 @@
     "slug": "modification-de-memoire",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-modification-de-memoire"
+    "compendiumId": "spell-modification-de-memoire",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "phantom-steed",
@@ -2327,7 +3092,10 @@
     "slug": "monture-fantome",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-monture-fantome"
+    "compendiumId": "spell-monture-fantome",
+    "school": "Illusion",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "vicious-mockery",
@@ -2336,7 +3104,10 @@
     "slug": "moquerie-cruelle",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-moquerie-cruelle"
+    "compendiumId": "spell-moquerie-cruelle",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "healing-word",
@@ -2345,7 +3116,10 @@
     "slug": "mot-de-guerison",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-guerison"
+    "compendiumId": "spell-mot-de-guerison",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mass-healing-word",
@@ -2354,7 +3128,10 @@
     "slug": "mot-de-guerison-de-groupe",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-guerison-de-groupe"
+    "compendiumId": "spell-mot-de-guerison-de-groupe",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "power-word-stun",
@@ -2363,7 +3140,10 @@
     "slug": "mot-de-pouvoir-etourdissant",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-pouvoir-etourdissant"
+    "compendiumId": "spell-mot-de-pouvoir-etourdissant",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "power-word-fortify",
@@ -2371,7 +3151,10 @@
     "nameFr": "Mot de pouvoir fortifiant",
     "slug": "mot-de-pouvoir-fortifiant",
     "level": 7,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "power-word-heal",
@@ -2380,7 +3163,10 @@
     "slug": "mot-de-pouvoir-guerisseur",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-pouvoir-guerisseur"
+    "compendiumId": "spell-mot-de-pouvoir-guerisseur",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "power-word-kill",
@@ -2389,7 +3175,10 @@
     "slug": "mot-de-pouvoir-mortel",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-pouvoir-mortel"
+    "compendiumId": "spell-mot-de-pouvoir-mortel",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "word-of-radiance",
@@ -2397,7 +3186,10 @@
     "nameFr": "Mot de radiance",
     "slug": "mot-de-radiance",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "word-of-recall",
@@ -2406,7 +3198,10 @@
     "slug": "mot-de-retour",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mot-de-retour"
+    "compendiumId": "spell-mot-de-retour",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "hypnotic-pattern",
@@ -2415,7 +3210,10 @@
     "slug": "motif-hypnotique",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-motif-hypnotique"
+    "compendiumId": "spell-motif-hypnotique",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wall-of-thorns",
@@ -2424,7 +3222,10 @@
     "slug": "mur-d-epines",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-d-epines"
+    "compendiumId": "spell-mur-d-epines",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wall-of-fire",
@@ -2433,7 +3234,10 @@
     "slug": "mur-de-feu",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-de-feu"
+    "compendiumId": "spell-mur-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wall-of-force",
@@ -2442,7 +3246,10 @@
     "slug": "mur-de-force",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-de-force"
+    "compendiumId": "spell-mur-de-force",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wall-of-ice",
@@ -2451,7 +3258,10 @@
     "slug": "mur-de-glace",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-de-glace"
+    "compendiumId": "spell-mur-de-glace",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wall-of-stone",
@@ -2460,7 +3270,10 @@
     "slug": "mur-de-pierre",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-de-pierre"
+    "compendiumId": "spell-mur-de-pierre",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wind-wall",
@@ -2469,7 +3282,10 @@
     "slug": "mur-de-vent",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-de-vent"
+    "compendiumId": "spell-mur-de-vent",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "prismatic-wall",
@@ -2478,7 +3294,10 @@
     "slug": "mur-prismatique",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mur-prismatique"
+    "compendiumId": "spell-mur-prismatique",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dissonant-whispers",
@@ -2487,7 +3306,10 @@
     "slug": "murmures-dissonants",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-murmures-dissonants"
+    "compendiumId": "spell-murmures-dissonants",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "legend-lore",
@@ -2496,7 +3318,10 @@
     "slug": "mythes-et-legendes",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-mythes-et-legendes"
+    "compendiumId": "spell-mythes-et-legendes",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "fog-cloud",
@@ -2505,7 +3330,10 @@
     "slug": "nappe-de-brouillard",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-nappe-de-brouillard"
+    "compendiumId": "spell-nappe-de-brouillard",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "incendiary-cloud",
@@ -2514,7 +3342,10 @@
     "slug": "nuage-incendiaire",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-nuage-incendiaire"
+    "compendiumId": "spell-nuage-incendiaire",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "stinking-cloud",
@@ -2523,7 +3354,10 @@
     "slug": "nuage-nauseabond",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-nuage-nauseabond"
+    "compendiumId": "spell-nuage-nauseabond",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "cloud-of-daggers",
@@ -2531,7 +3365,10 @@
     "nameFr": "Nuée de dagues",
     "slug": "nuee-de-dagues",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "meteor-swarm",
@@ -2540,7 +3377,10 @@
     "slug": "nuee-de-meteores",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-nuee-de-meteores"
+    "compendiumId": "spell-nuee-de-meteores",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "arcane-eye",
@@ -2552,7 +3392,10 @@
     "aliases": [
       "Œil du mage"
     ],
-    "compendiumId": "spell-il-du-mage"
+    "compendiumId": "spell-il-du-mage",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "chromatic-orb",
@@ -2561,7 +3404,10 @@
     "slug": "orbe-chromatique",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-orbe-chromatique"
+    "compendiumId": "spell-orbe-chromatique",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "find-the-path",
@@ -2570,7 +3416,10 @@
     "slug": "orientation",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-orientation"
+    "compendiumId": "spell-orientation",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "divine-word",
@@ -2579,7 +3428,10 @@
     "slug": "parole-divine",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-parole-divine"
+    "compendiumId": "spell-parole-divine",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "tree-stride",
@@ -2588,7 +3440,10 @@
     "slug": "passage-par-les-arbres",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-passage-par-les-arbres"
+    "compendiumId": "spell-passage-par-les-arbres",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "pass-without-trace",
@@ -2597,7 +3452,10 @@
     "slug": "passage-sans-trace",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-passage-sans-trace"
+    "compendiumId": "spell-passage-sans-trace",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "passwall",
@@ -2606,7 +3464,10 @@
     "slug": "passe-muraille",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-passe-muraille"
+    "compendiumId": "spell-passe-muraille",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "spider-climb",
@@ -2615,7 +3476,10 @@
     "slug": "pattes-d-araignee",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-pattes-d-araignee"
+    "compendiumId": "spell-pattes-d-araignee",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "barkskin",
@@ -2624,7 +3488,10 @@
     "slug": "peau-d-ecorce",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-peau-d-ecorce"
+    "compendiumId": "spell-peau-d-ecorce",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "stoneskin",
@@ -2633,7 +3500,10 @@
     "slug": "peau-de-pierre",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-peau-de-pierre"
+    "compendiumId": "spell-peau-de-pierre",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "beast-sense",
@@ -2641,7 +3511,10 @@
     "nameFr": "Perception bestiale",
     "slug": "perception-bestiale",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Divination",
+    "ritual": true,
+    "concentration": true
   },
   {
     "id": "synaptic-static",
@@ -2649,7 +3522,10 @@
     "nameFr": "Perturbations synaptiques",
     "slug": "perturbations-synaptiques",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "leomunds-tiny-hut",
@@ -2661,7 +3537,10 @@
     "aliases": [
       "Petite hutte"
     ],
-    "compendiumId": "spell-petite-hutte"
+    "compendiumId": "spell-petite-hutte",
+    "school": "Évocation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "flesh-to-stone",
@@ -2670,7 +3549,10 @@
     "slug": "petrification",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-petrification"
+    "compendiumId": "spell-petrification",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "fear",
@@ -2683,7 +3565,10 @@
       "Peur",
       "Terreur"
     ],
-    "compendiumId": "spell-terreur"
+    "compendiumId": "spell-terreur",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mind-sliver",
@@ -2691,7 +3576,10 @@
     "nameFr": "Piqûre mentale",
     "slug": "piqure-mentale",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "shocking-grasp",
@@ -2700,7 +3588,10 @@
     "slug": "poigne-electrique",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-poigne-electrique"
+    "compendiumId": "spell-poigne-electrique",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "gate",
@@ -2709,7 +3600,10 @@
     "slug": "portail",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-portail"
+    "compendiumId": "spell-portail",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "arcane-gate",
@@ -2717,7 +3611,10 @@
     "nameFr": "Portail arcanique",
     "slug": "portail-arcanique",
     "level": 6,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "dimension-door",
@@ -2726,7 +3623,10 @@
     "slug": "porte-dimensionnelle",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-porte-dimensionnelle"
+    "compendiumId": "spell-porte-dimensionnelle",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "starry-wisp",
@@ -2735,7 +3635,10 @@
     "slug": "poussiere-d-etoile",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-poussiere-d-etoile"
+    "compendiumId": "spell-poussiere-d-etoile",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "contingency",
@@ -2744,7 +3647,10 @@
     "slug": "premeditation",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-premeditation"
+    "compendiumId": "spell-premeditation",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "foresight",
@@ -2753,7 +3659,10 @@
     "slug": "premonition",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-premonition"
+    "compendiumId": "spell-premonition",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "yolandes-regal-presence",
@@ -2761,7 +3670,10 @@
     "nameFr": "Présence royale de Yolane",
     "slug": "presence-royale-de-yolane",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "prestidigitation",
@@ -2770,7 +3682,10 @@
     "slug": "prestidigitation",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-prestidigitation"
+    "compendiumId": "spell-prestidigitation",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "prayer-of-healing",
@@ -2779,7 +3694,10 @@
     "slug": "priere-de-guerison",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-priere-de-guerison"
+    "compendiumId": "spell-priere-de-guerison",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "magic-missile",
@@ -2788,7 +3706,10 @@
     "slug": "projectile-magique",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-projectile-magique"
+    "compendiumId": "spell-projectile-magique",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "astral-projection",
@@ -2797,7 +3718,10 @@
     "slug": "projection-astrale",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-projection-astrale"
+    "compendiumId": "spell-projection-astrale",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "protection-from-energy",
@@ -2806,7 +3730,10 @@
     "slug": "protection-contre-l-energie",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-protection-contre-l-energie"
+    "compendiumId": "spell-protection-contre-l-energie",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "death-ward",
@@ -2815,7 +3742,10 @@
     "slug": "protection-contre-la-mort",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-protection-contre-la-mort"
+    "compendiumId": "spell-protection-contre-la-mort",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "protection-from-evil-and-good",
@@ -2824,7 +3754,10 @@
     "slug": "protection-contre-le-mal-et-le-bien",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-protection-contre-le-mal-et-le-bien"
+    "compendiumId": "spell-protection-contre-le-mal-et-le-bien",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "protection-from-poison",
@@ -2833,7 +3766,10 @@
     "slug": "protection-contre-le-poison",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-protection-contre-le-poison"
+    "compendiumId": "spell-protection-contre-le-poison",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "guards-and-wards",
@@ -2842,7 +3778,10 @@
     "slug": "protections-et-sceaux",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-protections-et-sceaux"
+    "compendiumId": "spell-protections-et-sceaux",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "purify-food-and-drink",
@@ -2851,7 +3790,10 @@
     "slug": "purification-de-la-nourriture-et-de-l-eau",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-purification-de-la-nourriture-et-de-l-eau"
+    "compendiumId": "spell-purification-de-la-nourriture-et-de-l-eau",
+    "school": "Transmutation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "geas",
@@ -2860,7 +3802,10 @@
     "slug": "quete",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-quete"
+    "compendiumId": "spell-quete",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "raise-dead",
@@ -2869,7 +3814,10 @@
     "slug": "rappel-a-la-vie",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rappel-a-la-vie"
+    "compendiumId": "spell-rappel-a-la-vie",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "ray-of-enfeeblement",
@@ -2878,7 +3826,10 @@
     "slug": "rayon-affaiblissant",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-affaiblissant"
+    "compendiumId": "spell-rayon-affaiblissant",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "scorching-ray",
@@ -2887,7 +3838,10 @@
     "slug": "rayon-ardent",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-ardent"
+    "compendiumId": "spell-rayon-ardent",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "ray-of-frost",
@@ -2896,7 +3850,10 @@
     "slug": "rayon-de-givre",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-de-givre"
+    "compendiumId": "spell-rayon-de-givre",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "moonbeam",
@@ -2905,7 +3862,10 @@
     "slug": "rayon-de-lune",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-de-lune"
+    "compendiumId": "spell-rayon-de-lune",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "sunbeam",
@@ -2914,7 +3874,10 @@
     "slug": "rayon-de-soleil",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-de-soleil"
+    "compendiumId": "spell-rayon-de-soleil",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "ray-of-sickness",
@@ -2923,7 +3886,10 @@
     "slug": "rayon-empoisonne",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-empoisonne"
+    "compendiumId": "spell-rayon-empoisonne",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "guiding-bolt",
@@ -2932,7 +3898,10 @@
     "slug": "rayon-tracant",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-rayon-tracant"
+    "compendiumId": "spell-rayon-tracant",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "regenerate",
@@ -2941,7 +3910,10 @@
     "slug": "regeneration",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-regeneration"
+    "compendiumId": "spell-regeneration",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "reincarnate",
@@ -2950,7 +3922,10 @@
     "slug": "reincarnation",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-reincarnation"
+    "compendiumId": "spell-reincarnation",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mending",
@@ -2959,7 +3934,10 @@
     "slug": "reparation",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-reparation"
+    "compendiumId": "spell-reparation",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "expeditious-retreat",
@@ -2968,7 +3946,10 @@
     "slug": "repli-expeditif",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-repli-expeditif"
+    "compendiumId": "spell-repli-expeditif",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hellish-rebuke",
@@ -2977,7 +3958,10 @@
     "slug": "represailles-infernales",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-represailles-infernales"
+    "compendiumId": "spell-represailles-infernales",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "resistance",
@@ -2986,7 +3970,10 @@
     "slug": "resistance",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-resistance"
+    "compendiumId": "spell-resistance",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "water-breathing",
@@ -2995,7 +3982,10 @@
     "slug": "respiration-aquatique",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-respiration-aquatique"
+    "compendiumId": "spell-respiration-aquatique",
+    "school": "Transmutation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "lesser-restoration",
@@ -3004,7 +3994,10 @@
     "slug": "restauration-partielle",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-restauration-partielle"
+    "compendiumId": "spell-restauration-partielle",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "greater-restoration",
@@ -3013,7 +4006,10 @@
     "slug": "restauration-supreme",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-restauration-supreme"
+    "compendiumId": "spell-restauration-supreme",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "resurrection",
@@ -3022,7 +4018,10 @@
     "slug": "resurrection",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-resurrection"
+    "compendiumId": "spell-resurrection",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "true-resurrection",
@@ -3031,7 +4030,10 @@
     "slug": "resurrection-supreme",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-resurrection-supreme"
+    "compendiumId": "spell-resurrection-supreme",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "revivify",
@@ -3040,7 +4042,10 @@
     "slug": "retour-a-la-vie",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-retour-a-la-vie"
+    "compendiumId": "spell-retour-a-la-vie",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "hallow",
@@ -3049,7 +4054,10 @@
     "slug": "sanctification",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-sanctification"
+    "compendiumId": "spell-sanctification",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sanctuary",
@@ -3058,7 +4066,10 @@
     "slug": "sanctuaire",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-sanctuaire"
+    "compendiumId": "spell-sanctuaire",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mordenkainens-private-sanctum",
@@ -3070,7 +4081,10 @@
     "aliases": [
       "Sanctuaire privé"
     ],
-    "compendiumId": "spell-sanctuaire-prive"
+    "compendiumId": "spell-sanctuaire-prive",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "jump",
@@ -3079,7 +4093,10 @@
     "slug": "saut",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-saut"
+    "compendiumId": "spell-saut",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "scrying",
@@ -3088,7 +4105,10 @@
     "slug": "scrutation",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-scrutation"
+    "compendiumId": "spell-scrutation",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "unseen-servant",
@@ -3097,7 +4117,10 @@
     "slug": "serviteur-invisible",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-serviteur-invisible"
+    "compendiumId": "spell-serviteur-invisible",
+    "school": "Invocation",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "silence",
@@ -3106,7 +4129,10 @@
     "slug": "silence",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-silence"
+    "compendiumId": "spell-silence",
+    "school": "Illusion",
+    "ritual": true,
+    "concentration": true
   },
   {
     "id": "simulacrum",
@@ -3115,7 +4141,10 @@
     "slug": "simulacre",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-simulacre"
+    "compendiumId": "spell-simulacre",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "false-life",
@@ -3124,7 +4153,10 @@
     "slug": "simulacre-de-vie",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-simulacre-de-vie"
+    "compendiumId": "spell-simulacre-de-vie",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "cure-wounds",
@@ -3133,7 +4165,10 @@
     "slug": "soins",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-soins"
+    "compendiumId": "spell-soins",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "mass-cure-wounds",
@@ -3142,7 +4177,10 @@
     "slug": "soins-de-groupe",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-soins-de-groupe"
+    "compendiumId": "spell-soins-de-groupe",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sleep",
@@ -3151,7 +4189,10 @@
     "slug": "sommeil",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-sommeil"
+    "compendiumId": "spell-sommeil",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "dream",
@@ -3160,7 +4201,10 @@
     "slug": "songe",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-songe"
+    "compendiumId": "spell-songe",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "dragons-breath",
@@ -3169,7 +4213,10 @@
     "slug": "souffle-du-dragon",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-souffle-du-dragon"
+    "compendiumId": "spell-souffle-du-dragon",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "wish",
@@ -3178,7 +4225,10 @@
     "slug": "souhait",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-souhait"
+    "compendiumId": "spell-souhait",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "flaming-sphere",
@@ -3187,7 +4237,10 @@
     "slug": "sphere-de-feu",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-sphere-de-feu"
+    "compendiumId": "spell-sphere-de-feu",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "vitriolic-sphere",
@@ -3196,7 +4249,10 @@
     "slug": "sphere-de-vitriol",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-sphere-de-vitriol"
+    "compendiumId": "spell-sphere-de-vitriol",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "otilukes-freezing-sphere",
@@ -3208,7 +4264,10 @@
     "aliases": [
       "Sphère glacée"
     ],
-    "compendiumId": "spell-sphere-glacee"
+    "compendiumId": "spell-sphere-glacee",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "otilukes-resilient-sphere",
@@ -3220,7 +4279,10 @@
     "aliases": [
       "Sphère résiliente"
     ],
-    "compendiumId": "spell-sphere-resiliente"
+    "compendiumId": "spell-sphere-resiliente",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "spare-the-dying",
@@ -3229,7 +4291,10 @@
     "slug": "stabilisation",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-stabilisation"
+    "compendiumId": "spell-stabilisation",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "suggestion",
@@ -3238,7 +4303,10 @@
     "slug": "suggestion",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-suggestion"
+    "compendiumId": "spell-suggestion",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "mass-suggestion",
@@ -3247,7 +4315,10 @@
     "slug": "suggestion-de-groupe",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-suggestion-de-groupe"
+    "compendiumId": "spell-suggestion-de-groupe",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "symbol",
@@ -3256,7 +4327,10 @@
     "slug": "symbole",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-symbole"
+    "compendiumId": "spell-symbole",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "telekinesis",
@@ -3265,7 +4339,10 @@
     "slug": "telekinesie",
     "level": 5,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-telekinesie"
+    "compendiumId": "spell-telekinesie",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "telepathy",
@@ -3273,7 +4350,10 @@
     "nameFr": "Télépathie",
     "slug": "telepathie",
     "level": 8,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "teleport",
@@ -3282,7 +4362,10 @@
     "slug": "teleportation",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-teleportation"
+    "compendiumId": "spell-teleportation",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "fire-storm",
@@ -3291,7 +4374,10 @@
     "slug": "tempete-de-feu",
     "level": 7,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tempete-de-feu"
+    "compendiumId": "spell-tempete-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "ice-storm",
@@ -3300,7 +4386,10 @@
     "slug": "tempete-de-grele",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tempete-de-grele"
+    "compendiumId": "spell-tempete-de-grele",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "sleet-storm",
@@ -3309,7 +4398,10 @@
     "slug": "tempete-de-neige",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tempete-de-neige"
+    "compendiumId": "spell-tempete-de-neige",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "jallarzis-storm-of-radiance",
@@ -3317,7 +4409,10 @@
     "nameFr": "Tempête radieuse de Jallarzi",
     "slug": "tempete-radieuse-de-jallarzi",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "storm-of-vengeance",
@@ -3326,7 +4421,10 @@
     "slug": "tempete-vengeresse",
     "level": 9,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tempete-vengeresse"
+    "compendiumId": "spell-tempete-vengeresse",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "darkness",
@@ -3335,7 +4433,10 @@
     "slug": "tenebres",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tenebres"
+    "compendiumId": "spell-tenebres",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "arms-of-hadar",
@@ -3343,7 +4444,10 @@
     "nameFr": "Tentacules de Hadar",
     "slug": "tentacules-de-hadar",
     "level": 1,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "evards-black-tentacles",
@@ -3355,7 +4459,10 @@
     "aliases": [
       "Tentacules noirs"
     ],
-    "compendiumId": "spell-tentacules-noirs"
+    "compendiumId": "spell-tentacules-noirs",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hallucinatory-terrain",
@@ -3364,7 +4471,10 @@
     "slug": "terrain-hallucinatoire",
     "level": 4,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-terrain-hallucinatoire"
+    "compendiumId": "spell-terrain-hallucinatoire",
+    "school": "Illusion",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "illusory-script",
@@ -3373,7 +4483,10 @@
     "slug": "texte-illusoire",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-texte-illusoire"
+    "compendiumId": "spell-texte-illusoire",
+    "school": "Illusion",
+    "ritual": true,
+    "concentration": false
   },
   {
     "id": "thaumaturgy",
@@ -3382,7 +4495,10 @@
     "slug": "thaumaturgie",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-thaumaturgie"
+    "compendiumId": "spell-thaumaturgie",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "web",
@@ -3391,7 +4507,10 @@
     "slug": "toile-d-araignee",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-toile-d-araignee"
+    "compendiumId": "spell-toile-d-araignee",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "fire-bolt",
@@ -3400,7 +4519,10 @@
     "slug": "trait-de-feu",
     "level": 0,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-trait-de-feu"
+    "compendiumId": "spell-trait-de-feu",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "witch-bolt",
@@ -3411,7 +4533,10 @@
     "source": "PHB 2024",
     "aliases": [
       "Éclair de sorcière"
-    ]
+    ],
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "earthquake",
@@ -3420,7 +4545,10 @@
     "slug": "tremblement-de-terre",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tremblement-de-terre"
+    "compendiumId": "spell-tremblement-de-terre",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "tsunami",
@@ -3429,7 +4557,10 @@
     "slug": "tsunami",
     "level": 8,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-tsunami"
+    "compendiumId": "spell-tsunami",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "magic-jar",
@@ -3442,7 +4573,10 @@
       "Urne magique",
       "Possession"
     ],
-    "compendiumId": "spell-possession"
+    "compendiumId": "spell-possession",
+    "school": "Nécromancie",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "destructive-wave",
@@ -3450,7 +4584,10 @@
     "nameFr": "Vague destructrice",
     "slug": "vague-destructrice",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "thunderwave",
@@ -3459,7 +4596,10 @@
     "slug": "vague-tonnante",
     "level": 1,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-vague-tonnante"
+    "compendiumId": "spell-vague-tonnante",
+    "school": "Évocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "wind-walk",
@@ -3468,7 +4608,10 @@
     "slug": "vent-divin",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-vent-divin"
+    "compendiumId": "spell-vent-divin",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "arcane-lock",
@@ -3481,7 +4624,10 @@
       "Verrou arcanique",
       "Verrou magique"
     ],
-    "compendiumId": "spell-verrou-magique"
+    "compendiumId": "spell-verrou-magique",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "swift-quiver",
@@ -3489,7 +4635,10 @@
     "nameFr": "Vif carquois",
     "slug": "vif-carquois",
     "level": 5,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "arcane-vigor",
@@ -3497,7 +4646,10 @@
     "nameFr": "Vigueur arcanique",
     "slug": "vigueur-arcanique",
     "level": 2,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "darkvision",
@@ -3506,7 +4658,10 @@
     "slug": "vision-dans-le-noir",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-vision-dans-le-noir"
+    "compendiumId": "spell-vision-dans-le-noir",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "true-seeing",
@@ -3515,7 +4670,10 @@
     "slug": "vision-supreme",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-vision-supreme"
+    "compendiumId": "spell-vision-supreme",
+    "school": "Divination",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "transport-via-plants",
@@ -3524,7 +4682,10 @@
     "slug": "voie-vegetale",
     "level": 6,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-voie-vegetale"
+    "compendiumId": "spell-voie-vegetale",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": false
   },
   {
     "id": "blade-ward",
@@ -3532,7 +4693,10 @@
     "nameFr": "Voile défensif",
     "slug": "voile-defensif",
     "level": 0,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Abjuration",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "fly",
@@ -3541,7 +4705,10 @@
     "slug": "vol",
     "level": 3,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-vol"
+    "compendiumId": "spell-vol",
+    "school": "Transmutation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "hunger-of-hadar",
@@ -3549,7 +4716,10 @@
     "nameFr": "Voracité de Hadar",
     "slug": "voracite-de-hadar",
     "level": 3,
-    "source": "PHB 2024"
+    "source": "PHB 2024",
+    "school": "Invocation",
+    "ritual": false,
+    "concentration": true
   },
   {
     "id": "zone-of-truth",
@@ -3558,6 +4728,9 @@
     "slug": "zone-de-verite",
     "level": 2,
     "source": "SRD 5.2.1",
-    "compendiumId": "spell-zone-de-verite"
+    "compendiumId": "spell-zone-de-verite",
+    "school": "Enchantement",
+    "ritual": false,
+    "concentration": false
   }
 ]

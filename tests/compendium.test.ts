@@ -24,7 +24,7 @@ describe("données du compendium", () => {
     expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-botte-"))).toHaveLength(8);
     expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-propriete-arme-"))).toHaveLength(10);
     expect(compendiumEntries.filter(entry => entry.id.startsWith("rule-etat-"))).toHaveLength(15);
-    expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(9);
+    expect(compendiumEntries.filter(entry => entry.type === "species")).toHaveLength(10);
     expect(compendiumEntries.filter(entry => entry.type === "background")).toHaveLength(4);
     expect(compendiumEntries.filter(entry => entry.type === "magic-item")).toHaveLength(258);
     expect(compendiumEntries.filter(entry => entry.type === "monster")).toHaveLength(330);
@@ -137,8 +137,18 @@ describe("données du compendium", () => {
     expect(criminal.links).toEqual([{ label: "Don accordé par l’historique", entryId: "feat-vigilant", title: "Vigilant" }]);
   });
 
+  it("ajoute l’Aasimar comme espèce complémentaire sans l’attribuer au SRD", () => {
+    const aasimar = findCompendiumEntry("Aasimar", "species")!;
+    expect(aasimar.meta).toMatchObject({ "Type de créature": "Humanoïde", Vitesse: "9 m" });
+    expect(aasimar.sections.map(section => section.heading)).toEqual(expect.arrayContaining([
+      "Résistance céleste", "Mains guérisseuses", "Porteur de lumière", "Révélation céleste"
+    ]));
+    expect(aasimar.tables?.[0].rows).toHaveLength(3);
+    expect(aasimar.source).toMatchObject({ pageLabel: "Source complémentaire", url: "https://dnd2024.wikidot.com/species:aasimar" });
+  });
+
   it("présente les choix d’espèce dans des tableaux comparatifs", () => {
-    const expectedRows: Record<string, number> = { Drakéide: 10, Elfe: 3, Gnome: 2, Goliath: 6, Tieffelin: 3 };
+    const expectedRows: Record<string, number> = { Aasimar: 3, Drakéide: 10, Elfe: 3, Gnome: 2, Goliath: 6, Tieffelin: 3 };
     for (const [name, rowCount] of Object.entries(expectedRows)) {
       const species = findCompendiumEntry(name, "species")!;
       expect(species.tables, name).toHaveLength(1);

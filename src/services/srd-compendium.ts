@@ -94,6 +94,11 @@ export interface CompendiumEntry {
   itemType?: string;
   rarities?: import("../types").MagicItemRarity[];
   monster?: MonsterData;
+  source?: {
+    label: string;
+    url?: string;
+    pageLabel?: string;
+  };
 }
 
 export interface CompendiumSearchResult {

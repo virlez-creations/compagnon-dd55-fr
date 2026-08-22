@@ -170,6 +170,15 @@ describe("sheet enhancement", () => {
     expect(document.querySelector("#darkvision [data-dd55-open='species-orc']")).not.toBeNull();
   });
 
+  it("traduit et relie les aptitudes de l’Aasimar", () => {
+    document.body.innerHTML = `<div>Aasimar</div><div role="row"><h3 id="healing-hands">Healing Hands</h3></div><div role="row"><h3 id="celestial-revelation">Celestial Revelation</h3></div>`;
+    enhanceSheet(document, { enabled: true, bilingual: true });
+    expect(document.querySelector("#healing-hands")?.childNodes[0].textContent).toBe("Mains guérisseuses");
+    expect(document.querySelector("#healing-hands [data-dd55-open='species-aasimar']")).not.toBeNull();
+    expect(document.querySelector("#celestial-revelation")?.childNodes[0].textContent).toBe("Révélation céleste");
+    expect(document.querySelector("#celestial-revelation [data-dd55-open='species-aasimar']")).not.toBeNull();
+  });
+
   it("traduit les nouveaux équipements, origines et variantes du compendium", () => {
     document.body.innerHTML = `<section class="inventory-panel"><h2>INVENTORY</h2><div role="row"><h3 id="weapon">Greatsword</h3><span id="property">Two-Handed</span><span>6 lbs</span><button>−</button><button>+</button></div></section><div id="armor">Chain Mail</div><div id="background">Soldier</div><div id="lineage">Wood Elf</div>`;
     enhanceSheet(document, { enabled: true, bilingual: true });

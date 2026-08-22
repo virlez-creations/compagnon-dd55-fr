@@ -1,4 +1,4 @@
-import type { Reference } from "../types";
+import type { Reference, SpellReference } from "../types";
 import aideddSpellCatalog from "./aidedd-spells.json";
 
 const curatedSpells: Reference[] = [
@@ -89,10 +89,10 @@ const curatedSpells: Reference[] = [
 ].map(([id, nameEn, nameFr, slug, level, aliases]) => ({ id, nameEn, nameFr, slug, level, aliases, source: "PHB 2024" } as Reference));
 
 const curatedSpellIndex = new Map(curatedSpells.map(spell => [spell.nameEn, spell]));
-export const spells: Reference[] = aideddSpellCatalog.map(item => {
+export const spells: SpellReference[] = aideddSpellCatalog.map(item => {
   const curated = curatedSpellIndex.get(item.nameEn);
   const aliases = [...new Set([...(item.aliases ?? []), ...(curated?.aliases ?? [])])];
-  return { ...item, id: curated?.id ?? item.id, aliases: aliases.length ? aliases : undefined } as Reference;
+  return { ...item, id: curated?.id ?? item.id, aliases: aliases.length ? aliases : undefined } as SpellReference;
 });
 
 const phbFeats: Reference[] = [

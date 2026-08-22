@@ -10,8 +10,19 @@ export interface Reference {
   source?: string;
 }
 
+export type SpellSchool = "Abjuration" | "Divination" | "Enchantement" | "Évocation" | "Illusion" | "Invocation" | "Nécromancie" | "Transmutation";
+export interface SpellReference extends Reference {
+  level: number;
+  school: SpellSchool;
+  ritual: boolean;
+  concentration: boolean;
+}
+
 export type MagicItemRarity = "Courant" | "Peu courant" | "Rare" | "Très rare" | "Légendaire" | "Artefact" | "Variable";
 export type MonsterRollMode = "two" | "single" | "ask";
+export type RecentReference =
+  | { kind: "local"; entryId: string }
+  | { kind: "external"; referenceKind: "spell" | "feat" | "magic-item"; referenceId: string };
 
 export interface MagicItemReference extends Reference {
   itemType: string;
@@ -26,11 +37,12 @@ export interface Preferences {
   theme?: "light" | "dark";
   fontSize?: "small" | "normal" | "large";
   resultDensity?: "comfortable" | "compact";
-  defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item" | "monster";
+  defaultCategory?: "" | "rule" | "classes" | "origins" | "equipment" | "spell" | "feat" | "magic-item" | "monster" | "recent";
   expandedByDefault?: boolean;
   monsterRollMode?: MonsterRollMode;
   autoRollMonsterActions?: boolean;
   launcherVisible?: boolean;
   launcherPosition?: { left: number; top: number } | null;
   panelPosition?: { left: number; top: number } | null;
+  recentReferences?: RecentReference[];
 }

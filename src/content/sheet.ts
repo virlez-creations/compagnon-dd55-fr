@@ -27,14 +27,16 @@ const featureAliases: Record<string, string> = {
   skillful: "Compétent", resourceful: "Ingénieux", versatile: "Polyvalent",
   stonecunning: "Connaissance de la pierre", "dwarven resilience": "Résistance naine", "dwarven toughness": "Ténacité naine",
   "relentless endurance": "Acharnement", "adrenaline rush": "Poussée d’adrénaline",
-  "fiendish legacy": "Héritage fiélon", "otherworldly presence": "Présence d’outre-monde"
+  "fiendish legacy": "Héritage fiélon", "otherworldly presence": "Présence d’outre-monde",
+  "celestial resistance": "Résistance céleste", "healing hands": "Mains guérisseuses", "light bearer": "Porteur de lumière",
+  "celestial revelation": "Révélation céleste", "heavenly wings": "Ailes célestes", "inner radiance": "Rayonnement intérieur", "necrotic shroud": "Voile nécrotique"
 };
 const classAliases: Record<string, string> = {
   barbarian: "Barbare", bard: "Barde", cleric: "Clerc", druid: "Druide", fighter: "Guerrier", monk: "Moine",
   paladin: "Paladin", ranger: "Rôdeur", rogue: "Roublard", sorcerer: "Ensorceleur", warlock: "Occultiste", wizard: "Magicien"
 };
 const speciesAliases: Record<string, string> = {
-  dragonborn: "Drakéide", elf: "Elfe", gnome: "Gnome", goliath: "Goliath", halfling: "Halfelin",
+  aasimar: "Aasimar", dragonborn: "Drakéide", elf: "Elfe", gnome: "Gnome", goliath: "Goliath", halfling: "Halfelin",
   human: "Humain", dwarf: "Nain", orc: "Orc", tiefling: "Tieffelin"
 };
 const weaponMasteryAliases: Record<string, string> = {

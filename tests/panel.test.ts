@@ -24,7 +24,7 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-type='rule']")?.textContent).toContain("70");
     expect(document.querySelector("[data-type='classes']")?.textContent).toContain("24");
     expect(document.querySelector("[data-type='equipment']")?.textContent).toContain("51");
-    expect(document.querySelector("[data-type='origins']")?.textContent).toContain("13");
+    expect(document.querySelector("[data-type='origins']")?.textContent).toContain("14");
     expect(document.querySelector("[data-type='magic-item']")?.textContent).toContain("350");
     expect(document.querySelector("[data-type='monster']")?.textContent).toContain("330");
   });
@@ -511,25 +511,194 @@ describe("compendium SRD local", () => {
     expect(document.querySelector("[data-load-more]")?.textContent).toContain("311 restantes");
   });
 
-  it("filtre et trie les objets magiques locaux et externes par rareté", () => {
+  it("trie les sorts par nom ou par niveau sans compter le tri comme filtre", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    const sort = document.querySelector<HTMLSelectElement>("[data-spell-sort]")!;
+    expect([...sort.options].map(option => option.textContent)).toEqual(["Nom A–Z", "Niveau croissant"]);
+
+    search("armure");
+    const searchedTitles = [...document.querySelectorAll<HTMLElement>("[data-results] .dd55-entry-card strong")].map(element => element.textContent ?? "");
+    expect(searchedTitles.length).toBeGreaterThan(1);
+    expect(searchedTitles).toEqual([...searchedTitles].sort((left, right) => left.localeCompare(right, "fr")));
+
+    search("");
+    sort.value = "level";
+    sort.dispatchEvent(new Event("change"));
+    expect(document.querySelector<HTMLElement>("[data-spell-filter-count]")!.hidden).toBe(true);
+    expect(document.querySelector<HTMLElement>("[data-clear-spell-filters]")!.hidden).toBe(false);
+    while (document.querySelector<HTMLButtonElement>("[data-load-more]")) document.querySelector<HTMLButtonElement>("[data-load-more]")!.click();
+    const rows = [...document.querySelectorAll<HTMLElement>("[data-results] .dd55-entry-card")].map(card => {
+      const subtitle = card.querySelector("small")?.textContent ?? "";
+      const match = subtitle.match(/niveau\s+(\d+)/i);
+      return { title: card.querySelector("strong")?.textContent ?? "", level: /sort mineur/i.test(subtitle) ? 0 : Number(match?.[1]) };
+    });
+    expect(rows).toHaveLength(391);
+    expect(new Set(rows.map(row => row.level))).toEqual(new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]));
+    expect(rows).toEqual([...rows].sort((left, right) => left.level - right.level || left.title.localeCompare(right.title, "fr")));
+    expect(document.querySelectorAll("[data-results] .dd55-external").length).toBeGreaterThan(0);
+    expect(document.querySelectorAll("[data-results] [data-entry-id]").length).toBeGreaterThan(0);
+
+    document.querySelector<HTMLButtonElement>("[data-clear-spell-filters]")!.click();
+    expect(sort.value).toBe("name");
+    document.body.innerHTML = "";
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    expect(document.querySelector<HTMLSelectElement>("[data-spell-sort]")!.value).toBe("name");
+  });
+
+  it("combine les filtres avancés des sorts et affiche leurs compteurs", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    const advanced = document.querySelector<HTMLElement>("[data-spell-advanced]")!;
+    expect(advanced.hidden).toBe(true);
+    document.querySelector<HTMLButtonElement>("[data-spell-advanced-toggle]")!.click();
+    expect(advanced.hidden).toBe(false);
+    expect([...document.querySelectorAll<HTMLOptionElement>("[data-spell-school] option")].map(option => option.textContent)).toEqual([
+      "Toutes les écoles", "Abjuration", "Divination", "Enchantement", "Évocation", "Illusion", "Invocation", "Nécromancie", "Transmutation"
+    ]);
+    const classSelect = document.querySelector<HTMLSelectElement>("[data-spell-class]")!;
+    const levelSelect = document.querySelector<HTMLSelectElement>("[data-spell-level]")!;
+    const school = document.querySelector<HTMLSelectElement>("[data-spell-school]")!;
+    const concentration = document.querySelector<HTMLSelectElement>("[data-spell-concentration]")!;
+    const sort = document.querySelector<HTMLSelectElement>("[data-spell-sort]")!;
+    classSelect.value = "Magicien"; classSelect.dispatchEvent(new Event("change"));
+    levelSelect.value = "3"; levelSelect.dispatchEvent(new Event("change"));
+    school.value = "Transmutation"; school.dispatchEvent(new Event("change"));
+    concentration.value = "yes"; concentration.dispatchEvent(new Event("change"));
+    sort.value = "level"; sort.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-entry-id='spell-hate']")).not.toBeNull();
+    expect(document.querySelector("[data-spell-advanced-count]")?.textContent).toBe("2");
+    expect(document.querySelector("[data-spell-filter-count]")?.textContent).toBe("4");
+    for (const card of document.querySelectorAll<HTMLElement>("[data-results] [data-entry-id]")) {
+      const entry = compendiumEntries.find(item => item.id === card.dataset.entryId)!;
+      expect(entry.tags).toContain("Magicien");
+      expect(entry.meta.Niveau).toBe("3");
+      expect(entry.meta["École"]).toBe("Transmutation");
+      expect(entry.meta["Durée"]).toMatch(/concentration/i);
+    }
+    document.querySelector<HTMLButtonElement>("[data-clear-spell-filters]")!.click();
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("391");
+    expect(sort.value).toBe("name");
+    expect(advanced.hidden).toBe(true);
+    expect(document.querySelector<HTMLElement>("[data-spell-filter-count]")!.hidden).toBe(true);
+    document.querySelector<HTMLButtonElement>("[data-type='feat']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    expect(advanced.hidden).toBe(true);
+  });
+
+  it("filtre aussi les références AideDD avec les métadonnées avancées", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    const level = document.querySelector<HTMLSelectElement>("[data-spell-level]")!;
+    const school = document.querySelector<HTMLSelectElement>("[data-spell-school]")!;
+    const concentration = document.querySelector<HTMLSelectElement>("[data-spell-concentration]")!;
+    level.value = "1"; level.dispatchEvent(new Event("change"));
+    school.value = "Abjuration"; school.dispatchEvent(new Event("change"));
+    concentration.value = "no"; concentration.dispatchEvent(new Event("change"));
+    search("Armor of Agathys");
+    expect(document.querySelector("[data-external-url$='/spell/fr/armure-d-agathys']")).not.toBeNull();
+  });
+
+  it("mémorise, déduplique et efface les dix références récentes", () => {
+    const save = vi.fn();
+    const recentReferences = Array.from({ length: 10 }, (_, index) => ({ kind: "local" as const, entryId: compendiumEntries[index].id }));
+    mountPanel({ enabled: true, bilingual: true, recentReferences }, () => undefined, save);
+    expect(document.querySelector(".dd55-tabs [data-type='recent']")).toBeNull();
+    document.querySelector<HTMLButtonElement>("[data-recent-open]")!.click();
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(10);
+    const firstId = recentReferences[0].entryId;
+    document.querySelector<HTMLButtonElement>(`[data-entry-id='${firstId}']`)!.click();
+    expect(save).toHaveBeenLastCalledWith({ recentReferences });
+    document.querySelector<HTMLButtonElement>("[data-recent-open]")!.click();
+    expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(false);
+    expect(document.querySelector<HTMLElement>("[data-detail]")!.hidden).toBe(true);
+    document.querySelector<HTMLButtonElement>(`[data-entry-id='${recentReferences[1].entryId}']`)!.click();
+    const lastSaved = save.mock.calls.at(-1)?.[0].recentReferences;
+    expect(lastSaved).toHaveLength(10);
+    expect(lastSaved[0]).toEqual(recentReferences[1]);
+    expect(new Set(lastSaved.map((reference: { entryId: string }) => reference.entryId)).size).toBe(10);
+    document.querySelector<HTMLButtonElement>("[data-back]")!.click();
+    document.querySelector<HTMLButtonElement>("[data-clear-recents]")!.click();
+    expect(save).toHaveBeenLastCalledWith({ recentReferences: [] });
+    expect(document.querySelector(".dd55-empty")?.textContent).toContain("Aucune fiche consultée");
+  });
+
+  it("enregistre les références AideDD et ignore les récents obsolètes", () => {
+    const sendMessage = vi.fn();
+    const save = vi.fn();
+    vi.stubGlobal("chrome", { runtime: { sendMessage } });
+    mountPanel({ enabled: true, bilingual: true, recentReferences: [{ kind: "local", entryId: "fiche-disparue" }] }, () => undefined, save);
+    document.querySelector<HTMLButtonElement>("[data-recent-open]")!.click();
+    expect(save).toHaveBeenCalledWith({ recentReferences: [] });
+    document.querySelector<HTMLButtonElement>("[data-type='spell']")!.click();
+    search("Armor of Agathys");
+    document.querySelector<HTMLButtonElement>("[data-external-url$='/spell/fr/armure-d-agathys']")!.click();
+    expect(save).toHaveBeenLastCalledWith({ recentReferences: [{ kind: "external", referenceKind: "spell", referenceId: "armor-of-agathys" }] });
+    document.querySelector<HTMLButtonElement>("[data-recent-open]")!.click();
+    expect(document.querySelector("[data-external-url$='/spell/fr/armure-d-agathys']")).not.toBeNull();
+  });
+
+  it("restaure la liste chargée et applique les niveaux de navigation clavier", async () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    const panel = document.querySelector<HTMLElement>("#dd55-companion")!;
+    document.querySelector<HTMLButtonElement>("#dd55-launcher")!.click();
+    document.querySelector<HTMLButtonElement>("[data-load-more]")!.click();
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(160);
+    panel.scrollTop = 120;
+    document.querySelector<HTMLButtonElement>("[data-results] [data-entry-id]")!.click();
+    document.querySelector<HTMLButtonElement>("[data-back]")!.click();
+    await new Promise(resolve => requestAnimationFrame(resolve));
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(160);
+    expect(panel.scrollTop).toBe(120);
+
+    document.querySelector<HTMLButtonElement>("[data-results] [data-entry-id]")!.click();
+    panel.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    expect(document.querySelector<HTMLElement>("[data-home]")!.hidden).toBe(false);
+    panel.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    expect(panel.hidden).toBe(true);
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true, bubbles: true }));
+    expect(panel.hidden).toBe(false);
+    expect(document.activeElement).toBe(document.querySelector("[data-search]"));
+  });
+
+  it("filtre et trie les objets magiques locaux et externes par type et rareté", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='magic-item']")!.click();
     expect(document.querySelector("[data-result-count]")?.textContent).toContain("350");
     expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(80);
     expect(document.querySelector("[data-load-more]")?.textContent).toContain("270 restantes");
-    document.querySelector<HTMLButtonElement>("[data-magic-rarity='Artefact']")!.click();
+    const type = document.querySelector<HTMLSelectElement>("[data-magic-item-type]")!;
+    expect([...type.options].map(option => option.textContent)).toEqual([
+      "Tous les types", "Anneau", "Arme", "Armure", "Baguette", "Bâton", "Objet merveilleux", "Parchemin", "Potion", "Sceptre"
+    ]);
+    type.value = "Arme";
+    type.dispatchEvent(new Event("change"));
     document.querySelector<HTMLButtonElement>("[data-magic-rarity='Courant']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-magic-rarity='Rare']")!.click();
     const cards = [...document.querySelectorAll<HTMLElement>("[data-results] .dd55-entry-card")];
     expect(cards.length).toBeGreaterThan(0);
+    expect(cards.every(card => card.querySelector("small")?.textContent?.includes("Arme"))).toBe(true);
+    expect(cards.every(card => /courant|rare/i.test(card.querySelector("small")?.textContent ?? ""))).toBe(true);
     const sort = document.querySelector<HTMLSelectElement>("[data-magic-item-sort]")!;
     sort.value = "rarity-asc";
     sort.dispatchEvent(new Event("change"));
     expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent?.toLocaleLowerCase("fr")).toContain("courant");
     sort.value = "rarity-desc";
     sort.dispatchEvent(new Event("change"));
-    expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent?.toLocaleLowerCase("fr")).toContain("artefact");
+    expect(document.querySelector("[data-results] .dd55-entry-card small")?.textContent?.toLocaleLowerCase("fr")).toContain("rare");
     document.querySelector<HTMLButtonElement>("[data-clear-magic-item-filters]")!.click();
+    expect(type.value).toBe("");
     expect(document.querySelector("[data-result-count]")?.textContent).toContain("350");
+
+    type.value = "Arme";
+    type.dispatchEvent(new Event("change"));
+    search("Arme en adamantium");
+    expect(document.querySelector("[data-external-url$='/magic-item/fr/arme-en-adamantium']")).not.toBeNull();
+
+    search("");
+    type.value = "Armure";
+    type.dispatchEvent(new Event("change"));
+    expect(document.querySelector("[data-entry-id='magic-item-armure-d-ecailles-de-dragon']")).not.toBeNull();
   });
 
   it("ouvre une fiche magique locale et une référence AideDD externe", () => {
@@ -633,7 +802,7 @@ describe("compendium SRD local", () => {
   it("parcourt les origines et ouvre le don accordé par un historique", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='origins']")!.click();
-    expect(document.querySelector("[data-result-count]")?.textContent).toContain("13");
+    expect(document.querySelector("[data-result-count]")?.textContent).toContain("14");
     expect(document.querySelector("[data-entry-id='species-drakeide']")).not.toBeNull();
     document.querySelector<HTMLButtonElement>("[data-entry-id='background-criminel']")!.click();
     expect(document.querySelector("[data-detail]")?.textContent).toContain("Discrétion et Escamotage");
@@ -657,6 +826,18 @@ describe("compendium SRD local", () => {
     expect(options.querySelector(".dd55-progression-heading > span")).toBeNull();
   });
 
+  it("présente l’Aasimar avec une source complémentaire distincte du SRD", () => {
+    mountPanel({ enabled: true, bilingual: true }, () => undefined);
+    document.querySelector<HTMLButtonElement>("[data-type='origins']")!.click();
+    document.querySelector<HTMLButtonElement>("[data-entry-id='species-aasimar']")!.click();
+    const detail = document.querySelector<HTMLElement>("[data-detail]")!;
+    expect(detail.textContent).toContain("Mains guérisseuses");
+    expect(detail.textContent).toContain("Ailes célestes");
+    expect(detail.textContent).toContain("Source complémentaire");
+    expect(detail.textContent).not.toContain("Page SRD 0");
+    expect(detail.querySelector<HTMLAnchorElement>(".dd55-source a")?.href).toBe("https://dnd2024.wikidot.com/species:aasimar");
+  });
+
   it("filtre les origines entre espèces et historiques", () => {
     mountPanel({ enabled: true, bilingual: true }, () => undefined);
     document.querySelector<HTMLButtonElement>("[data-type='origins']")!.click();
@@ -665,14 +846,14 @@ describe("compendium SRD local", () => {
     expect(filters.hidden).toBe(false);
     select.value = "species";
     select.dispatchEvent(new Event("change"));
-    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(9);
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(10);
     expect(document.querySelector("[data-results] [data-entry-id^='background-']")).toBeNull();
     select.value = "background";
     select.dispatchEvent(new Event("change"));
     expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(4);
     expect(document.querySelector("[data-results] [data-entry-id^='species-']")).toBeNull();
     document.querySelector<HTMLButtonElement>("[data-clear-origin-filters]")!.click();
-    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(13);
+    expect(document.querySelectorAll("[data-results] .dd55-entry-card")).toHaveLength(14);
   });
 
   it("agrandit et réduit le compendium sans perdre son état", () => {
